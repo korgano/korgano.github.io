@@ -3,7 +3,7 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2023-10-13T18:46:55-04:00</updated>
+    <updated>2023-10-13T18:51:02-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
@@ -22,7 +22,7 @@
             <category term="UX"/>
             <category term="Quick Thoughts"/>
 
-        <updated>2023-10-13T18:46:55-04:00</updated>
+        <updated>2023-10-13T18:51:02-04:00</updated>
             <summary>
                 <![CDATA[
                         <img src="https://korgano.github.io/media/posts/6/20231013082123_1.jpg" alt="Mars Tactics Demo Start Sceen" />
@@ -147,7 +147,7 @@
 <p>One thing that I realized after reading the patch notes is that <strong>I don't when units are flanked</strong>. In XCOM, the icon representing their amount of cover turns yellow/gold to show flanked status. In Mars Tactics, I don't have that information, so I can't strategize around it.</p>
 <p>I couldn't tell much of a difference between pre- and post-patch scrambling from grenades, but that was complicated by the fact that one of my units actually had the ability to throw grenades back (which is awesome). I did run into a possible bug where you can throw an unprimed grenade, have another unit pick it up the following turn, then use the command to prime and throw said grenade, only to have it land and <strong>not </strong>detonate.</p>
 <p>One odd thing I discovered playing the second level is that the objective might be bugged. You're supposed to get your squad onto a jet in the middle of the map and use it to evac. What I managed to do was get three squad members aboard, then it took off for some reason before I could get the rest on. (You should've seen my reaction to that.) I think it's a bug because there's a big button on the top third of the screen that says "Escape" and has the number of people on the plane on it, which isn't dismissed when the plane leaves.</p>
-<figure class="post__image post__image--full"><img loading="lazy"  src="korgano.github.io/blob/main/media/images/quick_thoughts_vg/20231013174212_1.jpg" alt="Mars Tactics combat UI, hovering over tooltip for Escape Battle command" data-is-external-image="true"></figure>
+<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/6/20231013174212_1.jpg" alt="" width="1920" height="1080" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/6/responsive/20231013174212_1-xs.jpg 384w ,https://korgano.github.io/media/posts/6/responsive/20231013174212_1-sm.jpg 600w ,https://korgano.github.io/media/posts/6/responsive/20231013174212_1-md.jpg 768w ,https://korgano.github.io/media/posts/6/responsive/20231013174212_1-lg.jpg 1200w ,https://korgano.github.io/media/posts/6/responsive/20231013174212_1-xl.jpg 1600w"></figure>
 <p>Most baffling is the Escape Battle command, which might be a response to the criticisms of the 3 turn to escape limit.</p>
 <p>What this amounts to is spending the equivalent of two turns <strong>at best </strong>trying to escape by hammering the button. This assumes that the player's units are <strong>not </strong>being shot at, in which case, fulfilling this condition will result in at least <strong>three </strong>turns, because the player will spend at least one unit action moving the unit.</p>
 <p>I'm not sure what the point of all these roadblocks to simply evacuating units are intended to do. By the time the player gets one or all of their units to the edge of the map (where the evac zones are), they're probably mentally exhausted by the current mission and ready to move on. Forcing the player to persist in the level, possibly while under attack by enemy forces that out number theirs, seems like a recipe to guarantee "cheap" deaths.</p>
