@@ -3,12 +3,126 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2023-12-20T13:54:02-05:00</updated>
+    <updated>2024-03-05T13:58:24-05:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>Cybersecurity Headache: Home Router UXUI</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/cybersecurity-headache-home-router-uxui/"/>
+        <id>https://korgano.github.io/cybersecurity-headache-home-router-uxui/</id>
+        <media:content url="https://korgano.github.io/media/posts/9/andres-urena-vXPXRp_wIg4-unsplash.jpg" medium="image" />
+            <category term="UX/UI"/>
+            <category term="Quick Thoughts"/>
+            <category term="PC"/>
+            <category term="Cybersecurity Projects"/>
+
+        <updated>2024-03-05T08:39:32-05:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/9/andres-urena-vXPXRp_wIg4-unsplash.jpg" alt="" />
+                    As an aspiring cybersecurity professional, there's all sorts of projects that I could undertake. Maintaining my Pi-Hole DNS black hole&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/9/andres-urena-vXPXRp_wIg4-unsplash.jpg" class="type:primaryImage" alt="" /></p>
+                <p>As an aspiring cybersecurity professional, there's all sorts of projects that I could undertake. Maintaining my Pi-Hole DNS black hole is one of those. Personally, I like projects where I'm doing something that has practical benefit to me.</p>
+<p>So when I came into some pretty powerful PC hardware, I saw an opportunity.</p>
+<p>What I wanted to do:</p>
+<ul>
+<li>Build a system with a Ryzen 7800X3D CPU and RX 7900 XTX GPU</li>
+<li>Set up a Windows VM on the 7800X3D/7900 XTX system</li>
+<li>Place the Windows VM on a subnet</li>
+<li>Install Epic Games Store on the Windows VM</li>
+<li>Use Wireshark to track what traffic EGS produces</li>
+<li>Place an old PC on the same subnet</li>
+<li>Remotely operate the VM through the old PC</li>
+</ul>
+<p>What could go wrong?</p>
+<h2>Problem #1 - Can I Even Subnet?</h2>
+<p>My network uses TP-Link routers... which means I have to use an app to access an online account to set my router settings.</p>
+<p>This is suboptimal from a security perspective for many reasons. Perhaps the biggest one is that you need internet access to set up a LAN.</p>
+<p>But setting that aside, there's one major problem - there's no way to actually set up subnets and VLANs. What you do get? IoT Network and Device Isolation options.</p>
+<p>What you get with these options are the ability to create a "dedicated wireless network to manage your IoT devices together", or "Isolate devices to protect your network from security threats." </p>
+<p>Device isolation seemed to be the right pick, so I set a static IP on the old PC and added it to the Device Isolation list.</p>
+<h2>Problem #2 - Can't Connect to the Internet</h2>
+<p>After configuring things, I immediately tested the network connection on the old PC. My first step was opening the browser and checking the default home page links. When this failed, I tried to ping the DNS server... which also failed.</p>
+<p>At the same time, the PC was having weird connectivity issues while in isolation mode, with the WiFi dropping periodically.</p>
+<p>To troubleshoot this, I did several things:</p>
+<ul>
+<li>Checked to see if find any data in the TP-Link app about what settings Device Isolation uses.
+<ul>
+<li>There wasn't any data, which is a big <strong>YIKES</strong>.</li>
+</ul>
+</li>
+<li>Disabled the Device Isolation, checked the ipconfig, re-enabled Device Isolation, and checked ipconfig again.
+<ul>
+<li>Since I had static IP on the old PC, this didn't do anything. More on that later.</li>
+</ul>
+</li>
+<li>I tried to setup up static routing.
+<ul>
+<li>This apparently applied to the <strong>entire </strong>network, and when I undid it, I had to reset the router to get any connectivity to the network. Fun!</li>
+</ul>
+</li>
+</ul>
+<p>This experimentation was all necessary because of the following problem:</p>
+<h2>Problem #3 - Insufficient Documentation</h2>
+<figure class="post__image"><img loading="lazy"  src="https://static-community.tp-link.com/other/25/7/2023/c4ab7cbd7ed54858b68cd8e1999c5cdf.png" alt="Screencaps of TP-Link Device Isolation Control Panels from TP-Link's Device Isolation page" width="1922" height="1136" data-is-external-image="true"></figure>
+<p>The reason I had so many problems is because, as you can see above, the UI doesn't provide a lot of details.</p>
+<p>This might be forgivable if the website was full of detailed documentation. <a href="https://community.tp-link.com/us/home/kb/detail/412694" title="Using Device Isolation on Deco" target="_blank" rel="noopener noreferrer"><strong>THIS </strong>is what they give you</a> - a pretty good explanation of how it works and how to set up Device Isolation. It does <strong>not </strong>tell you anything about how to troubleshoot issues, and the forums are not helpful either.</p>
+<p>One of the big problems with cybersecurity is that building the mindset to be a good practioner is a lot easier when you do it all the time. And that includes the home environment.</p>
+<p>The biggest hurdle to that process is that doing cybersecurity properly requires the ability to troubleshoot and fix problems. And if you're not experienced or working with an unfamiliar system, troubleshooting tends to require documentation to explain what to do and what to look for. So the absence of said documentation has a <strong>massive </strong>negative impact.</p>
+<p>Especially when the TP-Link app actually has an entire suite of useful testing/security tools:</p>
+<ul>
+<li>Speed Test</li>
+<li>Detect Cameras</li>
+<li>Scan For Devices</li>
+<li>Ping Test</li>
+<li>Public IP Lookup</li>
+<li>MAC Lookup</li>
+<li>Open Port Checker</li>
+<li>Wi-Fi Interference</li>
+</ul>
+<p>None of these were useful for diagnosing the problems, for reasons I will explain below.</p>
+<h2>Solving the Problem</h2>
+<p>Because I <strong>did </strong>have experience with troubleshooting, I eventually figured out the problem.</p>
+<p>So what was the solution?</p>
+<ol>
+<li>Remove the static IP address assignment for the old PC.</li>
+<li>Connect the device to a network extension instead of directly to the router, solving the connection issues.</li>
+<li>Activate device isolation.</li>
+<li>Check the ipconfig.</li>
+<li>Check to see if webpages load.</li>
+</ol>
+<p>This worked, but I discovered something odd. When I checked the device list in the TP-Link app, the device IP address was this:</p>
+<pre class="language-json line-numbers"><code>###.###.##.55</code></pre>
+<p>When I checked the results of ipconfig on the system, the result was this:</p>
+<pre class="language-json line-numbers"><code>IPv4 Address: ###.###.##.100 (Preferred)</code></pre>
+<p>From what I can tell, it seems as though the router assigns IPv4 addresses starting from 100 to isolated devices, but I cannot confirm this until I try to isolate the VM.</p>
+<p>Curiously, there's no actual way to check what the Device Isolation IPs are in the app, and the old PC entry on the device list disappeared after closing and reopening the app.</p>
+<p>Checking PiHole for DNS queries from the old PC did yield results, so that confirmed that there was proper routing and filtering.</p>
+<p>Thankfully, the problem had a simple solution, but that still took a few hours of research and iteration. </p>
+<h2>What TP-Link Can Do</h2>
+<p>There's a few things that can be done about this:</p>
+<ol>
+<li>Include IP addresses on Device Isolation device cards.</li>
+<li>Have a Device Isolation troubleshooting page/section that informs users to <strong>not </strong>try to reserve IP addresses to isolated devices.</li>
+<li>Have an HTTP control panel that allows for detailed control, like older/Netgear routers.</li>
+</ol>
+<p>Should they do these things? If they care about the user's cybersecurity, then the answer is yes. Will they do it?</p>
+<p>Two of these items are definitely going to be budget and effort sinks, which means that they're unlikely to happen without a <strong>lot </strong>of motivation to do so.</p>
+<p>But it's genuinely confusing that the app's information on isolated devices doesn't include the assigned IP. This is a fairly simple bit of data to expose to the user, and definitely necessary for troubleshooting.</p>
+<p>That said, TP-Link continues development of their firmware and app, so perhaps they will address these issues in the near future. One can only hope, because making cybersecurity as easy as possible is a great thing for everyone.</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Minimizing the CyberSecurity Headaches of Video Game Modding</title>
         <author>
@@ -22,7 +136,7 @@
             <category term="Quick Thoughts"/>
             <category term="Cybersecurity"/>
 
-        <updated>2023-12-20T13:54:02-05:00</updated>
+        <updated>2023-12-05T13:56:13-05:00</updated>
             <summary>
                 <![CDATA[
                         <img src="https://korgano.github.io/media/posts/8/fotis-fotopoulos-DuHKoV44prg-unsplash.jpg" alt="RGB keyboard with dual monitors in background with Visual Studio Code windows open." />
@@ -121,7 +235,7 @@
             <category term="UX"/>
             <category term="Quick Thoughts"/>
 
-        <updated>2023-10-13T18:51:02-04:00</updated>
+        <updated>2023-10-10T15:05:43-04:00</updated>
             <summary>
                 <![CDATA[
                         <img src="https://korgano.github.io/media/posts/6/20231013082123_1.jpg" alt="Mars Tactics Demo Start Sceen" />
@@ -272,7 +386,7 @@
             <category term="Cybersecurity"/>
             <category term="AI"/>
 
-        <updated>2023-09-24T18:27:50-04:00</updated>
+        <updated>2023-09-21T11:15:25-04:00</updated>
             <summary>
                 <![CDATA[
                         <img src="https://korgano.github.io/media/posts/5/steve-johnson-_0iV9LmPDn0-unsplash.jpg" alt="" />
@@ -437,7 +551,7 @@
             <category term="Tech"/>
             <category term="Quick Thoughts"/>
 
-        <updated>2023-09-14T15:16:54-04:00</updated>
+        <updated>2023-09-14T14:27:11-04:00</updated>
             <summary>
                 <![CDATA[
                         <img src="https://korgano.github.io/media/posts/4/vadim-sherbakov-RcdV8rnXSeE-unsplash.jpg" alt="Two flat screen monitor turned on near organizer rack inside the room." />
