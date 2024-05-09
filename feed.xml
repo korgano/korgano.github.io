@@ -3,12 +3,107 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2024-05-01T13:19:51-04:00</updated>
+    <updated>2024-05-09T17:19:53-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>Cybersecurity Project: Epic Games Store Packet Capture - Domains</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ip-addresses/"/>
+        <id>https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ip-addresses/</id>
+        <media:content url="https://korgano.github.io/media/posts/13/suspicious-ip-loc-2.PNG" medium="image" />
+            <category term="Tech"/>
+            <category term="PC"/>
+            <category term="Cybersecurity Projects"/>
+            <category term="Cybersecurity"/>
+
+        <updated>2024-05-08T10:55:13-04:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/13/suspicious-ip-loc-2.PNG" alt="The most suspicious possible IP address location - the middle of a reservoir in Kansas." />
+                    Last time, I managed to get Epic Games Store mostly functioning in Sandboxie-Plus and analyzed a number of DNS queries for potential&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/13/suspicious-ip-loc-2.PNG" class="type:primaryImage" alt="The most suspicious possible IP address location - the middle of a reservoir in Kansas." /></p>
+                <p>Last time, I managed to get Epic Games Store <strong>mostly </strong>functioning in Sandboxie-Plus and analyzed a number of DNS queries for potential suspicious behavior.</p>
+<p>Now, I'll be looking at IP addresses for host machines obtained during the packet capture session.</p>
+<h2>Wireshark Weakness: Resolved Addresses Exporting</h2>
+<div class="gallery-wrapper"><div class="gallery"  data-is-empty="false" data-translation="Add images" data-columns="4">
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-35-39-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-35-39-2-thumbnail.png" alt="Hosts obtained during packet capture - 01" width="768" height="828"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-44-28-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-44-28-2-thumbnail.png" alt="Hosts obtained during packet capture - 02" width="768" height="828"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-44-40-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-44-40-2-thumbnail.png" alt="Hosts obtained during packet capture - 03" width="768" height="828"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-45-01-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-45-01-2-thumbnail.png" alt="Hosts obtained during packet capture - 04" width="768" height="828"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-45-33-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-45-33-2-thumbnail.png" alt="Hosts obtained during packet capture - 05" width="768" height="828"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-45-54-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-45-54-2-thumbnail.png" alt="Hosts obtained during packet capture - 06" width="768" height="828"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-46-35-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-46-35-2-thumbnail.png" alt="Hosts obtained during packet capture - 07" width="768" height="828"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-51-52-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-51-52-2-thumbnail.png" alt="Hosts obtained during packet capture - 08" width="768" height="828"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-52-17-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-52-17-2-thumbnail.png" alt="Hosts obtained during packet capture - 09" width="768" height="828"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-52-35-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-52-35-2-thumbnail.png" alt="Hosts obtained during packet capture - 10" width="768" height="828"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-52-54-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-52-54-2-thumbnail.png" alt="Hosts obtained during packet capture - 11" width="768" height="828"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-53-18-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-53-18-2-thumbnail.png" alt="Hosts obtained during packet capture - 12" width="768" height="828"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-53-31-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-53-31-2-thumbnail.png" alt="Hosts obtained during packet capture - 13" width="768" height="828"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-53-49-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-53-49-2-thumbnail.png" alt="Hosts obtained during packet capture - 14" width="768" height="828"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-54-04-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-54-04-2-thumbnail.png" alt="Hosts obtained during packet capture - 15" width="768" height="828"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-54-20-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-54-20-2-thumbnail.png" alt="Hosts obtained during packet capture - 16" width="768" height="828"></a></figure>
+</div></div>
+<p>Wireshark has <strong>many </strong>great network capture analysis features, but they're not perfect. For example, Resolved Addresses generates a list of IP/MAC addresses and domain/devices names associated with those addresses.</p>
+<p>What it does not do, for some reason, is provide a method of exporting this list from the graphical user interface. Using the command line is necessary for this task, which is a shame, because this feature is ideal for helping develop PiHole blocklists.</p>
+<p>So this forced me to take multiple screen captures at the time of capture, then transfer the PCAP to a separate computer for analysis. (My gaming rig is not really setup for that.)</p>
+<p>After several rounds of iteration, I discovered that there's no easy way to dump the information via command line - for some reason, every source and destination IP would be the EGS host and the PiHole I use for DNS filtering. This is despite Wireshark correctly displaying IP addresses from outside my network.</p>
+<p>I also discovered that I could copy and paste data from the GUI's Resolved Addresses pane... one entry at a time. By that I mean, I can highlight <strong>one </strong>piece of data, copy it, and paste it. Attempting to copy multiple pieces of data, like all the IP addresses, just results in pasting <strong>one </strong>IP address.</p>
+<p><strong>Analyzing Domains and IPs</strong></p>
+<p>After spending an annoying amount of time manually copy-pasting domains and IP addresses into a text document, I began running them through VirusTotal and AlienVault OTX.</p>
+<p>After crosschecking their answers on a few easily discernable legitimate domains, I began feeding domains I was less certain about into those sites.</p>
+<p>These are the entries that aroused the most suspicion in me, for various reasons:</p>
+<blockquote>
+<p>account-public-service-prod03.ol.epicgames.com</p>
+<p>Security vendors' analysis<br>CyRadar: Malicious</p>
+<p>Indicator Facts<br>2 malicious files communicating</p>
+<p>Running webserver<br>Resolves to 8 IPs<br>Present in Umbrella<br>Present in Majestic<br>Present in Akamai</p>
+<p>Antivirus Detections<br>Backdoor:Win32/Tofsee.T, TEL:Trojan:Win64/GoCLR.MR!MTB<br>AV Detection Ratio: 2 / 2</p>
+<p>Associated Files<br>Sep 19, 2021    8e7c791dd2a860fb8ff4630b4079351d9865c73316d3071664a8cab86737e890                TEL:Trojan:Win64/GoCLR.MR!MTB</p>
+<p>Aug 31, 2019    b81db9595e7cdc16ca6f106f5610e4442cbaf9049940938b34ce759a42688dfa    Win32:BackdoorX-gen\ [Trj]        Win.Trojan.Tofsee-6840338-0    Backdoor:Win32/Tofsee.T</p>
+</blockquote>
+<p>Given that Epic Games Store is roughly 5.5 years old, the fact that a Trojan/backdoor was identified on the platform in 2019 definitely raised an eyebrow. However, the fact that only <strong>two </strong>detections have been made in that time span suggests to me that these were probably not done by Epic. However, this domain is definitely going to be looked at in more depth later.</p>
+<blockquote>
+<p>eos-gateway-ingressv2-prod-c1-w4.befa.live.use1a.on.epicgames.c<br>No results on VirusTotal/AlienVault</p>
+<p>eos-gateway-ingressv2-prod-c3-w5.befa.live.use1a.on.epicgames.c<br>No results on VirusTotal/AlienVault</p>
+<p>eulatracking-svc-prod06-pub-1257580502.us-east-1.elb.amazonaws.<br>No results on VirusTotal/AlienVault</p>
+</blockquote>
+<p>These are suspicious due to not having <strong>any </strong>results on VirusTotal and AlienVault, although looking up their IPs suggest they're run out of the same AWS data center that a lot of EGS's services are. (And possibly my cybersecurity course too!)</p>
+<p>Also, I'm very curious to see what I can find out about the End User License Agreement traffic.</p>
+<blockquote>
+<p>fp2e7a.wpc.phicdn.net</p>
+<p>Fake Update Utilizes New IDAT Loader To Execute StealC and Lumma Infostealers - according to source ArcSight Threat Intelligence - 8 months ago<br>Contextual Indicators: The domain is popular in the world Contextual Indicators: The domain’s Cisco Umbrella rank is 709 Created On: 2014:11:14 00:00:00</p>
+<p>VirusTotal Link: https://www.virustotal.com/gui/domain/fp2e7a.wpc.phicdn.net/detection Classification Description: Legitimate website which does not serve any malicious purpose.</p>
+<p>ArcSight Threat Intelligence: Suspicious<br>Antivirus Detections<br>Trojan:Win32/Prepscram<br>AV Detection Ratio: 12 / 13</p>
+<p>Jul 23, 2023    bc0e2cba3466c7b53635df6057dc87bcf622d0439ae766a71b49eae726226507            Win.Malware.Zusy-9957983-0    Trojan:Win32/Prepscram<br>Multiple Prepscam detections with different hashes</p>
+</blockquote>
+<p>This obviously set off a number of red flags for me, especially considering how recent the latest detection. I immediately popped the IP address into the same website that I'd used to verify the location and ownership of the others, and got this in return:</p>
+<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/13/suspicious-ip-loc.PNG" alt="Speedguide.net IP Address look up for the IP address associated with fp2e7a.wpc.phicdn.net - the IP address is geolocated to the middle of Cheney Reservoir in Kansas." width="1600" height="827" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/13/responsive/suspicious-ip-loc-xs.PNG 384w ,https://korgano.github.io/media/posts/13/responsive/suspicious-ip-loc-sm.PNG 600w ,https://korgano.github.io/media/posts/13/responsive/suspicious-ip-loc-md.PNG 768w ,https://korgano.github.io/media/posts/13/responsive/suspicious-ip-loc-lg.PNG 1200w ,https://korgano.github.io/media/posts/13/responsive/suspicious-ip-loc-xl.PNG 1600w"></figure>
+<p>There's a word for an IP address being geolocated in the middle of a reservoir in Kansas:</p>
+<figure class="post__image"><img loading="lazy"  src="https://i.imgur.com/7ohZC9x.gif" alt="Inglourious Basterds - &quot;It's called suspicious.&quot;" width="360" height="202" data-is-external-image="true"></figure>
+<p>Now, there's a totally credible explanation for this type of result. Some server clusters are actually put inside specialized containers and immersed in large bodies of water for cooling purposes.</p>
+<p>Looking into things further, <a href="https://github.com/hoshsadiq/adblock-nocoin-list/issues/452" title="False positive: fp2e7a.wpc.2be4.phicdn.net " target="_blank" rel="noopener noreferrer">I discovered that the <code>*.phicdn.net </code>domain is associated with <code>ocsp.digicert.com</code></a><code></code>, which checks for certificate revocation.</p>
+<p>Why they would use this domain, which is suspiciously generic and hosted in a suspicious location, is a question for more experienced investigators.</p>
+<p>The final interesting domain I found was this one:</p>
+<blockquote>
+<p>priceengine-ecomprod01-pub-2131700027.us-east-1.elb.amazonaws.c<br>No results on VirusTotal/AlienVault</p>
+</blockquote>
+<p>This one is pretty easy to understand, but it'll be interesting to see what price data is being moved through this connection.</p>
+<h2>The Next Steps</h2>
+<p>With a specific number of interesting domains and IPs to examine, the next step is examine the actual network data flows. The logical place to start is with <code>account-public-service-prod03.ol.epicgames.com</code>, one of Epic Games' domains that has been compromised in the past.</p>
+<p>Once we take a look at that one, we'll go through the rest of the ones I've highlighted in this article. Will we find anything interesting? Let's find out!</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Cybersecurity Project: Sandboxing with Sandboxie-Plus</title>
         <author>
