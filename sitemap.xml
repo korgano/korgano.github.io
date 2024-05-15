@@ -97,6 +97,30 @@
 </image:image>
 </url>
 <url>
+<loc>https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ips-1/</loc>
+<lastmod>2024-05-15T14:48:47-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/14/EGS-account-pub-serv.PNG</image:loc>
+<image:title><![CDATA[Wireshark Packet Capture of traffic to domain account-public-service-prod03.ol.epicgames.com]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/14/EGS-account-pub-serv-02.PNG</image:loc>
+<image:title><![CDATA[TCP stream of traffic going to account-public-service-prod03.ol.epicgames.com.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/14/EGS-account-pub-serv-05.PNG</image:loc>
+<image:title><![CDATA[Wireshark capture of account-public-service-prod03.ol.epicgames.com showing that the Epic Games IP address is an Amazon EC2 instance.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/14/EGS-account-pub-serv-03.PNG</image:loc>
+<image:title><![CDATA[Nginx server associated with account-public-service-prod03.ol.epicgames.com certificate distribution.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/14/EGS-account-pub-serv-04.PNG</image:loc>
+<image:title><![CDATA[Certificate authority out of Scottsdale, Arizona associated with account-public-service-prod03.ol.epicgames.com.]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/cybersecurity-project-research-remote-access/</loc>
 <lastmod>2024-03-18T13:08:19-04:00</lastmod>
 <image:image>

@@ -3,12 +3,69 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2024-05-09T17:19:53-04:00</updated>
+    <updated>2024-05-15T14:48:47-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>Cybersecurity Project: Epic Games Store Packet Capture - IPs 1</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ips-1/"/>
+        <id>https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ips-1/</id>
+        <media:content url="https://korgano.github.io/media/posts/14/EGS-account-pub-serv.PNG" medium="image" />
+            <category term="PC"/>
+            <category term="Cybersecurity Projects"/>
+            <category term="Cybersecurity"/>
+
+        <updated>2024-05-15T10:27:43-04:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/14/EGS-account-pub-serv.PNG" alt="Wireshark Packet Capture of traffic to domain account-public-service-prod03.ol.epicgames.com" />
+                    Last time, we took a look a number of suspicious domains captured in network traffic to a sandboxed Epic Games&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/14/EGS-account-pub-serv.PNG" class="type:primaryImage" alt="Wireshark Packet Capture of traffic to domain account-public-service-prod03.ol.epicgames.com" /></p>
+                <p>Last time, we took a look a number of suspicious domains captured in network traffic to a sandboxed Epic Games Store installation.</p>
+<p>To progress the investigation, we're going to look a number of IP addresses for the following domain: <code>account-public-service-prod03.ol.epicgames.com</code></p>
+<p>This was a particularly interesting domain for analysis, due to two past malware detections:</p>
+<blockquote>
+<p>Sep 19, 2021    8e7c791dd2a860fb8ff4630b4079351d9865c73316d3071664a8cab86737e890                TEL:Trojan:Win64/GoCLR.MR!MTB<br>Aug 31, 2019    b81db9595e7cdc16ca6f106f5610e4442cbaf9049940938b34ce759a42688dfa    Win32:BackdoorX-gen\ [Trj]        Win.Trojan.Tofsee-6840338-0    Backdoor:Win32/Tofsee.T</p>
+</blockquote>
+<h2>Figuring Out the IP</h2>
+<p>The first step of the process is figuring out which IP associated with the domain was actually being used. There were 22 IP addresses associated with the domain, and unless EGS decided to bounce between them all during the process, only one was in use.</p>
+<p>This required me to go through the list of IPs until I finally found the one IP that was utilized for the connection, which took a decent amount of time due to the size of my packet capture.</p>
+<p>Luckily, I found it on the fourth attempt - <code>52.205.83.9</code>.</p>
+<p>To make examining the data easier, I then ran a filter for <code>ip.dst</code> and <code>ip.src</code> using that address, before exporting that filtered data to a new PCAP file. The new PCAP was much smaller - surprisingly small, in fact.</p>
+<h2>A Short Handshake</h2>
+<p>With a total length of 50 packets, the exchange starts off with a TCP Handshake, which constitutes the first three packets. Then there's a client hello, with TLS 1.2 encapsulation, which renders a lot of the packet contents into unreadable gibberish.</p>
+<p>However, there are bits and pieces that can be gleaned from examining the TCP stream.</p>
+<h2>A Bunch of HTTP</h2>
+<p>One thing that stood out to me in the TCP stream was the number of visible HTTP addresses.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/14/EGS-account-pub-serv-02.PNG" alt="TCP stream of traffic going to account-public-service-prod03.ol.epicgames.com." width="1068" height="869" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-02-xs.PNG 384w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-02-sm.PNG 600w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-02-md.PNG 768w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-02-lg.PNG 1200w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-02-xl.PNG 1600w"></figure>
+<p>On one hand, the fact that they were Amazon addresses was <strong>not </strong>a surprise. Epic Games seems to use AWS infrastructure for all their online functionality. In fact, if you set Wireshark <code>Name Resolution &gt; Resolve Network Addresses</code>, you get the following:</p>
+<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/14/EGS-account-pub-serv-05.PNG" alt="Wireshark capture of account-public-service-prod03.ol.epicgames.com showing that the Epic Games IP address is an Amazon EC2 instance." width="1600" height="114" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-05-xs.PNG 384w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-05-sm.PNG 600w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-05-md.PNG 768w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-05-lg.PNG 1200w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-05-xl.PNG 1600w"></figure>
+<p>What <strong>did </strong>stand out to me was the use of HTTP in outwards facing URLs. Especially ones that could be accessed, to a limited degree, by non-Amazon individuals:</p>
+<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/14/EGS-account-pub-serv-03.PNG" alt="Nginx server associated with account-public-service-prod03.ol.epicgames.com certificate distribution." width="1600" height="378" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-03-xs.PNG 384w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-03-sm.PNG 600w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-03-md.PNG 768w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-03-lg.PNG 1200w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-03-xl.PNG 1600w"></figure>
+<p>This might explain how Trojans wound up being distributed by this domain. It's entirely possible that malware was placed onto this server and distributed to other systems via the certificates, since they are automatically downloaded upon connection to the specified URL.</p>
+<h2>Other Interesting Tidbits</h2>
+<p>One interesting tidbit of information was that there's a root certificate authority operating out of Scottsdale, Arizona.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/14/EGS-account-pub-serv-04.PNG" alt="Certificate authority out of Scottsdale, Arizona associated with account-public-service-prod03.ol.epicgames.com." width="1068" height="869" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-04-xs.PNG 384w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-04-sm.PNG 600w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-04-md.PNG 768w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-04-lg.PNG 1200w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-04-xl.PNG 1600w"></figure>
+<p>Starfield Technologies apparently provides the public key certificates for some of Amazon's web services. <a href="https://www.amazontrust.com/repository/" target="_blank" rel="noopener noreferrer">According to Amazon</a>:</p>
+<blockquote>
+<p>"Starfield Services Root Certificate Authority - G2" is an older root that is compatible with other older trust stores and clients that can not be updated. Including all five of the roots ensure maximum compatibility for your application.</p>
+</blockquote>
+<h2>Next Steps</h2>
+<p>Since there doesn't seem to be much traffic or anything really unusual going on with this IP address, it's time to look somewhere else.</p>
+<p>The next IP address to check is going to the one associated with <code>priceengine-ecomprod01-pub-2131700027.us-east-1.elb.amazonaws.c</code>, which has a decent likelihood of generating a large volume of traffic. Will there be anything interesting to learn?</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Cybersecurity Project: Epic Games Store Packet Capture - Domains</title>
         <author>
