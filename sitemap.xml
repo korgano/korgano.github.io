@@ -121,6 +121,22 @@
 </image:image>
 </url>
 <url>
+<loc>https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ips-2/</loc>
+<lastmod>2024-05-24T16:03:24-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/15/EGS-account-pub-serv-06.PNG</image:loc>
+<image:title><![CDATA[Wireshark showing packet capture data.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/15/EGS-account-pub-serv-06-2.PNG</image:loc>
+<image:title><![CDATA[Wireshark packet capture featuring IP address hand off for account-public-service-prod03.ol.epicgames.com]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/15/EGS-account-pub-serv-07.PNG</image:loc>
+<image:title><![CDATA[The second switch of IP addresses from account-public-service-prod03.ol.epicgames.com.]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/cybersecurity-project-research-remote-access/</loc>
 <lastmod>2024-03-18T13:08:19-04:00</lastmod>
 <image:image>
