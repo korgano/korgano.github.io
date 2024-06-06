@@ -3,12 +3,96 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2024-05-24T16:03:24-04:00</updated>
+    <updated>2024-06-06T11:21:07-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>Quick Cyber Thoughts: Computex 2024</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/quick-cyber-thoughts-computex-2024/"/>
+        <id>https://korgano.github.io/quick-cyber-thoughts-computex-2024/</id>
+        <media:content url="https://korgano.github.io/media/posts/16/computex2024.jpg" medium="image" />
+            <category term="Tech"/>
+            <category term="Quick Thoughts"/>
+            <category term="PC Hardware"/>
+            <category term="PC"/>
+            <category term="Cybersecurity"/>
+            <category term="AI"/>
+
+        <updated>2024-06-05T16:34:42-04:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/16/computex2024.jpg" alt="" />
+                    We're in the dying days of Computex 2024, and I have some cybersecurity related thoughts. For those of you who&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/16/computex2024.jpg" class="type:primaryImage" alt="" /></p>
+                <p>We're in the dying days of Computex 2024, and I have some cybersecurity related thoughts.</p>
+<p>For those of you who aren't big computer hardware nerds, Computex is a big PC hardware vendor convention that typically occurs in Taipei, Taiwan. The main hardware vendors all either have keynote presentations at the event, or in the case of Nvidia, just before it, and lots of the secondary and tertiary vendors also make announce new products (everything from components to laptops and mini-PCs).</p>
+<p>Since hardware runs all the software we use <strong>and </strong>hosts plenty of vulnerabilities, it's good to think about the cybersecurity implications of the tech we're going to be using in the foreseeable future.</p>
+<h2>Nvidia promises us a nightmare future of AI and high prices</h2>
+<p>Nvidia, the company that makes super expensive consumer graphics cards and supplies most AI companies with GPUs for training AI, decided to really push the idea of AI agents to investors and the mainstream press.</p>
+<p>The basic TL;DR version of agents is pretty straight forward, actually:</p>
+<ol>
+<li>The user inputs some prompt into a general LLM chatbot.</li>
+<li>The chatbot examines what the prompt contains and wants done.</li>
+<li>The chatbot passes off an optimized version of the prompt to another LLM that is specifically trained for that task.</li>
+<li>The optimized LLM runs the task and generates output.</li>
+<li>The output is sent to the chatbot LLM.</li>
+<li>The chatbot presents that output to the user.</li>
+</ol>
+<p>From a cybersecurity POV, this is a nightmare, for a few reasons:</p>
+<ul>
+<li>We now have to ensure confidentiality, integrity, and availability of <strong>multiple </strong>AI models and the content going to/from them.</li>
+<li>We have to assess multiple AI models to ensure they aren't compromised, either by malware, vulnerabilities, or bad data.</li>
+<li>If we want to run AI on local endpoints or even just on on-premises servers, the hardware requirements just skyrocketed.</li>
+</ul>
+<p>If you're wondering why that last point is there, just realize that it's now harder to propose getting local hardware to run AI. Because now, you need better hardware, and better hardware tends to be more expensive, <strong>especially </strong>in quantity.</p>
+<p>(When the AI training bubble pops, there'll probably be a <strong>lot </strong>of hardware for sale, but whether it'll be any good for the purposes of running production level AI agents is an open question.)</p>
+<h2>AMD got backstabbed by Microsoft, so now we're out of a cheap(er) AI solution</h2>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/SeEBPbehttY" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+<p>AMD would've had a solution to the AI hardware issue, but they don't, thanks to Microsoft not buying their proposed server chip.</p>
+<p>As detailed by tech journalist and leaker Moore's Law is Dead, Turin AI (Turin being the code name for AMD's Zen 5 architecture) would have been a Neural Processing Engine chiplet that featured <strong>hundreds </strong>of TOPs of AI performance.</p>
+<p>For reference, laptop processors with <strong>50 </strong>TOPs are considered impressive AI performance and a minimum specification by Microsoft.</p>
+<p>Why does this matter?</p>
+<p>Because AMD is the master of reusing their silicon. All of their consumer/prosumer products for desktops and workstations are basically server chiplets that didn't hit the efficiency standards for server SKUs. They then get filtered down the product stack to fill various price points and niches in the market.</p>
+<p>So, by denying AMD the contract, Microsoft has denied the entire ecosystem of a cheap option for AI inference (output). Which is not great when executives and management get the AI agents brain bug and start pushing in that direction.</p>
+<h2>Intel struggles to stay viable</h2>
+<p>Intel, once the go-to PC hardware vendor for just about every major corporation and government, is not in a great place.</p>
+<p>The past few years have been rough for Intel. Getting stuck on less advanced silicon nodes, having less advanced products than the competition, and of course, major hardware vulnerabilities (Spectre/Meltdown) all whittled away at their stranglehold on the PC markets.</p>
+<p>At Computex, Intel showcased a bunch of its current problems:</p>
+<ul>
+<li>It's still not performance competitive with AMD in a lot of regards (CPU and NPU performance most obviously).</li>
+<li>Lots of their products have been delayed, so they look even worse than they could have.</li>
+<li>Their chip foundries haven't been pumping out lots of high quality product lately.</li>
+<li>Their continuing tendency to talk about future products without actually getting their release cadence back on track.</li>
+</ul>
+<p>All of these are concerning, but the most concerning from a cybersecurity perspective is their lack of competitive performance. <a href="https://dl.acm.org/doi/10.1145/3620666.3651382" target="_blank" rel="noopener noreferrer">There's a whole slew of new potential exploits in the branch prediction parts of modern CPUs</a>. What's branch prediction? It's basically a way for the CPU to speed up operations by guessing the likely outcome of operations.</p>
+<p>While a lot of these branch prediction exploits can be mitigated with better software programming, there's always the chance of a BIOS update that changes the microcode that controls the CPU. And when past Intel threat mitigations have produced up to 50% performance <strong>reductions</strong>, that's a major cybersecurity and operational issue. You're going to have to start air gapping systems if you can't replace them with higher performance parts.</p>
+<h2>Get ready for Snapdragon X Elite software validation</h2>
+<p>One thing that was shown to the public before Computex 2024 was Microsoft using Snapdragon X Elite as one of its Copilot+ laptop processors. These are ARM based processors, and for those of you who don't know, that's the architecture that most mobile phone CPUs use.</p>
+<p>The general sentiment seems to be that Microsoft and laptop vendors are promoting these CPUs to put pressure on AMD and Intel in the laptop space, especially in the lower tier products. So what does that mean for us cybersecurity folks?</p>
+<ul>
+<li>Get ready to spend time validating that all your endpoint security software works. Windows 11 ARM edition might have good emulation, but that's no guarantee any of your security and monitoring will work.</li>
+<li>Time to work up a whole new testing scheme for any and all X Elite based laptops that your organization thinks about adopting.</li>
+<li>Somebody has to get good at vulnerability testing the X Elite <strong>and </strong>Windows 11 ARM edition.</li>
+</ul>
+<p>And these are just the <strong>obvious </strong>problems a novice like me can see. I'm sure there's plenty more you can think of.</p>
+<h2>Get ready to purge Windows Recall from all your Copilot+ machines</h2>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/oSBDkPxivuA" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+<p>Windows Recall isn't even an official release yet, and there's already Python scripts designed to access the <strong>unencrypted </strong>database that application creates.</p>
+<p>The safest course of action is going to be simply removing the whole thing until Microsoft implements some proper security... but at the same time, will anyone miss the extra CPU, RAM, and HDD/SSD utilization?</p>
+<p>(Also, to push back on Mental Outlaw, this will <strong>not </strong>push people to Linux. As someone who's had UXUI training, Linux violates so many heuristics of good UXUI. You genuinely need to replace the various terminals with LLM chatbots to make widescale Linux adoption even somewhat viable.)</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Cybersecurity Project: Epic Games Store Packet Capture - IPs 2</title>
         <author>
@@ -792,175 +876,6 @@
 <p>In a game where your units permanently die, there is nothing worse than losing characters to bad mechanics. Making bad tactical decisions or the AI being better is one thing - you can restart the mission or abuse saves to get around that. But bad mechanics are inescapable, because they're how the game <strong>works</strong>.</p>
 <p>It's one thing in this demo, where you can get fresh soldiers with no issues. It's another when you have experienced soldiers you want to carry forward... only to have them get killed because they were stuck in the evac zone and got hit by a lucky shot. That's a decent investment of in-game resources gone, for no other result than an angry or sad player.</p>
 <p>The Firaxis XCOM games make evacuation a free action, one you can do even when the units expend all their standard action points. There's a reason for that. At the end of a mission, the player is <strong>done</strong>. Let them go in peace, preferably with a button to evac everyone in the evac zone at once.</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>The UX &amp; Cybersecurity Case for More Local AI Hardware</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/local-ai-hardware-ux-cybersecurity/"/>
-        <id>https://korgano.github.io/local-ai-hardware-ux-cybersecurity/</id>
-        <media:content url="https://korgano.github.io/media/posts/5/steve-johnson-_0iV9LmPDn0-unsplash.jpg" medium="image" />
-            <category term="UX"/>
-            <category term="Tech"/>
-            <category term="Quick Thoughts"/>
-            <category term="PC Hardware"/>
-            <category term="PC"/>
-            <category term="Cybersecurity"/>
-            <category term="AI"/>
-
-        <updated>2023-09-21T11:15:25-04:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/5/steve-johnson-_0iV9LmPDn0-unsplash.jpg" alt="" />
-                    Earlier this week, two things crossed my path: Both of these are great things in my opinion. Let's get into&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/5/steve-johnson-_0iV9LmPDn0-unsplash.jpg" class="type:primaryImage" alt="" /></p>
-                <p>Earlier this week, two things crossed my path:</p>
-<ol>
-<li><a href="https://chipsandcheese.com/2023/09/16/hot-chips-2023-amds-phoenix-soc/" title="Hot Chips 2023: AMD’s Phoenix SoC" target="_blank" rel="noopener noreferrer">A fantastic breakdown of AMD's latest laptop processors that feature their XDNA AI engines.</a></li>
-<li>Intel's Innovation Days presentation, which showcased their new processors with local AI hardware (Neural Processing Units - NPUs).</li>
-</ol>
-<p>Both of these are great things in my opinion. Let's get into why.</p>
-<div class="post__toc">
-<h3>Table of Contents</h3>
-<ul>
-<li><a href="#mcetoc_1hauaonv2121">How Do People Use AI?</a></li>
-<li><a href="#mcetoc_1hauaonv2122">The Cybersecurity Issues</a></li>
-<li><a href="#mcetoc_1hauaonv2123">The UX Issues</a></li>
-<li><a href="#mcetoc_1hauaonv2124">The Two Paths</a></li>
-<li><a href="#mcetoc_1hauaonv2125">Wrap Up</a></li>
-</ul>
-</div>
-<h3 id="mcetoc_1hauaonv2121">How Do People Use AI?</h3>
-<p>The simplest possible explanation of the AI systems in the current zeitgeist is that they are pattern recognition and prediction machines. These Large Language Models (or LLMs) are trained on massive amounts of data. (We won't get into the ethical or artistic issues with this. If you want that, watch the following video:)</p>
-<p class="align-center"><div class="post__iframe"><iframe loading="lazy" width="560" height="315" src="https://www.youtube-nocookie.com/embed/-MUEXGaxFDA?si=xcHgi-q_L6R9vt5c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen"></iframe></div>
-<p>The user will use some kind of interface - typically text based, but some visual interfaces do exist. The LLM will process the input, figure out the pattern of that input, and then predict the output based on that pattern. (This, incidentally, leads to the "hallucination" problem, where LLM based AI generate stuff that has no actual basis in the prompt or fact.)</p>
-<p>There are two main ways these LLM based AI operate:</p>
-<ol>
-<li>On massive server farms.</li>
-<li>On very expensive graphics cards or special processors.</li>
-</ol>
-<h3 id="mcetoc_1hauaonv2122">The Cybersecurity Issues</h3>
-<p>Like it or not, everyone is going to be using LLM based AI in the near future, because if you know how to use them well, you can get some impressive productivity gains.</p>
-<p>It also doesn't take a genius to recognize the problems here, especially in the context of the CIA triad:</p>
-<ol>
-<li>Confidentiality</li>
-<li>Integrity</li>
-<li>Availability</li>
-</ol>
-<p>Confidentiality, or keeping data out of the hands of anyone who is <strong>not </strong>supposed to have access, runs into a number of problems when you have server based LLMs:</p>
-<ul>
-<li>Can you keep the data confidential if you have to use someone else's LLM servers?</li>
-<li>Can you ensure that the LLM provider isn't going to incorporate the data into their LLM's training model?</li>
-<li>Increased risk of bad actors intercepting data as it moves between the end user PC and the server.</li>
-<li>Leaky or improperly routed VPNs delivering the data to outside actors.</li>
-<li>Increased opportunity for corporate competitors to track your progress by assessing volume of traffic between company PCs and LLM servers.</li>
-</ul>
-<p>And these are just the obvious confidentiality issues that I thought of in five minutes. Things are just as bad when we look at Integrity:</p>
-<ul>
-<li>Data manipulation of the input to the LLM as it travels to the server from the end user.</li>
-<li>Data manipulation of the output from the LLM as it travels from the server to the end user.</li>
-<li>Data corruption due to connection issues between the LLM server and end user.</li>
-<li>Data corruption due to unannounced changes in how the LLM processes data.</li>
-</ul>
-<p>When it comes to availability, we've got a whole new set of problems:</p>
-<ul>
-<li>Stability of connection between the end user and LLM server.</li>
-<li>Availability of LLM server resources.</li>
-<li>Potential DDOS of the LLM server/port.</li>
-<li>Local hardware being expensive and hard to obtain.</li>
-<li>Local hardware availability.</li>
-<li>Local hardware connection issues.</li>
-</ul>
-<h3 id="mcetoc_1hauaonv2123">The UX Issues</h3>
-<p>The UX issues are honestly a near 1:1 overlap with the Cybersecurity ones, plus a few new ones:</p>
-<ul>
-<li>The inconvenience of having to sign up for an account.</li>
-<li>Limited options to customize the interface.</li>
-<li>Limited ability to use LLMs optimized to specific tasks.</li>
-<li>Limited ability to use LLMs with little to no training/output bias.</li>
-<li>Random service issues when LLM load is high.</li>
-</ul>
-<p>Essentially, AI as tool has a lot of hurdles <strong>because </strong>it's not practical to run on a local machine. But what if we could?</p>
-<h3 id="mcetoc_1hauaonv2124">The Two Paths</h3>
-<figure ><figure class="post__image post__image--full"><img loading="lazy"  src="https://i0.wp.com/chipsandcheese.com/wp-content/uploads/2023/09/amd_phx_if.jpg?ssl=1" alt="AMD slide showcasing 7040 &quot;Phoenix&quot; Processor, via Chips and Cheese" width="2557" height="1431" data-is-external-image="true"></figure>
-<figcaption >AMD Ryzen 7040 "Phoenix" processor diagram, via Chips and Cheese</figcaption>
-</figure>
-<p>There are two main paths to get more local AI hardware in people's hands. The first is building it into new computer processors, like AMD and Intel are doing. These are focused on "inference," which is just a fancy way of saying "taking input into a trained LLM and generating output."</p>
-<p>(Note: Intel's AI solution is called Neural Processing Units, but I will refer only to AI engines, because it does the same thing and is easier to remember.)</p>
-<p>There are two main ways to do this:</p>
-<ol>
-<li>Devote a small part of the overall processor to AI functions.</li>
-<li>Devote a large part of the overall processor to AI functions.</li>
-</ol>
-<p>Currently, Intel and AMD are releasing products that take the first way to do things. This makes sense from a risk mitigation point of view, but also constitutes a huge bet on the part of the hardware designers. They're not only betting on getting the design right, but that the total performance is going to be good enough for most of the lifespan of the CPU.</p>
-<p>When you're a corporation that can justify replacing entire computers (or just the CPUs, if you're lucky) every 3-4 years, that's an acceptable risk. For an individual or small organization, the upsides are pretty high, but if you rely on AI for a lot of tasks and the programming for LLMs suddenly changes in a way your AI engine/other PC hardware can't handle, you're in a big pickle.</p>
-<p>The other way to do it is to make a big chunk of the CPU an AI engine, like so:</p>
-<figure ><figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/5/mlid-june2023-AIE.png" alt="Moore's Law is Dead slide explaining Zen 5 Turin-AI Chiplets." width="1920" height="1055" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/5/responsive/mlid-june2023-AIE-xs.png 384w ,https://korgano.github.io/media/posts/5/responsive/mlid-june2023-AIE-sm.png 600w ,https://korgano.github.io/media/posts/5/responsive/mlid-june2023-AIE-md.png 768w ,https://korgano.github.io/media/posts/5/responsive/mlid-june2023-AIE-lg.png 1200w ,https://korgano.github.io/media/posts/5/responsive/mlid-june2023-AIE-xl.png 1600w"></figure>
-<figcaption >Moore's Law is Dead slide explaining Zen 5 Turin-AI performance and configurations.</figcaption>
-</figure>
-<p><a href="https://www.youtube.com/watch?v=QU1DFBtbRWY" title="AMD 12C Zen 5 Strix on AM5: R9 8900G instead of 8900? (+ Turin-AI Update)" target="_blank" rel="noopener noreferrer">According to tech commentary and analysis channel Moore's Law is Dead</a>, AMD has developed a chiplet that provide more than enough performance for any individual's AI tasks.</p>
-<p>For those unfamiliar with how AMD's CPUs are constructed, a chiplet is a small silicon chip with features that would form part of a single larger CPU. So in AMD's case, the actual processor cores are in one or more chiplets, while all the parts that communicate with the rest of the computer are in another. AMD designs its chiplets so that they can work across server, workstation, and desktop PC products.</p>
-<p>With AI hardware in high demand, AMD is certainly going to make AI chiplets for servers. But workstation and desktop are a big question mark, especially since servers get the top tier chiplets. Theoretically, even the worst tier AI engine chiplets would provide excessive amounts of LLM AI task performance for even prosumer users.</p>
-<p>Will AMD make such a CPU? Maybe. Go let AMD's social media accounts know you want that.</p>
-<p>And this leads us to the second path, the M.2 add-on card.</p>
-<p>In case you don't know what an M.2 anything is, here's an example:</p>
-<figure class="post__image"><img loading="lazy"  src="https://assetsio.reedpopcdn.com/WD-Black-SN850X-SSD_5rmoNZy.jpg?width=690&amp;quality=80&amp;format=jpg&amp;auto=webp" alt="WD Black SN850X M.2 NVMe SSD" width="690" height="388" data-is-external-image="true"></figure>
-<p>If something the size of a stick of gum that could handle all your AI engine needs sounds attractive, you are not alone. <a href="https://youtu.be/tl1m09ZyfDg?t=2042" title="Meteor Lake Tech Tour Deep Dive" target="null">As it turns out, the company behind Intel's AI engine has actually <strong>made </strong>these devices</a>... they are just being sold to industrial firms. But the fact that they're aware that people want them means there's a chance we can get them down the line.</p>
-<p>What's especially exciting about the idea of an AI engine on an M.2 is the fact that it gives people <strong>options</strong>. It's not a huge component, or something that's going to be stuck under a heat sink/watercooling solution that's a pain to disassemble. You could stick them in any computer with an M.2 drive, even if the performance wouldn't be great for older PCs. You could potentially have two or more side-by-side in a special adapter that would give you tons of AI processing capabilities.</p>
-<p>And this is before we even get into the possibilities of combining the two paths by using <strong>both </strong>CPU integrated and M.2 add-on AI engines.</p>
-<h3 id="mcetoc_1hauaonv2125">Wrap Up</h3>
-<p>To sum it all up, more local AI hardware solves a number of cybersecurity problems:</p>
-<table style="border-collapse: collapse; width: 100%;" border="1">
-<tbody>
-<tr>
-<td class="align-center" style="width: 33.2853%;"><strong>Confidentiality</strong></td>
-<td class="align-center" style="width: 33.2853%;"><strong>Integrity</strong></td>
-<td class="align-center" style="width: 33.287%;"><strong>Availability</strong></td>
-</tr>
-<tr>
-<td style="width: 33.2853%;">Keeping data confidential.</td>
-<td style="width: 33.2853%;">Data manipulation of LLM input enroute to LLM.</td>
-<td style="width: 33.287%;">Stability of connection between the end user/LLM server.</td>
-</tr>
-<tr>
-<td style="width: 33.2853%;">Risk of LLM developer incorporating confidential data in training model.</td>
-<td style="width: 33.2853%;">Data manipulation of LLM output enroute to end user.</td>
-<td style="width: 33.287%;">Availability of LLM server resources.</td>
-</tr>
-<tr>
-<td style="width: 33.2853%;">Interception of data enroute to LLM.</td>
-<td style="width: 33.2853%;">Data corruption due to issues in LLM/end user connection.</td>
-<td style="width: 33.287%;">Potential DDOS of the LLM server/port.</td>
-</tr>
-<tr>
-<td style="width: 33.2853%;">Improper VPN setups leaking data/delivering data to wrong destination.</td>
-<td style="width: 33.2853%;">Data corruption due to unannounced LLM changes.</td>
-<td style="width: 33.287%;">Local hardware availability.</td>
-</tr>
-<tr>
-<td style="width: 33.2853%;">Less traffic for competitors to analyze.</td>
-<td style="width: 33.2853%;"> </td>
-<td style="width: 33.287%;">Local hardware connection issues.</td>
-</tr>
-</tbody>
-</table>
-<p>It also provides opportunities to solve the following UX problems:</p>
-<ul>
-<li>The inconvenience of having to sign up for an account.</li>
-<li>Limited options to customize the interface.</li>
-<li>Limited ability to use LLMs optimized to specific tasks.</li>
-<li>Limited ability to use LLMs with little to no training/output bias.</li>
-<li>Random service issues when LLM load is high.</li>
-</ul>
-<p>With two main paths to getting more local AI hardware, either as parts of CPUs or in standalone add-on cards, the future looks bright for local AI. But it'll take a decent amount of yelling at the social media clouds to get everyone the hardware they deserve. And without that hardware being available, there's not much incentive or ability to work on the UX problems.</p>
-<p>So let's get that social media campaign going, and </p>
             ]]>
         </content>
     </entry>
