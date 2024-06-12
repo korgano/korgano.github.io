@@ -137,6 +137,30 @@
 </image:image>
 </url>
 <url>
+<loc>https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ips-3/</loc>
+<lastmod>2024-06-11T14:38:08-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/17/EGS-prod-c1-w4.befa-01-2.PNG</image:loc>
+<image:title><![CDATA[Wireshark packet capture showing the three way TCP handshake at the top.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/17/EGS-prod-c1-w4.befa-01.PNG</image:loc>
+<image:title><![CDATA[Wireshark packet capture showing the three way TCP handshake at the top.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/17/EGS-prod-c1-w4.befa-02.PNG</image:loc>
+<image:title><![CDATA[Wireshark packet capture showing multiple server hellos.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/17/EGS-prod-c1-w4.befa-03.PNG</image:loc>
+<image:title><![CDATA[Wireshark packet capture showing client key exchange.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/17/EGS-prod-c1-w4.befa-04.PNG</image:loc>
+<image:title><![CDATA[Wireshark packet capture showing multiple resets.]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/cybersecurity-project-research-remote-access/</loc>
 <lastmod>2024-03-18T13:08:19-04:00</lastmod>
 <image:image>
