@@ -161,6 +161,18 @@
 </image:image>
 </url>
 <url>
+<loc>https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ips-4/</loc>
+<lastmod>2024-07-02T11:11:08-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/18/EGS-capture-conversations-2.png</image:loc>
+<image:title><![CDATA[Wireshark Conversations dump in Excel, showing connection properties and associated domains.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/18/EGS-capture-conversations.png</image:loc>
+<image:title><![CDATA[Wireshark Conversations dump in Excel, showing connection properties and associated domains.]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/cybersecurity-project-research-remote-access/</loc>
 <lastmod>2024-03-18T13:08:19-04:00</lastmod>
 <image:image>
