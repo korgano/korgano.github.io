@@ -1,0 +1,626 @@
+<!DOCTYPE html><html lang="en-us"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 1.0  - XS Tech Thoughts</title><meta name="description" content="CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 1.0 : Cybersecurity practioner describes a transparent filtering bridge and the BOSGAME miniPC that will run OPNSense."><meta name="generator" content="Publii Open-Source CMS for Static Site"><!-- Global site tag (gtag.js) - Google Analytics --><script type="gdpr-blocker/Analytics" async src="https://www.googletagmanager.com/gtag/js?id=G-EHLH28GQMY"></script><script type="gdpr-blocker/Analytics">window.dataLayer = window.dataLayer || [];
+				  function gtag(){dataLayer.push(arguments);}
+				  gtag('js', new Date());
+				  gtag('config', 'G-EHLH28GQMY' , { 'anonymize_ip': true });
+				  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EHLH28GQMY"></script><script>window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EHLH28GQMY');</script><link rel="stylesheet" href="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-black.css"><link rel="stylesheet" href="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-inline-color.css"><link rel="canonical" href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-10/"><link rel="alternate" type="application/atom+xml" href="https://korgano.github.io/feed.xml"><meta property="og:title" content="CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 1.0 "><meta property="og:image" content="https://korgano.github.io/media/posts/19/cyber-proj-tfb01-2.jpg"><meta property="og:image:width" content="1920"><meta property="og:image:height" content="962"><meta property="og:site_name" content="XS Tech Thoughts"><meta property="og:description" content="CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 1.0 : Cybersecurity practioner describes a transparent filtering bridge and the BOSGAME miniPC that will run OPNSense."><meta property="og:url" content="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-10/"><meta property="og:type" content="article"><link rel="preload" href="https://korgano.github.io/assets/dynamic/fonts/robotoflex/robotoflex.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="https://korgano.github.io/assets/dynamic/fonts/robotoslab/robotoslab.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="https://korgano.github.io/assets/css/style.css?v=dd73d1d7f6b182866aeaff32189e2a70"><script type="application/ld+json">{"@context":"http://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-10/"},"headline":"CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 1.0 ","datePublished":"2024-08-05T13:02","dateModified":"2024-08-07T07:38","image":{"@type":"ImageObject","url":"https://korgano.github.io/media/posts/19/cyber-proj-tfb01-2.jpg","height":962,"width":1920},"description":"CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 1.0 : Cybersecurity practioner describes a transparent filtering bridge and the BOSGAME miniPC that will run OPNSense.","author":{"@type":"Person","name":"Xavier Santana","url":"https://korgano.github.io/authors/xavier-santana/"},"publisher":{"@type":"Organization","name":"Xavier Santana"}}</script><noscript><style>img[loading] {
+                    opacity: 1;
+                }</style></noscript></head><body class="lines"><div class="container lines lines--right"><header class="header"><a href="https://korgano.github.io/" class="logo">XS Tech Thoughts</a><nav class="navbar js-navbar"><button class="navbar__toggle js-toggle" aria-label="Menu">Menu</button><ul class="navbar__menu"><li><a href="https://korgano.github.io/" title="Home" target="_self">Home</a></li><li><a href="https://korgano.github.io/tags/uxui-case-study/" title="UX/UI Case Studies" target="_blank">UX/UI Case Studies</a></li><li><a href="https://korgano.github.io/tags/cybersecurity-projects/" title="Cybersecurity Projects" target="_blank">Cybersecurity Projects</a></li><li><a href="https://korgano.github.io/tags/quick-thoughts/" title="Quick Thoughts" target="_self">Quick Thoughts</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__inner post__header"><h1 class="post__title">CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 1.0 </h1><div class="post__meta"><div class="post__meta__left"><a href="https://korgano.github.io/authors/xavier-santana/" class="invert post__author" rel="author" title="Xavier Santana">Xavier Santana</a></div><div class="post__meta__right"><time datetime="2024-08-05T13:02" class="post__date">August 5, 2024</time><div class="post__updated">Updated on <time datetime="2024-08-05T13:02" class="post__date">August 7, 2024</time></div></div></div></header><figure class="post__featured-image"><div class="post__featured-image__inner is-img-loading"><img src="https://korgano.github.io/media/posts/19/cyber-proj-tfb01-2.jpg" srcset="https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb01-2-xs.jpg 384w, https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb01-2-sm.jpg 600w, https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb01-2-md.jpg 768w, https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb01-2-lg.jpg 1200w, https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb01-2-xl.jpg 1600w" sizes="(min-width: 37.5em) 1600px, 80vw" loading="eager" height="962" width="1920" alt="Newegg store page for BOSGAME MiniPC featuring 2.5G ethernet, Intel N100 CPU, 16GB RAM, and 512GB SSD."></div></figure><div class="post__inner"><div class="post__entry"><p>For the past month and a week, preparation for the CompTIA Security+ exam has taken up a lot of time and mental capacity. Starting a new cybersecurity related project didn't seem appealing unless it was simple, straightforward, and tapped into existing skills.</p><p>However, I had such a project in my back pocket, something I'd seen months earlier, but couldn't do at the time: setting up a transparent filtering bridge.</p><h2>What's a Transparent Filtering Bridge?</h2><figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/dTUvlFfThPw" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure><p>A transparent filtering bridge is a computing device that takes in packets, inspects them, determines if they're safe or not, and then passes the safe ones through.</p><p>The transparent part refers to the fact that the network doesn't know that the device is there, requiring no alterations to the network configuration. This is a great benefit, because if something goes wrong, you can simply remove the device from the network entirely and restore the direct modem/router connection (or whatever your previous arrangement was).</p><h2>The Network Layout</h2><figure class="post__image post__image--full"><img loading="lazy" src="https://korgano.github.io/media/posts/19/NetworkFilterBridge.drawio.svg" alt="Network diagram with a firewall in between a modem and a network segment featuring a router with multiple devices connected by WiFi, plus a Raspberry PI DNS black hole and a laptop connected by ethernet." width="607" height="471"></figure><p>Since I'm implementing this in a mesh network, I'll be connecting to only one of the three routers, which happens to be the one that the Pi-Hole is connected to. And for the same reason - this connects directly to the modem, making it the logical place to handle filtering while maintaining good performance.</p><h2>The MiniPC</h2><p>Picking the host system for this was interesting. The MiniPC space has exploded in the last few years, thanks to Intel and AMD flooding the market with a wide variety of low power processors that can outperform Raspberry Pis and utilize common desktop/laptop components (SSDs and RAM).</p><p>There were a few key requirements for the hardware:</p><ol><li>At least two (2) RJ45 ethernet ports.</li><li>More than 1 Gig ethernet speed.</li><li>At least 4 cores/4 threads for the CPU.</li><li>Decent/upgradeable RAM - minimum 8GB.</li><li>Cost: $200 <strong>maximum</strong>.</li></ol><p>Of the five requirements, the cost and RAM quantity were the most flexible, for two reasons. First, if the MiniPC design supported upgradable RAM, a low initial quantity could later be replaced as needed. Second, $200 was a soft cap - if there was a particularly good deal in terms of hardware for the price, paying more would make sense.</p><p>Also, part of the reason I didn't immediately jump on this project was because Florida has two sales tax holidays for computer hardware - one at the end of July/beginning of August, and one at the beginning of January. By waiting, I would cut 6.5% off of the total price of the hardware.</p><p>Everything else was a hard requirement. MiniPCs are <strong>far </strong>less upgradable than normal PCs, due to their compact nature. More of the components are hard soldered to the motherboard, so whatever you buy has to not only <strong>not </strong>bottleneck your network performance, but potentially last 5+ years (or at least until you can get an equally good deal).</p><p>So, what did I wind up picking?</p><figure class="post__image"><img loading="lazy" src="https://korgano.github.io/media/posts/19/cyber-proj-tfb01.jpg" alt="Newegg store page for BOSGAME MiniPC featuring 2.5G ethernet, Intel N100 CPU, 16GB RAM, and 512GB SSD." width="1920" height="962" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb01-xs.jpg 384w, https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb01-sm.jpg 600w, https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb01-md.jpg 768w, https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb01-lg.jpg 1200w, https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb01-xl.jpg 1600w"></figure><p>In a stroke of great timing, Newegg had a deal on this MiniPC, which was recommended in the Dave's Garage video I posted earlier. It met every single one of my requirements:</p><ol><li>Two (2) RJ45 ethernet jacks.</li><li>2.5 Gig ethernet speed.</li><li>4 cores/4 threads on the CPU.</li><li><strong>16 </strong>GBs of RAM.</li><li>Less than $200.</li></ol><figure class="post__image"><img loading="lazy" src="https://korgano.github.io/media/posts/19/cyber-proj-tfb02.jpg" alt="BOSGAME MiniPC CPU specs: 4 cores, 4 threads, 3.4GHz max frequency, 6 watt total power draw." width="1272" height="833" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb02-xs.jpg 384w, https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb02-sm.jpg 600w, https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb02-md.jpg 768w, https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb02-lg.jpg 1200w, https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb02-xl.jpg 1600w"></figure><p>Coincidentally, the N100's specs are very similar to the first gaming CPU I ever used to build a PC with - the legendary i5-3570K. The main differences are in node, power draw, and of course, size of the actual chip.</p><p>Also, importantly, this is <strong>not </strong>a Raptor Lake chip, so I don't have to worry about the CPU degradation issues that are plaguing those CPUs.</p><p>Based on these specs, there are only a few scenarios that I can see where this device needs to be replaced within five years:</p><ul><li>General failure.</li><li>Affordable 2+ GB fiber ethernet comes to my area.</li><li>Home routers start shipping with 5 gig ethernet ports as standard.</li></ul><p>In every other scenario, the routers and internet connection to my home are going to be performance bottlenecks, especially since I ordered a Cat 8 ethernet cable to directly connect this MiniPC to my modem.</p><h2>Hands On</h2><p>Having received the PC (luckily, before Florida was hit by a hurricane), I can speak to the physical aspects of the device.</p><figure class="post__image post__image--full"><img loading="lazy" src="https://korgano.github.io/media/posts/19/IMG_20240805_075033412.jpg" alt="Size comparison of the BOSGAME MiniPC to a notebook given away at a cybersecurity event." width="1975" height="845" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075033412-xs.jpg 384w, https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075033412-sm.jpg 600w, https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075033412-md.jpg 768w, https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075033412-lg.jpg 1200w, https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075033412-xl.jpg 1600w"></figure><p>Comparing the size of the box with the common size of gift notebooks from cybersecurity events gives you a ballpark idea of how small the total package is.</p><figure class="post__image"><img loading="lazy" src="https://korgano.github.io/media/posts/19/IMG_20240805_075050397.jpg" alt="Bottom of the box details." width="2015" height="1344" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075050397-xs.jpg 384w, https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075050397-sm.jpg 600w, https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075050397-md.jpg 768w, https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075050397-lg.jpg 1200w, https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075050397-xl.jpg 1600w"></figure><p>The bottom of the box has the manufacturing details, hardware specifications, and on the barcode label, which operating system is installed on the system.</p><figure class="post__image post__image--full"><img loading="lazy" src="https://korgano.github.io/media/posts/19/IMG_20240805_075509820.jpg" alt="The accessories for the BOSGAME MiniPC - the power adapter, a mounting bracket, and an HDMI cable." width="2000" height="1500" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075509820-xs.jpg 384w, https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075509820-sm.jpg 600w, https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075509820-md.jpg 768w, https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075509820-lg.jpg 1200w, https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075509820-xl.jpg 1600w"></figure><p>The only accessories are the power adapter, a mounting bracket with screws for mounting the MiniPC to the back of a monitor, and an HDMI cable.</p><figure class="post__image post__image--full"><img loading="lazy" src="https://korgano.github.io/media/posts/19/IMG_20240805_075502150.jpg" alt="Bottom of the BOSGAME MiniPC, with instructions on how to enter BIOS or boot options." width="1568" height="1398" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075502150-xs.jpg 384w, https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075502150-sm.jpg 600w, https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075502150-md.jpg 768w, https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075502150-lg.jpg 1200w, https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075502150-xl.jpg 1600w"></figure><p>One nice quality of life feature is the fact that instructions on how to enter BIOS or the boot options are printed directly onto the bottom of the case. There's also an extra barcode label that confirms what system configuration you have.</p><p>The build quality is generally solid, with the minor exception of the front input/output. The plastic of the top cover has some flex there, possibly due to the geometry and requirement for it to be removable for SSD/RAM upgrades. The only other surprise was the presence of a "press this with a paper clip" sized button for resetting the BIOS on the front panel. Quite useful if something goes horribly wrong.</p><p>The only attribute of the design I'm somewhat uncertain about is the cooling. Not just whether the cooler is sufficient for peak thermal load if there's a particularly stressful task, but about the thermal interface material (TIM). The TIM is a heat conductive material that allows heat to flow from the chip to the cooler, and if it's a bog standard thermal paste, repeated heating/cooling cycles can lead it to pump out of the gap between the two.</p><p>Graphite thermal pads and phase change material are good solutions to this issue, but that would require a full tear down, which would require some extra research that's outside the scope of this project.</p><p>With the primary hardware in hand, the only thing left is the CAT 8 ethernet cable, and then the project really get going.</p></div><footer class="post__footer"><div class="post__tag-share"><div class="post__tag"><h3 class="post__tag__title">Posted in</h3><ul class="post__tag__list"><li><a href="https://korgano.github.io/tags/cybersecurity/">Cybersecurity</a></li><li><a href="https://korgano.github.io/tags/cybersecurity-projects/">Cybersecurity Projects</a></li><li><a href="https://korgano.github.io/tags/tech/">Tech</a></li></ul></div><div class="post__share"><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fkorgano.github.io%2Fcybersecurity-project-transparent-filtering-bridge-extras-10%2F" class="js-share linkedin" aria-label="Share with LinkedIn" rel="nofollow noopener noreferrer"><svg><use xlink:href="https://korgano.github.io/assets/svg/svg-map.svg#linkedin"/></svg></a></div></div></footer></div></article><div class="post__related"><h3 class="post__related__title">Related posts</h3><div class="l-grid l-grid--2"><article class="c-card"><div class="c-card__wrapper"><figure class="c-card__image is-img-loading"><img src="https://korgano.github.io/media/posts/10/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg" srcset="https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-xs.jpg 384w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-sm.jpg 600w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-md.jpg 768w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-lg.jpg 1200w" sizes="(min-width: 37.5em) 80vw, 50vw" loading="lazy" height="2712" width="4076" alt=""></figure><div class="c-card__content"><header><h2 class="c-card__title"><a href="https://korgano.github.io/cybersecurity-project-research-remote-access/" class="invert">Cybersecurity Project Research: Remote Access</a></h2></header><footer class="c-card__meta"><a href="https://korgano.github.io/tags/cybersecurity-projects/" class="c-card__tag">Cybersecurity Projects</a></footer></div></div></article><article class="c-card"><div class="c-card__wrapper"><figure class="c-card__image is-img-loading"><img src="https://korgano.github.io/media/posts/9/andres-urena-vXPXRp_wIg4-unsplash.jpg" srcset="https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-xs.jpg 384w, https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-sm.jpg 600w, https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-md.jpg 768w, https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-lg.jpg 1200w" sizes="(min-width: 37.5em) 80vw, 50vw" loading="lazy" height="1687" width="3000" alt=""></figure><div class="c-card__content"><header><h2 class="c-card__title"><a href="https://korgano.github.io/cybersecurity-headache-home-router-uxui/" class="invert">Cybersecurity Headache: Home Router UXUI</a></h2></header><footer class="c-card__meta"><a href="https://korgano.github.io/tags/quick-thoughts/" class="c-card__tag">Quick Thoughts</a></footer></div></div></article></div></div></main><footer class="footer"><div class="footer__left"><div class="footer__copy">Copyright Xavier Santana, 2023-2024. Powered by Publii.</div></div><button onclick="backToTopFunction()" id="backToTop" class="footer__bttop" aria-label="Back to top" title="Back to top"><svg><use xlink:href="https://korgano.github.io/assets/svg/svg-map.svg#toparrow"/></svg></button></footer></div><script>window.publiiThemeMenuConfig = { mobileMenuMode: 'sidebar', animationSpeed: 300, submenuWidth: 'auto', doubleClickTime: 500, mobileMenuExpandableSubmenus: true, relatedContainerForOverlayMenuSelector: '.navbar', };</script><script defer="defer" src="https://korgano.github.io/assets/js/scripts.min.js?v=6450cfc483efd7e58ed8ad5b64050d3e"></script><script>function publiiDetectLoadedImages () {
+         var images = document.querySelectorAll('img[loading]:not(.is-loaded)');
+         for (var i = 0; i < images.length; i++) {
+            if (images[i].complete) {
+               images[i].classList.add('is-loaded');
+               images[i].parentNode.classList.remove('is-img-loading');
+            } else {
+               images[i].addEventListener('load', function () {
+                  this.classList.add('is-loaded');
+                  this.parentNode.classList.remove('is-img-loading');
+               }, false);
+            }
+         }
+      }
+      publiiDetectLoadedImages();</script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-line-numbers.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/clipboard.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-copy-to-clipboard.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-inline-color.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-show-invisibles.min.js"></script><!-- Start main cookie container --><div class="pcb" data-behaviour="badge" data-behaviour-link="#cookie-settings" data-revision="1" data-config-ttl="90" data-debug-mode="false"><!-- Start Banner --><div role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pcb-title" aria-describedby="pcb-txt" class="pcb__banner"><div class="pcb__inner"><div id="pcb-title" role="heading" aria-level="2" class="pcb__title">This website uses cookies</div><div id="pcb-txt" class="pcb__txt">Select which cookies to opt-in to via the checkboxes below; our website uses cookies to examine site traffic and user activity while on our site, for marketing, and to provide social media functionality. <a href="https://korgano.github.io/privacy-policy/">More details...</a></div><div class="pcb__buttons"><button type="button" class="pcb__btn pcb__btn--solid pcb__btn--accept">Accept all</button></div></div></div><!-- End of Banner --><!-- Badge --> <button class="pcb__badge" aria-label="Cookie Policy" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="40" height="40" viewBox="0 0 23 23" fill="currentColor"><path d="M21.41 12.71c-.08-.01-.15 0-.22 0h-.03c-.03 0-.05 0-.08.01-.07 0-.13.01-.19.04-.52.21-1.44.19-2.02-.22-.44-.31-.65-.83-.62-1.53a.758.758 0 0 0-.27-.61.73.73 0 0 0-.65-.14c-1.98.51-3.49.23-4.26-.78-.82-1.08-.73-2.89.24-4.49.14-.23.14-.52 0-.75a.756.756 0 0 0-.67-.36c-.64.03-1.11-.1-1.31-.35-.19-.26-.13-.71-.01-1.29.04-.18.06-.38.03-.59-.05-.4-.4-.7-.81-.66C5.1 1.54 1 6.04 1 11.48 1 17.28 5.75 22 11.6 22c5.02 0 9.39-3.54 10.39-8.42.08-.4-.18-.78-.58-.87Zm-9.81 7.82c-5.03 0-9.12-4.06-9.12-9.06 0-4.34 3.05-8 7.25-8.86-.08.7.05 1.33.42 1.81.24.32.66.67 1.38.84-.76 1.86-.65 3.78.36 5.11.61.81 2.03 2 4.95 1.51.18.96.71 1.54 1.18 1.87.62.43 1.38.62 2.1.62.05 0 .09 0 .13-.01-1.23 3.64-4.7 6.18-8.64 6.18ZM13 17c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1Zm5.29-12.3a.99.99 0 0 1-.29-.71c0-.55.45-.99 1-.99a1 1 0 0 1 .71.3c.19.19.29.44.29.71 0 .55-.45.99-1 .99a1 1 0 0 1-.71-.3ZM9 13.5c0 .83-.67 1.5-1.5 1.5S6 14.33 6 13.5 6.67 12 7.5 12s1.5.67 1.5 1.5Zm3.25.81a.744.744 0 0 1-.06-1.05c.28-.32.75-.34 1.05-.06.31.28.33.75.05 1.06-.15.16-.35.25-.56.25-.18 0-.36-.06-.5-.19ZM8.68 7.26c.41.37.44 1 .07 1.41-.2.22-.47.33-.75.33a.96.96 0 0 1-.67-.26c-.41-.37-.44-1-.07-1.41.37-.42 1-.45 1.41-.08Zm11.48 1.88c.18-.19.52-.19.7 0 .05.04.09.1.11.16.03.06.04.12.04.19 0 .13-.05.26-.15.35-.09.1-.22.15-.35.15s-.26-.05-.35-.15a.355.355 0 0 1-.11-.16.433.433 0 0 1-.04-.19c0-.13.05-.26.15-.35Zm-4.93-1.86a.75.75 0 1 1 1.059-1.06.75.75 0 0 1-1.059 1.06Z"/></svg></button><!-- End of Badge --></div><!-- End of main cookie container --><script>(function(win) {
+    if (!document.querySelector('.pcb')) {
+        return;
+    }
+
+    var cbConfig = {
+        behaviour: document.querySelector('.pcb').getAttribute('data-behaviour'),
+        behaviourLink: document.querySelector('.pcb').getAttribute('data-behaviour-link'),
+        revision: document.querySelector('.pcb').getAttribute('data-revision'),
+        configTTL: parseInt(document.querySelector('.pcb').getAttribute('data-config-ttl'), 10),
+        debugMode: document.querySelector('.pcb').getAttribute('data-debug-mode') === 'true',
+        initialState: null,
+        initialLsState: null,
+        previouslyAccepted: []
+    };
+
+    var cbUI = {
+        wrapper: document.querySelector('.pcb'),
+        banner: {
+            element: null,
+            btnAccept: null,
+            btnReject: null,
+            btnConfigure: null
+        },
+        popup: {
+            element: null,
+            btnClose: null,
+            btnSave: null,
+            btnAccept: null,
+            btnReject: null,
+            checkboxes: null,
+        },
+        overlay: null,
+        badge: null,
+        blockedScripts: document.querySelectorAll('script[type^="gdpr-blocker/"]'),
+        triggerLinks: cbConfig.behaviourLink ? document.querySelectorAll('a[href*="' + cbConfig.behaviourLink + '"]') : null
+    };
+
+    function initUI () {
+        // setup banner elements
+        cbUI.banner.element = cbUI.wrapper.querySelector('.pcb__banner');
+        cbUI.banner.btnAccept = cbUI.banner.element.querySelector('.pcb__btn--accept');
+        cbUI.banner.btnReject = cbUI.banner.element.querySelector('.pcb__btn--reject');
+        cbUI.banner.btnConfigure = cbUI.banner.element.querySelector('.pcb__btn--configure');
+
+        // setup popup elements
+        if (cbUI.wrapper.querySelector('.pcb__popup')) {
+            cbUI.popup.element = cbUI.wrapper.querySelector('.pcb__popup');
+            cbUI.popup.btnClose = cbUI.wrapper.querySelector('.pcb__popup__close');
+            cbUI.popup.btnSave = cbUI.popup.element.querySelector('.pcb__btn--save');
+            cbUI.popup.btnAccept = cbUI.popup.element.querySelector('.pcb__btn--accept');
+            cbUI.popup.btnReject = cbUI.popup.element.querySelector('.pcb__btn--reject');
+            cbUI.popup.checkboxes = cbUI.popup.element.querySelector('input[type="checkbox"]');
+            // setup overlay
+            cbUI.overlay = cbUI.wrapper.querySelector('.pcb__overlay');
+        }
+
+        cbUI.badge = cbUI.wrapper.querySelector('.pcb__badge');
+
+        if (cbConfig.behaviour.indexOf('link') > -1) {
+            for (var i = 0; i < cbUI.triggerLinks.length; i++) {
+                cbUI.triggerLinks[i].addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showBannerOrPopup();
+                });
+            }
+        }
+    }
+
+    function initState () {
+        var lsKeyName = getConfigName();
+        var currentConfig = localStorage.getItem(lsKeyName);
+        var configIsFresh = checkIfConfigIsFresh();
+
+        if (!configIsFresh || currentConfig === null) {
+            if (cbConfig.debugMode) {
+                console.log('🍪 Config not found, or configuration expired');
+            }
+
+            if (window.publiiCBGCM) {
+                gtag('consent', 'default', {
+                    'ad_storage': window.publiiCBGCM.defaultState.ad_storage ? 'granted' : 'denied',
+                    'ad_personalization': window.publiiCBGCM.defaultState.ad_personalization ? 'granted' : 'denied',
+                    'ad_user_data': window.publiiCBGCM.defaultState.ad_user_data ? 'granted' : 'denied',
+                    'analytics_storage': window.publiiCBGCM.defaultState.analytics_storage ? 'granted' : 'denied',
+                    'personalization_storage': window.publiiCBGCM.defaultState.personalization_storage ? 'granted' : 'denied',
+                    'functionality_storage': window.publiiCBGCM.defaultState.functionality_storage ? 'granted' : 'denied',
+                    'security_storage': window.publiiCBGCM.defaultState.security_storage ? 'granted' : 'denied'
+                });  
+                
+                if (cbConfig.debugMode) {
+                    console.log('🍪 GCMv2 DEFAULT STATE: ' + JSON.stringify({
+                        'ad_storage': window.publiiCBGCM.defaultState.ad_storage ? 'granted' : 'denied',
+                        'ad_personalization': window.publiiCBGCM.defaultState.ad_personalization ? 'granted' : 'denied',
+                        'ad_user_data': window.publiiCBGCM.defaultState.ad_user_data ? 'granted' : 'denied',
+                        'analytics_storage': window.publiiCBGCM.defaultState.analytics_storage ? 'granted' : 'denied',
+                        'personalization_storage': window.publiiCBGCM.defaultState.personalization_storage ? 'granted' : 'denied',
+                        'functionality_storage': window.publiiCBGCM.defaultState.functionality_storage ? 'granted' : 'denied',
+                        'security_storage': window.publiiCBGCM.defaultState.security_storage ? 'granted' : 'denied'
+                    }));
+                }
+            }
+
+            showBanner();
+        } else if (typeof currentConfig === 'string') {
+            if (cbConfig.debugMode) {
+                console.log('🍪 Config founded');
+            }
+
+            cbConfig.initialLsState = currentConfig.split(',');
+
+            if (window.publiiCBGCM) {
+                gtag('consent', 'default', {
+                    'ad_storage': getDefaultConsentState(currentConfig, 'ad_storage'),
+                    'ad_personalization': getDefaultConsentState(currentConfig, 'ad_personalization'),
+                    'ad_user_data': getDefaultConsentState(currentConfig, 'ad_user_data'),
+                    'analytics_storage': getDefaultConsentState(currentConfig, 'analytics_storage'),
+                    'personalization_storage': getDefaultConsentState(currentConfig, 'personalization_storage'),
+                    'functionality_storage': getDefaultConsentState(currentConfig, 'functionality_storage'),
+                    'security_storage': getDefaultConsentState(currentConfig, 'security_storage')
+                });
+                
+                if (cbConfig.debugMode) {
+                    console.log('🍪 GCMv2 DEFAULT STATE: ' + JSON.stringify({
+                        'ad_storage': getDefaultConsentState(currentConfig, 'ad_storage'),
+                        'ad_personalization': getDefaultConsentState(currentConfig, 'ad_personalization'),
+                        'ad_user_data': getDefaultConsentState(currentConfig, 'ad_user_data'),
+                        'analytics_storage': getDefaultConsentState(currentConfig, 'analytics_storage'),
+                        'personalization_storage': getDefaultConsentState(currentConfig, 'personalization_storage'),
+                        'functionality_storage': getDefaultConsentState(currentConfig, 'functionality_storage'),
+                        'security_storage': getDefaultConsentState(currentConfig, 'security_storage')
+                    }));
+                }
+            }
+
+            showBadge();
+
+            if (cbUI.popup.element) {
+                var allowedGroups = currentConfig.split(',');
+                var checkedCheckboxes = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+
+                for (var j = 0; j < checkedCheckboxes.length; j++) {
+                    var name = checkedCheckboxes[j].getAttribute('data-group-name');
+
+                    if (name && name !== '-' && allowedGroups.indexOf(name) === -1) {
+                        checkedCheckboxes[j].checked = false;
+                    }
+                }
+
+                for (var i = 0; i < allowedGroups.length; i++) {
+                    var checkbox = cbUI.popup.element.querySelector('input[type="checkbox"][data-group-name="' + allowedGroups[i] + '"]');
+
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+
+                    allowCookieGroup(allowedGroups[i]);
+                }
+            }
+        }
+
+        setTimeout(function () {
+            cbConfig.initialState = getInitialStateOfConsents();
+        }, 0);
+    }
+
+    function checkIfConfigIsFresh () {
+        var lastConfigSave = localStorage.getItem('publii-gdpr-cookies-config-save-date');
+
+        if (lastConfigSave === null) {
+            return false;
+        }
+
+        lastConfigSave = parseInt(lastConfigSave, 10);
+
+        if (lastConfigSave === 0) {
+            return true;
+        }
+
+        if (+new Date() - lastConfigSave < cbConfig.configTTL * 24 * 60 * 60 * 1000) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function getDefaultConsentState (currentConfig, consentGroup) {
+        let configGroups = currentConfig.split(',');
+
+        for (let i = 0; i < configGroups.length; i++) {
+            let groupName = configGroups[i];
+            let group = window.publiiCBGCM.groups.find(group => group.cookieGroup === groupName);
+
+            if (group && group[consentGroup]) {
+                return 'granted';
+            }
+        }  
+        
+        if (window.publiiCBGCM.defaultState[consentGroup]) {
+            return 'granted'; 
+        }
+        
+        return 'denied';
+    }
+
+    function initBannerEvents () {
+        cbUI.banner.btnAccept.addEventListener('click', function (e) {
+            e.preventDefault();
+            acceptAllCookies('banner');
+            showBadge();
+        }, false);
+
+        if (cbUI.banner.btnReject) {
+            cbUI.banner.btnReject.addEventListener('click', function (e) {
+                e.preventDefault();
+                rejectAllCookies();
+                showBadge();
+            }, false);
+        }
+
+        if (cbUI.banner.btnConfigure) {
+            cbUI.banner.btnConfigure.addEventListener('click', function (e) {
+                e.preventDefault();
+                hideBanner();
+                showAdvancedPopup();
+                showBadge();
+            }, false);
+        }
+    }
+
+    function initPopupEvents () {
+        if (!cbUI.popup.element) {
+            return;
+        }
+
+        cbUI.overlay.addEventListener('click', function (e) {
+            hideAdvancedPopup();
+        }, false);
+
+        cbUI.popup.element.addEventListener('click', function (e) {
+            e.stopPropagation();
+        }, false);
+
+        cbUI.popup.btnAccept.addEventListener('click', function (e) {
+            e.preventDefault();
+            acceptAllCookies('popup');
+        }, false);
+
+        cbUI.popup.btnReject.addEventListener('click', function (e) {
+            e.preventDefault();
+            rejectAllCookies();
+        }, false);
+
+        cbUI.popup.btnSave.addEventListener('click', function (e) {
+            e.preventDefault();
+            saveConfiguration();
+        }, false);
+
+        cbUI.popup.btnClose.addEventListener('click', function (e) {
+            e.preventDefault();
+            hideAdvancedPopup();
+        }, false);
+    }
+
+    function initBadgeEvents () {
+        if (!cbUI.badge) {
+            return;
+        }
+
+        cbUI.badge.addEventListener('click', function (e) {
+            showBannerOrPopup();
+        }, false);
+    }
+
+    initUI();
+    initState();
+    initBannerEvents();
+    initPopupEvents();
+    initBadgeEvents();
+
+    /**
+     * API
+     */
+    function addScript (src, inline) {
+        var newScript = document.createElement('script');
+
+        if (src) {
+            newScript.setAttribute('src', src);
+        }
+
+        if (inline) {
+            newScript.text = inline;
+        }
+
+        document.body.appendChild(newScript);
+    }
+
+    function allowCookieGroup (allowedGroup) {
+        var scripts = document.querySelectorAll('script[type="gdpr-blocker/' + allowedGroup + '"]');
+        cbConfig.previouslyAccepted.push(allowedGroup);
+    
+        for (var j = 0; j < scripts.length; j++) {
+            addScript(scripts[j].src, scripts[j].text);
+        }
+
+        var groupEvent = new Event('publii-cookie-banner-unblock-' + allowedGroup);
+        document.body.dispatchEvent(groupEvent);
+        unlockEmbeds(allowedGroup);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Allowed group: ' + allowedGroup);
+        }
+
+        if (window.publiiCBGCM && cbConfig.initialLsState.indexOf(allowedGroup) === -1) {
+            let consentResult = {};
+            let group = window.publiiCBGCM.groups.find(group => group.cookieGroup === allowedGroup);
+
+            if (group) {
+                let foundSomeConsents = false;
+
+                Object.keys(group).forEach(key => {
+                    if (key !== 'cookieGroup' && group[key] === true) {
+                        consentResult[key] = 'granted';
+                        foundSomeConsents = true;
+                    }
+                });
+
+                if (foundSomeConsents) {
+                    gtag('consent', 'update', consentResult);   
+
+                    if (cbConfig.debugMode) {
+                        console.log('🍪 GCMv2 UPDATE: ' + JSON.stringify(consentResult));
+                    }
+                }
+            }
+        }
+    }
+
+    function showBannerOrPopup () {
+        if (cbUI.popup.element) {
+            showAdvancedPopup();
+        } else {
+            showBanner();
+        }
+    }
+
+    function showAdvancedPopup () {
+        cbUI.popup.element.classList.add('is-visible');
+        cbUI.overlay.classList.add('is-visible');
+        cbUI.popup.element.setAttribute('aria-hidden', 'false');
+        cbUI.overlay.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideAdvancedPopup () {
+        cbUI.popup.element.classList.remove('is-visible');
+        cbUI.overlay.classList.remove('is-visible');
+        cbUI.popup.element.setAttribute('aria-hidden', 'true');
+        cbUI.overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    function showBanner () {
+        cbUI.banner.element.classList.add('is-visible');
+        cbUI.banner.element.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideBanner () {
+        cbUI.banner.element.classList.remove('is-visible');
+        cbUI.banner.element.setAttribute('aria-hidden', 'true');
+    }
+
+    function showBadge () {
+        if (!cbUI.badge) {
+            return;
+        }
+
+        cbUI.badge.classList.add('is-visible');
+        cbUI.badge.setAttribute('aria-hidden', 'false');
+    }
+
+    function getConfigName () {
+        var lsKeyName = 'publii-gdpr-allowed-cookies';
+
+        if (cbConfig.revision) {
+            lsKeyName = lsKeyName + '-v' + parseInt(cbConfig.revision, 10);
+        }
+
+        return lsKeyName;
+    }
+
+    function storeConfiguration (allowedGroups) {
+        var lsKeyName = getConfigName();
+        var dataToStore = allowedGroups.join(',');
+        localStorage.setItem(lsKeyName, dataToStore);
+
+        if (cbConfig.configTTL === 0) {
+            localStorage.setItem('publii-gdpr-cookies-config-save-date', 0);
+
+            if (cbConfig.debugMode) {
+                console.log('🍪 Store never expiring configuration');
+            }
+        } else {
+            localStorage.setItem('publii-gdpr-cookies-config-save-date', +new Date());
+        }
+    }
+
+    function getInitialStateOfConsents () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Initial state: ' + groups.join(', '));
+        }
+
+        return groups;
+    }
+
+    function getCurrentStateOfConsents () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 State to save: ' + groups.join(', '));
+        }
+
+        return groups;
+    }
+
+    function getAllGroups () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        return groups;
+    }
+
+    function acceptAllCookies (source) {
+        var groupsToAccept = getAllGroups();
+        storeConfiguration(groupsToAccept);
+
+        for (var i = 0; i < groupsToAccept.length; i++) {
+            var group = groupsToAccept[i];
+
+            if (cbConfig.initialState.indexOf(group) > -1 || cbConfig.previouslyAccepted.indexOf(group) > -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Skip previously activated group: ' + group);
+                }
+
+                continue;
+            }
+
+            allowCookieGroup(group);
+        }
+
+        if (cbUI.popup.element) {
+            var checkboxesToCheck = cbUI.popup.element.querySelectorAll('input[type="checkbox"]');
+
+            for (var j = 0; j < checkboxesToCheck.length; j++) {
+                checkboxesToCheck[j].checked = true;
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Accept all cookies: ', groupsToAccept.join(', '));
+        }
+
+        if (source === 'popup') {
+            hideAdvancedPopup();
+        } else if (source === 'banner') {
+            hideBanner();
+        }
+    }
+
+    function rejectAllCookies () {
+        if (cbConfig.debugMode) {
+            console.log('🍪 Reject all cookies');
+        }
+
+        storeConfiguration([]);
+        setTimeout(function () {
+            window.location.reload();
+        }, 100);
+    }
+
+    function saveConfiguration () {
+        var groupsToAccept = getCurrentStateOfConsents();
+        storeConfiguration(groupsToAccept);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Save new config: ', groupsToAccept.join(', '));
+        }
+
+        if (reloadIsNeeded(groupsToAccept)) {
+            setTimeout(function () {
+                window.location.reload();
+            }, 100);
+            return;
+        }
+
+        for (var i = 0; i < groupsToAccept.length; i++) {
+            var group = groupsToAccept[i];
+
+            if (cbConfig.initialState.indexOf(group) > -1 || cbConfig.previouslyAccepted.indexOf(group) > -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Skip previously activated group: ' + group);
+                }
+
+                continue;
+            }
+
+            allowCookieGroup(group);
+        }
+
+        hideAdvancedPopup();
+    }
+
+    function reloadIsNeeded (groupsToAccept) {
+        // check if user rejected consent for initial groups
+        var initialGroups = cbConfig.initialState;
+        var previouslyAcceptedGroups = cbConfig.previouslyAccepted;
+        var groupsToCheck = initialGroups.concat(previouslyAcceptedGroups);
+
+        for (var i = 0; i < groupsToCheck.length; i++) {
+            var groupToCheck = groupsToCheck[i];
+
+            if (groupToCheck !== '' && groupsToAccept.indexOf(groupToCheck) === -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Reload is needed due lack of: ', groupToCheck);
+                }
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    function unlockEmbeds (cookieGroup) {
+        var iframesToUnlock = document.querySelectorAll('.pec-wrapper[data-consent-group-id="' + cookieGroup + '"]');
+
+        for (var i = 0; i < iframesToUnlock.length; i++) {
+            var iframeWrapper = iframesToUnlock[i];
+            iframeWrapper.querySelector('.pec-overlay').classList.remove('is-active');
+            iframeWrapper.querySelector('.pec-overlay').setAttribute('aria-hidden', 'true');
+            var iframe = iframeWrapper.querySelector('iframe');
+            iframe.setAttribute('src', iframe.getAttribute('data-consent-src'));
+        }
+    }
+
+    win.publiiEmbedConsentGiven = function (cookieGroup) {
+        // it will unlock embeds
+        allowCookieGroup(cookieGroup);
+
+        var checkbox = cbUI.popup.element.querySelector('input[type="checkbox"][data-group-name="' + cookieGroup + '"]');
+
+        if (checkbox) {
+            checkbox.checked = true;
+        }
+
+        var groupsToAccept = getCurrentStateOfConsents();
+        storeConfiguration(groupsToAccept);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Save new config: ', groupsToAccept.join(', '));
+        }
+    }
+})(window);</script></body></html>

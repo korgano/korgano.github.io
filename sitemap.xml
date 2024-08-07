@@ -189,6 +189,42 @@
 </image:image>
 </url>
 <url>
+<loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-10/</loc>
+<lastmod>2024-08-07T07:38:04-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/19/cyber-proj-tfb01-2.jpg</image:loc>
+<image:title><![CDATA[Newegg store page for BOSGAME MiniPC featuring 2.5G ethernet, Intel N100 CPU, 16GB RAM, and 512GB SSD.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/19/NetworkFilterBridge.drawio.svg</image:loc>
+<image:title><![CDATA[Network diagram with a firewall in between a modem and a network segment featuring a router with multiple devices connected by WiFi, plus a Raspberry PI DNS black hole and a laptop connected by ethernet.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/19/cyber-proj-tfb01.jpg</image:loc>
+<image:title><![CDATA[Newegg store page for BOSGAME MiniPC featuring 2.5G ethernet, Intel N100 CPU, 16GB RAM, and 512GB SSD.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/19/cyber-proj-tfb02.jpg</image:loc>
+<image:title><![CDATA[BOSGAME MiniPC CPU specs: 4 cores, 4 threads, 3.4GHz max frequency, 6 watt total power draw.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/19/IMG_20240805_075033412.jpg</image:loc>
+<image:title><![CDATA[Size comparison of the BOSGAME MiniPC to a notebook given away at a cybersecurity event.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/19/IMG_20240805_075050397.jpg</image:loc>
+<image:title><![CDATA[Bottom of the box details.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/19/IMG_20240805_075509820.jpg</image:loc>
+<image:title><![CDATA[The accessories for the BOSGAME MiniPC - the power adapter, a mounting bracket, and an HDMI cable.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/19/IMG_20240805_075502150.jpg</image:loc>
+<image:title><![CDATA[Bottom of the BOSGAME MiniPC, with instructions on how to enter BIOS or boot options.]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/cybersecurity-project-virtual-machines-arent-always-the-solution/</loc>
 <lastmod>2024-04-17T14:22:58-04:00</lastmod>
 <image:image>
