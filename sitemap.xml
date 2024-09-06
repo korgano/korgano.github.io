@@ -194,7 +194,7 @@
 </url>
 <url>
 <loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-10/</loc>
-<lastmod>2024-08-07T07:38:04-04:00</lastmod>
+<lastmod>2024-09-05T08:08:47-04:00</lastmod>
 <image:image>
 <image:loc>https://korgano.github.io/media/posts/19/cyber-proj-tfb01-2.jpg</image:loc>
 <image:title><![CDATA[Newegg store page for BOSGAME MiniPC featuring 2.5G ethernet, Intel N100 CPU, 16GB RAM, and 512GB SSD.]]></image:title>
@@ -226,6 +226,30 @@
 <image:image>
 <image:loc>https://korgano.github.io/media/posts/19/IMG_20240805_075502150.jpg</image:loc>
 <image:title><![CDATA[Bottom of the BOSGAME MiniPC, with instructions on how to enter BIOS or boot options.]]></image:title>
+</image:image>
+</url>
+<url>
+<loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-20/</loc>
+<lastmod>2024-09-06T07:43:48-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/20/cyber-proj-tfb03-2.jpg</image:loc>
+<image:title><![CDATA[Image showing rear of BOSGAME MiniPC, with arrow pointing to expected re0 ethernet port on the left and arrow pointing to expected re1 ethernet port on the right.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/20/cli-ux-sucks.png</image:loc>
+<image:title><![CDATA[LinkedIn post by the author explaining usability failures in OPNSense command line shell interface.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/20/cyber-proj-tfb05.jpg</image:loc>
+<image:title><![CDATA[Post-installation instructions from the Intel ethernet driver, telling user what lines to add to various configuration files.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/20/cyber-proj-tfb03.jpg</image:loc>
+<image:title><![CDATA[Image showing rear of BOSGAME MiniPC, with arrow pointing to expected re0 ethernet port on the left and arrow pointing to expected re1 ethernet port on the right.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/20/cyber-proj-tfb04.jpg</image:loc>
+<image:title><![CDATA[Image showing rear of BOSGAME MiniPC, with arrow pointing to re1 ethernet port on the left and arrow pointing to re0 ethernet port on the right.]]></image:title>
 </image:image>
 </url>
 <url>
