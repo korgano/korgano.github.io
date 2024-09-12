@@ -3,12 +3,180 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2024-09-06T07:43:48-04:00</updated>
+    <updated>2024-09-12T13:48:34-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 3.0</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-30/"/>
+        <id>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-30/</id>
+        <media:content url="https://korgano.github.io/media/posts/22/jj-ying-8bghKxNU1j0-unsplash.jpg" medium="image" />
+            <category term="Tech"/>
+            <category term="Cybersecurity Projects"/>
+            <category term="Cybersecurity"/>
+            <category term="AI"/>
+
+        <updated>2024-09-11T10:13:51-04:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/22/jj-ying-8bghKxNU1j0-unsplash.jpg" alt="Fiber optic bundle by JJ Ying on Unsplash" />
+                    Last time, I ran into a number of issues in terms of the actual implementation of the transparent filtering bridge,&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/22/jj-ying-8bghKxNU1j0-unsplash.jpg" class="type:primaryImage" alt="Fiber optic bundle by JJ Ying on Unsplash" /></p>
+                <p><a href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-20/" title="CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 2.0: CLI is a UX Failure" target="_blank" rel="noopener noreferrer">Last time</a>, I ran into a number of issues in terms of the actual implementation of the transparent filtering bridge, with the most severe being the inability to actually manage it when connected to my network.</p>
+<p>Instead of scuttling the whole time, I decided to sidestep the issue for the moment, and move on to the next part of the process, making firewall rules.</p>
+<p>But for this step, I want do something a little more interesting.</p>
+<p>So, instead of just documenting how I make a rule for OPNsense, I'm going to make this a three-way competition: me vs ChatGPT vs Bing Copilot!</p>
+<h2>Step 1: Which Guide to Use?</h2>
+<p>When it comes to doing any kind of configuration by hand, success or failure can often depend on what guidance you have.</p>
+<p>There are two obvious guiding documents for this task:</p>
+<ul>
+<li><a href="https://docs.opnsense.org/manual/firewall.html" target="_blank" rel="noopener noreferrer">OPNsense's Firewall Rule documentation</a></li>
+<li><a href="https://www.zenarmor.com/docs/network-security-tutorials/how-to-configure-opnsense-firewall-rules" title="How to Configure OPNsense Firewall Rules?" target="_blank" rel="noopener noreferrer">ZenArmor's guide on configuring OPNsense firewall rules</a></li>
+</ul>
+<p>Of the two, the ZenArmor guide is <strong>vastly </strong>more useful. Not only does it explain how things work, it breaks down the process of setting up a rule, provides several examples of common rules, <strong>and </strong>has a large number of images so you can check yourself throughout the process.</p>
+<h2>Step 2: What to Block?</h2>
+<p>Making firewall rules is a lot like threat hunting: you have to make an assumption that a threat is present, so you can actually have a direction for action.</p>
+<p>In this case, I don't have to make the assumption. I <strong>know </strong>I have Amazon devices with Alexa voice control in my home.</p>
+<p>So, in this case, I want to block outbound traffic to Amazon's Alexa servers.</p>
+<h2>Step 3: What IP Address Does Alexa's Server Use?</h2>
+<p>Obviously, to stop traffic going to the server, I have to know the IP address that's receiving the data.</p>
+<p>Thankfully, the question <code>what are the ip addresses for amazon alexa servers</code> provided me with an easily verifiable answer via <a href="https://www.netify.ai/resources/ips/44.199.80.228" title="44.199.80.228 - IP Info" target="_blank" rel="noopener noreferrer">Netify</a>: <code>44.199.80.228</code>.</p>
+<h2>Step 4: Making the Rule</h2>
+<p>Following through the ZenArmor guide laid out the process for creating the rule quite well.</p>
+<ul>
+<li>Action: Block</li>
+<li>TCP/IP: IPv4</li>
+<li>Protocol: Any</li>
+<li>Source: The Amazon devices</li>
+<li>Port: Any</li>
+<li>Destination: 44.199.80.228</li>
+<li>Port: Any</li>
+<li>Log: Blocking Amazon device transmission to Amazon Alexa server</li>
+</ul>
+<p>Interestingly, OPNsense has a feature called Aliases, which allows users to group multiple items together as sources/destinations for a rule.</p>
+<p>So for this rule, I'll create an <code>AlexaSource</code> alias that contains 4 IP addresses: <code>192.168.##.#, 192.168.##.#, 192.168.##.#, 192.168.##.#</code></p>
+<p>At this point, I think I have a proper rule ready, but let's see what the AI say.</p>
+<h2>Step 5: Creating the Prompt</h2>
+<p>In order to have a comparable result, we need to have a single prompt that is used by both LLMs. This is what I came up with:</p>
+<blockquote>
+<p>Make me an OPNsense firewall rule that does the following:</p>
+<ul>
+<li>Blocks traffic from a group of IP addresses called AlexaDevice going to the IP address(es) for Amazon's Alexa server(s)</li>
+<li>Logs traffic with the message "Blocking Amazon device transmission to Amazon Alexa server"</li>
+</ul>
+</blockquote>
+<h2>Step 6: ChatGPT</h2>
+<p>Putting in the prompt generated this output:</p>
+<blockquote>
+<p>To create an OPNsense firewall rule that blocks traffic from a group of IP addresses (labeled "AlexaDevice") from reaching Amazon Alexa servers, while logging traffic with a custom message, follow these steps:<br><br><strong>Step 1: Create the "AlexaDevice" Alias</strong><br>- Go to **Firewall &gt; Aliases**.<br>- Click on the **+** button to create a new alias.<br>- Set **Name** to <code>AlexaDevice</code>.<br>- Set **Type** to <code>Host(s)</code>.<br>- Under **Content**, enter the list of IP addresses that belong to your Alexa devices.<br>- Click **Save** and then **Apply Changes**.<br><br><strong>Step 2: Create the Amazon Alexa Servers Alias</strong><br>- Go back to **Firewall &gt; Aliases**.<br>- Click the **+** button to create another alias.<br>- Set **Name** to <code>AmazonAlexaServers</code>.<br>- Set **Type** to <code>Host(s)</code> or <code>Network(s)</code> (depending on the format of Amazon Alexa's IPs).<br>- Under **Content**, enter the IP addresses or subnets associated with Amazon Alexa servers. (You'll need to find Amazon Alexa server IPs, which may require researching their specific ranges.)<br>- Click **Save** and then **Apply Changes**.<br><br><strong>Step 3: Create the Block Rule in the Firewall</strong><br>- Navigate to **Firewall &gt; Rules &gt; LAN** (or the appropriate interface for your Alexa devices).<br>- Click the **+** button to add a new rule.<br>- Set **Action** to **Block**.<br>- Set **Interface** to **LAN** (or appropriate interface).<br>- Set **Protocol** to **Any** (since you may want to block all types of traffic).<br>- In the **Source** section:<br>  - Set **Source** to **Single Host or Alias**.<br>  - In the **Source Address**, choose the <code>AlexaDevice</code> alias from the dropdown.<br>- In the **Destination** section:<br>  - Set **Destination** to **Single Host or Alias**.<br>  - In the **Destination Address**, choose the <code>AmazonAlexaServers</code> alias from the dropdown.<br>- Under the **Log** section:<br>  - Check the **Log packets that are handled by this rule** option.<br>  - Add your custom log message in the **Description** box: <br>    - <code>Blocking Amazon device transmission to Amazon Alexa server</code>.<br>- Click **Save** and then **Apply Changes**.<br><br><strong>Step 4: Apply Rule Changes</strong><br>- Go to the top right and click **Apply Changes** to activate your new rule.<br><br>This setup blocks traffic from devices in the **AlexaDevice** alias from reaching Amazon Alexa servers, logs those attempts, and tags them with the custom message you specified.</p>
+</blockquote>
+<p>Interestingly, ChatGPT gives me the full process to make the rule, but that's probably not surprising. Given the training data and refinements through use, the probabilities for responding to this question are almost certainly skewed more towards a step by step response than a simple table, like ZenArmor's examples.</p>
+<h2>Step 7: Bing Copilot</h2>
+<p>Putting in the prompt generated this output:</p>
+<div class="content user-select-text" tabindex="0" aria-description="" aria-label="Sent by Copilot: Sure! Here's how you can create an OPNsense firewall rule to block traffic from a group of IP addresses called &#96;AlexaDevice&#96; to Amazon's Alexa servers and log the traffic with a specific message:
+
+1. **Create Aliases**:
+   - Go to **Firewall &gt; Aliases**.
+   - Create an alias named &#96;AlexaDevice&#96; and add the IP addresses of your Alexa devices.
+   - Create another alias named &#96;AmazonAlexaServers&#96; and add the IP addresses of Amazon's Alexa servers.
+
+2. **Create the Firewall Rule**:
+   - Go to **Firewall &gt; Rules &gt; [Your Interface]** (e.g., LAN).
+   - Click on **Add** to create a new rule.
+   - Set the following parameters:
+     - **Action**: Block
+     - **Interface**: [Your Interface] (e.g., LAN)
+     - **Protocol**: Any
+     - **Source**: Single host or alias, and select &#96;AlexaDevice&#96;
+     - **Source Port Range**: Any
+     - **Destination**: Single host or alias, and select &#96;AmazonAlexaServers&#96;
+     - **Destination Port Range**: Any
+     - **Description**: Blocking Amazon device transmission to Amazon Alexa server
+     - **Log**: Check the box to enable logging
+     - **Log Message**: &quot;Blocking Amazon device transmission to Amazon Alexa server&quot;
+
+3. **Save and Apply**:
+   - Click **Save** to save the rule.
+   - Click **Apply Changes** to activate the rule.
+
+This setup will block any traffic from the devices in the &#96;AlexaDevice&#96; alias to the &#96;AmazonAlexaServers&#96; alias and log the traffic with the specified message[^1^][^2^].
+
+If you need further assistance, feel free to ask!">
+<div class="ac-container ac-adaptiveCard has-image">
+<div class="ac-textBlock">
+<blockquote>
+<p>Sure! Here’s how you can create an OPNsense firewall rule to block traffic from a group of IP addresses called <code>AlexaDevice</code> to Amazon’s Alexa servers and log the traffic with a specific message:</p>
+<ol>
+<li>
+<p><strong>Create Aliases</strong>:</p>
+<ul>
+<li>Go to <strong>Firewall &gt; Aliases</strong>.</li>
+<li>Create an alias named <code>AlexaDevice</code> and add the IP addresses of your Alexa devices.</li>
+<li>Create another alias named <code>AmazonAlexaServers</code> and add the IP addresses of Amazon’s Alexa servers.</li>
+</ul>
+</li>
+<li>
+<p><strong>Create the Firewall Rule</strong>:</p>
+<ul>
+<li>Go to <strong>Firewall &gt; Rules &gt; [Your Interface]</strong> (e.g., LAN).</li>
+<li>Click on <strong>Add</strong> to create a new rule.</li>
+<li>Set the following parameters:
+<ul>
+<li><strong>Action</strong>: Block</li>
+<li><strong>Interface</strong>: [Your Interface] (e.g., LAN)</li>
+<li><strong>Protocol</strong>: Any</li>
+<li><strong>Source</strong>: Single host or alias, and select <code>AlexaDevice</code></li>
+<li><strong>Source Port Range</strong>: Any</li>
+<li><strong>Destination</strong>: Single host or alias, and select <code>AmazonAlexaServers</code></li>
+<li><strong>Destination Port Range</strong>: Any</li>
+<li><strong>Description</strong>: Blocking Amazon device transmission to Amazon Alexa server</li>
+<li><strong>Log</strong>: Check the box to enable logging</li>
+<li><strong>Log Message</strong>: “Blocking Amazon device transmission to Amazon Alexa server”</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Save and Apply</strong>:</p>
+<ul>
+<li>Click <strong>Save</strong> to save the rule.</li>
+<li>Click <strong>Apply Changes</strong> to activate the rule.</li>
+</ul>
+</li>
+</ol>
+<p><a href="https://homenetworkguy.com/how-to/firewall-rules-cheat-sheet/" class="tooltip-target" data-citationid="53673d85-94e0-1d56-5b27-7e8b36d59e71-59-group" h="ID=SERP,5015.1" target="_blank" rel="noopener">This setup will block any traffic from the devices in the <code>AlexaDevice</code> alias to the <code>AmazonAlexaServers</code> alias and log the traffic with the specified message</a><a href="https://homenetworkguy.com/how-to/firewall-rules-cheat-sheet/" class="ac-anchor sup-target" target="_blank" data-citationid="53673d85-94e0-1d56-5b27-7e8b36d59e71-57" aria-label="1: AmazonAlexaServers" h="ID=SERP,5015.1" rel="noopener"><sup class="citation-sup">1</sup></a><a href="https://forum.opnsense.org/index.php?topic=34331.0" class="ac-anchor sup-target" target="_blank" data-citationid="53673d85-94e0-1d56-5b27-7e8b36d59e71-59" aria-label="2: AmazonAlexaServers" h="ID=SERP,5015.1" rel="noopener"><sup class="citation-sup">2</sup></a>.</p>
+<p>If you need further assistance, feel free to ask!</p>
+</blockquote>
+</div>
+<div class="ac-horizontal-separator" aria-hidden="true"> </div>
+</div>
+<div class="ad-container">Bing Copilot's response is a lot more comparable to my own writing and is honestly easier to read, although it's presupposing a higher level of knowledge/tech competence from the user.</div>
+<h2>Which is Better?</h2>
+<p>Without the ability to actually test these, it's hard to say. Here's what I can tell from looking at both responses and comparing to my own:</p>
+<ul>
+<li>ChatGPT gives more detail on how to actually set the options, and includes setup instructions for the aliases.</li>
+<li>Bing Copilot is more easily readable and faster to copy the settings from.</li>
+<li>Both of the AI responses don't set the IP version, which means that was an optional setting I didn't need to set.</li>
+<li>Neither of the AI responses included an actual IP address for Alexa's servers.</li>
+</ul>
+<p>Interestingly, neither of the LLM generated replies attempted to provide an actual IP address for Alexa's server(s). That's something to keep in mind for future use: if it's not explicitly pointed out by the prompt, it won't get done.</p>
+<h2>What's Next?</h2>
+<p>Since OPNsense is still a no go for now, actually testing out this rule is a no-go.</p>
+<p>So what I'll do is move onto an even harder step, creating Suricata rules, which I <em>can </em>test.</p>
+</div>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 2.0: CLI is a UX Failure</title>
         <author>
@@ -809,81 +977,6 @@
 <li>Actually do the intended UE 4.27 development work.</li>
 </ul>
 <p>Next time, we'll dig into the PCAP file from this session.</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Cybersecurity Project: Virtual Machines Aren&#x27;t Always The Solution</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/cybersecurity-project-virtual-machines-arent-always-the-solution/"/>
-        <id>https://korgano.github.io/cybersecurity-project-virtual-machines-arent-always-the-solution/</id>
-        <media:content url="https://korgano.github.io/media/posts/11/rivage-AIIC6wCqkQc-unsplash.jpg" medium="image" />
-            <category term="Tech"/>
-            <category term="PC Hardware"/>
-            <category term="PC"/>
-            <category term="Cybersecurity Projects"/>
-            <category term="Cybersecurity"/>
-
-        <updated>2024-04-17T11:48:17-04:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/11/rivage-AIIC6wCqkQc-unsplash.jpg" alt="" />
-                    Progress on this project has been slower than I'd like, mostly because of delays in obtaining latest gen hardware to&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/11/rivage-AIIC6wCqkQc-unsplash.jpg" class="type:primaryImage" alt="" /></p>
-                <p>Progress on this project has been slower than I'd like, mostly because of delays in obtaining latest gen hardware to make this project more likely to succeed.</p>
-<p>However, the delays were worth the trouble, because I'm going to be executing the practical elements of this project on the following system:</p>
-<ul>
-<li>Ryzen 7 7800X3D</li>
-<li>Radeon RX 7900 XTX</li>
-<li>PCI-E 5.0x2 NVMe SSD</li>
-<li>32GB DDR5 RAM</li>
-</ul>
-<p>This might seem excessive, given the following requirements for running Unreal Engine 4:</p>
-<ul>
-<li>Operating System: Windows 10 64-bit</li>
-<li>Processor: Quad-core Intel or AMD, 2.5 GHz or faster</li>
-<li>Memory: 8 GB RAM</li>
-<li>Video Card/DirectX Version: DirectX 11 or DirectX 12 compatible graphics card</li>
-</ul>
-<p>It should be easy to run a virtual machine in Virtual Box that meets all these requirements, right?</p>
-<h2>Problem 1: Windows Virtual Machine Setup</h2>
-<p>The first step, after installing Virtual Box, was creating the Windows VM to host Unreal Engine 4.27. This was not as easy it should've been.</p>
-<p>My initial approach was to install the latest version of Windows 11, which I had installed as the operating system of this new PC, using a tool called Ventoy. Ventoy allows you to host multiple ISOs on a single flash drive for the purpose of installing an operating system.</p>
-<p>The normal Windows 11 install process involves either creating or signing into a Microsoft account, which is fine for a personal rig, but is not great for a VM that might be leaking data. Since the whole point of the project is seeing what data Epic Games Store might be leaking <strong>without </strong>compromising security and privacy, this was a no-go.</p>
-<p>The result was that I had to use a custom Windows 10 ISO from ReviOS/RevisionOS, which is a gaming/stability focused version of Windows 10. It focuses on debloating Windows and changing settings to prevent unwanted Windows configuration changes caused by updates, which is a frequent problem. In fact, I use ReviOS's Windows 11 distribution on my primary laptop.</p>
-<p>However, this ISO was from late last year, because ReviOS switched to a new distribution method that didn't require the creation of an ISO. So it lacked numerous security patches... which meant the VM was a vulnerability. But given all the protections I already have on my network and PC, this was acceptable.</p>
-<p>One problem down, more to come.</p>
-<h2>Problem 2: VM IP Address Woes</h2>
-<p>The plan for the project was to isolate Epic Games Store onto a VM, put that VM on the same Device Isolation network an old PC I own, and remotely access the VM from that PC.</p>
-<p>This fell apart for several reasons:</p>
-<ul>
-<li>The TP-Link router software, which I have <strong>very </strong>little ability to configure, <strong>seems</strong> to detect devices based on MAC addresses.</li>
-<li>Virtual Box and its documentation are very thorough, but aren't great for troubleshooting very specific problems.</li>
-<li>Bing Copilot's response quality has been... inconsistent lately, so I couldn't rely on it to help me out of the problem.</li>
-<li>Static assigned IP addresses don't work Device Isolation, because that's another process handled by the router software I have limited control over.</li>
-</ul>
-<p>The best I could do is to place the <strong>entire </strong>PC on the isolated devices list while running the VM, which I was considering... up until I encountered the next, most showstopping problem.</p>
-<h2>Problem 3: Virtual Box Cannot Simulate DX11 GPUs</h2>
-<p>Virtual Box's virtual GPU is best described as "anemic", bordering on completely unusable for anything besides generating visual output.</p>
-<p>Thankfully, I didn't <strong>need </strong>it to do anything more than that, but it was annoying not being able to harness more of the RX 7900 XTX's power.</p>
-<p>However, after going through the trouble of installing Epic Games Store <strong>and </strong>Unreal Engine 4.27, I discovered a critical issue.</p>
-<p>Unreal Engine 4.27 requires DirectX (DX) 11 to function, and Virtual Box can only do up to DX9.</p>
-<p>This means that the VM is utterly useless, aside from capturing the traffic generated by Epic Games Store. Which I could do, but couldn't export from the VM due to some sort of Virtual Box issue I don't understand.</p>
-<p>This would be the end of the road, right?</p>
-<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/Iw1AghidekY" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
-<h2>Project Pivot: Sandbox Epic Games Store</h2>
-<p>After realizing that about 5 hours of work was for nothing, I did other things instead.</p>
-<p>Having cleared my head, I considered other options.</p>
-<p>The first, most obvious option was a containerized deployment of EGS. However, while I could find information about containerized versions of Unreal Engine 4, I didn't find anything about <strong>EGS</strong>, which is the primary data privacy threat.</p>
-<p>Then I thought about a sandbox, particularly a free open source solution. Was there a program that had a strong feature set in active development?</p>
-<p>The answer is <a href="https://github.com/sandboxie-plus/Sandboxie" target="_blank" rel="noopener noreferrer">Sandboxie-Plus.</a></p>
-<p>This will be the environment I will operate Epic Games Store out of, once I learn how to properly configure the sandbox to prevent any data harvesting of the host system.</p>
             ]]>
         </content>
     </entry>
