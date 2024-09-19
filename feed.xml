@@ -3,12 +3,68 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2024-09-12T13:48:34-04:00</updated>
+    <updated>2024-09-19T13:52:49-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>Quick Cyber Thoughts: More Reasons for Local AI</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/quick-cyber-thoughts-more-reasons-for-local-ai/"/>
+        <id>https://korgano.github.io/quick-cyber-thoughts-more-reasons-for-local-ai/</id>
+        <media:content url="https://korgano.github.io/media/posts/24/chatgpt-jank.png" medium="image" />
+            <category term="Tech"/>
+            <category term="Quick Thoughts"/>
+            <category term="Cybersecurity"/>
+            <category term="AI"/>
+
+        <updated>2024-09-19T10:17:01-04:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/24/chatgpt-jank.png" alt="ChatGPT web interface that cannot connect to ChatGPT/OpenAI servers." />
+                    This week, I was hoping to follow up on my previous cybersecurity project post, only to run into an unforeseen&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/24/chatgpt-jank.png" class="type:primaryImage" alt="ChatGPT web interface that cannot connect to ChatGPT/OpenAI servers." /></p>
+                <p>This week, I was hoping to follow up on <a href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-30/" title="CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 3.0" target="_blank" rel="noopener noreferrer">my previous cybersecurity project post</a>, only to run into an unforeseen problem.</p>
+<p>Since it's best to make lemonade out of lemons, let's talk about what happens when web AI interfaces stop working.</p>
+<h2>The Problem</h2>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/24/chatgpt-jank-2.png" alt="ChatGPT web interface that cannot connect to ChatGPT/OpenAI servers." width="1920" height="952" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/24/responsive/chatgpt-jank-2-xs.png 384w ,https://korgano.github.io/media/posts/24/responsive/chatgpt-jank-2-sm.png 600w ,https://korgano.github.io/media/posts/24/responsive/chatgpt-jank-2-md.png 768w ,https://korgano.github.io/media/posts/24/responsive/chatgpt-jank-2-lg.png 1200w ,https://korgano.github.io/media/posts/24/responsive/chatgpt-jank-2-xl.png 1600w"></figure>
+<p>Two days ago, my ChatGPT session went from normal to what you see above.</p>
+<p>Typing does nothing - I can make a prompt, but there's no data transmission to ChatGPT.</p>
+<p>Clearing cache, temporarily disabling PiHole DNS blackhole, and ad/script blockers do nothing. I'll have to do more investigation to see if the connectivity issue is on my end or ChatGPT's, but it does provide another great example of why local AI is a good idea.</p>
+<p>(Bing Copilot is still available, so it's not something that affecting all web AI, as far as I can tell.)</p>
+<h2>AI Needs High Availability</h2>
+<p>In IT/cybersecurity, the Five 9s are the gold standard for availability - 99.999% uptime.</p>
+<p>Let's set aside all the data confidentiality and integrity issues that might come with using AI (Large and Small Language Models - LLMs/SLMs). The main benefit of AI at the moment is generating content - informational or artistic - quickly and in accordance with the user's input.</p>
+<p>In order to be useful, it needs to be <strong>available</strong>, and an AI hosted on someone else's servers is always going to be vulnerable to service disruption. It could be at their end, your end, or even the ISP in general, but there's plenty of failure points on the chain.</p>
+<p>So, how do we get around this?</p>
+<h2>Exploit the Training Bubble Pop</h2>
+<p><a href="https://www.rand.org/pubs/research_reports/RRA2680-1.html" title="The Root Causes of Failure for Artificial Intelligence Projects and How They Can Succeed" target="_blank" rel="noopener noreferrer">80% of AI projects fail</a>, according to RAND Corporation research.</p>
+<p>Most of that comes down to inflated expectations created by Hollywood and grifters, but also a fundamental misunderstanding of how LLMs and SLMs function. You don't <strong>need </strong>to train the AI on your data to get useful outputs from it. You can use Retrieval Augmented Generation (RAG) to expand the AI's knowledge base:</p>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/T-D1OfcDW1M?pp=ygUecmV0cmlldmFsIGF1Z21lbnRlZCBnZW5lcmF0aW9u" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+<p>So we only need the hardware to do the inferencing (generating responses), which is a lower tier of complexity and performance requirements than training.</p>
+<p>Graphics cards and Neural Processing Unit (NPU) equipped chips are providing most of the inferencing hardware on the market, but they're not exactly cost efficient. Decent performance GPUs cost hundreds of dollars, and NPU equipped processors are only in laptops, which also require hundreds of dollars each. What are we to do?</p>
+<p>Well, thanks to the billions of dollars spent on AI training hardware, which is also capable of inferencing, and the general trend of AI project failure, the answer is simple. Wait for the AI training bubble to pop, and acquire the used hardware as it's being liquidated to keep the companies afloat.</p>
+<h2>Things to Keep in Mind</h2>
+<p>So, on top of all the usual caveats about buying used hardware, especially in a corporate environment, there's one specific thing to keep in mind:</p>
+<p>AMD's server chips have a fuse in them that trips when they are initialized, locking them to a specific vendor's motherboards.</p>
+<p>This raises the cost of some used AI server hardware, as buying a matched processor and motherboard set is going to be safer than trying to get two separate units and hope that AMD didn't put even more specific fuses in there to further restrict hardware choice.</p>
+<p>Another thing to consider is what information will be provided to the AI through RAG, where the information is to be hosted, and how implement network segmentation.</p>
+<p>For instance, for a local AI server in a home or single-building small business, it may make sense to host all the RAG data you want on that same system. (It may also be the only option, if you're using software that doesn't allow for remote access to data.) However, the more data you have, the more likely it is that a NAS or Storage Area Network (SAN) might be necessary.</p>
+<p>What that data is also plays a huge part in figuring out your storage needs. If you're just pulling down text documentation for software you're using and making it accessible to the AI, you could probably get away with way less storage than an organization that's using RAG on multimedia content.</p>
+<p>Naturally, you also have to be careful what you make available to the AI, because if prompted the right way, it <strong>will </strong>provide that information, whether you intended for that to happen or not. Even if you apply access controls to the AI or the data, it may be simpler and easier to redact/remove any Personal Identification Information (PII) or Personal Health Information (PHI). The AI can't leak what it doesn't have, and it reduces your compliance headaches.</p>
+<p>Network segmentation is also going to be an interesting challenge. Obviously, the AI server should be on its own segment, so that access can be controlled through firewall control lists. But should the storage servers associated with the RAG data also be on the same network segment?</p>
+<p>These questions and more are what we cybersecurity practioners need to ponder as organizations adopt AI and integrate it into their operations.</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 3.0</title>
         <author>
@@ -903,80 +959,6 @@ If you need further assistance, feel free to ask!">
 <h2>The Next Steps</h2>
 <p>With a specific number of interesting domains and IPs to examine, the next step is examine the actual network data flows. The logical place to start is with <code>account-public-service-prod03.ol.epicgames.com</code>, one of Epic Games' domains that has been compromised in the past.</p>
 <p>Once we take a look at that one, we'll go through the rest of the ones I've highlighted in this article. Will we find anything interesting? Let's find out!</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Cybersecurity Project: Sandboxing with Sandboxie-Plus</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/cybersecurity-project-sandboxing-with-sandboxie-plus/"/>
-        <id>https://korgano.github.io/cybersecurity-project-sandboxing-with-sandboxie-plus/</id>
-        <media:content url="https://korgano.github.io/media/posts/12/alienware-Hpaq-kBcYHk-unsplash.jpg" medium="image" />
-            <category term="Tech"/>
-            <category term="PC"/>
-            <category term="Cybersecurity Projects"/>
-            <category term="Cybersecurity"/>
-
-        <updated>2024-04-22T10:09:46-04:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/12/alienware-Hpaq-kBcYHk-unsplash.jpg" alt="Gaming desktop with RGB keyboard and monitor displaying space scene in stylized asteroid belt." />
-                    Last time on my continuing saga of trying to analyze Epic Games Store's network traffic without possibly compromising my PC,&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/12/alienware-Hpaq-kBcYHk-unsplash.jpg" class="type:primaryImage" alt="Gaming desktop with RGB keyboard and monitor displaying space scene in stylized asteroid belt." /></p>
-                <p>Last time on my continuing saga of trying to analyze Epic Games Store's network traffic without possibly compromising my PC, I discovered that VirtualBox wasn't a functional way to progress.</p>
-<p>Instead, I would have to use a sandbox to isolate the program on my own PC, in order to have proper access to the necessary hardware and software resources.</p>
-<p>After some fairly quick research, I discovered Sandboxie-Plus, a free open source sandbox program and installed it on my PC. But before progressing on the topic, I decided to do a little extra research.</p>
-<h2>Trying to be Secure</h2>
-<p>One major downside of Sandboxie-Plus is that <strong>many </strong>of the privacy and security related features are contingent on having a supporter certificate, which requires a donation of some kind. (The website and Github are both vague on this, and not even the FAQ explains if a one-time PayPal donation is enough.)</p>
-<p>This led me to use Microsoft Copilot to gather information on how to configure Sandboxie-Plus to be as secure as it could be <strong>without </strong>the certificate, as well as how to configure logging:</p>
-<blockquote>
-<p>Sure, here are some best practices for configuring Sandboxie-Plus considering your factors:<br><br><strong>1. Configuring without Supporter Certificate for Privacy Mode:</strong><br>While the Privacy Mode feature in Sandboxie-Plus requires a supporter certificate⁴, you can still configure Sandboxie-Plus to limit access to your data. Here's how you can do it⁴⁵:<br>- Go to Sandbox Options &gt; Resource Access &gt; Resource Access Policies.<br>- Enable the "Privacy Mode, block file and registry access to all locations except the generic system ones" checkbox under Access Mode.<br>- Dismiss the pop-up that says you just activated a supporter-only feature⁶.<br><br><strong>2. Logging Behavior by the Sandboxed Software:</strong><br>To log as much behavior by the sandboxed software as possible, you can use the Trace Log feature¹²:<br>- Enable Trace Log tab by opening Options menu -&gt; Trace Logging.<br>- When the Trace Log tab is activated, it immediately starts to collect and display resource access information from all sandboxed programs that are running.<br>- At this point, perform any specific tasks that fail when done under the supervision of Sandboxie Plus.<br>- Finally, right-click on the collected data and select the entry named Copy Panel. This copies the collected data into the clipboard.<br>- You can now paste (Ctrl+V) the collected data somewhere and make it available for analysis¹².<br><br><strong>3. Denying Sandboxed Software Unnecessary Permissions and File Access:</strong><br>You can restrict the sandboxed software's unnecessary permissions and file access⁸⁹[^10^]¹¹:<br>- Right-click on the sandbox &gt; Sandbox Options &gt; Resource Access &gt; Files &gt; Add File/Folder.<br>- By default, Sandboxie doesn't allow writing to the Host system. Select Open if the program is installed outside the sandbox. Select Open for All if the program is installed inside the sandbox⁸.<br>- If you want to restrict network access for the apps within your sandbox, visit Access Restrictions in the General Options group. Ensure both options under Network Restrictions are enabled to prevent apps from tinkering with your network and firewall settings, or accessing network files and folders[^10^].<br><br>Remember, these are general guidelines and the exact configuration may vary based on your specific needs and the software you are sandboxing. Always ensure to test your configuration thoroughly to ensure it works as expected and provides the necessary security. Also, keep your Sandboxie-Plus software up-to-date to benefit from the latest features and security updates.<br><br>Source: Conversation with Bing, 4/19/2024<br>(1) Privacy Mode | Sandboxie Documentation. https://sandboxie-plus.github.io/sandboxie-docs/PlusContent/privacy-mode.html.<br>(2) Privacy Mode - GitHub. https://github.com/sandboxie-plus/sandboxie-docs/blob/main/PlusContent/privacy-mode.md.<br>(3) Sandboxie requires a supporter certificate for boxes where supporter .... https://github.com/sandboxie-plus/Sandboxie/issues/1718.<br>(4) Trace logging (for Sandboxie Plus) - Sandboxie documentation. https://okrc.github.io/sandboxie-docs/PlusContent/TraceLog.html.<br>(5) Trace Log | Sandboxie-Plus. https://sandboxie-plus.com/tracelog/.<br>(6) How to restrict a program of filesystem access? #2573 - GitHub. https://github.com/sandboxie-plus/Sandboxie/discussions/2573.<br>(7) Resource Access Settings | Sandboxie-Plus. https://sandboxie-plus.com/sandboxie/resourceaccesssettings/.<br>(8) How to Run Anything You Download Securely With Sandboxie Plus for ... - MUO. https://www.makeuseof.com/windows-sandboxie-plus-guide/.<br>(9) Restrictions Settings | Sandboxie Documentation. https://sandboxie-plus.github.io/sandboxie-docs/Content/RestrictionsSettings.html.<br>(10) Trace logging (for Sandboxie Plus) - Sandboxie Documentation. https://qzlin.github.io/sandboxie-docs-site/PlusContent/TraceLog/.<br>(11) Privacy Mode | Sandboxie-Plus. <a href="https://sandboxie-plus.com/privacy-mode/">https://sandboxie-plus.com/privacy-mode/</a>.</p>
-</blockquote>
-<h2>Unexpected Interaction</h2>
-<p>Given my limited ability to secure the sandbox directly, I decided to use Windows Security's <a href="https://learn.microsoft.com/en-us/defender-endpoint/enable-controlled-folders?view=o365-worldwide" target="_blank" rel="noopener noreferrer">Controlled Folder Access</a> setting to restrict access to the most likely folder to be altered - the hidden AppData folder.</p>
-<p>This turned out to be a <strong>massive </strong>mistake, as this interfered with all sorts of operations inside and outside of the sandbox, including software installations.</p>
-<p>Additionally, following Copilot's advice on the Sandboxie-Plus privacy settings revealed a new problem: the settings work, but only for five minutes.</p>
-<p>Eventually, this led me to scrap the original sandbox and reconfigure Windows Security to be less restrictive.</p>
-<h2>The Second Attempt</h2>
-<p>After reconfiguring Windows Security and deleting the original sandbox, I created a fresh new sandbox, and attempted to install Epic Games Store (EGS) in it.</p>
-<p>This worked, and I collected a great deal of network traffic with Wireshark in the process, which I'll analyze in the next post.</p>
-<p>However, there was plenty of odd behavior to diagnose:</p>
-<ul>
-<li>I could access the Unreal Engine page, download UE 4.27.2, go to the plugin marketplace, and add plugins to the cart.</li>
-<li>I could <strong>not </strong>complete the transaction and add the plugins to my account.</li>
-<li>I could <strong>not </strong>load a preexisting UE 4.27 project into to my instance of UE 4.27.2.</li>
-<li>After suspending and resuming the EGS process, I could not get EGS to properly load up the usual user interface. I could load directly to the UE page and launch it from there, but not the regular page.</li>
-</ul>
-<p>Examining my Pi-Hole records from that time indicates connections to three Epic Games subdomains were being blocked:</p>
-<ul>
-<li>tracking.epicgames.com</li>
-<li>datarouter.ol.epicgames.com</li>
-<li>graphql.epicgames.com</li>
-</ul>
-<p>Tracking seems like an obvious thing to block, but the two other subdomains were rather puzzling.</p>
-<p>After looking through a number of forum posts (<a href="https://forums.unrealengine.com/t/why-do-i-keep-seeing-failed-to-connect-to-datarouter-ol-epicgames-com-port-443-bad-access-warning-errors/421833" target="_blank" rel="noopener noreferrer">Unreal Engine dev forum</a>, <a href="https://steamcommunity.com/app/501080/discussions/0/1700542332341415949/?l=koreana" target="_blank" rel="noopener noreferrer">Steam forums for Fishing: Barents Sea</a>), I discovered that this a was general usage data reporting function. <a href="https://otx.alienvault.com/indicator/domain/datarouter.ol.epicgames.com" target="_blank" rel="noopener noreferrer">Further examination via AlienVault OTX</a> revealed that said subdomain is associated with 4 malware files:</p>
-<ul>
-<li>Win32:DropperX-gen\ [Drp] / ALF:SpikeAexR.MSILMVID</li>
-<li>Win32:Evo-gen\ [Susp]</li>
-<li>Win32:Malware-gen</li>
-<li>MSIL:Agent-DRD\ [Trj] / Backdoor:MSIL/Bladabindi.AJ</li>
-</ul>
-<p>To be fair to Epic Games, I don't think <strong>they </strong>are putting malware and backdoors into their games. The Unreal Engine plugin marketplace is full of plenty of dubious material, including multiple blockchain and data access plugins, which provides plenty of opportunities for third parties to sneak malicious code into the platform.</p>
-<p>The other subdomain, graphql.epicgames.com, is much less obvious in its purpose. Google results point to this subdomain being related to <a href="https://marketplace-website-node-launcher-prod.ol.epicgames.com/ue/marketplace/en-US/product/graphql-plugin/reviews" target="_blank" rel="noopener noreferrer">some type of AWS integration</a>, and possibly more data collection. Regardless, it shouldn't have anything to do with actual functionality.</p>
-<h2>Next Steps</h2>
-<p>Now that the sandbox has been setup, there's a few things to do:</p>
-<ul>
-<li>Analyze the Wireshark data for actionable insights.</li>
-<li>Troubleshoot the various EGS issues and hopefully solve them.</li>
-<li>Actually do the intended UE 4.27 development work.</li>
-</ul>
-<p>Next time, we'll dig into the PCAP file from this session.</p>
             ]]>
         </content>
     </entry>
