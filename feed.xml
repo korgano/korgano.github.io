@@ -3,7 +3,7 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2024-09-19T13:52:49-04:00</updated>
+    <updated>2024-09-26T10:15:34-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
@@ -62,6 +62,213 @@
 <p>Naturally, you also have to be careful what you make available to the AI, because if prompted the right way, it <strong>will </strong>provide that information, whether you intended for that to happen or not. Even if you apply access controls to the AI or the data, it may be simpler and easier to redact/remove any Personal Identification Information (PII) or Personal Health Information (PHI). The AI can't leak what it doesn't have, and it reduces your compliance headaches.</p>
 <p>Network segmentation is also going to be an interesting challenge. Obviously, the AI server should be on its own segment, so that access can be controlled through firewall control lists. But should the storage servers associated with the RAG data also be on the same network segment?</p>
 <p>These questions and more are what we cybersecurity practioners need to ponder as organizations adopt AI and integrate it into their operations.</p>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 4.0</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-40/"/>
+        <id>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-40/</id>
+        <media:content url="https://korgano.github.io/media/posts/23/cyber-proj-tfb06-2.png" medium="image" />
+            <category term="Tech"/>
+            <category term="Cybersecurity Projects"/>
+            <category term="Cybersecurity"/>
+            <category term="AI"/>
+
+        <updated>2024-09-17T13:29:15-04:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/23/cyber-proj-tfb06-2.png" alt="ThriveDX login error screen" />
+                    After a brief delay caused by ChatGPT session cookies being corrupted, we're getting back on track with the Transparent Filtering&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/23/cyber-proj-tfb06-2.png" class="type:primaryImage" alt="ThriveDX login error screen" /></p>
+                <p><a href="https://korgano.github.io/quick-cyber-thoughts-more-reasons-for-local-ai/" title="Quick Cyber Thoughts: More Reasons for Local AI" target="_blank" rel="noopener noreferrer">After a brief delay caused by ChatGPT session cookies being corrupted</a>, we're getting back on track with the Transparent Filtering Bridge project.</p>
+<p>This week, we're going to try to make Suricata IPS rules with AI, namely ChatGPT (whatever model free users get to use as 9/25/2024) and Bing Copilot. (As as aside, it's kind of annoying that ChatGPT sometimes lets free users have access to higher quality models, but doesn't explicitly notify the user which model is being used.)</p>
+<p>Since Suricata caused the OPNsense install to crash (<a href="https://github.com/opnsense/core/pull/7857/commits/6ba73f76afeff585cb6b1eeab49c08ae3026229b" title="OPNsense/Core Pull Request - Reduce pointless logging" target="_blank" rel="noopener noreferrer">possibly because someone set the default stat logging to <strong>8 seconds</strong></a>), we can't test in OPNsense itself. But I still retain ThriveDX access, so let's see if I can get the rules to run on one of their VMs running Suricata. (This is far from certain, given how janky their VMs/internet connections are.)</p>
+<h2>The Prompts</h2>
+<p>As before, the first step of the test is to come up with two prompts to feed into both AI.</p>
+<p>Why two? Well, the first is going to be a simple directory traversal detector, looking for <code>../</code> or  <span class="fontstyle0"><code>%2e%2e%2f</code>:</span></p>
+<blockquote>
+<p>Make me a Suricata IPS rule that does the following:</p>
+<ul>
+<li><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">Detects incoming connections containing ../ or </span><span class="fontstyle0" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">%2e%2e%2f.</span></li>
+<li><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">Blocks the connection.</span></li>
+<li><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">Generates a log stating "Detected directory traversal attempt from &lt;source IP&gt; to &lt;destination IP&gt; at &lt;time&gt;".</span></li>
+</ul>
+</blockquote>
+<p>The second is going to be more complex and based on a <a href="https://documents.trendmicro.com/assets/white_papers/wp-tracking-the-activities-of-teamTNT.pdf" title="Tracking the Activities of TeamTNT: A Closer Look at a Cloud-Focused Malicious Actor Group" target="_blank" rel="noopener noreferrer">TrendMicro report on TeamTNT's credential theft techniques</a>:</p>
+<blockquote>
+<p>Make me a Suricata IPS rule that does the following:</p>
+<ul>
+<li>Detects incoming connections containing "userfile=@/etc/passwd" or "userfile=@/etc/hosts".</li>
+<li>Blocks the connection.</li>
+<li>Generates a log stating "Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;."</li>
+</ul>
+</blockquote>
+<p>(Annoyingly, there are no Indicators of Compromise (IoTs) or code examples for the recently revealed Ryzen vulnerability, which was something I wanted to craft rules for.)</p>
+<h2>ChatGPT - Prompt 1</h2>
+<p>Here's what ChatGPT generated:</p>
+<blockquote>
+<h3>Steps:</h3>
+<ol>
+<li>
+<p><strong>Create the rule:</strong></p>
+<ul>
+<li>Suricata rules generally follow this structure:</li>
+<li><code>action protocol src_ip src_port direction dst_ip dst_port (rule_options;)</code></li>
+<li>For your case, you'll use <strong><code>alert</code></strong> action (to generate a log) combined with <strong><code>drop</code></strong> action (to block the connection).</li>
+<li>We'll detect <strong><code>../</code></strong> and <strong><code>%2e%2e%2f</code></strong> in the URI.</li>
+</ul>
+</li>
+<li>
+<p><strong>Rule Components:</strong></p>
+<ul>
+<li><strong>alert</strong> and <strong>drop</strong>: Both will be used to detect and block.</li>
+<li><strong>http_uri</strong>: To inspect the HTTP request URI.</li>
+<li><strong>content</strong>: To look for specific strings (<code>../</code> or <code>%2e%2e%2f</code>).</li>
+<li><strong>msg</strong>: To specify a custom log message.</li>
+<li><strong>sid</strong>: Rule identifier (must be unique).</li>
+<li><strong>flow</strong>: Specifies the direction (from the client to the server).</li>
+<li><strong>metadata</strong>: Includes information about the rule type (IPS) and severity.</li>
+<li><strong>logto</strong>: To specify log output.</li>
+</ul>
+</li>
+<li>
+<p><strong>Example Suricata Rule</strong>:</p>
+<ol>
+<li><code>alert http any any -&gt; any any (msg:"Detected directory traversal attempt from &lt;source IP&gt; to &lt;destination IP&gt; at &lt;time&gt;"; content:"../"; http_uri; nocase; sid:1000001; rev:1; logto:"traversal.log";)</code></li>
+<li><code>alert http any any -&gt; any any (msg:"Detected directory traversal attempt from &lt;source IP&gt; to &lt;destination IP&gt; at &lt;time&gt;"; content:"%2e%2e%2f"; http_uri; nocase; sid:1000002; rev:1; logto:"traversal.log";)</code></li>
+<li><code></code><code>drop http any any -&gt; any any (msg:"Blocked directory traversal attempt"; content:"../"; http_uri; nocase; sid:1000003; rev:1;)</code></li>
+<li><code></code><code>drop http any any -&gt; any any (msg:"Blocked directory traversal attempt"; content:"%2e%2e%2f"; http_uri; nocase; sid:1000004; rev:1;)</code></li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<h2>Bing Copilot - Prompt 1</h2>
+<p>Here's Bing Copilot's output:</p>
+<blockquote>
+<div class="content user-select-text" tabindex="0" aria-description="" aria-label="Sent by Copilot: Sure! Here's a Suricata IPS rule that meets your requirements:
+
+&#96;&#96;&#96;yaml
+alert http any any -&gt; any any (msg:&quot;Detected directory traversal attempt from &lt;source IP&gt; to &lt;destination IP&gt; at &lt;time&gt;&quot;; content:&quot;../&quot;; nocase; http_uri; sid:1000001; rev:1;)
+alert http any any -&gt; any any (msg:&quot;Detected directory traversal attempt from &lt;source IP&gt; to &lt;destination IP&gt; at &lt;time&gt;&quot;; content:&quot;%2e%2e%2f&quot;; nocase; http_uri; sid:1000002; rev:1;)
+drop http any any -&gt; any any (msg:&quot;Blocking directory traversal attempt&quot;; content:&quot;../&quot;; nocase; http_uri; sid:1000003; rev:1;)
+drop http any any -&gt; any any (msg:&quot;Blocking directory traversal attempt&quot;; content:&quot;%2e%2e%2f&quot;; nocase; http_uri; sid:1000004; rev:1;)
+&#96;&#96;&#96;
+
+This rule does the following:
+1. **Detects incoming connections** containing &#96;../&#96; or &#96;%2e%2e%2f&#96;.
+2. **Blocks the connection** if such patterns are detected.
+3. **Generates a log** with the message &quot;Detected directory traversal attempt from &lt;source IP&gt; to &lt;destination IP&gt; at &lt;time&gt;&quot;.
+
+Feel free to adjust the &#96;sid&#96; (Signature ID) and &#96;rev&#96; (Revision) numbers as needed. Let me know if you need any further customization!">
+<div class="ac-container ac-adaptiveCard has-image">
+<div class="ac-textBlock">
+<p>Sure! Here’s a Suricata IPS rule that meets your requirements:</p>
+<pre><code class="language-yaml"><span class="hljs-string">alert</span> <span class="hljs-string">http</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">-&gt;</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">(msg:"Detected</span> <span class="hljs-string">directory</span> <span class="hljs-string">traversal</span> <span class="hljs-string">attempt</span> <span class="hljs-string">from</span> <span class="hljs-string">&lt;source</span> <span class="hljs-string">IP&gt;</span> <span class="hljs-string">to</span> <span class="hljs-string">&lt;destination</span> <span class="hljs-string">IP&gt;</span> <span class="hljs-string">at</span> <span class="hljs-string">&lt;time&gt;";</span> <span class="hljs-string">content:"../";</span> <span class="hljs-string">nocase;</span> <span class="hljs-string">http_uri;</span> <span class="hljs-string">sid:1000001;</span> <span class="hljs-string">rev:1;)</span>
+<span class="hljs-string">alert</span> <span class="hljs-string">http</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">-&gt;</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">(msg:"Detected</span> <span class="hljs-string">directory</span> <span class="hljs-string">traversal</span> <span class="hljs-string">attempt</span> <span class="hljs-string">from</span> <span class="hljs-string">&lt;source</span> <span class="hljs-string">IP&gt;</span> <span class="hljs-string">to</span> <span class="hljs-string">&lt;destination</span> <span class="hljs-string">IP&gt;</span> <span class="hljs-string">at</span> <span class="hljs-string">&lt;time&gt;";</span> <span class="hljs-string">content:"%2e%2e%2f";</span> <span class="hljs-string">nocase;</span> <span class="hljs-string">http_uri;</span> <span class="hljs-string">sid:1000002;</span> <span class="hljs-string">rev:1;)</span>
+<span class="hljs-string">drop</span> <span class="hljs-string">http</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">-&gt;</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">(msg:"Blocking</span> <span class="hljs-string">directory</span> <span class="hljs-string">traversal</span> <span class="hljs-string">attempt";</span> <span class="hljs-string">content:"../";</span> <span class="hljs-string">nocase;</span> <span class="hljs-string">http_uri;</span> <span class="hljs-string">sid:1000003;</span> <span class="hljs-string">rev:1;)</span>
+<span class="hljs-string">drop</span> <span class="hljs-string">http</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">-&gt;</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">(msg:"Blocking</span> <span class="hljs-string">directory</span> <span class="hljs-string">traversal</span> <span class="hljs-string">attempt";</span> <span class="hljs-string">content:"%2e%2e%2f";</span> <span class="hljs-string">nocase;</span> <span class="hljs-string">http_uri;</span> <span class="hljs-string">sid:1000004;</span> <span class="hljs-string">rev:1;)</span>
+</code></pre>
+<p>This rule does the following:</p>
+<ol>
+<li><strong>Detects incoming connections</strong> containing <code>../</code> or <code>%2e%2e%2f</code>.</li>
+<li><strong>Blocks the connection</strong> if such patterns are detected.</li>
+<li><strong>Generates a log</strong> with the message “Detected directory traversal attempt from &lt;source IP&gt; to &lt;destination IP&gt; at &lt;time&gt;”.</li>
+</ol>
+<p>Feel free to adjust the <code>sid</code> (Signature ID) and <code>rev</code> (Revision) numbers as needed. Let me know if you need any further customization!</p>
+</div>
+</div>
+</div>
+</blockquote>
+<h2>ChatGPT - Prompt 2</h2>
+<p>Now we move onto the second prompt:</p>
+<blockquote>
+<h3>Steps:</h3>
+<ol>
+<li>
+<p><strong>Understand the context</strong>:</p>
+<ul>
+<li>We need to detect <strong>specific strings</strong> that might indicate a file inclusion attack.</li>
+<li>The rule will look for these strings in the <strong>HTTP request body or URL parameters</strong>.</li>
+<li>Suricata will generate a log and block the connection.</li>
+</ul>
+</li>
+<li>
+<p><strong>Rule Structure</strong>:</p>
+<ul>
+<li>Use <strong><code>alert</code></strong> (to generate logs) and <strong><code>drop</code></strong> (to block the connection).</li>
+<li>Detect the strings <strong><code>userfile=@/etc/passwd</code></strong> and <strong><code>userfile=@/etc/hosts</code></strong>.</li>
+<li>Use the <strong><code>content</code></strong> option for string matching, <strong><code>http_client_body</code></strong> for detecting the attack within the HTTP request, and <strong><code>nocase</code></strong> to make it case-insensitive.</li>
+</ul>
+</li>
+<li>
+<p><strong>Example Suricata Rules</strong>:</p>
+</li>
+<li><code>alert http any any -&gt; any any (msg:"Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;"; content:"userfile=@/etc/passwd"; http_client_body; nocase; sid:2000001; rev:1;)</code></li>
+<li><code>alert http any any -&gt; any any (msg:"Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;"; content:"userfile=@/etc/hosts"; http_client_body; nocase; sid:2000002; rev:1;)</code></li>
+<li><code>drop http any any -&gt; any any (msg:"Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;"; content:"userfile=@/etc/passwd"; http_client_body; nocase; sid:2000003; rev:1;)</code></li>
+<li><code>drop http any any -&gt; any any (msg:"Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;"; content:"userfile=@/etc/hosts"; http_client_body; nocase; sid:2000004; rev:1;)</code></li>
+</ol>
+</blockquote>
+<h2>Bing Copilot - Prompt 2</h2>
+<p>Now we move to Bing Copilot:</p>
+<blockquote>
+<div class="content user-select-text" tabindex="0" aria-description="" aria-label="Sent by Copilot: Here's a Suricata IPS rule that meets your requirements:
+
+&#96;&#96;&#96;yaml
+alert http any any -&gt; any any (msg:&quot;Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;&quot;; content:&quot;userfile=@/etc/passwd&quot;; nocase; http_uri; sid:1000005; rev:1;)
+alert http any any -&gt; any any (msg:&quot;Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;&quot;; content:&quot;userfile=@/etc/hosts&quot;; nocase; http_uri; sid:1000006; rev:1;)
+drop http any any -&gt; any any (msg:&quot;Blocking potential SSH credential theft attack&quot;; content:&quot;userfile=@/etc/passwd&quot;; nocase; http_uri; sid:1000007; rev:1;)
+drop http any any -&gt; any any (msg:&quot;Blocking potential SSH credential theft attack&quot;; content:&quot;userfile=@/etc/hosts&quot;; nocase; http_uri; sid:1000008; rev:1;)
+&#96;&#96;&#96;
+
+This rule does the following:
+1. **Detects incoming connections** containing &quot;userfile=@/etc/passwd&quot; or &quot;userfile=@/etc/hosts&quot;.
+2. **Blocks the connection** if such patterns are detected.
+3. **Generates a log** with the message &quot;Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;&quot;.
+
+Feel free to adjust the &#96;sid&#96; (Signature ID) and &#96;rev&#96; (Revision) numbers as needed. Let me know if you need any further customization!">
+<div class="ac-container ac-adaptiveCard has-image">
+<div class="ac-textBlock">
+<p>Here’s a Suricata IPS rule that meets your requirements:</p>
+<pre><code class="language-yaml"><span class="hljs-string">alert</span> <span class="hljs-string">http</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">-&gt;</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">(msg:"Blocked</span> <span class="hljs-string">potential</span> <span class="hljs-string">SSH</span> <span class="hljs-string">credential</span> <span class="hljs-string">theft</span> <span class="hljs-string">attack</span> <span class="hljs-string">from</span> <span class="hljs-string">&lt;source</span> <span class="hljs-string">IP&gt;</span> <span class="hljs-string">on</span> <span class="hljs-string">&lt;destination</span> <span class="hljs-string">IP&gt;</span> <span class="hljs-string">at</span> <span class="hljs-string">&lt;time&gt;";</span> <span class="hljs-string">content:"userfile=@/etc/passwd";</span> <span class="hljs-string">nocase;</span> <span class="hljs-string">http_uri;</span> <span class="hljs-string">sid:1000005;</span> <span class="hljs-string">rev:1;)</span>
+<span class="hljs-string">alert</span> <span class="hljs-string">http</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">-&gt;</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">(msg:"Blocked</span> <span class="hljs-string">potential</span> <span class="hljs-string">SSH</span> <span class="hljs-string">credential</span> <span class="hljs-string">theft</span> <span class="hljs-string">attack</span> <span class="hljs-string">from</span> <span class="hljs-string">&lt;source</span> <span class="hljs-string">IP&gt;</span> <span class="hljs-string">on</span> <span class="hljs-string">&lt;destination</span> <span class="hljs-string">IP&gt;</span> <span class="hljs-string">at</span> <span class="hljs-string">&lt;time&gt;";</span> <span class="hljs-string">content:"userfile=@/etc/hosts";</span> <span class="hljs-string">nocase;</span> <span class="hljs-string">http_uri;</span> <span class="hljs-string">sid:1000006;</span> <span class="hljs-string">rev:1;)</span>
+<span class="hljs-string">drop</span> <span class="hljs-string">http</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">-&gt;</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">(msg:"Blocking</span> <span class="hljs-string">potential</span> <span class="hljs-string">SSH</span> <span class="hljs-string">credential</span> <span class="hljs-string">theft</span> <span class="hljs-string">attack";</span> <span class="hljs-string">content:"userfile=@/etc/passwd";</span> <span class="hljs-string">nocase;</span> <span class="hljs-string">http_uri;</span> <span class="hljs-string">sid:1000007;</span> <span class="hljs-string">rev:1;)</span>
+<span class="hljs-string">drop</span> <span class="hljs-string">http</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">-&gt;</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">(msg:"Blocking</span> <span class="hljs-string">potential</span> <span class="hljs-string">SSH</span> <span class="hljs-string">credential</span> <span class="hljs-string">theft</span> <span class="hljs-string">attack";</span> <span class="hljs-string">content:"userfile=@/etc/hosts";</span> <span class="hljs-string">nocase;</span> <span class="hljs-string">http_uri;</span> <span class="hljs-string">sid:1000008;</span> <span class="hljs-string">rev:1;)</span>
+</code></pre>
+<p>This rule does the following:</p>
+<ol>
+<li><strong>Detects incoming connections</strong> containing “userfile=@/etc/passwd” or “userfile=@/etc/hosts”.</li>
+<li><strong>Blocks the connection</strong> if such patterns are detected.</li>
+<li><strong>Generates a log</strong> with the message “Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;”.</li>
+</ol>
+<p>Feel free to adjust the <code>sid</code> (Signature ID) and <code>rev</code> (Revision) numbers as needed. Let me know if you need any further customization!</p>
+</div>
+</div>
+</div>
+</blockquote>
+<h2>Comparing and Contrasting:</h2>
+<p>There's some interesting tidbits that came out of this:</p>
+<ul>
+<li>ChatGPT took the longest time between entering the first prompt and generating a response.</li>
+<li>ChatGPT's responses provide more information about how Suricata rules operate and how to craft them on your own, making it a better resource for beginner/occassional/intermediate users.</li>
+<li>None of the ChatGPT responses provided the full set of protocols supported by Suricata, which means referencing the documentation or creating a prompt specifically about that is required to obtain that information.</li>
+<li>Bing Copilot's responses are much more to the point, making them better for experienced users/people under time pressure.</li>
+<li>I suspect that using two different prompts in the same session causes some form of response contamination due to improper context cleanup. Both AI seem to default to HTTP being the protocol of choice, which makes sense for the first prompt, but is flat out wrong for the second prompt.*</li>
+<li>There is a lingering question about the available data on Suricata for training/Retrieval Augmented Generation. If most publicly accessible data is for HTTP Suricata rules, that might bias the results towards generating HTTP rules.</li>
+</ul>
+<p>*To be fair, I did not provide either AI with any information regarding the protocol to use for the second prompt. That was intentional, as part of the testing process.</p>
+<h2>The Unexpected Roadblock</h2>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/23/cyber-proj-tfb06.png" alt="ThriveDX login error screen." width="1920" height="912" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/23/responsive/cyber-proj-tfb06-xs.png 384w ,https://korgano.github.io/media/posts/23/responsive/cyber-proj-tfb06-sm.png 600w ,https://korgano.github.io/media/posts/23/responsive/cyber-proj-tfb06-md.png 768w ,https://korgano.github.io/media/posts/23/responsive/cyber-proj-tfb06-lg.png 1200w ,https://korgano.github.io/media/posts/23/responsive/cyber-proj-tfb06-xl.png 1600w"></figure>
+<p>To my lack of surprise, ThriveDX let me down when I needed it, right when a hurricane passed by my part of Florida.</p>
+<p>However, OPNsense released a new version with a wide range of updates, so perhaps I can make some progress by redoing the install from scratch...</p>
             ]]>
         </content>
     </entry>
@@ -864,101 +1071,6 @@ If you need further assistance, feel free to ask!">
 <h2>Next Steps</h2>
 <p>Since there doesn't seem to be much traffic or anything really unusual going on with this IP address, it's time to look somewhere else.</p>
 <p>The next IP address to check is going to the one associated with <code>priceengine-ecomprod01-pub-2131700027.us-east-1.elb.amazonaws.c</code>, which has a decent likelihood of generating a large volume of traffic. Will there be anything interesting to learn?</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Cybersecurity Project: Epic Games Store Packet Capture - Domains</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ip-addresses/"/>
-        <id>https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ip-addresses/</id>
-        <media:content url="https://korgano.github.io/media/posts/13/suspicious-ip-loc-2.PNG" medium="image" />
-            <category term="Tech"/>
-            <category term="PC"/>
-            <category term="Cybersecurity Projects"/>
-            <category term="Cybersecurity"/>
-
-        <updated>2024-05-08T10:55:13-04:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/13/suspicious-ip-loc-2.PNG" alt="The most suspicious possible IP address location - the middle of a reservoir in Kansas." />
-                    Last time, I managed to get Epic Games Store mostly functioning in Sandboxie-Plus and analyzed a number of DNS queries for potential&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/13/suspicious-ip-loc-2.PNG" class="type:primaryImage" alt="The most suspicious possible IP address location - the middle of a reservoir in Kansas." /></p>
-                <p>Last time, I managed to get Epic Games Store <strong>mostly </strong>functioning in Sandboxie-Plus and analyzed a number of DNS queries for potential suspicious behavior.</p>
-<p>Now, I'll be looking at IP addresses for host machines obtained during the packet capture session.</p>
-<h2>Wireshark Weakness: Resolved Addresses Exporting</h2>
-<div class="gallery-wrapper"><div class="gallery"  data-is-empty="false" data-translation="Add images" data-columns="4">
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-35-39-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-35-39-2-thumbnail.png" alt="Hosts obtained during packet capture - 01" width="768" height="828"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-44-28-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-44-28-2-thumbnail.png" alt="Hosts obtained during packet capture - 02" width="768" height="828"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-44-40-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-44-40-2-thumbnail.png" alt="Hosts obtained during packet capture - 03" width="768" height="828"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-45-01-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-45-01-2-thumbnail.png" alt="Hosts obtained during packet capture - 04" width="768" height="828"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-45-33-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-45-33-2-thumbnail.png" alt="Hosts obtained during packet capture - 05" width="768" height="828"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-45-54-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-45-54-2-thumbnail.png" alt="Hosts obtained during packet capture - 06" width="768" height="828"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-46-35-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-46-35-2-thumbnail.png" alt="Hosts obtained during packet capture - 07" width="768" height="828"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-51-52-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-51-52-2-thumbnail.png" alt="Hosts obtained during packet capture - 08" width="768" height="828"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-52-17-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-52-17-2-thumbnail.png" alt="Hosts obtained during packet capture - 09" width="768" height="828"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-52-35-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-52-35-2-thumbnail.png" alt="Hosts obtained during packet capture - 10" width="768" height="828"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-52-54-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-52-54-2-thumbnail.png" alt="Hosts obtained during packet capture - 11" width="768" height="828"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-53-18-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-53-18-2-thumbnail.png" alt="Hosts obtained during packet capture - 12" width="768" height="828"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-53-31-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-53-31-2-thumbnail.png" alt="Hosts obtained during packet capture - 13" width="768" height="828"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-53-49-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-53-49-2-thumbnail.png" alt="Hosts obtained during packet capture - 14" width="768" height="828"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-54-04-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-54-04-2-thumbnail.png" alt="Hosts obtained during packet capture - 15" width="768" height="828"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-54-20-2.png" data-size="837x902"><img loading="lazy" src="https://korgano.github.io/media/posts/13/gallery/2024-04-30-15-54-20-2-thumbnail.png" alt="Hosts obtained during packet capture - 16" width="768" height="828"></a></figure>
-</div></div>
-<p>Wireshark has <strong>many </strong>great network capture analysis features, but they're not perfect. For example, Resolved Addresses generates a list of IP/MAC addresses and domain/devices names associated with those addresses.</p>
-<p>What it does not do, for some reason, is provide a method of exporting this list from the graphical user interface. Using the command line is necessary for this task, which is a shame, because this feature is ideal for helping develop PiHole blocklists.</p>
-<p>So this forced me to take multiple screen captures at the time of capture, then transfer the PCAP to a separate computer for analysis. (My gaming rig is not really setup for that.)</p>
-<p>After several rounds of iteration, I discovered that there's no easy way to dump the information via command line - for some reason, every source and destination IP would be the EGS host and the PiHole I use for DNS filtering. This is despite Wireshark correctly displaying IP addresses from outside my network.</p>
-<p>I also discovered that I could copy and paste data from the GUI's Resolved Addresses pane... one entry at a time. By that I mean, I can highlight <strong>one </strong>piece of data, copy it, and paste it. Attempting to copy multiple pieces of data, like all the IP addresses, just results in pasting <strong>one </strong>IP address.</p>
-<p><strong>Analyzing Domains and IPs</strong></p>
-<p>After spending an annoying amount of time manually copy-pasting domains and IP addresses into a text document, I began running them through VirusTotal and AlienVault OTX.</p>
-<p>After crosschecking their answers on a few easily discernable legitimate domains, I began feeding domains I was less certain about into those sites.</p>
-<p>These are the entries that aroused the most suspicion in me, for various reasons:</p>
-<blockquote>
-<p>account-public-service-prod03.ol.epicgames.com</p>
-<p>Security vendors' analysis<br>CyRadar: Malicious</p>
-<p>Indicator Facts<br>2 malicious files communicating</p>
-<p>Running webserver<br>Resolves to 8 IPs<br>Present in Umbrella<br>Present in Majestic<br>Present in Akamai</p>
-<p>Antivirus Detections<br>Backdoor:Win32/Tofsee.T, TEL:Trojan:Win64/GoCLR.MR!MTB<br>AV Detection Ratio: 2 / 2</p>
-<p>Associated Files<br>Sep 19, 2021    8e7c791dd2a860fb8ff4630b4079351d9865c73316d3071664a8cab86737e890                TEL:Trojan:Win64/GoCLR.MR!MTB</p>
-<p>Aug 31, 2019    b81db9595e7cdc16ca6f106f5610e4442cbaf9049940938b34ce759a42688dfa    Win32:BackdoorX-gen\ [Trj]        Win.Trojan.Tofsee-6840338-0    Backdoor:Win32/Tofsee.T</p>
-</blockquote>
-<p>Given that Epic Games Store is roughly 5.5 years old, the fact that a Trojan/backdoor was identified on the platform in 2019 definitely raised an eyebrow. However, the fact that only <strong>two </strong>detections have been made in that time span suggests to me that these were probably not done by Epic. However, this domain is definitely going to be looked at in more depth later.</p>
-<blockquote>
-<p>eos-gateway-ingressv2-prod-c1-w4.befa.live.use1a.on.epicgames.c<br>No results on VirusTotal/AlienVault</p>
-<p>eos-gateway-ingressv2-prod-c3-w5.befa.live.use1a.on.epicgames.c<br>No results on VirusTotal/AlienVault</p>
-<p>eulatracking-svc-prod06-pub-1257580502.us-east-1.elb.amazonaws.<br>No results on VirusTotal/AlienVault</p>
-</blockquote>
-<p>These are suspicious due to not having <strong>any </strong>results on VirusTotal and AlienVault, although looking up their IPs suggest they're run out of the same AWS data center that a lot of EGS's services are. (And possibly my cybersecurity course too!)</p>
-<p>Also, I'm very curious to see what I can find out about the End User License Agreement traffic.</p>
-<blockquote>
-<p>fp2e7a.wpc.phicdn.net</p>
-<p>Fake Update Utilizes New IDAT Loader To Execute StealC and Lumma Infostealers - according to source ArcSight Threat Intelligence - 8 months ago<br>Contextual Indicators: The domain is popular in the world Contextual Indicators: The domain’s Cisco Umbrella rank is 709 Created On: 2014:11:14 00:00:00</p>
-<p>VirusTotal Link: https://www.virustotal.com/gui/domain/fp2e7a.wpc.phicdn.net/detection Classification Description: Legitimate website which does not serve any malicious purpose.</p>
-<p>ArcSight Threat Intelligence: Suspicious<br>Antivirus Detections<br>Trojan:Win32/Prepscram<br>AV Detection Ratio: 12 / 13</p>
-<p>Jul 23, 2023    bc0e2cba3466c7b53635df6057dc87bcf622d0439ae766a71b49eae726226507            Win.Malware.Zusy-9957983-0    Trojan:Win32/Prepscram<br>Multiple Prepscam detections with different hashes</p>
-</blockquote>
-<p>This obviously set off a number of red flags for me, especially considering how recent the latest detection. I immediately popped the IP address into the same website that I'd used to verify the location and ownership of the others, and got this in return:</p>
-<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/13/suspicious-ip-loc.PNG" alt="Speedguide.net IP Address look up for the IP address associated with fp2e7a.wpc.phicdn.net - the IP address is geolocated to the middle of Cheney Reservoir in Kansas." width="1600" height="827" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/13/responsive/suspicious-ip-loc-xs.PNG 384w ,https://korgano.github.io/media/posts/13/responsive/suspicious-ip-loc-sm.PNG 600w ,https://korgano.github.io/media/posts/13/responsive/suspicious-ip-loc-md.PNG 768w ,https://korgano.github.io/media/posts/13/responsive/suspicious-ip-loc-lg.PNG 1200w ,https://korgano.github.io/media/posts/13/responsive/suspicious-ip-loc-xl.PNG 1600w"></figure>
-<p>There's a word for an IP address being geolocated in the middle of a reservoir in Kansas:</p>
-<figure class="post__image"><img loading="lazy"  src="https://i.imgur.com/7ohZC9x.gif" alt="Inglourious Basterds - &quot;It's called suspicious.&quot;" width="360" height="202" data-is-external-image="true"></figure>
-<p>Now, there's a totally credible explanation for this type of result. Some server clusters are actually put inside specialized containers and immersed in large bodies of water for cooling purposes.</p>
-<p>Looking into things further, <a href="https://github.com/hoshsadiq/adblock-nocoin-list/issues/452" title="False positive: fp2e7a.wpc.2be4.phicdn.net " target="_blank" rel="noopener noreferrer">I discovered that the <code>*.phicdn.net </code>domain is associated with <code>ocsp.digicert.com</code></a><code></code>, which checks for certificate revocation.</p>
-<p>Why they would use this domain, which is suspiciously generic and hosted in a suspicious location, is a question for more experienced investigators.</p>
-<p>The final interesting domain I found was this one:</p>
-<blockquote>
-<p>priceengine-ecomprod01-pub-2131700027.us-east-1.elb.amazonaws.c<br>No results on VirusTotal/AlienVault</p>
-</blockquote>
-<p>This one is pretty easy to understand, but it'll be interesting to see what price data is being moved through this connection.</p>
-<h2>The Next Steps</h2>
-<p>With a specific number of interesting domains and IPs to examine, the next step is examine the actual network data flows. The logical place to start is with <code>account-public-service-prod03.ol.epicgames.com</code>, one of Epic Games' domains that has been compromised in the past.</p>
-<p>Once we take a look at that one, we'll go through the rest of the ones I've highlighted in this article. Will we find anything interesting? Let's find out!</p>
             ]]>
         </content>
     </entry>
