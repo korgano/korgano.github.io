@@ -3,12 +3,160 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2024-09-26T10:19:39-04:00</updated>
+    <updated>2024-10-08T16:50:47-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>Quick Cyber Thoughts: Tuw GUI Wrapper</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/quick-cyber-thoughts-tuw-gui-wrapper/"/>
+        <id>https://korgano.github.io/quick-cyber-thoughts-tuw-gui-wrapper/</id>
+        <media:content url="https://korgano.github.io/media/posts/25/unknown_2024.10.07-16.38.png" medium="image" />
+            <category term="Tech"/>
+            <category term="Quick Thoughts"/>
+            <category term="PC"/>
+            <category term="Cybersecurity"/>
+
+        <updated>2024-10-08T09:00:33-04:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/25/unknown_2024.10.07-16.38.png" alt="A successful execution of Unreal Engine 4 UCAS/UTOC packing via Tuw GUI" />
+                    I have a love-hate relationship with command line. On one hand, I cannot deny the speed and efficiency command line&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/25/unknown_2024.10.07-16.38.png" class="type:primaryImage" alt="A successful execution of Unreal Engine 4 UCAS/UTOC packing via Tuw GUI" /></p>
+                <p>I have a love-hate relationship with command line.</p>
+<p>On one hand, I cannot deny the speed and efficiency command line has with some tasks.</p>
+<p>On the other, command line requires not only knowledge of the commands and variables to input, but it requires a lot of typing, copy-pasting, and/or trial and error to get working properly.</p>
+<p>Now, AI can make the iteration process a lot easier and faster, and once you've gotten a command perfected, you can make it into a script file, but most people are familiar and more comfortable with a Graphical User Interface (GUI).</p>
+<p>But what if you could come up with a GUI for your Command Line Interface (CLI) commands?</p>
+<h2>Tuw - The Open Source Solution</h2>
+<p>I discovered <a href="https://github.com/matyalatte/tuw" title="Tuw: a tiny GUI wrapper for command-line tools" target="_blank" rel="noopener noreferrer">Tuw</a> thanks to someone on the Unreal Engine Modding Discord. (I would give credit, but it's very annoying to search Discord for things like this.)</p>
+<p>A large number of tools for modding Unreal Engine games are CLI tools, which often involve multiple file paths and variables, and generally don't have a GUI created by the actual tool developer. Also, the documentation on the Github pages tend not to be the best. So they tend to be <strong>incredibly </strong>unfriendly to new users, who tend to search around for knowledge on how to mod a specific game that happens to use Unreal Engine.</p>
+<p>How Tuw works is pretty simple. There is an executable file (.EXE for Windows, and other formats for Mac and Linux) that checks a JSON file for the following things:</p>
+<ul>
+<li>The actual command.</li>
+<li>A button to execute the command.</li>
+<li>Input fields.</li>
+<li>Labels for the fields and the button.</li>
+<li>Identifiers for variables </li>
+<li>Rules for input validation and error handling.</li>
+<li>A wide variety of other settings.</li>
+</ul>
+<h2>Keep It Stupid Simple</h2>
+<p>There is an old axiom that you may have heard of: KISS.</p>
+<p>You may be familiar with what it usually spells out: Keep It Simple, Stupid. It's a warning to keep people from creating overcomplicated solutions, because people like to associate complexity with sophistication. But there's a flip side of the coin that people tend to ignore.</p>
+<p>Keep It Stupid Simple is an informal design goal. The polite summation is that the solution being designed for the task should be as simple and easy as possible, so that even an uneducated person can do the job. Some would say that Apple is a master of this, but other relevant (but non-tech related) examples would be the AK and Glock. If the thing you design can be easily and successfully used by anyone within a half hour or less, it's stupid simple.</p>
+<p>Tuw very much fits this mold. Let's look at the JSON code I created to handle the task:</p>
+<div>
+<div><code>{</code></div>
+<div><code>    "gui": [</code></div>
+<div><code>        {</code></div>
+<div><code>            "label": "Minimal Sample",</code></div>
+<div><code>            "window_name": "Unreal IO Store Command",</code></div>
+<div><code>            "command": "%UE4editor% %uProject% -run=IoStore -CreateGlobalContainer=%GlobalContainer% -CookedDirectory=%CookedDir% -Commands=%Commands% -CookerOrder=%CookerOrder% -TargetPlatform=WindowsNoEditor -stdout -UTF8Output",</code></div>
+<div><code>            "button": "Pack uAssets",</code></div>
+<div><code>            "components": [</code></div>
+<div><code>                {</code></div>
+<div><code>                    "type": "file",</code></div>
+<div><code>                    "label": "UE4 Editor path",</code></div>
+<div><code>                    "extension": "EXE files (*.exe)|*.exe",</code></div>
+<div><code>                    "placeholder": "D:\\EGS\\UE_4.27\\Engine\\Binaries\\Win64\\UE4Editor-Cmd.exe",</code></div>
+<div><code>                    "id": "UE4editor",</code></div>
+<div><code>                    "validator": {</code></div>
+<div><code>                                    "exist": true,</code></div>
+<div><code>                                    "not_empty": true,</code></div>
+<div><code>                                    "wildcard": "*.exe"</code></div>
+<div><code>                                }</code></div>
+<div><code>                },</code></div>
+<div><code>                {</code></div>
+<div><code>                    "type": "file",</code></div>
+<div><code>                    "label": "Aliens: Dark Descent project path",</code></div>
+<div><code>                    "extension": "uProject files (*.uproject)|*.uproject",</code></div>
+<div><code>                    "placeholder": "D:\\EGS\\Projects\\ASF_Updated\\ASF.uproject",</code></div>
+<div><code>                    "id": "uProject",</code></div>
+<div><code>                    "validator": {</code></div>
+<div><code>                        "exist": true,</code></div>
+<div><code>                        "not_empty": true,</code></div>
+<div><code>                        "wildcard": "*.uproject"</code></div>
+<div><code>                    }</code></div>
+<div><code>                },</code></div>
+<div><code>                {</code></div>
+<div><code>                    "type": "file",</code></div>
+<div><code>                    "label": "Global.Utoc Path",</code></div>
+<div><code>                    "extension": "uTOC files (*.utoc)|*.utoc",</code></div>
+<div><code>                    "placeholder": "D:\\EGS\\Projects\\ASF_Updated\\Saved\\StagedBuilds\\WindowsNoEditor\\ASF\\Content\\Paks\\global.utoc",</code></div>
+<div><code>                    "id": "GlobalContainer",</code></div>
+<div><code>                    "validator": {</code></div>
+<div><code>                        "exist": true,</code></div>
+<div><code>                        "not_empty": true,</code></div>
+<div><code>                        "wildcard": "*.utoc"</code></div>
+<div><code>                    }</code></div>
+<div><code>                },</code></div>
+<div><code>                {</code></div>
+<div><code>                    "type": "folder",</code></div>
+<div><code>                    "label": "Path to uAssets",</code></div>
+<div><code>                    "placeholder": "D:\\AliensDarkDescent\\zModCamera",</code></div>
+<div><code>                    "add_quotes": false,</code></div>
+<div><code>                    "id": "CookedDir"</code></div>
+<div><code>                },</code></div>
+<div><code>                {</code></div>
+<div><code>                    "type": "file",</code></div>
+<div><code>                    "label": "Commands text file",</code></div>
+<div><code>                    "extension": "Text files (*.txt)|*.txt",</code></div>
+<div><code>                    "placeholder": "D:\\EGS\\Projects\\ASF_Updated\\ASF_Upgrades.txt",</code></div>
+<div><code>                    "add_quotes": true,</code></div>
+<div><code>                    "id": "Commands",</code></div>
+<div><code>                    "validator": {</code></div>
+<div><code>                        "exist": true,</code></div>
+<div><code>                        "not_empty": true,</code></div>
+<div><code>                        "wildcard": "*.txt"</code></div>
+<div><code>                    }</code></div>
+<div><code>                },</code></div>
+<div><code>                {</code></div>
+<div><code>                    "type": "file",</code></div>
+<div><code>                    "label": "Path to Cooker Order file",</code></div>
+<div><code>                    "extension": "Log files (*.log)|*.log",</code></div>
+<div><code>                    "placeholder": "D:\\EGS\\Projects\\ASF_Updated\\Build\\WindowsNoEditor\\FileOpenOrder\\CookerOpenOrder.log",</code></div>
+<div><code>                    "add_quotes": false,</code></div>
+<div><code>                    "id": "CookerOrder",</code></div>
+<div><code>                    "validator": {</code></div>
+<div><code>                        "exist": true,</code></div>
+<div><code>                        "not_empty": true,</code></div>
+<div><code>                        "wildcard": "*.log"</code></div>
+<div><code>                    }</code></div>
+<div><code>                }</code></div>
+<div><code>            ]</code></div>
+<div><code>        }</code></div>
+<div><code>    ]</code></div>
+<div><code>}</code></div>
+</div>
+<p><a href="https://github.com/matyalatte/tuw/blob/main/examples" target="_blank" rel="noopener noreferrer">Tuw comes with extensive documentation on how to set up the JSON file</a>. And most crucially, it comes with example code that actually shows how the code should be configured <strong>and </strong>integrated with the other code. A great deal of documentation for other items presupposes that the user has a great deal of applicable knowledge going in... Which then causes problems when the user does <strong>not </strong>have that knowledge.</p>
+<p>And modding is perhaps the quintessential example of that type of scenario. In most circumstances, the person who wants to mod has <strong>zero </strong>experience with the specific programs they have to use. They might be familiar with editing code or configuration files, but perhaps not command line interfaces, especially if they're coming from a game where there's an official mod tool kit. </p>
+<p>(I speak from experience.)</p>
+<h2>The Tuw GUI Crafting Experience</h2>
+<p>Making a GUI with Tuw is quite fast. Between copying and pasting code straight from the Github documentation and auto-complete, the main time sink will be the complexity of the command and the GUI. More fields naturally increases the amount of time spent making the GUI, especially if they're of multiple different types and require different types of validation.</p>
+<p>Testing is a bit finicky, because the program expects you to use <code>gui_definition.json</code> as the file name. So there's no way to switch between GUIs without coding 2+ GUIs' worth of JSON code. This is a <strong>massive </strong>inconvenience <a href="https://github.com/matyalatte/tuw/tree/main/examples/get_start/json_embed" title="JSON Embedding" target="_blank" rel="noopener noreferrer">if you plan to make a Tuw program with the JSON code embedded in it for distribution</a>.</p>
+<p>(The issue is that because Tuw defaults to reading <code>gui_definition.json</code>, which is the file that can be set to allow Tuw to generate a new version of Tuw with a GUI definition embedded in it. So have to have two separate JSONs, and the new EXE will have an annoying popup on run alerting you to the fact that it's ignoring <code>gui_definition.json</code> in favor of the one you specified.)</p>
+<p>Once you initialize Tuw, go through the steps required to fill out the various fields, then press the button to execute the command. If there's an error, it'll show up if you have validator or <a href="https://github.com/matyalatte/tuw/tree/main/examples/other_features/error" title="Error Handling" target="_blank" rel="noopener noreferrer">error handling code</a>. In my case, I initially had regular expression <strong>and </strong>wildcard matching for the file extensions, but for some reason, every single file reported as invalid. Removing those lines from the JSON fixed the problem.</p>
+<p>Once that was done, I went through the process of filling out the fields and got the following result:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/25/unknown_2024.10.07-16.38-2.png" alt="A successful execution of Unreal Engine 4 UCAS/UTOC packing via Tuw GUI" width="1920" height="1080" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/25/responsive/unknown_2024.10.07-16.38-2-xs.png 384w ,https://korgano.github.io/media/posts/25/responsive/unknown_2024.10.07-16.38-2-sm.png 600w ,https://korgano.github.io/media/posts/25/responsive/unknown_2024.10.07-16.38-2-md.png 768w ,https://korgano.github.io/media/posts/25/responsive/unknown_2024.10.07-16.38-2-lg.png 1200w ,https://korgano.github.io/media/posts/25/responsive/unknown_2024.10.07-16.38-2-xl.png 1600w"></figure>
+<p>Tuw successfully completed the file generation part of the task, which meant any issues would be on my end.</p>
+<h2>The Cybersecurity Applications</h2>
+<p>How can this be leveraged for cybersecurity?</p>
+<p>There's a non-zero use case for a GUI when you have a long command that requires multiple file and/or folder paths. But if we're honest, I doubt that it's all that common, and you're better off using a conventional script... unless your organization just blanket disables command line <strong>and </strong>PowerShell. Then this might be your only option.</p>
+<p>But what comes to mind is a stupid simple way to execute troubleshooting commands on an endpoint PC for a non-technical and/or non-permissioned user. For example, you could make multiple Tuw based executable files for ping testing when a user calls with a network connection issue. One file would execute <code>ping 8.8.8.8</code>, another would ping a specified endpoint, and so on, and each would only require the user to make a few clicks.</p>
+<p>Naturally, you'd need to have someone qualified inspect the source code and verify that it was safe to use, but on the plus side, all those JSONs for your GUIs should be compatible across versions. If there's ever a problem, you can just rebuild the embedded GUI executables by combining a known good version of Tuw with those JSONs.</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Quick Cyber Thoughts: More Reasons for Local AI</title>
         <author>
@@ -1014,63 +1162,6 @@ Feel free to adjust the &#96;sid&#96; (Signature ID) and &#96;rev&#96; (Revision
 <p>It's unclear <strong>why </strong>the connection would reset, especially since I don't have anyway to execute TLS inspection, but it does stick out like a thumb compared the rest of the traffic. (Possible reasons include: the general awfulness of Spectrum internet, my internet being disrupted by software updates on the Raspberry Pi I use to host Pi-Hole, any kind of service disruption on Amazon's end.)</p>
 <p>Examining the packet further just shows a standard FIN exchange after exchanging data.</p>
 <p>The time gap in switching between the first two IPS seems to point towards the possibility that it related to switching between EGS proper and the Unreal.  But without the ability to inspect the unencrypted packets, it's hard to be sure what the traffic represents.</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Cybersecurity Project: Epic Games Store Packet Capture - IPs 1</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ips-1/"/>
-        <id>https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ips-1/</id>
-        <media:content url="https://korgano.github.io/media/posts/14/EGS-account-pub-serv.PNG" medium="image" />
-            <category term="PC"/>
-            <category term="Cybersecurity Projects"/>
-            <category term="Cybersecurity"/>
-
-        <updated>2024-05-15T10:27:43-04:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/14/EGS-account-pub-serv.PNG" alt="Wireshark Packet Capture of traffic to domain account-public-service-prod03.ol.epicgames.com" />
-                    Last time, we took a look a number of suspicious domains captured in network traffic to a sandboxed Epic Games&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/14/EGS-account-pub-serv.PNG" class="type:primaryImage" alt="Wireshark Packet Capture of traffic to domain account-public-service-prod03.ol.epicgames.com" /></p>
-                <p>Last time, we took a look a number of suspicious domains captured in network traffic to a sandboxed Epic Games Store installation.</p>
-<p>To progress the investigation, we're going to look a number of IP addresses for the following domain: <code>account-public-service-prod03.ol.epicgames.com</code></p>
-<p>This was a particularly interesting domain for analysis, due to two past malware detections:</p>
-<blockquote>
-<p>Sep 19, 2021    8e7c791dd2a860fb8ff4630b4079351d9865c73316d3071664a8cab86737e890                TEL:Trojan:Win64/GoCLR.MR!MTB<br>Aug 31, 2019    b81db9595e7cdc16ca6f106f5610e4442cbaf9049940938b34ce759a42688dfa    Win32:BackdoorX-gen\ [Trj]        Win.Trojan.Tofsee-6840338-0    Backdoor:Win32/Tofsee.T</p>
-</blockquote>
-<h2>Figuring Out the IP</h2>
-<p>The first step of the process is figuring out which IP associated with the domain was actually being used. There were 22 IP addresses associated with the domain, and unless EGS decided to bounce between them all during the process, only one was in use.</p>
-<p>This required me to go through the list of IPs until I finally found the one IP that was utilized for the connection, which took a decent amount of time due to the size of my packet capture.</p>
-<p>Luckily, I found it on the fourth attempt - <code>52.205.83.9</code>.</p>
-<p>To make examining the data easier, I then ran a filter for <code>ip.dst</code> and <code>ip.src</code> using that address, before exporting that filtered data to a new PCAP file. The new PCAP was much smaller - surprisingly small, in fact.</p>
-<h2>A Short Handshake</h2>
-<p>With a total length of 50 packets, the exchange starts off with a TCP Handshake, which constitutes the first three packets. Then there's a client hello, with TLS 1.2 encapsulation, which renders a lot of the packet contents into unreadable gibberish.</p>
-<p>However, there are bits and pieces that can be gleaned from examining the TCP stream.</p>
-<h2>A Bunch of HTTP</h2>
-<p>One thing that stood out to me in the TCP stream was the number of visible HTTP addresses.</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/14/EGS-account-pub-serv-02.PNG" alt="TCP stream of traffic going to account-public-service-prod03.ol.epicgames.com." width="1068" height="869" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-02-xs.PNG 384w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-02-sm.PNG 600w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-02-md.PNG 768w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-02-lg.PNG 1200w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-02-xl.PNG 1600w"></figure>
-<p>On one hand, the fact that they were Amazon addresses was <strong>not </strong>a surprise. Epic Games seems to use AWS infrastructure for all their online functionality. In fact, if you set Wireshark <code>Name Resolution &gt; Resolve Network Addresses</code>, you get the following:</p>
-<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/14/EGS-account-pub-serv-05.PNG" alt="Wireshark capture of account-public-service-prod03.ol.epicgames.com showing that the Epic Games IP address is an Amazon EC2 instance." width="1600" height="114" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-05-xs.PNG 384w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-05-sm.PNG 600w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-05-md.PNG 768w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-05-lg.PNG 1200w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-05-xl.PNG 1600w"></figure>
-<p>What <strong>did </strong>stand out to me was the use of HTTP in outwards facing URLs. Especially ones that could be accessed, to a limited degree, by non-Amazon individuals:</p>
-<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/14/EGS-account-pub-serv-03.PNG" alt="Nginx server associated with account-public-service-prod03.ol.epicgames.com certificate distribution." width="1600" height="378" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-03-xs.PNG 384w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-03-sm.PNG 600w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-03-md.PNG 768w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-03-lg.PNG 1200w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-03-xl.PNG 1600w"></figure>
-<p>This might explain how Trojans wound up being distributed by this domain. It's entirely possible that malware was placed onto this server and distributed to other systems via the certificates, since they are automatically downloaded upon connection to the specified URL.</p>
-<h2>Other Interesting Tidbits</h2>
-<p>One interesting tidbit of information was that there's a root certificate authority operating out of Scottsdale, Arizona.</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/14/EGS-account-pub-serv-04.PNG" alt="Certificate authority out of Scottsdale, Arizona associated with account-public-service-prod03.ol.epicgames.com." width="1068" height="869" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-04-xs.PNG 384w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-04-sm.PNG 600w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-04-md.PNG 768w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-04-lg.PNG 1200w ,https://korgano.github.io/media/posts/14/responsive/EGS-account-pub-serv-04-xl.PNG 1600w"></figure>
-<p>Starfield Technologies apparently provides the public key certificates for some of Amazon's web services. <a href="https://www.amazontrust.com/repository/" target="_blank" rel="noopener noreferrer">According to Amazon</a>:</p>
-<blockquote>
-<p>"Starfield Services Root Certificate Authority - G2" is an older root that is compatible with other older trust stores and clients that can not be updated. Including all five of the roots ensure maximum compatibility for your application.</p>
-</blockquote>
-<h2>Next Steps</h2>
-<p>Since there doesn't seem to be much traffic or anything really unusual going on with this IP address, it's time to look somewhere else.</p>
-<p>The next IP address to check is going to the one associated with <code>priceengine-ecomprod01-pub-2131700027.us-east-1.elb.amazonaws.c</code>, which has a decent likelihood of generating a large volume of traffic. Will there be anything interesting to learn?</p>
             ]]>
         </content>
     </entry>
