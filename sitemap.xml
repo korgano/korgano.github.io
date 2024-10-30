@@ -273,6 +273,38 @@
 </image:image>
 </url>
 <url>
+<loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-50/</loc>
+<lastmod>2024-10-30T11:27:31-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/26/opnsense-03-2.png</image:loc>
+<image:title><![CDATA[Default OPNsense firewall rules on the OPT1 interface, starting with an IPv4 deny all traffic in rule.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/26/filter-bridge-to-wifi.drawio.png</image:loc>
+<image:title><![CDATA[Planned network architecture, with Transparent Filtering Bridge connected to router WiFi interface.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/26/gallery/opnsense-03-thumbnail.png</image:loc>
+<image:title><![CDATA[OPNsense OPT1 Interface Firewall rules - part 1.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/26/gallery/opnsense-04-thumbnail.png</image:loc>
+<image:title><![CDATA[OPNsense OPT1 Interface Firewall rules - part 2.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/26/gallery/opnsense-05-thumbnail.png</image:loc>
+<image:title><![CDATA[OPNsense OPT1 Interface Firewall rules - part 3.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/26/cyber-proj-tfb07.png</image:loc>
+<image:title><![CDATA[OPNsense OPT1 interface traffic being allowed out onto network.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/26/cyber-proj-tfb08.png</image:loc>
+<image:title><![CDATA[OPT1 interface default IPv4 deny rule applying to multiple packets.]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/cybersecurity-project-virtual-machines-arent-always-the-solution/</loc>
 <lastmod>2024-04-17T14:22:58-04:00</lastmod>
 <image:image>

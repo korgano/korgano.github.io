@@ -3,12 +3,122 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2024-10-08T16:50:47-04:00</updated>
+    <updated>2024-10-30T11:27:31-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 5.0</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-50/"/>
+        <id>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-50/</id>
+        <media:content url="https://korgano.github.io/media/posts/26/opnsense-03-2.png" medium="image" />
+            <category term="UX"/>
+            <category term="Tech"/>
+            <category term="Cybersecurity Projects"/>
+            <category term="Cybersecurity"/>
+
+        <updated>2024-10-28T09:47:43-04:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/26/opnsense-03-2.png" alt="Default OPNsense firewall rules on the OPT1 interface, starting with an IPv4 deny all traffic in rule." />
+                    Sometimes on a project, you run into a problem that you cannot solve. Sometimes, this is due to lack of&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/26/opnsense-03-2.png" class="type:primaryImage" alt="Default OPNsense firewall rules on the OPT1 interface, starting with an IPv4 deny all traffic in rule." /></p>
+                <p>Sometimes on a project, you run into a problem that you cannot solve.</p>
+<p>Sometimes, this is due to lack of skill or experience. Sometimes it is due to lack of authority to do what needs to be done. Sometimes it's because of technological limitations.</p>
+<p>Sometimes, it's because of bad defaults, and stubborn refusal to accept valid criticism.</p>
+<h2>The Progression Blocker</h2>
+<p>To recap, the project has a simple goal: implement a transparent filtering bridge with OPNsense. I acquired a miniPC, installed OPNsense, and ran into issues connecting to the webGUI.</p>
+<p>Initially, this was due to two things:</p>
+<ol>
+<li>Shutting down the WiFi interface completely obliterated the ability to reactive it.</li>
+<li>I couldn't apply an IP address to the LAN port without breaking the filtering bridge.</li>
+</ol>
+<p>So I eventually clean installed OPNsense again so that I could reactivate the WiFi and use that to serve as my management connection:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/26/filter-bridge-to-wifi.drawio.png" alt="Planned network architecture, with Transparent Filtering Bridge connected to router WiFi interface." width="607" height="471" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/26/responsive/filter-bridge-to-wifi.drawio-xs.png 384w ,https://korgano.github.io/media/posts/26/responsive/filter-bridge-to-wifi.drawio-sm.png 600w ,https://korgano.github.io/media/posts/26/responsive/filter-bridge-to-wifi.drawio-md.png 768w ,https://korgano.github.io/media/posts/26/responsive/filter-bridge-to-wifi.drawio-lg.png 1200w ,https://korgano.github.io/media/posts/26/responsive/filter-bridge-to-wifi.drawio-xl.png 1600w"></figure>
+<p>There were two problems with this:</p>
+<ol>
+<li>The WiFi interface itself would have repeated errors that referenced a specific FreeBSD bug.</li>
+<li>Even when I did connect the miniPC to WiFi, I couldn't access the webGUI.</li>
+</ol>
+<p>Those two problems might've actually been two sides of the same coin, but that was not obvious at the start.</p>
+<h2>The FreeBSD Bug</h2>
+<p>The issue I was running into was this error message:</p>
+<blockquote>
+<p><code>iwl_mvm_tx_mpdu:1204: fc 0x00b0 tid 8 txq_id 65535 mvm 0xfffffe015572d4c8 skb 0xfffff80035b83000 { len 30 } info 0xfffffe00e1253cd8 sta 0xfffff80035ecc080 (if you see this please report to PR 274382)</code><br><code>iwl_mvm_tx_mpdu:1204: fc 0x00b0 tid 8 txq_id 65535 mvm 0xfffffe015572d4c8 skb 0xfffff80035b83000 { len 30 } info 0xfffffe00e1253cd8 sta 0xfffff80035ecc080 (if you see this please report to PR 274382)</code></p>
+</blockquote>
+<p>The error, <a href="https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=274382" target="_blank" rel="noopener noreferrer">according to the FreeBSD foundation</a>, seems to related to receiving frames for a state that is no longer known to the driver or firmware.</p>
+<p>What was odd was that this error would trigger on <strong>startup</strong>, even when the WiFi configuration was set.</p>
+<h2>The webGUI</h2>
+<p>Diagnosing the webGUI connection issues was much harder, since the Intel WiFi driver bug would at least trigger whenever I was trying to set up the connection. The obvious solution of making a firewall rule to allow HTTPS connections didn't seem to do anything. Attempts to access the webGUI if and when I could sporadically get the WiFi to connect just led to timed out connections.</p>
+<p>So to figure out what to do next, I asked Bing/Microsoft Copilot (they've changed the URL, so I have no idea what's going on with the branding) for some advice on how to troubleshoot the issue. And that advice included a console command to disable the firewall.</p>
+<p>After executing the command and going into the network interface commands to get the WiFi connection to communicate with the DHCP server, and I had an IP address.</p>
+<p>So this made me look closer at the firewall settings for the interface.</p>
+<h2>The Settings</h2>
+<div class="gallery-wrapper gallery-wrapper--wide"><div class="gallery"  data-is-empty="false" data-translation="Add images" data-columns="3">
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/26/gallery/opnsense-03.png" data-size="1349x615"><img loading="lazy" src="https://korgano.github.io/media/posts/26/gallery/opnsense-03-thumbnail.png" alt="OPNsense OPT1 Interface Firewall rules - part 1." width="768" height="350"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/26/gallery/opnsense-04.png" data-size="1349x615"><img loading="lazy" src="https://korgano.github.io/media/posts/26/gallery/opnsense-04-thumbnail.png" alt="OPNsense OPT1 Interface Firewall rules - part 2." width="768" height="350"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/26/gallery/opnsense-05.png" data-size="1349x615"><img loading="lazy" src="https://korgano.github.io/media/posts/26/gallery/opnsense-05-thumbnail.png" alt="OPNsense OPT1 Interface Firewall rules - part 3." width="768" height="350"></a></figure>
+</div></div>
+<p>It turns out that when I was implementing that HTTPS rule earlier, I overlooked an entire suite of default rules in a collapsed accordion interface. So I opened it up, and took a look inside.</p>
+<p>As you can see above, the list <strong>starts </strong>with a deny anything rule, although it <strong>supposedly </strong>is a last match rule. That made me suspicious, so I replaced the HTTPS rule with a generic allow all IPv4/IPv6 rule into the interface, to see if that would change things.</p>
+<p>No dice. Still had the same errors and connection problems.</p>
+<p>I looked to see if I could either disable the default rules one by one or all together, but there wasn't a GUI option for that. I also couldn't move my own custom rule before the default rules.</p>
+<p>This was a big problem, because one of the earliest things you learn in cybersecurity is that access control lists are executed in order of how the rules are listed. So you have to get the order right to ensure things work as intended.</p>
+<p>Eventually, I couldn't figure out what to do next, so I made an issue on the OPNsense Github repo, and got this helpful advice:</p>
+<blockquote>
+<p>You can easily debug the effect of these rules by editing <code class="notranslate">/tmp/rules.debug</code> and after modifying the ruleset, apply changes using <code class="notranslate">pfctl -f /tmp/rules.debug</code>.</p>
+</blockquote>
+<p>One thing I discovered while attempting this was that the rules list in the debug file was in the same order as it displayed in the webGUI. Which means that there's a high likelihood that the problem was the default IPv4 deny rule. So I commented it out, applied the changes and...</p>
+<p>Got an IP address with no problems and could connect to the webGUI.</p>
+<h2>Poking Around Some More</h2>
+<p>Experimenting some more with various logging techniques, I discovered a few other things.</p>
+<p>First, it seemed like the outbound rules were definitely not the problem:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/26/cyber-proj-tfb07.png" alt="OPNsense OPT1 interface traffic being allowed out onto network." width="1349" height="615" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/26/responsive/cyber-proj-tfb07-xs.png 384w ,https://korgano.github.io/media/posts/26/responsive/cyber-proj-tfb07-sm.png 600w ,https://korgano.github.io/media/posts/26/responsive/cyber-proj-tfb07-md.png 768w ,https://korgano.github.io/media/posts/26/responsive/cyber-proj-tfb07-lg.png 1200w ,https://korgano.github.io/media/posts/26/responsive/cyber-proj-tfb07-xl.png 1600w"></figure>
+<p>Second, the default IPv4 deny rule was <strong>definitely </strong>part of the problem:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/26/cyber-proj-tfb08.png" alt="OPT1 interface default IPv4 deny rule applying to multiple packets." width="1349" height="615" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/26/responsive/cyber-proj-tfb08-xs.png 384w ,https://korgano.github.io/media/posts/26/responsive/cyber-proj-tfb08-sm.png 600w ,https://korgano.github.io/media/posts/26/responsive/cyber-proj-tfb08-md.png 768w ,https://korgano.github.io/media/posts/26/responsive/cyber-proj-tfb08-lg.png 1200w ,https://korgano.github.io/media/posts/26/responsive/cyber-proj-tfb08-xl.png 1600w"></figure>
+<p>I tried packet captures through OPNsense's internal diagnostic tools, then ran into a bizarre problem. By default, the captures would end at a certain amount of packets, which made sense to keep things from being unmanageable. But if I set the capture to some value like 50 or 100, the capture wouldn't end, even after multiple minutes.</p>
+<p>As a sanity check, I opened up Wireshark on a separate computer, connected to the webGUI over the WiFi, used the webGUI IP address as the capture filter, and began capturing. Within <strong>ten seconds</strong>, I had over 100 packets. Checking the packet captures I made in OPNsense, even the most permissive ones were lucky to have more than a dozen.</p>
+<p>This makes troubleshooting this issue <strong>much </strong>harder.</p>
+<h2>The Theory of the Bug</h2>
+<p>Here's what I <strong>think </strong>is happening:</p>
+<ol>
+<li>There's a bug somewhere in the code.</li>
+<li>When the firewall is initialized, the default IPv4 deny rule triggers first, despite being a last match rule.</li>
+<li>When the WiFi interface initializes, the rule blocks the DHCP Offer and/or Acknowledge packets from the DHCP server, triggering the Intel WiFi error.</li>
+<li>If/when the WiFi connection is made, the firewall blocks the webGUI TCP three-way handshake at some point.</li>
+<li>The webGUI connection then times out, because it doesn't receive the SYN-ACK and/or ACK packets it was expecting.</li>
+</ol>
+<h2>The UX Part of The Problem</h2>
+<p>The frustrating part of this situation is that there's a potentially simple solution to the problem. It just doesn't exist, because the developers seem resistant to the idea that their implementation of the default rules might be a problem.</p>
+<p>No less than <strong>three </strong>issues reference the default firewall rules, and one of those is my own.</p>
+<p>Now, the main point of disagreement, from what I can tell, is this:</p>
+<ol>
+<li>The developers want to provide default firewall rules that protect every connection.</li>
+<li>The users want to be able to alter/disable/delete the rules from the rules GUI.</li>
+</ol>
+<p>These two things are <strong>not </strong>mutually exclusive, which is why the general tone of users in <a href="https://github.com/opnsense/core/issues/7127" title="Allow custom Firewall rules before auto generated rule / allow auto generated rules to be configured/deleted" target="_blank" rel="noopener noreferrer">this issue thread</a> (the first I could find) is of frustration:</p>
+<blockquote>
+<p dir="auto">I think it's a little more than agreeing to disagree.</p>
+<p dir="auto">What is the purpose of using a firewall if I don't have full autonomy over what rules I want to create/delete?</p>
+<hr>
+<p dir="auto">normally closedsource products try to think for me and prevent me of doing stuff. i prefer the straight way of linux and its <code class="notranslate">rm -rf /</code>. if i want to do that i can. it is really sad that you/the opnsense team is blocking such an important functionality which, as this ticket shows, costs developer a lot of time and blocks them from using your awesome software. i would love to stand with opnsense instead of pfsense. so i would really prefer to use opnsense.</p>
+<p dir="auto">i think i can speak for the people who commented here that it is not about removing a default setting, which you say make the firewall more secure, but the option for an advanced user to do so.</p>
+</blockquote>
+<p dir="auto">So, since this is a somewhat contentious topic, I'm just going to ask a simple question:</p>
+<p dir="auto">Isn't turning things on and off in different orders, and sometimes moving things around, the most common and proven method of troubleshooting?</p>
+<p dir="auto">It seems odd to remove this basic capability, then expect people to always stumble upon the potential solutions. And to be honest, if your default settings are causing issues, is that not a big red flag suggesting there might need to be changes?</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Quick Cyber Thoughts: Tuw GUI Wrapper</title>
         <author>
@@ -1102,66 +1212,6 @@ Feel free to adjust the &#96;sid&#96; (Signature ID) and &#96;rev&#96; (Revision
 <p>Windows Recall isn't even an official release yet, and there's already Python scripts designed to access the <strong>unencrypted </strong>database that application creates.</p>
 <p>The safest course of action is going to be simply removing the whole thing until Microsoft implements some proper security... but at the same time, will anyone miss the extra CPU, RAM, and HDD/SSD utilization?</p>
 <p>(Also, to push back on Mental Outlaw, this will <strong>not </strong>push people to Linux. As someone who's had UXUI training, Linux violates so many heuristics of good UXUI. You genuinely need to replace the various terminals with LLM chatbots to make widescale Linux adoption even somewhat viable.)</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Cybersecurity Project: Epic Games Store Packet Capture - IPs 2</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ips-2/"/>
-        <id>https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ips-2/</id>
-        <media:content url="https://korgano.github.io/media/posts/15/EGS-account-pub-serv-06.PNG" medium="image" />
-            <category term="Tech"/>
-            <category term="PC"/>
-            <category term="Cybersecurity Projects"/>
-            <category term="Cybersecurity"/>
-
-        <updated>2024-05-22T19:53:04-04:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/15/EGS-account-pub-serv-06.PNG" alt="Wireshark showing packet capture data." />
-                    Last time, I began analyzing the Epic Games Store packet capture, looking for specific IPs associated with the domains I&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/15/EGS-account-pub-serv-06.PNG" class="type:primaryImage" alt="Wireshark showing packet capture data." /></p>
-                <h2>Last time, I began analyzing the Epic Games Store packet capture, looking for specific IPs associated with the domains I felt were suspicious or interesting.</h2>
-<p>It turns out that would be a more interesting challenge than I anticipate.</p>
-<h2>You Are Corr-Wrong!</h2>
-<p>The first domain I checked, <code>account-public-service-prod03.ol.epicgames.com</code>, had multiple IP addresses associated with it. Through sheer luck, I managed to find an IP address associated with while doing a manual search, and proceeded to analyze that traffic.</p>
-<p>Since most of the other domains had multiple IPs as well, I decided to try using a script to find those IPs and save myself some time.</p>
-<p>I started out this process by using Bing Copilot to help craft a PowerShell script to go through a list of the target domains, find any IP addresses associated with them, then output the list to a .txt file. This list would naturally include what domain was associated with the IP.</p>
-<p>This perfectly functional PowerShell yielded no results, because PowerShell can't actually <strong>read </strong>the PCAPNG files, producing blank files.</p>
-<p>After an embarrassing amount of time and effort, I realized the problem was that I needed to use Wireshark commands to export the IPs, <strong>then </strong>have a script filter them.</p>
-<p>The Wireshark command was pretty simple, targeting <code>ip.src</code>, and using <code>sort -u</code> to isolate unique entries, before writing to a TXT file. I had to make a separate PCAPNG file, only containing packets with a frame length of 999 or less to get results within a reasonable time frame.</p>
-<p>(Wireshark does not have a way to filter packets out by overall size, which is a major oversight, in my opinion.)</p>
-<p>Once I had the final list of IPs, I created a PowerShell script (reusing chunks of code from the failed ones) that would go through the list and isolate the IPs I was looking for.</p>
-<p>The final PowerShell script I used to filter is as follows:</p>
-<blockquote>
-<p># Specify the path to your input .txt file containing IP addresses and domains<br>$sourceFilePath = "C:\Users\Name\Documents\Wireshark\unique-ips.txt"<br><br># Read the contents of the input file<br>$contents = Get-Content -Path $sourceFilePath<br><br># Initialize an empty array to store filtered matches<br>$filteredMatches = @()<br><br># Define the list of domains and associated IP addresses<br>$domainIPs = @{<br>    "account-public-service-prod03.ol.epicgames.com" = @("67.202.34.139","54.164.66.255","54.157.123.125","52.205.83.9","52.204.56.84","52.203.65.171","52.0.67.196","44.213.56.223","44.210.17.243","44.207.113.23","35.172.106.180","34.232.183.200","34.225.203.251","34.199.93.64","34.195.107.174","3.92.110.224","3.229.220.193","3.225.60.110","3.225.40.182","3.216.207.164","18.213.90.193","18.211.229.42")<br>    "eos-gateway-ingressv2-prod-c1-w4.befa.live.use1a.on.epicgames.c" = @("44.217.241.174","44.199.125.179","44.196.130.161","34.232.128.104","18.214.111.142","107.20.77.29")<br>    "eos-gateway-ingressv2-prod-c3-w5.befa.live.use1a.on.epicgames.c" = @("54.87.104.91","54.243.92.17","44.211.107.46","35.168.219.102","34.236.78.98","3.210.177.30")<br>    "eulatracking-svc-prod06-pub-1257580502.us-east-1.elb.amazonaws." = @("52.71.213.248","35.173.104.176","35.168.30.157","18.211.121.225")<br>    "fp2e7a.wpc.phicdn.net" = @("192.229.211.108")<br>    "fp3011.wpc.phicdn.net" = @("152.195.50.149")<br>    "priceengine-ecomprod01-pub-2131700027.us-east-1.elb.amazonaws.c" = @("54.156.160.204","50.17.0.218","44.208.219.139","35.170.218.26","34.201.95.44","34.198.192.237")<br>#    "" = @("","")<br>#    "" = @("","")<br>#    "" = @("","")<br>#    "" = @("","")<br>#    "" = @("","")<br><br>    # Add more domains and IPs as needed<br>}<br><br># Check each domain and associated IPs<br>foreach ($domain in $domainIPs.Keys) {<br>    $ips = $domainIPs[$domain]<br>    foreach ($ip in $ips) {<br>        if ($contents -match $ip) {<br>            $filteredMatches += "IP found for ${domain}: ${ip}"<br>            Write-Host "Match found: ${domain} (${ip})"<br>        }<br>    }<br>}<br><br># Output the filtered matches to a new text file<br>$filteredMatches | Out-File -FilePath "C:\Users\Name\Documents\Wireshark\egs-filtered-ips.txt"<br><br># Display a message indicating the operation is complete<br>Write-Host "Filtered matches have been saved to egs-filtered-ips.txt"</p>
-</blockquote>
-<h2>One Domain, Three IPs</h2>
-<p>The results of filtering the IPs through the PowerShell script were <strong>very </strong>interesting:</p>
-<blockquote>
-<p>IP found for eos-gateway-ingressv2-prod-c1-w4.befa.live.use1a.on.epicgames.c: 44.199.125.179<br>IP found for eos-gateway-ingressv2-prod-c3-w5.befa.live.use1a.on.epicgames.c: 54.243.92.17<br>IP found for eulatracking-svc-prod06-pub-1257580502.us-east-1.elb.amazonaws.: 35.168.30.157<br>IP found for fp3011.wpc.phicdn.net: 152.195.50.149<br>IP found for priceengine-ecomprod01-pub-2131700027.us-east-1.elb.amazonaws.c: 35.170.218.26<br>IP found for fp2e7a.wpc.phicdn.net: 192.229.211.108<br>IP found for account-public-service-prod03.ol.epicgames.com: 52.205.83.9<br>IP found for account-public-service-prod03.ol.epicgames.com: 52.0.67.196<br>IP found for account-public-service-prod03.ol.epicgames.com: 34.232.183.200</p>
-</blockquote>
-<p>That's right - the analysis I did last week was of <strong>one third </strong>of the traffic associated with the Epic Games Store public account service!</p>
-<p>The lesson here is to scrape all your target IPs <strong>before </strong>you start analyzing.</p>
-<h2>Take Two</h2>
-<p>Having spilled spaghetti in front of the whole world, it's time to reexamine that traffic in light of this new information.</p>
-<p>Following the procedure I used to undertake the first analysis, I generated a new PCAP that only contained the target IPs, using the following filter: <code>(ip.addr == 52.205.83.9) || (ip.addr == 52.0.67.196) || (ip.addr == 34.232.183.200)</code></p>
-<p>This generated a 131 packet capture, which generally didn't have anything new in the TCP stream. But looking at the actual packets did provide some interesting data.</p>
-<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/15/EGS-account-pub-serv-06-2.PNG" alt="Wireshark packet capture featuring IP address hand off for account-public-service-prod03.ol.epicgames.com" width="1600" height="860" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/15/responsive/EGS-account-pub-serv-06-2-xs.PNG 384w ,https://korgano.github.io/media/posts/15/responsive/EGS-account-pub-serv-06-2-sm.PNG 600w ,https://korgano.github.io/media/posts/15/responsive/EGS-account-pub-serv-06-2-md.PNG 768w ,https://korgano.github.io/media/posts/15/responsive/EGS-account-pub-serv-06-2-lg.PNG 1200w ,https://korgano.github.io/media/posts/15/responsive/EGS-account-pub-serv-06-2-xl.PNG 1600w"></figure>
-<p>What appears to be happening is that after getting the initial certificate, an encrypted alert is passed on to the server, possibly confirming receipt of the data. This then triggers the client to end the connection to the first IP address.</p>
-<p>Then the client begins the three way handshake with the server at the second IP address. Once that's completed, the new server initiates a certificate and server key exchange.</p>
-<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/15/EGS-account-pub-serv-07.PNG" alt="The second switch of IP addresses from account-public-service-prod03.ol.epicgames.com." width="1600" height="860" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/15/responsive/EGS-account-pub-serv-07-xs.PNG 384w ,https://korgano.github.io/media/posts/15/responsive/EGS-account-pub-serv-07-sm.PNG 600w ,https://korgano.github.io/media/posts/15/responsive/EGS-account-pub-serv-07-md.PNG 768w ,https://korgano.github.io/media/posts/15/responsive/EGS-account-pub-serv-07-lg.PNG 1200w ,https://korgano.github.io/media/posts/15/responsive/EGS-account-pub-serv-07-xl.PNG 1600w"></figure>
-<p>The network traffic here is a bit more interesting. For some reason, the connection resets after an encrypted alert, at which point, the client connects to the third IP address.</p>
-<p>It's unclear <strong>why </strong>the connection would reset, especially since I don't have anyway to execute TLS inspection, but it does stick out like a thumb compared the rest of the traffic. (Possible reasons include: the general awfulness of Spectrum internet, my internet being disrupted by software updates on the Raspberry Pi I use to host Pi-Hole, any kind of service disruption on Amazon's end.)</p>
-<p>Examining the packet further just shows a standard FIN exchange after exchanging data.</p>
-<p>The time gap in switching between the first two IPS seems to point towards the possibility that it related to switching between EGS proper and the Unreal.  But without the ability to inspect the unencrypted packets, it's hard to be sure what the traffic represents.</p>
             ]]>
         </content>
     </entry>
