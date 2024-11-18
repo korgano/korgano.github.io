@@ -6,7 +6,7 @@
 </url>
 <url>
 <loc>https://korgano.github.io/about-me/</loc>
-<lastmod>2024-08-31T10:44:50-04:00</lastmod>
+<lastmod>2024-11-18T08:01:47-05:00</lastmod>
 </url>
 <url>
 <loc>https://korgano.github.io/cybersecurity-and-video-game-modding/</loc>
@@ -305,6 +305,26 @@
 </image:image>
 </url>
 <url>
+<loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-60/</loc>
+<lastmod>2024-11-18T08:02:05-05:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/28/pi-hole-blocklists-07-2.jpg</image:loc>
+<image:title><![CDATA[Pi-Hole DNS Block List with IP address entries.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/28/pi-hole-blocklists.jpg</image:loc>
+<image:title><![CDATA[Pi-Hole Block List page with 50 entries, showing block lists for ads, tracking, and malware.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/28/pi-hole-blocklists-02.jpg</image:loc>
+<image:title><![CDATA[Pi-Hole block lists featuring the word segment &quot;mal&quot;.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/28/pi-hole-blocklists-07.jpg</image:loc>
+<image:title><![CDATA[Adblock Plus block list with IP addresses inside of URLs]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/cybersecurity-project-virtual-machines-arent-always-the-solution/</loc>
 <lastmod>2024-04-17T14:22:58-04:00</lastmod>
 <image:image>
@@ -365,6 +385,10 @@
 <image:loc>https://korgano.github.io/media/posts/25/unknown_2024.10.07-16.38-2.png</image:loc>
 <image:title><![CDATA[A successful execution of Unreal Engine 4 UCAS/UTOC packing via Tuw GUI]]></image:title>
 </image:image>
+</url>
+<url>
+<loc>https://korgano.github.io/resume/</loc>
+<lastmod>2024-11-11T14:24:54-05:00</lastmod>
 </url>
 <url>
 <loc>https://korgano.github.io/user-experience-report-publii-day-1/</loc>

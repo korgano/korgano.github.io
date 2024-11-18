@@ -3,12 +3,176 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2024-10-30T11:27:31-04:00</updated>
+    <updated>2024-11-18T08:02:05-05:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 6.0</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-60/"/>
+        <id>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-60/</id>
+        <media:content url="https://korgano.github.io/media/posts/28/pi-hole-blocklists-07-2.jpg" medium="image" />
+            <category term="Tech"/>
+            <category term="PC"/>
+            <category term="Cybersecurity Projects"/>
+            <category term="Cybersecurity"/>
+            <category term="AI"/>
+
+        <updated>2024-11-13T15:34:12-05:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/28/pi-hole-blocklists-07-2.jpg" alt="Pi-Hole DNS Block List with IP address entries." />
+                    Last time on the transparent filtering bridge project, I bounced my head off of the progression blockers with setting up&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/28/pi-hole-blocklists-07-2.jpg" class="type:primaryImage" alt="Pi-Hole DNS Block List with IP address entries." /></p>
+                <p>Last time on the transparent filtering bridge project, I bounced my head off of the progression blockers with setting up a WiFi management connection.</p>
+<p>With that seemingly impassable unless there's a revision of either FreeBSD's Intel WiFi driver or how OPNsense handles some things, I've decided to pivot to another part of the project that <strong>doesn't </strong>require working hardware and software. This time, it's building alias IP address lists.</p>
+<div class="post__toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#mcetoc_1icvlr9di2cm">What's an Alias?</a></li>
+<li><a href="#mcetoc_1icvlr9di2cn">How to Get the Aliases into OPNsense</a></li>
+<li><a href="#mcetoc_1icvlr9di2co">Getting the IP Addresses</a></li>
+<li><a href="#mcetoc_1icvlr9di2cp">Picking the Category</a></li>
+<li><a href="#mcetoc_1icvlr9di2cq">Second Time's the Charm</a></li>
+<li><a href="#mcetoc_1icvlr9di2cr">Refining the Process</a></li>
+<li><a href="#mcetoc_1icvlr9di2cs">Validating Some Results</a></li>
+<li><a href="#mcetoc_1icvlr9di2ct">Next Steps</a></li>
+</ul>
+</div>
+<h2 id="mcetoc_1icvlr9di2cm">What's an Alias?</h2>
+<p><a href="https://docs.opnsense.org/manual/aliases.html" title="OPNsense Documentation - Aliases" target="_blank" rel="noopener noreferrer">The OPNsense documentation provides a simple, clear definition:</a></p>
+<p>Aliases are named lists of networks, hosts or ports that can be used as one entity by selecting the alias name in the various supported sections of the firewall. These aliases are particularly useful to condense firewall rules and minimize changes.</p>
+<p>So what am I going to put in these alias lists?</p>
+<p>Well, as it turns out, a number of the Pi-Hole block lists I use have a <strong>lot </strong>of IP address entries. Since Pi-Hole doesn't block them, due to being a DNS black hole, that means it'll be OPNsense's job to block them.</p>
+<h2 id="mcetoc_1icvlr9di2cn">How to Get the Aliases into OPNsense</h2>
+<p>Ironically, I stumbled onto a pretty simple solution for mass importation of alias entries while trying some more troubleshooting on the OPNsense connectivity issues.</p>
+<p>As it turns out, <a href="https://forum.opnsense.org/index.php?topic=36687.msg179205#msg179205" target="_blank" rel="noopener noreferrer">someone on the OPNsense forums made a helpful Python script to populate the JSON file that handles <strong>all </strong>the alias lists from a CSV file</a>. It is not clear to me why JSON format was chosen for something that could potential hold <strong>thousands </strong>of entries, versus a bulk data format like CSV, but it's just one of those design choices that end users have to live with.</p>
+<p>The script is not very self-explanatory, <a href="https://forum.opnsense.org/index.php?PHPSESSID=qc30qj4c08unjl5rhht9ntda15&amp;topic=36687.msg192490#msg192490" title="Alias creation using API " target="_blank" rel="noopener noreferrer">so the author helpfully explained how to use it</a>:</p>
+<p><span class="bbc_u"><strong>Steps:</strong></span></p>
+<ul class="bbc_list">
+<li>Install Python if you do not already have it</li>
+<li>Install any of the required Python modules if you don't have them (json, uuid, csv) - <em>see below *</em></li>
+<li>Save the script as a *.py file</li>
+<li>Download your current list of Aliases from your OPNsense device: Firewall&gt;Aliases&gt;'download' (button bottom right of the Alias list) - save the file as 'opnsense_aliases.json'</li>
+<li>Create a CSV file called 'pfsense_alias.csv' with four columns called 'name', 'data', 'type' and 'description' in the first row, and which then contains your new Aliases, one per row (be sure the 'name' field meets the name constraints for Aliases)</li>
+<li>Update the two 'with open...' script lines to include the full path to each of the above files</li>
+<li>Run the script</li>
+<li>Upload the resultant json output file back into your OPNsense device: Firewall&gt;Aliases&gt;'upload' (next to the 'download' button)</li>
+</ul>
+<p><br><strong>What does this script do?</strong></p>
+<ul class="bbc_list">
+<li>It reads in the current list of aliases you downloaded from your device into a Python variable (dict)</li>
+<li>It then reads in the CSV file containing your list of new (additional) aliases, also into a Python dict</li>
+<li>It ADDS (<em>appends</em>) all the <span class="bbc_u">new</span> aliases to the current list (no deletions, assuming you don't experience a uuid collision)</li>
+<li>It then saves the new expanded list of aliases over the previously downloaded alias json file</li>
+</ul>
+<p><br>Obviously, you need Python and the required modules to run the script.</p>
+<p>So, all I need to do is get the IP addresses into a properly formatted CSV, then I can upload that into OPNsense for later.</p>
+<h2 id="mcetoc_1icvlr9di2co">Getting the IP Addresses</h2>
+<p>Thankfully, Pi-Hole makes accessing the block lists incredibly easy... perhaps <strong>too </strong>easy:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/28/pi-hole-blocklists.jpg" alt="Pi-Hole Block List page with 50 entries, showing block lists for ads, tracking, and malware." width="1583" height="2652" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-xs.jpg 384w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-sm.jpg 600w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-md.jpg 768w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-lg.jpg 1200w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-xl.jpg 1600w"></figure>
+<p>Why do I have nearly 100 block lists?</p>
+<p>Well, to be honest, two main reasons:</p>
+<ol>
+<li>I don't like unified block lists, because they make troubleshooting harder and might block things I want.</li>
+<li>I don't mind a little extra CPU load due to redundant entries, versus the possibility of losing blocking due to block lists dying.</li>
+</ol>
+<p>It's simply not practical to handle all those lists at the same time, so my plan is as follows:</p>
+<ol>
+<li>Break the scripts up into categories.</li>
+<li>Pick one category to use.</li>
+<li>Develop a script to pull the IP addresses out of that category's block lists.</li>
+<li>Once validated, clone the script for other categories.</li>
+<li>Fill out the CSV with the data for each category.</li>
+<li>Run the CSV-to-JSON script to convert the data for import.</li>
+</ol>
+<h2 id="mcetoc_1icvlr9di2cp">Picking the Category</h2>
+<p>To start off the project, I wanted a category that had a reasonable amount of scripts. Ideally, a dozen or less, so that I could troubleshoot things if necessary without too many headaches.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/28/pi-hole-blocklists-02.jpg" alt="Pi-Hole block lists featuring the word segment &quot;mal&quot;." width="1583" height="955" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-02-xs.jpg 384w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-02-sm.jpg 600w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-02-md.jpg 768w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-02-lg.jpg 1200w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-02-xl.jpg 1600w"></figure>
+<p>As it so happened, my first choice, "malware", actually was a perfect fit for this task. Even with a partial match, there were only 10 lists, which I whittled down to 8. These are the lists I used for the script development process:</p>
+<blockquote>
+<p><code>'https://v.firebog.net/hosts/Prigent-Malware.txt',</code><br><code>'https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt',</code><br><code>'https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareHosts.txt',</code><br><code>'https://blocklistproject.github.io/Lists/malware.txt',</code><br><code>'https://v.firebog.net/hosts/RPiList-Malware.txt',</code><br><code>'https://raw.githubusercontent.com/manic-code/Emerging-Malicious-Domain-Blocklist/main/hosts.txt',</code><br><code>'https://github.com/zangadoprojets/pi-hole-block-list/raw/main/Malicious.txt',</code><br><code>'https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/hoster.txt'</code></p>
+</blockquote>
+<h2 id="mcetoc_1icvlr9di2cq">Second Time's the Charm</h2>
+<p>Initially, I wanted to make the script to pull IP addresses from these block lists with PowerShell. I've had good results using PowerShell to scrape logs for specific content before, so I thought I could do it with minimal issues.</p>
+<p>I was wrong.</p>
+<p>Here's the prompt I used with Microsoft Copilot:</p>
+<blockquote>
+<p>Write me a powershell script that does the following: <br>-downloads files from a list of specified urls <br>-iterates through the downloaded files for IPv4 and IPv6 addresses, except for 0.0.0.0 or :: <br>-generates a new list of IP addresses <br>-removes duplicate items <br>-outputs list to text file cleaned-IPs <br>-provides full error reporting<br>-requires user to press enter to exit</p>
+</blockquote>
+<p>What I got was a script that used regular expressions in a for-each loop to scrape the files for the IP addresses. That part worked. What didn't work, for no discernable reason, was handing off the array of scraped IPs to the rest of the script for clean up and writing to a text file.</p>
+<p>Passing the script off to ChatGPT's Code LLM didn't help resolve the issue, so I decided to pivot into another direction.</p>
+<p>Since I was already going to be using Python later the process, I figured that using Python the whole way through made sense. However, I decided to try out a local LLM coding model for the Python iteration of the script. This was to get a feel for how well it produces usable code, since it's a blazing fast model that can sometimes get your GPU to <a href="https://www.youtube.com/watch?v=T7HsXHqtxrI" title="Techquickie - Coil Whine as Fast As Possible">coil whine</a>.</p>
+<p>Here's the prompt I used with the Qwen2.5-Coder-7B-Instruct-GGUF model:</p>
+<blockquote>
+<p>Write me a python script that does the following: <br>-downloads text files from a list of specified urls <br>-obtains IPv4 and IPv6 addresses from the files, except for 0.0.0.0, 127.0.0.1, or :: <br>-obtains the first instance of any ip address<br>-generates a new list of IP addresses <br>-outputs list to text file cleaned-IPs <br>-provides full error reporting<br>-provides logging throughout the whole process for troubleshooting</p>
+</blockquote>
+<p>Here's the output it gave me:</p>
+<blockquote>
+<p>Certainly! Below is a Python script that accomplishes all of the tasks you've described. This script uses `requests` to download files, `re` for regex operations to extract IP addresses, and `logging` for comprehensive error reporting and logging.<br><br>First, make sure to install the required packages:<br><br><code>pip install requests</code><br><br>Here is the Python script:<br><br><code>import requests</code><br><code>import re</code><br><code>import logging</code><br><br><code># Setup logging configuration</code><br><code>logging.basicConfig(filename='download_ips.log', level=logging.DEBUG, </code><br><code>                    format='%(asctime)s - %(levelname)s - %(message)s')</code><br><br><code>def download_file(url):</code><br><code>    """Downloads a file from the given URL and returns its content."""</code><br><code>    try:</code><br><code>        response = requests.get(url)</code><br><code>        response.raise_for_status()  # Raises an HTTPError for bad responses</code><br><code>        return response.text</code><br><code>    except requests.exceptions.RequestException as e:</code><br><code>        logging.error(f"Failed to download {url}: {e}")</code><br><code>        return None</code><br><br><code>def extract_ips(text):</code><br><code>    """Extracts IPv4 and IPv6 addresses from the given text, excluding specified ones."""</code><br><code>    ip_regex = r"\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b|\b(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\b"</code><br><code>    ip_pattern = re.compile(ip_regex)</code><br><code>    </code><br><code>    # Find all IP addresses</code><br><code>    ips = ip_pattern.findall(text)</code><br><code>    </code><br><code>    # Filter out specified IPs and get the first instance of any IP address</code><br><code>    filtered_ips = set()</code><br><code>    for ip in ips:</code><br><code>        if ip not in ["0.0.0.0", "127.0.0.1", "::"]:</code><br><code>            if ":" in ip:  # IPv6</code><br><code>                if len(filtered_ips) &lt; 1 or ":" in list(filtered_ips)[0]:</code><br><code>                    filtered_ips.add(ip)</code><br><code>            else:  # IPv4</code><br><code>                if len(filtered_ips) &lt; 1:</code><br><code>                    filtered_ips.add(ip)</code><br><code>    </code><br><code>    return list(filtered_ips)</code><br><br><code>def save_ips_to_file(ips, output_file):</code><br><code>    """Saves the list of IP addresses to a text file."""</code><br><code>    try:</code><br><code>        with open(output_file, 'w') as f:</code><br><code>            for ip in ips:</code><br><code>                f.write(f"{ip}\n")</code><br><code>        logging.info(f"IPs saved to {output_file}")</code><br><code>    except IOError as e:</code><br><code>        logging.error(f"Failed to save IPs to file: {e}")</code><br><br><code>def main():</code><br><code>    urls = [</code><br><code>        "http://example.com/file1.txt",</code><br><code>        "http://example.com/file2.txt"</code><br><code>        # Add more URLs here</code><br><code>    ]</code><br><code>    </code><br><code>    output_file = 'cleaned-IPs.txt'</code><br><code>    </code><br><code>    try:</code><br><code>        all_ips = []</code><br><code>        </code><br><code>        for url in urls:</code><br><code>            logging.info(f"Downloading file from {url}")</code><br><code>            content = download_file(url)</code><br><code>            if content is not None:</code><br><code>                extracted_ips = extract_ips(content)</code><br><code>                all_ips.extend(extracted_ips)</code><br><code>                logging.info(f"Extracted {len(extracted_ips)} IP(s) from {url}")</code><br><code>        </code><br><code>        unique_ips = list(set(all_ips))</code><br><code>        logging.info(f"Total unique IPs: {len(unique_ips)}")</code><br><code>        </code><br><code>        save_ips_to_file(unique_ips, output_file)</code><br><code>    </code><br><code>    except Exception as e:</code><br><code>        logging.error(f"An unexpected error occurred: {e}")</code><br><br><code>if __name__ == "__main__":</code><br><code>    main()</code><br><br><strong>Explanation:</strong><br><br>1. <strong>Logging Configuration</strong>: The script sets up basic logging to capture all log messages in a file named `download_ips.log`. Log levels include DEBUG, INFO, WARNING, ERROR, and CRITICAL.<br><br>2. <strong>Download File</strong>: The `download_file` function fetches the content of a URL using `requests.get()`. If there's any issue with downloading (e.g., network error), it logs an error message.<br><br>3. <strong>Extract IPs</strong>: The `extract_ips` function uses regular expressions to find all IPv4 and IPv6 addresses in the text. It then filters out specified IP addresses (`0.0.0.0`, `127.0.0.1`, and `::`) and ensures that only one instance of each IP address type is kept.<br><br>4. <strong>Save IPs</strong>: The `save_ips_to_file` function writes a list of IP addresses to a text file, one per line.<br><br>5. <strong>Main Function</strong>: This function orchestrates the entire process:<br>   - Downloads files from specified URLs.<br>   - Extracts and cleans IP addresses.<br>   - Saves the cleaned list to a file.<br><br>The script provides detailed logging throughout the process for troubleshooting and error reporting. Adjust the `urls` list with your actual file URLs as needed.</p>
+</blockquote>
+<p>This script actually produced results on the first try! However, it was a strange result - only <strong>6</strong> IP addresses.</p>
+<p>During my attempts to troubleshoot the PowerShell script, I visually confirmed that there were <strong>hundreds </strong>(at minimum) of IPv4 addresses in a <strong>single </strong>block list:</p>
+<p> </p>
+<p>Querying the same local model with the following prompt didn't really help resolve the problem:</p>
+<blockquote>
+<p>Modify the script to do:<br>-read lines like 127.0.0.1 173.208.96.42<br>-obtain the part that is not 127.0.0.1</p>
+</blockquote>
+<p>So I pivoted to Copilot to see if it could identify and solve the issue:</p>
+<blockquote>
+<p>tell me why the following python code cannot retrieve ipv4 addresses from lines starting with 127.0.0.1 or 0.0.0.0: </p>
+<p><code>    # Filter out specified IPs and get the first instance of any non-127.0.0.1 IP address</code><br><code>    filtered_ips = set()</code><br><code>    for ip in ips:</code><br><code>        if ip not in ["127.0.0.1"]:</code><br><code>            if ":" in ip:  # IPv6</code><br><code>                if len(filtered_ips) &lt; 1 or ":" in list(filtered_ips)[0]:</code><br><code>                    filtered_ips.add(ip)</code><br><code>            else:  # IPv4</code><br><code>                if len(filtered_ips) &lt; 1:</code><br><code>                    filtered_ips.add(ip)</code><br><code>    </code><br><code>    return list(filtered_ips)</code></p>
+</blockquote>
+<p>The Copilot response:</p>
+<blockquote>
+<p>The given Python code is designed to extract IPv4 and IPv6 addresses while excluding `127.0.0.1`. However, it does not address the exclusion of `0.0.0.0`, and there are also some logical issues in the way it filters and adds IP addresses to the `filtered_ips` set. Here’s a detailed breakdown of why it might not be working as expected:<br><br>1. <strong>Regular Expression Issue</strong>:<br>   - The regular expression correctly matches both IPv4 and IPv6 addresses, but the filtering logic for exclusion happens later in the code.<br><br>2. <strong>Filtering Logic Issue</strong>:<br>   - The code currently only excludes `127.0.0.1` but does not exclude `0.0.0.0`.<br>   - The logic for adding IPv4 addresses to the `filtered_ips` set checks if `filtered_ips` is empty (`len(filtered_ips) &lt; 1`). This means only the first non-excluded IP will be added, which is not the desired behavior.<br><br>3. <strong>Set Operations</strong>:<br>   - Using a set to store IP addresses is fine, but the logic should be adjusted to properly handle all matching IPs.<br><br>To fix these issues and ensure that all valid IPs are extracted while excluding `127.0.0.1` and `0.0.0.0`, you can revise the code as follows:<br><br><code>import re</code><br><br><code>def extract_ips(text):</code><br><code>    """Extracts IPv4 and IPv6 addresses from the given text, excluding specified ones."""</code><br><code>    ip_regex = r"\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b|\b(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\b"</code><br><code>    ip_pattern = re.compile(ip_regex)</code><br><br><code>    # Find all IP addresses</code><br><code>    ips = ip_pattern.findall(text)</code><br><br><code>    # Filter out specified IPs</code><br><code>    excluded_ips = ["127.0.0.1", "0.0.0.0"]</code><br><code>    filtered_ips = {ip for ip in ips if ip not in excluded_ips}</code><br><br><code>    return list(filtered_ips)</code><br><br><code># Example usage</code><br><code>text = """</code><br><code>    Here are some IPs:</code><br><code>    192.168.1.1, 127.0.0.1, 0.0.0.0, 8.8.8.8</code><br><code>    2001:0db8:85a3:0000:0000:8a2e:0370:7334, ::1</code><br><code>"""</code><br><code>print(extract_ips(text))</code><br><br>Changes made:<br>1. Added `0.0.0.0` to the list of excluded IPs.<br>2. Simplified the filtering logic to directly exclude unwanted IPs using a set comprehension.<br><br>This revised code will now correctly extract all valid IP addresses while excluding both `127.0.0.1` and `0.0.0.0`. Let me know if you need any further adjustments or explanations!</p>
+</blockquote>
+<p>Inserting the refined code segment into the script solved the problem, and I extracted a total of 3642 IPv4 addresses. Annoyingly, a single 0.0.0.0 address made it through, but that was a small price to pay.</p>
+<h2 id="mcetoc_1icvlr9di2cr">Refining the Process</h2>
+<p>After proving out the script, I went back to Pi-Hole and cleaned up the descriptions to provide better context and help sort things for future searches.</p>
+<p>Once that was done, I had to wait for a low traffic time to force Pi-Hole to update the blocklists. This would provide me with a way to narrow the block lists I included in my scripts to those that had IP addresses. Most blocklists are DNS entries only, which means they don't need to be scraped, which saves on processing power and time.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/28/pi-hole-blocklists-07.jpg" alt="Adblock Plus block list with IP addresses inside of URLs" width="1583" height="775" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-xs.jpg 384w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-sm.jpg 600w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-md.jpg 768w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-lg.jpg 1200w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-xl.jpg 1600w"></figure>
+<p>The upside of this was that there weren't too many lists that had non-domain entries, and three of them had obvious IP addresses displayed. That left a total of five lists to scrape for IPs. So I made a copy of the script, inserted each one individually, and scraped them.</p>
+<p>Once that was done, I commented out the block list URL and added a comment with how many IP addresses were present. To my surprise, Easylist had easily over a hundred entries, which wasn't apparent .</p>
+<p>As a result, I only needed three alias categories:</p>
+<ul>
+<li>Ads + Tracking</li>
+<li>Crypto</li>
+<li>Malware</li>
+</ul>
+<h2 id="mcetoc_1icvlr9di2cs">Validating Some Results</h2>
+<p>Having run the Malware version of the script earlier, I was surprised to see so few results for malware related blocklists during the update. So I reran the script, commenting out a list each time to find out which lists had IP addresses.</p>
+<p>Examining these blocklists revealed that these were coming from DNS entries with embedded IP addresses in them.</p>
+<p>Running the IP address through VirusTotal revealed that this was a Google cloud IP. How exactly it was involved in malware distribution was unclear, but IP address itself was given a clean bill of health.</p>
+<p>After this false positive, I decided to check out the results with other blocklists. I started with the Tencent blocklist, since that had a number of non-DNS entries. I got a list of IP addresses... and none of them were in the actual blocklist. I am not sure how or why these were generated, because I can find various numbers that are in the IPs, but not actual IP addresses.</p>
+<p>A second blocklist had this same issue, so I went back to Copilot and asked it to revise the code to include what line each IP address was found on:</p>
+<blockquote>
+<p>Sure, here's a revised version of your Python code. This version logs the specific lines where each IP address was found:<br><br><code>import re</code><br><code>import logging</code><br><br><code>logging.basicConfig(filename='ip_log.log', level=logging.INFO)</code><br><br><code>def extract_ips(text):</code><br><code>    """Extracts IPv4 and IPv6 addresses from the given text, excluding specified ones."""</code><br><code>    ip_regex = r"\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b|\b(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\b"</code><br><code>    ip_pattern = re.compile(ip_regex)</code><br><br><code>    # Find all IP addresses</code><br><code>    ips = []</code><br><code>    for line_num, line in enumerate(text.split('\n'), start=1):</code><br><code>        found_ips = ip_pattern.findall(line)</code><br><code>        for ip in found_ips:</code><br><code>            ips.append((ip, line_num))</code><br><br><code>    # Filter out specified IPs</code><br><code>    excluded_ips = ["127.0.0.1", "0.0.0.0"]</code><br><code>    filtered_ips = [(ip, line_num) for ip, line_num in ips if ip not in excluded_ips]</code><br><br><code>    return filtered_ips</code><br><br><code>def save_ips_to_file(ips, output_file):</code><br><code>    """Saves the list of IP addresses to a text file."""</code><br><code>    try:</code><br><code>        with open(output_file, 'w') as f:</code><br><code>            for ip, line_num in ips:</code><br><code>                f.write(f"{ip} found at line {line_num}\n")</code><br><code>        logging.info(f"IPs saved to {output_file}")</code><br><code>    except IOError as e:</code><br><code>        logging.error(f"Failed to save IPs to file: {e}")</code><br><br><code># Example usage:</code><br><code>text = """Sample text with IP addresses.</code><br><code>192.168.1.1 is one example.</code><br><code>Another example is 2001:0db8:85a3:0000:0000:8a2e:0370:7334.</code><br><code>Let's exclude 127.0.0.1 and 0.0.0.0."""</code><br><br><code>ips = extract_ips(text)</code><br><code>save_ips_to_file(ips, 'output_ips.txt')</code><br><br><code>In this revised code:</code><br><code>- The `extract_ips` function now returns a list of tuples, where each tuple contains an IP address and the line number it was found on.</code><br><code>- The `save_ips_to_file` function writes the IP addresses and their corresponding line numbers to the output file.</code><br><code>- Each line where an IP address was found is written to the log.</code></p>
+</blockquote>
+<p>Oddly enough, this did provide the lines for the IPs, but those lines in the files on Github were for domains, not IP addresses. Even more confusing was running this revised script on the EasyList blocklist, which provided IPs actually specified in the list.</p>
+<p>Why this is happening is beyond my programming knowledge to diagnose, so what I'll do is upload a version of the script with the logging so someone else can use it to solve the problem.</p>
+<h2 id="mcetoc_1icvlr9di2ct">Next Steps</h2>
+<p><a href="https://github.com/korgano/OPNsenseAliasTools" title="OPNsenseAliasTools Github Repo" target="_blank" rel="noopener noreferrer">Creating a Github repo, obviously!</a></p>
+<p>Making the code open source is an obvious decision. First of all, I've already posted tons of it here. Second, I'm more of a coder than a programmer - I can write code and I can definitely think of the logic, but I don't have the skill or experience to be called a programmer.</p>
+<p>So if someone out there can figure out why the script is producing IP addresses out of nowhere and solve the problem, that's fine by me.</p>
+<p>Additionally, I'll have to go back to OPNsense and create the full set of Aliases there, since user created Aliases get auto-generated hashes(?), like </p>
+<div>
+<div><code>"66ea4c00-feec-469e-9a82-bf5cba0405a9"</code>.</div>
+<div> </div>
+<div>Once that's done, the rest of the process is just running the scripts, dumping the results into the CSV, running the OPNsense forum script, and doing some documentation.</div>
+</div>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 5.0</title>
         <author>
@@ -1128,90 +1292,6 @@ Feel free to adjust the &#96;sid&#96; (Signature ID) and &#96;rev&#96; (Revision
 <p>Another 15 seconds after that, an encrypted alert seems to trigger the end of the connection with the FIN-ACK packets.</p>
 <h2>Future Research</h2>
 <p>Without any way to decrypt the packets, there's not much more that can be done with this IP address. However, the fact that this connection is associated with an Epic Games API means that it's well worth researching in the future. While the connection doesn't last long, the amount of traffic is quite surprising. There's definitely something worth looking into here, even if it just turns out to be an anonymized survey of the system's hardware.</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Quick Cyber Thoughts: Computex 2024</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/quick-cyber-thoughts-computex-2024/"/>
-        <id>https://korgano.github.io/quick-cyber-thoughts-computex-2024/</id>
-        <media:content url="https://korgano.github.io/media/posts/16/computex2024.jpg" medium="image" />
-            <category term="Tech"/>
-            <category term="Quick Thoughts"/>
-            <category term="PC Hardware"/>
-            <category term="PC"/>
-            <category term="Cybersecurity"/>
-            <category term="AI"/>
-
-        <updated>2024-06-05T16:34:42-04:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/16/computex2024.jpg" alt="" />
-                    We're in the dying days of Computex 2024, and I have some cybersecurity related thoughts. For those of you who&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/16/computex2024.jpg" class="type:primaryImage" alt="" /></p>
-                <p>We're in the dying days of Computex 2024, and I have some cybersecurity related thoughts.</p>
-<p>For those of you who aren't big computer hardware nerds, Computex is a big PC hardware vendor convention that typically occurs in Taipei, Taiwan. The main hardware vendors all either have keynote presentations at the event, or in the case of Nvidia, just before it, and lots of the secondary and tertiary vendors also make announce new products (everything from components to laptops and mini-PCs).</p>
-<p>Since hardware runs all the software we use <strong>and </strong>hosts plenty of vulnerabilities, it's good to think about the cybersecurity implications of the tech we're going to be using in the foreseeable future.</p>
-<h2>Nvidia promises us a nightmare future of AI and high prices</h2>
-<p>Nvidia, the company that makes super expensive consumer graphics cards and supplies most AI companies with GPUs for training AI, decided to really push the idea of AI agents to investors and the mainstream press.</p>
-<p>The basic TL;DR version of agents is pretty straight forward, actually:</p>
-<ol>
-<li>The user inputs some prompt into a general LLM chatbot.</li>
-<li>The chatbot examines what the prompt contains and wants done.</li>
-<li>The chatbot passes off an optimized version of the prompt to another LLM that is specifically trained for that task.</li>
-<li>The optimized LLM runs the task and generates output.</li>
-<li>The output is sent to the chatbot LLM.</li>
-<li>The chatbot presents that output to the user.</li>
-</ol>
-<p>From a cybersecurity POV, this is a nightmare, for a few reasons:</p>
-<ul>
-<li>We now have to ensure confidentiality, integrity, and availability of <strong>multiple </strong>AI models and the content going to/from them.</li>
-<li>We have to assess multiple AI models to ensure they aren't compromised, either by malware, vulnerabilities, or bad data.</li>
-<li>If we want to run AI on local endpoints or even just on on-premises servers, the hardware requirements just skyrocketed.</li>
-</ul>
-<p>If you're wondering why that last point is there, just realize that it's now harder to propose getting local hardware to run AI. Because now, you need better hardware, and better hardware tends to be more expensive, <strong>especially </strong>in quantity.</p>
-<p>(When the AI training bubble pops, there'll probably be a <strong>lot </strong>of hardware for sale, but whether it'll be any good for the purposes of running production level AI agents is an open question.)</p>
-<h2>AMD got backstabbed by Microsoft, so now we're out of a cheap(er) AI solution</h2>
-<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/SeEBPbehttY" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
-<p>AMD would've had a solution to the AI hardware issue, but they don't, thanks to Microsoft not buying their proposed server chip.</p>
-<p>As detailed by tech journalist and leaker Moore's Law is Dead, Turin AI (Turin being the code name for AMD's Zen 5 architecture) would have been a Neural Processing Engine chiplet that featured <strong>hundreds </strong>of TOPs of AI performance.</p>
-<p>For reference, laptop processors with <strong>50 </strong>TOPs are considered impressive AI performance and a minimum specification by Microsoft.</p>
-<p>Why does this matter?</p>
-<p>Because AMD is the master of reusing their silicon. All of their consumer/prosumer products for desktops and workstations are basically server chiplets that didn't hit the efficiency standards for server SKUs. They then get filtered down the product stack to fill various price points and niches in the market.</p>
-<p>So, by denying AMD the contract, Microsoft has denied the entire ecosystem of a cheap option for AI inference (output). Which is not great when executives and management get the AI agents brain bug and start pushing in that direction.</p>
-<h2>Intel struggles to stay viable</h2>
-<p>Intel, once the go-to PC hardware vendor for just about every major corporation and government, is not in a great place.</p>
-<p>The past few years have been rough for Intel. Getting stuck on less advanced silicon nodes, having less advanced products than the competition, and of course, major hardware vulnerabilities (Spectre/Meltdown) all whittled away at their stranglehold on the PC markets.</p>
-<p>At Computex, Intel showcased a bunch of its current problems:</p>
-<ul>
-<li>It's still not performance competitive with AMD in a lot of regards (CPU and NPU performance most obviously).</li>
-<li>Lots of their products have been delayed, so they look even worse than they could have.</li>
-<li>Their chip foundries haven't been pumping out lots of high quality product lately.</li>
-<li>Their continuing tendency to talk about future products without actually getting their release cadence back on track.</li>
-</ul>
-<p>All of these are concerning, but the most concerning from a cybersecurity perspective is their lack of competitive performance. <a href="https://dl.acm.org/doi/10.1145/3620666.3651382" target="_blank" rel="noopener noreferrer">There's a whole slew of new potential exploits in the branch prediction parts of modern CPUs</a>. What's branch prediction? It's basically a way for the CPU to speed up operations by guessing the likely outcome of operations.</p>
-<p>While a lot of these branch prediction exploits can be mitigated with better software programming, there's always the chance of a BIOS update that changes the microcode that controls the CPU. And when past Intel threat mitigations have produced up to 50% performance <strong>reductions</strong>, that's a major cybersecurity and operational issue. You're going to have to start air gapping systems if you can't replace them with higher performance parts.</p>
-<h2>Get ready for Snapdragon X Elite software validation</h2>
-<p>One thing that was shown to the public before Computex 2024 was Microsoft using Snapdragon X Elite as one of its Copilot+ laptop processors. These are ARM based processors, and for those of you who don't know, that's the architecture that most mobile phone CPUs use.</p>
-<p>The general sentiment seems to be that Microsoft and laptop vendors are promoting these CPUs to put pressure on AMD and Intel in the laptop space, especially in the lower tier products. So what does that mean for us cybersecurity folks?</p>
-<ul>
-<li>Get ready to spend time validating that all your endpoint security software works. Windows 11 ARM edition might have good emulation, but that's no guarantee any of your security and monitoring will work.</li>
-<li>Time to work up a whole new testing scheme for any and all X Elite based laptops that your organization thinks about adopting.</li>
-<li>Somebody has to get good at vulnerability testing the X Elite <strong>and </strong>Windows 11 ARM edition.</li>
-</ul>
-<p>And these are just the <strong>obvious </strong>problems a novice like me can see. I'm sure there's plenty more you can think of.</p>
-<h2>Get ready to purge Windows Recall from all your Copilot+ machines</h2>
-<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/oSBDkPxivuA" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
-<p>Windows Recall isn't even an official release yet, and there's already Python scripts designed to access the <strong>unencrypted </strong>database that application creates.</p>
-<p>The safest course of action is going to be simply removing the whole thing until Microsoft implements some proper security... but at the same time, will anyone miss the extra CPU, RAM, and HDD/SSD utilization?</p>
-<p>(Also, to push back on Mental Outlaw, this will <strong>not </strong>push people to Linux. As someone who's had UXUI training, Linux violates so many heuristics of good UXUI. You genuinely need to replace the various terminals with LLM chatbots to make widescale Linux adoption even somewhat viable.)</p>
             ]]>
         </content>
     </entry>

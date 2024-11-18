@@ -1,0 +1,626 @@
+<!DOCTYPE html><html lang="en-us"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 6.0 - XS Tech Thoughts</title><meta name="description" content="%pagetitle: Xavier Santana of XS Tech Thoughts generates Python script to scrape DNS block lists for IP addresses as part of OPNsense cybersecurity project."><meta name="generator" content="Publii Open-Source CMS for Static Site"><!-- Global site tag (gtag.js) - Google Analytics --><script type="gdpr-blocker/Analytics" async src="https://www.googletagmanager.com/gtag/js?id=G-EHLH28GQMY"></script><script type="gdpr-blocker/Analytics">window.dataLayer = window.dataLayer || [];
+				  function gtag(){dataLayer.push(arguments);}
+				  gtag('js', new Date());
+				  gtag('config', 'G-EHLH28GQMY' , { 'anonymize_ip': true });
+				  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EHLH28GQMY"></script><script>window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EHLH28GQMY');</script><link rel="stylesheet" href="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-black.css"><link rel="stylesheet" href="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-inline-color.css"><link rel="canonical" href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-60/"><link rel="alternate" type="application/atom+xml" href="https://korgano.github.io/feed.xml"><meta property="og:title" content="CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 6.0"><meta property="og:image" content="https://korgano.github.io/media/posts/28/pi-hole-blocklists-07-2.jpg"><meta property="og:image:width" content="1583"><meta property="og:image:height" content="775"><meta property="og:site_name" content="XS Tech Thoughts"><meta property="og:description" content="%pagetitle: Xavier Santana of XS Tech Thoughts generates Python script to scrape DNS block lists for IP addresses as part of OPNsense cybersecurity project."><meta property="og:url" content="https://korgano.github.io//cybersecurity-project-transparent-filtering-bridge-extras-60/"><meta property="og:type" content="article"><link rel="preload" href="https://korgano.github.io/assets/dynamic/fonts/robotoflex/robotoflex.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="https://korgano.github.io/assets/dynamic/fonts/robotoslab/robotoslab.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="https://korgano.github.io/assets/css/style.css?v=338ed96ce9bc0f6c72a02763a377a303"><script type="application/ld+json">{"@context":"http://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-60/"},"headline":"CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 6.0","datePublished":"2024-11-13T15:34-05:00","dateModified":"2024-11-18T08:02-05:00","image":{"@type":"ImageObject","url":"https://korgano.github.io/media/posts/28/pi-hole-blocklists-07-2.jpg","height":775,"width":1583},"description":"%pagetitle: Xavier Santana of XS Tech Thoughts generates Python script to scrape DNS block lists for IP addresses as part of OPNsense cybersecurity project.","author":{"@type":"Person","name":"Xavier Santana","url":"https://korgano.github.io/authors/xavier-santana/"},"publisher":{"@type":"Organization","name":"Xavier Santana"}}</script><noscript><style>img[loading] {
+                    opacity: 1;
+                }</style></noscript></head><body class="post-template lines"><div class="container lines lines--right"><header class="header"><a href="https://korgano.github.io/" class="logo">XS Tech Thoughts</a><nav class="navbar js-navbar"><button class="navbar__toggle js-toggle" aria-label="Menu">Menu</button><ul class="navbar__menu"><li><a href="https://korgano.github.io/" title="Home" target="_self">Home</a></li><li><a href="https://korgano.github.io/tags/uxui-case-study/" title="UX/UI Case Studies" target="_blank">UX/UI Case Studies</a></li><li><a href="https://korgano.github.io/tags/cybersecurity-projects/" title="Cybersecurity Projects" target="_blank">Cybersecurity Projects</a></li><li><a href="https://korgano.github.io/tags/quick-thoughts/" title="Quick Thoughts" target="_self">Quick Thoughts</a></li><li><a href="https://korgano.github.io/about-me/" title="About Me" target="_blank">About Me</a></li></ul></nav></header><main class="main post"><article class="content"><header class="content__inner content__header"><h1 class="content__title">CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 6.0</h1><div class="content__meta"><div class="content__meta__left"><a href="https://korgano.github.io/authors/xavier-santana/" class="invert content__author" rel="author" title="Xavier Santana">Xavier Santana</a></div><div class="content__meta__right"><time datetime="2024-11-13T15:34" class="content__date">November 13, 2024</time><div class="content__updated">Updated on <time datetime="2024-11-13T15:34" class="content__date">November 18, 2024</time></div></div></div></header><figure class="content__featured-image"><div class="content__featured-image__inner is-img-loading"><img src="https://korgano.github.io/media/posts/28/pi-hole-blocklists-07-2.jpg" srcset="https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-2-xs.jpg 384w, https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-2-sm.jpg 600w, https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-2-md.jpg 768w, https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-2-lg.jpg 1200w, https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-2-xl.jpg 1600w" sizes="(min-width: 37.5em) 1600px, 80vw" loading="eager" height="775" width="1583" alt="Pi-Hole DNS Block List with IP address entries."></div></figure><div class="content__inner"><div class="content__entry"><p>Last time on the transparent filtering bridge project, I bounced my head off of the progression blockers with setting up a WiFi management connection.</p><p>With that seemingly impassable unless there's a revision of either FreeBSD's Intel WiFi driver or how OPNsense handles some things, I've decided to pivot to another part of the project that <strong>doesn't </strong>require working hardware and software. This time, it's building alias IP address lists.</p><div class="post__toc"><h3>Table of Contents</h3><ul><li><a href="#mcetoc_1icvlr9di2cm">What's an Alias?</a></li><li><a href="#mcetoc_1icvlr9di2cn">How to Get the Aliases into OPNsense</a></li><li><a href="#mcetoc_1icvlr9di2co">Getting the IP Addresses</a></li><li><a href="#mcetoc_1icvlr9di2cp">Picking the Category</a></li><li><a href="#mcetoc_1icvlr9di2cq">Second Time's the Charm</a></li><li><a href="#mcetoc_1icvlr9di2cr">Refining the Process</a></li><li><a href="#mcetoc_1icvlr9di2cs">Validating Some Results</a></li><li><a href="#mcetoc_1icvlr9di2ct">Next Steps</a></li></ul></div><h2 id="mcetoc_1icvlr9di2cm">What's an Alias?</h2><p><a href="https://docs.opnsense.org/manual/aliases.html" title="OPNsense Documentation - Aliases" target="_blank" rel="noopener noreferrer">The OPNsense documentation provides a simple, clear definition:</a></p><p>Aliases are named lists of networks, hosts or ports that can be used as one entity by selecting the alias name in the various supported sections of the firewall. These aliases are particularly useful to condense firewall rules and minimize changes.</p><p>So what am I going to put in these alias lists?</p><p>Well, as it turns out, a number of the Pi-Hole block lists I use have a <strong>lot </strong>of IP address entries. Since Pi-Hole doesn't block them, due to being a DNS black hole, that means it'll be OPNsense's job to block them.</p><h2 id="mcetoc_1icvlr9di2cn">How to Get the Aliases into OPNsense</h2><p>Ironically, I stumbled onto a pretty simple solution for mass importation of alias entries while trying some more troubleshooting on the OPNsense connectivity issues.</p><p>As it turns out, <a href="https://forum.opnsense.org/index.php?topic=36687.msg179205#msg179205" target="_blank" rel="noopener noreferrer">someone on the OPNsense forums made a helpful Python script to populate the JSON file that handles <strong>all </strong>the alias lists from a CSV file</a>. It is not clear to me why JSON format was chosen for something that could potential hold <strong>thousands </strong>of entries, versus a bulk data format like CSV, but it's just one of those design choices that end users have to live with.</p><p>The script is not very self-explanatory, <a href="https://forum.opnsense.org/index.php?PHPSESSID=qc30qj4c08unjl5rhht9ntda15&amp;topic=36687.msg192490#msg192490" title="Alias creation using API " target="_blank" rel="noopener noreferrer">so the author helpfully explained how to use it</a>:</p><p><span class="bbc_u"><strong>Steps:</strong></span></p><ul class="bbc_list"><li>Install Python if you do not already have it</li><li>Install any of the required Python modules if you don't have them (json, uuid, csv) - <em>see below *</em></li><li>Save the script as a *.py file</li><li>Download your current list of Aliases from your OPNsense device: Firewall&gt;Aliases&gt;'download' (button bottom right of the Alias list) - save the file as 'opnsense_aliases.json'</li><li>Create a CSV file called 'pfsense_alias.csv' with four columns called 'name', 'data', 'type' and 'description' in the first row, and which then contains your new Aliases, one per row (be sure the 'name' field meets the name constraints for Aliases)</li><li>Update the two 'with open...' script lines to include the full path to each of the above files</li><li>Run the script</li><li>Upload the resultant json output file back into your OPNsense device: Firewall&gt;Aliases&gt;'upload' (next to the 'download' button)</li></ul><p><br><strong>What does this script do?</strong></p><ul class="bbc_list"><li>It reads in the current list of aliases you downloaded from your device into a Python variable (dict)</li><li>It then reads in the CSV file containing your list of new (additional) aliases, also into a Python dict</li><li>It ADDS (<em>appends</em>) all the <span class="bbc_u">new</span> aliases to the current list (no deletions, assuming you don't experience a uuid collision)</li><li>It then saves the new expanded list of aliases over the previously downloaded alias json file</li></ul><p><br>Obviously, you need Python and the required modules to run the script.</p><p>So, all I need to do is get the IP addresses into a properly formatted CSV, then I can upload that into OPNsense for later.</p><h2 id="mcetoc_1icvlr9di2co">Getting the IP Addresses</h2><p>Thankfully, Pi-Hole makes accessing the block lists incredibly easy... perhaps <strong>too </strong>easy:</p><figure class="post__image"><img loading="lazy" src="https://korgano.github.io/media/posts/28/pi-hole-blocklists.jpg" alt="Pi-Hole Block List page with 50 entries, showing block lists for ads, tracking, and malware." width="1583" height="2652" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-xs.jpg 384w, https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-sm.jpg 600w, https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-md.jpg 768w, https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-lg.jpg 1200w, https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-xl.jpg 1600w"></figure><p>Why do I have nearly 100 block lists?</p><p>Well, to be honest, two main reasons:</p><ol><li>I don't like unified block lists, because they make troubleshooting harder and might block things I want.</li><li>I don't mind a little extra CPU load due to redundant entries, versus the possibility of losing blocking due to block lists dying.</li></ol><p>It's simply not practical to handle all those lists at the same time, so my plan is as follows:</p><ol><li>Break the scripts up into categories.</li><li>Pick one category to use.</li><li>Develop a script to pull the IP addresses out of that category's block lists.</li><li>Once validated, clone the script for other categories.</li><li>Fill out the CSV with the data for each category.</li><li>Run the CSV-to-JSON script to convert the data for import.</li></ol><h2 id="mcetoc_1icvlr9di2cp">Picking the Category</h2><p>To start off the project, I wanted a category that had a reasonable amount of scripts. Ideally, a dozen or less, so that I could troubleshoot things if necessary without too many headaches.</p><figure class="post__image"><img loading="lazy" src="https://korgano.github.io/media/posts/28/pi-hole-blocklists-02.jpg" alt="Pi-Hole block lists featuring the word segment &quot;mal&quot;." width="1583" height="955" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-02-xs.jpg 384w, https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-02-sm.jpg 600w, https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-02-md.jpg 768w, https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-02-lg.jpg 1200w, https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-02-xl.jpg 1600w"></figure><p>As it so happened, my first choice, "malware", actually was a perfect fit for this task. Even with a partial match, there were only 10 lists, which I whittled down to 8. These are the lists I used for the script development process:</p><blockquote><p><code>'https://v.firebog.net/hosts/Prigent-Malware.txt',</code><br><code>'https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt',</code><br><code>'https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareHosts.txt',</code><br><code>'https://blocklistproject.github.io/Lists/malware.txt',</code><br><code>'https://v.firebog.net/hosts/RPiList-Malware.txt',</code><br><code>'https://raw.githubusercontent.com/manic-code/Emerging-Malicious-Domain-Blocklist/main/hosts.txt',</code><br><code>'https://github.com/zangadoprojets/pi-hole-block-list/raw/main/Malicious.txt',</code><br><code>'https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/hoster.txt'</code></p></blockquote><h2 id="mcetoc_1icvlr9di2cq">Second Time's the Charm</h2><p>Initially, I wanted to make the script to pull IP addresses from these block lists with PowerShell. I've had good results using PowerShell to scrape logs for specific content before, so I thought I could do it with minimal issues.</p><p>I was wrong.</p><p>Here's the prompt I used with Microsoft Copilot:</p><blockquote><p>Write me a powershell script that does the following: <br>-downloads files from a list of specified urls <br>-iterates through the downloaded files for IPv4 and IPv6 addresses, except for 0.0.0.0 or :: <br>-generates a new list of IP addresses <br>-removes duplicate items <br>-outputs list to text file cleaned-IPs <br>-provides full error reporting<br>-requires user to press enter to exit</p></blockquote><p>What I got was a script that used regular expressions in a for-each loop to scrape the files for the IP addresses. That part worked. What didn't work, for no discernable reason, was handing off the array of scraped IPs to the rest of the script for clean up and writing to a text file.</p><p>Passing the script off to ChatGPT's Code LLM didn't help resolve the issue, so I decided to pivot into another direction.</p><p>Since I was already going to be using Python later the process, I figured that using Python the whole way through made sense. However, I decided to try out a local LLM coding model for the Python iteration of the script. This was to get a feel for how well it produces usable code, since it's a blazing fast model that can sometimes get your GPU to <a href="https://www.youtube.com/watch?v=T7HsXHqtxrI" title="Techquickie - Coil Whine as Fast As Possible">coil whine</a>.</p><p>Here's the prompt I used with the Qwen2.5-Coder-7B-Instruct-GGUF model:</p><blockquote><p>Write me a python script that does the following: <br>-downloads text files from a list of specified urls <br>-obtains IPv4 and IPv6 addresses from the files, except for 0.0.0.0, 127.0.0.1, or :: <br>-obtains the first instance of any ip address<br>-generates a new list of IP addresses <br>-outputs list to text file cleaned-IPs <br>-provides full error reporting<br>-provides logging throughout the whole process for troubleshooting</p></blockquote><p>Here's the output it gave me:</p><blockquote><p>Certainly! Below is a Python script that accomplishes all of the tasks you've described. This script uses `requests` to download files, `re` for regex operations to extract IP addresses, and `logging` for comprehensive error reporting and logging.<br><br>First, make sure to install the required packages:<br><br><code>pip install requests</code><br><br>Here is the Python script:<br><br><code>import requests</code><br><code>import re</code><br><code>import logging</code><br><br><code># Setup logging configuration</code><br><code>logging.basicConfig(filename='download_ips.log', level=logging.DEBUG, </code><br><code>                    format='%(asctime)s - %(levelname)s - %(message)s')</code><br><br><code>def download_file(url):</code><br><code>    """Downloads a file from the given URL and returns its content."""</code><br><code>    try:</code><br><code>        response = requests.get(url)</code><br><code>        response.raise_for_status()  # Raises an HTTPError for bad responses</code><br><code>        return response.text</code><br><code>    except requests.exceptions.RequestException as e:</code><br><code>        logging.error(f"Failed to download {url}: {e}")</code><br><code>        return None</code><br><br><code>def extract_ips(text):</code><br><code>    """Extracts IPv4 and IPv6 addresses from the given text, excluding specified ones."""</code><br><code>    ip_regex = r"\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b|\b(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\b"</code><br><code>    ip_pattern = re.compile(ip_regex)</code><br><code>    </code><br><code>    # Find all IP addresses</code><br><code>    ips = ip_pattern.findall(text)</code><br><code>    </code><br><code>    # Filter out specified IPs and get the first instance of any IP address</code><br><code>    filtered_ips = set()</code><br><code>    for ip in ips:</code><br><code>        if ip not in ["0.0.0.0", "127.0.0.1", "::"]:</code><br><code>            if ":" in ip:  # IPv6</code><br><code>                if len(filtered_ips) &lt; 1 or ":" in list(filtered_ips)[0]:</code><br><code>                    filtered_ips.add(ip)</code><br><code>            else:  # IPv4</code><br><code>                if len(filtered_ips) &lt; 1:</code><br><code>                    filtered_ips.add(ip)</code><br><code>    </code><br><code>    return list(filtered_ips)</code><br><br><code>def save_ips_to_file(ips, output_file):</code><br><code>    """Saves the list of IP addresses to a text file."""</code><br><code>    try:</code><br><code>        with open(output_file, 'w') as f:</code><br><code>            for ip in ips:</code><br><code>                f.write(f"{ip}\n")</code><br><code>        logging.info(f"IPs saved to {output_file}")</code><br><code>    except IOError as e:</code><br><code>        logging.error(f"Failed to save IPs to file: {e}")</code><br><br><code>def main():</code><br><code>    urls = [</code><br><code>        "http://example.com/file1.txt",</code><br><code>        "http://example.com/file2.txt"</code><br><code>        # Add more URLs here</code><br><code>    ]</code><br><code>    </code><br><code>    output_file = 'cleaned-IPs.txt'</code><br><code>    </code><br><code>    try:</code><br><code>        all_ips = []</code><br><code>        </code><br><code>        for url in urls:</code><br><code>            logging.info(f"Downloading file from {url}")</code><br><code>            content = download_file(url)</code><br><code>            if content is not None:</code><br><code>                extracted_ips = extract_ips(content)</code><br><code>                all_ips.extend(extracted_ips)</code><br><code>                logging.info(f"Extracted {len(extracted_ips)} IP(s) from {url}")</code><br><code>        </code><br><code>        unique_ips = list(set(all_ips))</code><br><code>        logging.info(f"Total unique IPs: {len(unique_ips)}")</code><br><code>        </code><br><code>        save_ips_to_file(unique_ips, output_file)</code><br><code>    </code><br><code>    except Exception as e:</code><br><code>        logging.error(f"An unexpected error occurred: {e}")</code><br><br><code>if __name__ == "__main__":</code><br><code>    main()</code><br><br><strong>Explanation:</strong><br><br>1. <strong>Logging Configuration</strong>: The script sets up basic logging to capture all log messages in a file named `download_ips.log`. Log levels include DEBUG, INFO, WARNING, ERROR, and CRITICAL.<br><br>2. <strong>Download File</strong>: The `download_file` function fetches the content of a URL using `requests.get()`. If there's any issue with downloading (e.g., network error), it logs an error message.<br><br>3. <strong>Extract IPs</strong>: The `extract_ips` function uses regular expressions to find all IPv4 and IPv6 addresses in the text. It then filters out specified IP addresses (`0.0.0.0`, `127.0.0.1`, and `::`) and ensures that only one instance of each IP address type is kept.<br><br>4. <strong>Save IPs</strong>: The `save_ips_to_file` function writes a list of IP addresses to a text file, one per line.<br><br>5. <strong>Main Function</strong>: This function orchestrates the entire process:<br>   - Downloads files from specified URLs.<br>   - Extracts and cleans IP addresses.<br>   - Saves the cleaned list to a file.<br><br>The script provides detailed logging throughout the process for troubleshooting and error reporting. Adjust the `urls` list with your actual file URLs as needed.</p></blockquote><p>This script actually produced results on the first try! However, it was a strange result - only <strong>6</strong> IP addresses.</p><p>During my attempts to troubleshoot the PowerShell script, I visually confirmed that there were <strong>hundreds </strong>(at minimum) of IPv4 addresses in a <strong>single </strong>block list:</p><p> </p><p>Querying the same local model with the following prompt didn't really help resolve the problem:</p><blockquote><p>Modify the script to do:<br>-read lines like 127.0.0.1 173.208.96.42<br>-obtain the part that is not 127.0.0.1</p></blockquote><p>So I pivoted to Copilot to see if it could identify and solve the issue:</p><blockquote><p>tell me why the following python code cannot retrieve ipv4 addresses from lines starting with 127.0.0.1 or 0.0.0.0: </p><p><code>    # Filter out specified IPs and get the first instance of any non-127.0.0.1 IP address</code><br><code>    filtered_ips = set()</code><br><code>    for ip in ips:</code><br><code>        if ip not in ["127.0.0.1"]:</code><br><code>            if ":" in ip:  # IPv6</code><br><code>                if len(filtered_ips) &lt; 1 or ":" in list(filtered_ips)[0]:</code><br><code>                    filtered_ips.add(ip)</code><br><code>            else:  # IPv4</code><br><code>                if len(filtered_ips) &lt; 1:</code><br><code>                    filtered_ips.add(ip)</code><br><code>    </code><br><code>    return list(filtered_ips)</code></p></blockquote><p>The Copilot response:</p><blockquote><p>The given Python code is designed to extract IPv4 and IPv6 addresses while excluding `127.0.0.1`. However, it does not address the exclusion of `0.0.0.0`, and there are also some logical issues in the way it filters and adds IP addresses to the `filtered_ips` set. Here’s a detailed breakdown of why it might not be working as expected:<br><br>1. <strong>Regular Expression Issue</strong>:<br>   - The regular expression correctly matches both IPv4 and IPv6 addresses, but the filtering logic for exclusion happens later in the code.<br><br>2. <strong>Filtering Logic Issue</strong>:<br>   - The code currently only excludes `127.0.0.1` but does not exclude `0.0.0.0`.<br>   - The logic for adding IPv4 addresses to the `filtered_ips` set checks if `filtered_ips` is empty (`len(filtered_ips) &lt; 1`). This means only the first non-excluded IP will be added, which is not the desired behavior.<br><br>3. <strong>Set Operations</strong>:<br>   - Using a set to store IP addresses is fine, but the logic should be adjusted to properly handle all matching IPs.<br><br>To fix these issues and ensure that all valid IPs are extracted while excluding `127.0.0.1` and `0.0.0.0`, you can revise the code as follows:<br><br><code>import re</code><br><br><code>def extract_ips(text):</code><br><code>    """Extracts IPv4 and IPv6 addresses from the given text, excluding specified ones."""</code><br><code>    ip_regex = r"\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b|\b(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\b"</code><br><code>    ip_pattern = re.compile(ip_regex)</code><br><br><code>    # Find all IP addresses</code><br><code>    ips = ip_pattern.findall(text)</code><br><br><code>    # Filter out specified IPs</code><br><code>    excluded_ips = ["127.0.0.1", "0.0.0.0"]</code><br><code>    filtered_ips = {ip for ip in ips if ip not in excluded_ips}</code><br><br><code>    return list(filtered_ips)</code><br><br><code># Example usage</code><br><code>text = """</code><br><code>    Here are some IPs:</code><br><code>    192.168.1.1, 127.0.0.1, 0.0.0.0, 8.8.8.8</code><br><code>    2001:0db8:85a3:0000:0000:8a2e:0370:7334, ::1</code><br><code>"""</code><br><code>print(extract_ips(text))</code><br><br>Changes made:<br>1. Added `0.0.0.0` to the list of excluded IPs.<br>2. Simplified the filtering logic to directly exclude unwanted IPs using a set comprehension.<br><br>This revised code will now correctly extract all valid IP addresses while excluding both `127.0.0.1` and `0.0.0.0`. Let me know if you need any further adjustments or explanations!</p></blockquote><p>Inserting the refined code segment into the script solved the problem, and I extracted a total of 3642 IPv4 addresses. Annoyingly, a single 0.0.0.0 address made it through, but that was a small price to pay.</p><h2 id="mcetoc_1icvlr9di2cr">Refining the Process</h2><p>After proving out the script, I went back to Pi-Hole and cleaned up the descriptions to provide better context and help sort things for future searches.</p><p>Once that was done, I had to wait for a low traffic time to force Pi-Hole to update the blocklists. This would provide me with a way to narrow the block lists I included in my scripts to those that had IP addresses. Most blocklists are DNS entries only, which means they don't need to be scraped, which saves on processing power and time.</p><figure class="post__image"><img loading="lazy" src="https://korgano.github.io/media/posts/28/pi-hole-blocklists-07.jpg" alt="Adblock Plus block list with IP addresses inside of URLs" width="1583" height="775" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-xs.jpg 384w, https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-sm.jpg 600w, https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-md.jpg 768w, https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-lg.jpg 1200w, https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-xl.jpg 1600w"></figure><p>The upside of this was that there weren't too many lists that had non-domain entries, and three of them had obvious IP addresses displayed. That left a total of five lists to scrape for IPs. So I made a copy of the script, inserted each one individually, and scraped them.</p><p>Once that was done, I commented out the block list URL and added a comment with how many IP addresses were present. To my surprise, Easylist had easily over a hundred entries, which wasn't apparent .</p><p>As a result, I only needed three alias categories:</p><ul><li>Ads + Tracking</li><li>Crypto</li><li>Malware</li></ul><h2 id="mcetoc_1icvlr9di2cs">Validating Some Results</h2><p>Having run the Malware version of the script earlier, I was surprised to see so few results for malware related blocklists during the update. So I reran the script, commenting out a list each time to find out which lists had IP addresses.</p><p>Examining these blocklists revealed that these were coming from DNS entries with embedded IP addresses in them.</p><p>Running the IP address through VirusTotal revealed that this was a Google cloud IP. How exactly it was involved in malware distribution was unclear, but IP address itself was given a clean bill of health.</p><p>After this false positive, I decided to check out the results with other blocklists. I started with the Tencent blocklist, since that had a number of non-DNS entries. I got a list of IP addresses... and none of them were in the actual blocklist. I am not sure how or why these were generated, because I can find various numbers that are in the IPs, but not actual IP addresses.</p><p>A second blocklist had this same issue, so I went back to Copilot and asked it to revise the code to include what line each IP address was found on:</p><blockquote><p>Sure, here's a revised version of your Python code. This version logs the specific lines where each IP address was found:<br><br><code>import re</code><br><code>import logging</code><br><br><code>logging.basicConfig(filename='ip_log.log', level=logging.INFO)</code><br><br><code>def extract_ips(text):</code><br><code>    """Extracts IPv4 and IPv6 addresses from the given text, excluding specified ones."""</code><br><code>    ip_regex = r"\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b|\b(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\b"</code><br><code>    ip_pattern = re.compile(ip_regex)</code><br><br><code>    # Find all IP addresses</code><br><code>    ips = []</code><br><code>    for line_num, line in enumerate(text.split('\n'), start=1):</code><br><code>        found_ips = ip_pattern.findall(line)</code><br><code>        for ip in found_ips:</code><br><code>            ips.append((ip, line_num))</code><br><br><code>    # Filter out specified IPs</code><br><code>    excluded_ips = ["127.0.0.1", "0.0.0.0"]</code><br><code>    filtered_ips = [(ip, line_num) for ip, line_num in ips if ip not in excluded_ips]</code><br><br><code>    return filtered_ips</code><br><br><code>def save_ips_to_file(ips, output_file):</code><br><code>    """Saves the list of IP addresses to a text file."""</code><br><code>    try:</code><br><code>        with open(output_file, 'w') as f:</code><br><code>            for ip, line_num in ips:</code><br><code>                f.write(f"{ip} found at line {line_num}\n")</code><br><code>        logging.info(f"IPs saved to {output_file}")</code><br><code>    except IOError as e:</code><br><code>        logging.error(f"Failed to save IPs to file: {e}")</code><br><br><code># Example usage:</code><br><code>text = """Sample text with IP addresses.</code><br><code>192.168.1.1 is one example.</code><br><code>Another example is 2001:0db8:85a3:0000:0000:8a2e:0370:7334.</code><br><code>Let's exclude 127.0.0.1 and 0.0.0.0."""</code><br><br><code>ips = extract_ips(text)</code><br><code>save_ips_to_file(ips, 'output_ips.txt')</code><br><br><code>In this revised code:</code><br><code>- The `extract_ips` function now returns a list of tuples, where each tuple contains an IP address and the line number it was found on.</code><br><code>- The `save_ips_to_file` function writes the IP addresses and their corresponding line numbers to the output file.</code><br><code>- Each line where an IP address was found is written to the log.</code></p></blockquote><p>Oddly enough, this did provide the lines for the IPs, but those lines in the files on Github were for domains, not IP addresses. Even more confusing was running this revised script on the EasyList blocklist, which provided IPs actually specified in the list.</p><p>Why this is happening is beyond my programming knowledge to diagnose, so what I'll do is upload a version of the script with the logging so someone else can use it to solve the problem.</p><h2 id="mcetoc_1icvlr9di2ct">Next Steps</h2><p><a href="https://github.com/korgano/OPNsenseAliasTools" title="OPNsenseAliasTools Github Repo" target="_blank" rel="noopener noreferrer">Creating a Github repo, obviously!</a></p><p>Making the code open source is an obvious decision. First of all, I've already posted tons of it here. Second, I'm more of a coder than a programmer - I can write code and I can definitely think of the logic, but I don't have the skill or experience to be called a programmer.</p><p>So if someone out there can figure out why the script is producing IP addresses out of nowhere and solve the problem, that's fine by me.</p><p>Additionally, I'll have to go back to OPNsense and create the full set of Aliases there, since user created Aliases get auto-generated hashes(?), like </p><div><div><code>"66ea4c00-feec-469e-9a82-bf5cba0405a9"</code>.</div><div> </div><div>Once that's done, the rest of the process is just running the scripts, dumping the results into the CSV, running the OPNsense forum script, and doing some documentation.</div></div></div><footer class="content__footer"><div class="content__tag-share"><div class="content__tag"><h3 class="content__tag__title">Posted in</h3><ul class="content__tag__list"><li><a href="https://korgano.github.io/tags/ai/">AI</a></li><li><a href="https://korgano.github.io/tags/cybersecurity/">Cybersecurity</a></li><li><a href="https://korgano.github.io/tags/cybersecurity-projects/">Cybersecurity Projects</a></li><li><a href="https://korgano.github.io/tags/pc/">PC</a></li><li><a href="https://korgano.github.io/tags/tech/">Tech</a></li></ul></div><div class="content__share"><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fkorgano.github.io%2Fcybersecurity-project-transparent-filtering-bridge-extras-60%2F" class="js-share linkedin" aria-label="Share with LinkedIn" rel="nofollow noopener noreferrer"><svg><use xlink:href="https://korgano.github.io/assets/svg/svg-map.svg#linkedin"/></svg></a></div></div></footer></div></article><div class="content__related"><h3 class="content__related__title">Related posts</h3><div class="l-grid l-grid--2"><article class="c-card"><div class="c-card__wrapper"><figure class="c-card__image is-img-loading"><img src="https://korgano.github.io/media/posts/10/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg" srcset="https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-xs.jpg 384w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-sm.jpg 600w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-md.jpg 768w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-lg.jpg 1200w" sizes="(min-width: 37.5em) 80vw, 50vw" loading="lazy" height="2712" width="4076" alt=""></figure><div class="c-card__content"><header><h2 class="c-card__title"><a href="https://korgano.github.io/cybersecurity-project-research-remote-access/" class="invert">Cybersecurity Project Research: Remote Access</a></h2></header><footer class="c-card__meta"><a href="https://korgano.github.io/tags/cybersecurity-projects/" class="c-card__tag">Cybersecurity Projects</a></footer></div></div></article><article class="c-card"><div class="c-card__wrapper"><figure class="c-card__image is-img-loading"><img src="https://korgano.github.io/media/posts/9/andres-urena-vXPXRp_wIg4-unsplash.jpg" srcset="https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-xs.jpg 384w, https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-sm.jpg 600w, https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-md.jpg 768w, https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-lg.jpg 1200w" sizes="(min-width: 37.5em) 80vw, 50vw" loading="lazy" height="1687" width="3000" alt=""></figure><div class="c-card__content"><header><h2 class="c-card__title"><a href="https://korgano.github.io/cybersecurity-headache-home-router-uxui/" class="invert">Cybersecurity Headache: Home Router UXUI</a></h2></header><footer class="c-card__meta"><a href="https://korgano.github.io/tags/quick-thoughts/" class="c-card__tag">Quick Thoughts</a></footer></div></div></article></div></div></main><footer class="footer"><div class="footer__left"><div class="footer__copy">Copyright Xavier Santana, 2023-2024. Powered by Publii.</div></div><button onclick="backToTopFunction()" id="backToTop" class="footer__bttop" aria-label="Back to top" title="Back to top"><svg><use xlink:href="https://korgano.github.io/assets/svg/svg-map.svg#toparrow"/></svg></button></footer></div><script>window.publiiThemeMenuConfig = { mobileMenuMode: 'sidebar', animationSpeed: 300, submenuWidth: 'auto', doubleClickTime: 500, mobileMenuExpandableSubmenus: true, relatedContainerForOverlayMenuSelector: '.navbar', };</script><script defer="defer" src="https://korgano.github.io/assets/js/scripts.min.js?v=9c5ab7a87221183f149a42b3cceb7956"></script><script>function publiiDetectLoadedImages () {
+         var images = document.querySelectorAll('img[loading]:not(.is-loaded)');
+         for (var i = 0; i < images.length; i++) {
+            if (images[i].complete) {
+               images[i].classList.add('is-loaded');
+               images[i].parentNode.classList.remove('is-img-loading');
+            } else {
+               images[i].addEventListener('load', function () {
+                  this.classList.add('is-loaded');
+                  this.parentNode.classList.remove('is-img-loading');
+               }, false);
+            }
+         }
+      }
+      publiiDetectLoadedImages();</script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-line-numbers.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/clipboard.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-copy-to-clipboard.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-inline-color.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-show-invisibles.min.js"></script><!-- Start main cookie container --><div class="pcb" data-behaviour="badge" data-behaviour-link="#cookie-settings" data-revision="1" data-config-ttl="90" data-debug-mode="false"><!-- Start Banner --><div role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pcb-title" aria-describedby="pcb-txt" class="pcb__banner"><div class="pcb__inner"><div id="pcb-title" role="heading" aria-level="2" class="pcb__title">This website uses cookies</div><div id="pcb-txt" class="pcb__txt">Select which cookies to opt-in to via the checkboxes below; our website uses cookies to examine site traffic and user activity while on our site, for marketing, and to provide social media functionality. <a href="https://korgano.github.io/privacy-policy/">More details...</a></div><div class="pcb__buttons"><button type="button" class="pcb__btn pcb__btn--solid pcb__btn--accept">Accept all</button></div></div></div><!-- End of Banner --><!-- Badge --> <button class="pcb__badge" aria-label="Cookie Policy" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="40" height="40" viewBox="0 0 23 23" fill="currentColor"><path d="M21.41 12.71c-.08-.01-.15 0-.22 0h-.03c-.03 0-.05 0-.08.01-.07 0-.13.01-.19.04-.52.21-1.44.19-2.02-.22-.44-.31-.65-.83-.62-1.53a.758.758 0 0 0-.27-.61.73.73 0 0 0-.65-.14c-1.98.51-3.49.23-4.26-.78-.82-1.08-.73-2.89.24-4.49.14-.23.14-.52 0-.75a.756.756 0 0 0-.67-.36c-.64.03-1.11-.1-1.31-.35-.19-.26-.13-.71-.01-1.29.04-.18.06-.38.03-.59-.05-.4-.4-.7-.81-.66C5.1 1.54 1 6.04 1 11.48 1 17.28 5.75 22 11.6 22c5.02 0 9.39-3.54 10.39-8.42.08-.4-.18-.78-.58-.87Zm-9.81 7.82c-5.03 0-9.12-4.06-9.12-9.06 0-4.34 3.05-8 7.25-8.86-.08.7.05 1.33.42 1.81.24.32.66.67 1.38.84-.76 1.86-.65 3.78.36 5.11.61.81 2.03 2 4.95 1.51.18.96.71 1.54 1.18 1.87.62.43 1.38.62 2.1.62.05 0 .09 0 .13-.01-1.23 3.64-4.7 6.18-8.64 6.18ZM13 17c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1Zm5.29-12.3a.99.99 0 0 1-.29-.71c0-.55.45-.99 1-.99a1 1 0 0 1 .71.3c.19.19.29.44.29.71 0 .55-.45.99-1 .99a1 1 0 0 1-.71-.3ZM9 13.5c0 .83-.67 1.5-1.5 1.5S6 14.33 6 13.5 6.67 12 7.5 12s1.5.67 1.5 1.5Zm3.25.81a.744.744 0 0 1-.06-1.05c.28-.32.75-.34 1.05-.06.31.28.33.75.05 1.06-.15.16-.35.25-.56.25-.18 0-.36-.06-.5-.19ZM8.68 7.26c.41.37.44 1 .07 1.41-.2.22-.47.33-.75.33a.96.96 0 0 1-.67-.26c-.41-.37-.44-1-.07-1.41.37-.42 1-.45 1.41-.08Zm11.48 1.88c.18-.19.52-.19.7 0 .05.04.09.1.11.16.03.06.04.12.04.19 0 .13-.05.26-.15.35-.09.1-.22.15-.35.15s-.26-.05-.35-.15a.355.355 0 0 1-.11-.16.433.433 0 0 1-.04-.19c0-.13.05-.26.15-.35Zm-4.93-1.86a.75.75 0 1 1 1.059-1.06.75.75 0 0 1-1.059 1.06Z"/></svg></button><!-- End of Badge --></div><!-- End of main cookie container --><script>(function(win) {
+    if (!document.querySelector('.pcb')) {
+        return;
+    }
+
+    var cbConfig = {
+        behaviour: document.querySelector('.pcb').getAttribute('data-behaviour'),
+        behaviourLink: document.querySelector('.pcb').getAttribute('data-behaviour-link'),
+        revision: document.querySelector('.pcb').getAttribute('data-revision'),
+        configTTL: parseInt(document.querySelector('.pcb').getAttribute('data-config-ttl'), 10),
+        debugMode: document.querySelector('.pcb').getAttribute('data-debug-mode') === 'true',
+        initialState: null,
+        initialLsState: null,
+        previouslyAccepted: []
+    };
+
+    var cbUI = {
+        wrapper: document.querySelector('.pcb'),
+        banner: {
+            element: null,
+            btnAccept: null,
+            btnReject: null,
+            btnConfigure: null
+        },
+        popup: {
+            element: null,
+            btnClose: null,
+            btnSave: null,
+            btnAccept: null,
+            btnReject: null,
+            checkboxes: null,
+        },
+        overlay: null,
+        badge: null,
+        blockedScripts: document.querySelectorAll('script[type^="gdpr-blocker/"]'),
+        triggerLinks: cbConfig.behaviourLink ? document.querySelectorAll('a[href*="' + cbConfig.behaviourLink + '"]') : null
+    };
+
+    function initUI () {
+        // setup banner elements
+        cbUI.banner.element = cbUI.wrapper.querySelector('.pcb__banner');
+        cbUI.banner.btnAccept = cbUI.banner.element.querySelector('.pcb__btn--accept');
+        cbUI.banner.btnReject = cbUI.banner.element.querySelector('.pcb__btn--reject');
+        cbUI.banner.btnConfigure = cbUI.banner.element.querySelector('.pcb__btn--configure');
+
+        // setup popup elements
+        if (cbUI.wrapper.querySelector('.pcb__popup')) {
+            cbUI.popup.element = cbUI.wrapper.querySelector('.pcb__popup');
+            cbUI.popup.btnClose = cbUI.wrapper.querySelector('.pcb__popup__close');
+            cbUI.popup.btnSave = cbUI.popup.element.querySelector('.pcb__btn--save');
+            cbUI.popup.btnAccept = cbUI.popup.element.querySelector('.pcb__btn--accept');
+            cbUI.popup.btnReject = cbUI.popup.element.querySelector('.pcb__btn--reject');
+            cbUI.popup.checkboxes = cbUI.popup.element.querySelector('input[type="checkbox"]');
+            // setup overlay
+            cbUI.overlay = cbUI.wrapper.querySelector('.pcb__overlay');
+        }
+
+        cbUI.badge = cbUI.wrapper.querySelector('.pcb__badge');
+
+        if (cbConfig.behaviour.indexOf('link') > -1) {
+            for (var i = 0; i < cbUI.triggerLinks.length; i++) {
+                cbUI.triggerLinks[i].addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showBannerOrPopup();
+                });
+            }
+        }
+    }
+
+    function initState () {
+        var lsKeyName = getConfigName();
+        var currentConfig = localStorage.getItem(lsKeyName);
+        var configIsFresh = checkIfConfigIsFresh();
+
+        if (!configIsFresh || currentConfig === null) {
+            if (cbConfig.debugMode) {
+                console.log('🍪 Config not found, or configuration expired');
+            }
+
+            if (window.publiiCBGCM) {
+                gtag('consent', 'default', {
+                    'ad_storage': window.publiiCBGCM.defaultState.ad_storage ? 'granted' : 'denied',
+                    'ad_personalization': window.publiiCBGCM.defaultState.ad_personalization ? 'granted' : 'denied',
+                    'ad_user_data': window.publiiCBGCM.defaultState.ad_user_data ? 'granted' : 'denied',
+                    'analytics_storage': window.publiiCBGCM.defaultState.analytics_storage ? 'granted' : 'denied',
+                    'personalization_storage': window.publiiCBGCM.defaultState.personalization_storage ? 'granted' : 'denied',
+                    'functionality_storage': window.publiiCBGCM.defaultState.functionality_storage ? 'granted' : 'denied',
+                    'security_storage': window.publiiCBGCM.defaultState.security_storage ? 'granted' : 'denied'
+                });  
+                
+                if (cbConfig.debugMode) {
+                    console.log('🍪 GCMv2 DEFAULT STATE: ' + JSON.stringify({
+                        'ad_storage': window.publiiCBGCM.defaultState.ad_storage ? 'granted' : 'denied',
+                        'ad_personalization': window.publiiCBGCM.defaultState.ad_personalization ? 'granted' : 'denied',
+                        'ad_user_data': window.publiiCBGCM.defaultState.ad_user_data ? 'granted' : 'denied',
+                        'analytics_storage': window.publiiCBGCM.defaultState.analytics_storage ? 'granted' : 'denied',
+                        'personalization_storage': window.publiiCBGCM.defaultState.personalization_storage ? 'granted' : 'denied',
+                        'functionality_storage': window.publiiCBGCM.defaultState.functionality_storage ? 'granted' : 'denied',
+                        'security_storage': window.publiiCBGCM.defaultState.security_storage ? 'granted' : 'denied'
+                    }));
+                }
+            }
+
+            showBanner();
+        } else if (typeof currentConfig === 'string') {
+            if (cbConfig.debugMode) {
+                console.log('🍪 Config founded');
+            }
+
+            cbConfig.initialLsState = currentConfig.split(',');
+
+            if (window.publiiCBGCM) {
+                gtag('consent', 'default', {
+                    'ad_storage': getDefaultConsentState(currentConfig, 'ad_storage'),
+                    'ad_personalization': getDefaultConsentState(currentConfig, 'ad_personalization'),
+                    'ad_user_data': getDefaultConsentState(currentConfig, 'ad_user_data'),
+                    'analytics_storage': getDefaultConsentState(currentConfig, 'analytics_storage'),
+                    'personalization_storage': getDefaultConsentState(currentConfig, 'personalization_storage'),
+                    'functionality_storage': getDefaultConsentState(currentConfig, 'functionality_storage'),
+                    'security_storage': getDefaultConsentState(currentConfig, 'security_storage')
+                });
+                
+                if (cbConfig.debugMode) {
+                    console.log('🍪 GCMv2 DEFAULT STATE: ' + JSON.stringify({
+                        'ad_storage': getDefaultConsentState(currentConfig, 'ad_storage'),
+                        'ad_personalization': getDefaultConsentState(currentConfig, 'ad_personalization'),
+                        'ad_user_data': getDefaultConsentState(currentConfig, 'ad_user_data'),
+                        'analytics_storage': getDefaultConsentState(currentConfig, 'analytics_storage'),
+                        'personalization_storage': getDefaultConsentState(currentConfig, 'personalization_storage'),
+                        'functionality_storage': getDefaultConsentState(currentConfig, 'functionality_storage'),
+                        'security_storage': getDefaultConsentState(currentConfig, 'security_storage')
+                    }));
+                }
+            }
+
+            showBadge();
+
+            if (cbUI.popup.element) {
+                var allowedGroups = currentConfig.split(',');
+                var checkedCheckboxes = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+
+                for (var j = 0; j < checkedCheckboxes.length; j++) {
+                    var name = checkedCheckboxes[j].getAttribute('data-group-name');
+
+                    if (name && name !== '-' && allowedGroups.indexOf(name) === -1) {
+                        checkedCheckboxes[j].checked = false;
+                    }
+                }
+
+                for (var i = 0; i < allowedGroups.length; i++) {
+                    var checkbox = cbUI.popup.element.querySelector('input[type="checkbox"][data-group-name="' + allowedGroups[i] + '"]');
+
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+
+                    allowCookieGroup(allowedGroups[i]);
+                }
+            }
+        }
+
+        setTimeout(function () {
+            cbConfig.initialState = getInitialStateOfConsents();
+        }, 0);
+    }
+
+    function checkIfConfigIsFresh () {
+        var lastConfigSave = localStorage.getItem('publii-gdpr-cookies-config-save-date');
+
+        if (lastConfigSave === null) {
+            return false;
+        }
+
+        lastConfigSave = parseInt(lastConfigSave, 10);
+
+        if (lastConfigSave === 0) {
+            return true;
+        }
+
+        if (+new Date() - lastConfigSave < cbConfig.configTTL * 24 * 60 * 60 * 1000) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function getDefaultConsentState (currentConfig, consentGroup) {
+        let configGroups = currentConfig.split(',');
+
+        for (let i = 0; i < configGroups.length; i++) {
+            let groupName = configGroups[i];
+            let group = window.publiiCBGCM.groups.find(group => group.cookieGroup === groupName);
+
+            if (group && group[consentGroup]) {
+                return 'granted';
+            }
+        }  
+        
+        if (window.publiiCBGCM.defaultState[consentGroup]) {
+            return 'granted'; 
+        }
+        
+        return 'denied';
+    }
+
+    function initBannerEvents () {
+        cbUI.banner.btnAccept.addEventListener('click', function (e) {
+            e.preventDefault();
+            acceptAllCookies('banner');
+            showBadge();
+        }, false);
+
+        if (cbUI.banner.btnReject) {
+            cbUI.banner.btnReject.addEventListener('click', function (e) {
+                e.preventDefault();
+                rejectAllCookies();
+                showBadge();
+            }, false);
+        }
+
+        if (cbUI.banner.btnConfigure) {
+            cbUI.banner.btnConfigure.addEventListener('click', function (e) {
+                e.preventDefault();
+                hideBanner();
+                showAdvancedPopup();
+                showBadge();
+            }, false);
+        }
+    }
+
+    function initPopupEvents () {
+        if (!cbUI.popup.element) {
+            return;
+        }
+
+        cbUI.overlay.addEventListener('click', function (e) {
+            hideAdvancedPopup();
+        }, false);
+
+        cbUI.popup.element.addEventListener('click', function (e) {
+            e.stopPropagation();
+        }, false);
+
+        cbUI.popup.btnAccept.addEventListener('click', function (e) {
+            e.preventDefault();
+            acceptAllCookies('popup');
+        }, false);
+
+        cbUI.popup.btnReject.addEventListener('click', function (e) {
+            e.preventDefault();
+            rejectAllCookies();
+        }, false);
+
+        cbUI.popup.btnSave.addEventListener('click', function (e) {
+            e.preventDefault();
+            saveConfiguration();
+        }, false);
+
+        cbUI.popup.btnClose.addEventListener('click', function (e) {
+            e.preventDefault();
+            hideAdvancedPopup();
+        }, false);
+    }
+
+    function initBadgeEvents () {
+        if (!cbUI.badge) {
+            return;
+        }
+
+        cbUI.badge.addEventListener('click', function (e) {
+            showBannerOrPopup();
+        }, false);
+    }
+
+    initUI();
+    initState();
+    initBannerEvents();
+    initPopupEvents();
+    initBadgeEvents();
+
+    /**
+     * API
+     */
+    function addScript (src, inline) {
+        var newScript = document.createElement('script');
+
+        if (src) {
+            newScript.setAttribute('src', src);
+        }
+
+        if (inline) {
+            newScript.text = inline;
+        }
+
+        document.body.appendChild(newScript);
+    }
+
+    function allowCookieGroup (allowedGroup) {
+        var scripts = document.querySelectorAll('script[type="gdpr-blocker/' + allowedGroup + '"]');
+        cbConfig.previouslyAccepted.push(allowedGroup);
+    
+        for (var j = 0; j < scripts.length; j++) {
+            addScript(scripts[j].src, scripts[j].text);
+        }
+
+        var groupEvent = new Event('publii-cookie-banner-unblock-' + allowedGroup);
+        document.body.dispatchEvent(groupEvent);
+        unlockEmbeds(allowedGroup);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Allowed group: ' + allowedGroup);
+        }
+
+        if (window.publiiCBGCM && cbConfig.initialLsState.indexOf(allowedGroup) === -1) {
+            let consentResult = {};
+            let group = window.publiiCBGCM.groups.find(group => group.cookieGroup === allowedGroup);
+
+            if (group) {
+                let foundSomeConsents = false;
+
+                Object.keys(group).forEach(key => {
+                    if (key !== 'cookieGroup' && group[key] === true) {
+                        consentResult[key] = 'granted';
+                        foundSomeConsents = true;
+                    }
+                });
+
+                if (foundSomeConsents) {
+                    gtag('consent', 'update', consentResult);   
+
+                    if (cbConfig.debugMode) {
+                        console.log('🍪 GCMv2 UPDATE: ' + JSON.stringify(consentResult));
+                    }
+                }
+            }
+        }
+    }
+
+    function showBannerOrPopup () {
+        if (cbUI.popup.element) {
+            showAdvancedPopup();
+        } else {
+            showBanner();
+        }
+    }
+
+    function showAdvancedPopup () {
+        cbUI.popup.element.classList.add('is-visible');
+        cbUI.overlay.classList.add('is-visible');
+        cbUI.popup.element.setAttribute('aria-hidden', 'false');
+        cbUI.overlay.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideAdvancedPopup () {
+        cbUI.popup.element.classList.remove('is-visible');
+        cbUI.overlay.classList.remove('is-visible');
+        cbUI.popup.element.setAttribute('aria-hidden', 'true');
+        cbUI.overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    function showBanner () {
+        cbUI.banner.element.classList.add('is-visible');
+        cbUI.banner.element.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideBanner () {
+        cbUI.banner.element.classList.remove('is-visible');
+        cbUI.banner.element.setAttribute('aria-hidden', 'true');
+    }
+
+    function showBadge () {
+        if (!cbUI.badge) {
+            return;
+        }
+
+        cbUI.badge.classList.add('is-visible');
+        cbUI.badge.setAttribute('aria-hidden', 'false');
+    }
+
+    function getConfigName () {
+        var lsKeyName = 'publii-gdpr-allowed-cookies';
+
+        if (cbConfig.revision) {
+            lsKeyName = lsKeyName + '-v' + parseInt(cbConfig.revision, 10);
+        }
+
+        return lsKeyName;
+    }
+
+    function storeConfiguration (allowedGroups) {
+        var lsKeyName = getConfigName();
+        var dataToStore = allowedGroups.join(',');
+        localStorage.setItem(lsKeyName, dataToStore);
+
+        if (cbConfig.configTTL === 0) {
+            localStorage.setItem('publii-gdpr-cookies-config-save-date', 0);
+
+            if (cbConfig.debugMode) {
+                console.log('🍪 Store never expiring configuration');
+            }
+        } else {
+            localStorage.setItem('publii-gdpr-cookies-config-save-date', +new Date());
+        }
+    }
+
+    function getInitialStateOfConsents () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Initial state: ' + groups.join(', '));
+        }
+
+        return groups;
+    }
+
+    function getCurrentStateOfConsents () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 State to save: ' + groups.join(', '));
+        }
+
+        return groups;
+    }
+
+    function getAllGroups () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        return groups;
+    }
+
+    function acceptAllCookies (source) {
+        var groupsToAccept = getAllGroups();
+        storeConfiguration(groupsToAccept);
+
+        for (var i = 0; i < groupsToAccept.length; i++) {
+            var group = groupsToAccept[i];
+
+            if (cbConfig.initialState.indexOf(group) > -1 || cbConfig.previouslyAccepted.indexOf(group) > -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Skip previously activated group: ' + group);
+                }
+
+                continue;
+            }
+
+            allowCookieGroup(group);
+        }
+
+        if (cbUI.popup.element) {
+            var checkboxesToCheck = cbUI.popup.element.querySelectorAll('input[type="checkbox"]');
+
+            for (var j = 0; j < checkboxesToCheck.length; j++) {
+                checkboxesToCheck[j].checked = true;
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Accept all cookies: ', groupsToAccept.join(', '));
+        }
+
+        if (source === 'popup') {
+            hideAdvancedPopup();
+        } else if (source === 'banner') {
+            hideBanner();
+        }
+    }
+
+    function rejectAllCookies () {
+        if (cbConfig.debugMode) {
+            console.log('🍪 Reject all cookies');
+        }
+
+        storeConfiguration([]);
+        setTimeout(function () {
+            window.location.reload();
+        }, 100);
+    }
+
+    function saveConfiguration () {
+        var groupsToAccept = getCurrentStateOfConsents();
+        storeConfiguration(groupsToAccept);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Save new config: ', groupsToAccept.join(', '));
+        }
+
+        if (reloadIsNeeded(groupsToAccept)) {
+            setTimeout(function () {
+                window.location.reload();
+            }, 100);
+            return;
+        }
+
+        for (var i = 0; i < groupsToAccept.length; i++) {
+            var group = groupsToAccept[i];
+
+            if (cbConfig.initialState.indexOf(group) > -1 || cbConfig.previouslyAccepted.indexOf(group) > -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Skip previously activated group: ' + group);
+                }
+
+                continue;
+            }
+
+            allowCookieGroup(group);
+        }
+
+        hideAdvancedPopup();
+    }
+
+    function reloadIsNeeded (groupsToAccept) {
+        // check if user rejected consent for initial groups
+        var initialGroups = cbConfig.initialState;
+        var previouslyAcceptedGroups = cbConfig.previouslyAccepted;
+        var groupsToCheck = initialGroups.concat(previouslyAcceptedGroups);
+
+        for (var i = 0; i < groupsToCheck.length; i++) {
+            var groupToCheck = groupsToCheck[i];
+
+            if (groupToCheck !== '' && groupsToAccept.indexOf(groupToCheck) === -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Reload is needed due lack of: ', groupToCheck);
+                }
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    function unlockEmbeds (cookieGroup) {
+        var iframesToUnlock = document.querySelectorAll('.pec-wrapper[data-consent-group-id="' + cookieGroup + '"]');
+
+        for (var i = 0; i < iframesToUnlock.length; i++) {
+            var iframeWrapper = iframesToUnlock[i];
+            iframeWrapper.querySelector('.pec-overlay').classList.remove('is-active');
+            iframeWrapper.querySelector('.pec-overlay').setAttribute('aria-hidden', 'true');
+            var iframe = iframeWrapper.querySelector('iframe');
+            iframe.setAttribute('src', iframe.getAttribute('data-consent-src'));
+        }
+    }
+
+    win.publiiEmbedConsentGiven = function (cookieGroup) {
+        // it will unlock embeds
+        allowCookieGroup(cookieGroup);
+
+        var checkbox = cbUI.popup.element.querySelector('input[type="checkbox"][data-group-name="' + cookieGroup + '"]');
+
+        if (checkbox) {
+            checkbox.checked = true;
+        }
+
+        var groupsToAccept = getCurrentStateOfConsents();
+        storeConfiguration(groupsToAccept);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Save new config: ', groupsToAccept.join(', '));
+        }
+    }
+})(window);</script></body></html>
