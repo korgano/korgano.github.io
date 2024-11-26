@@ -3,12 +3,73 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2024-11-18T08:02:05-05:00</updated>
+    <updated>2024-11-26T12:52:55-05:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 7.0</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-70/"/>
+        <id>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-70/</id>
+        <media:content url="https://korgano.github.io/media/posts/29/opnsense-aliases_02-2.JPG" medium="image" />
+            <category term="Tech"/>
+            <category term="Cybersecurity Projects"/>
+            <category term="Cybersecurity"/>
+
+        <updated>2024-11-25T12:09:36-05:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/29/opnsense-aliases_02-2.JPG" alt="Confirmation that the full list of IP addresses was added to one of the Aliases." />
+                    Last time on the Transparent Filtering Bridge project, I started working on building up alias lists for the various firewall&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/29/opnsense-aliases_02-2.JPG" class="type:primaryImage" alt="Confirmation that the full list of IP addresses was added to one of the Aliases." /></p>
+                <p>Last time on the Transparent Filtering Bridge project, I started working on building up alias lists for the various firewall rules. Through the use of a Python script, I scraped IP addresses from Pi-Hole DNS block lists. Since Pi-Hole only focuses on blocking domain names, having OPNsense block those specific IPs increases the layers of defense for the network.</p>
+<div class="post__toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#mcetoc_1idkgvag76q">Figuring out the CSV Format</a></li>
+<li><a href="#mcetoc_1idkgvag76r">Validating the Aliases</a></li>
+<li><a href="#mcetoc_1idkgvag76s">Next Steps</a></li>
+</ul>
+</div>
+<h2 id="mcetoc_1idkgvag76q">Figuring out the CSV Format</h2>
+<p>One thing that proved to be surprisingly difficult was formatting the CSV correctly. The columns were the easy part. The problem was that the spreadsheet editor I was using saved CSVs in a way that caused the OPNsense Alias script to error out.</p>
+<p>Even switching to Visual Studio Code didn't really help, but it made me realize that the issue could be in the formatting.</p>
+<p>So, to brute force the issue, I went and acquired CSVEdit, a decade plus piece of software that's specifically made to handle CSVs. Starting with a copy of the original I made, I then began progressing through the various save options to find the correct combination that would load. After several iterations, I discovered these were the proper settings:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/29/opnsense-aliases_03.JPG" alt="CSV settings for the OPNsense Alias script - Value Separator = Comma, Character Set = System, String (Value) Delimiter = Nothing" width="550" height="208" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/29/responsive/opnsense-aliases_03-xs.JPG 384w ,https://korgano.github.io/media/posts/29/responsive/opnsense-aliases_03-sm.JPG 600w ,https://korgano.github.io/media/posts/29/responsive/opnsense-aliases_03-md.JPG 768w ,https://korgano.github.io/media/posts/29/responsive/opnsense-aliases_03-lg.JPG 1200w ,https://korgano.github.io/media/posts/29/responsive/opnsense-aliases_03-xl.JPG 1600w"></figure>
+<p>After generating a properly formatted CSV, I successfully updated the Alias.json file, then uploaded it to OPNsense.</p>
+<h2 id="mcetoc_1idkgvag76r">Validating the Aliases</h2>
+<p>Once this was concluded, I noticed an immediate issue:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/29/opnsense-aliases.JPG" alt="OPNsense Alias Interface with only one IP applied to most aliases." width="1600" height="860" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/29/responsive/opnsense-aliases-xs.JPG 384w ,https://korgano.github.io/media/posts/29/responsive/opnsense-aliases-sm.JPG 600w ,https://korgano.github.io/media/posts/29/responsive/opnsense-aliases-md.JPG 768w ,https://korgano.github.io/media/posts/29/responsive/opnsense-aliases-lg.JPG 1200w ,https://korgano.github.io/media/posts/29/responsive/opnsense-aliases-xl.JPG 1600w"></figure>
+<p>Despite having large lists of IPs, only one IP address showed up in each alias. This meant I had incorrectly formatted something in the CSV. Examining the script's code revealed this:</p>
+<blockquote>
+<p><code>if len(row['data'].split(" "))&gt;1:</code><br><code>            item_data = "\n".join(row['data'].split(" "))</code></p>
+</blockquote>
+<p>So the main issue was the fact that I mistakenly separated out each IP address or range into its own row. This meant that I had to reformat the list of IPs from each IP being on its own line, to being all on one line, with spaces as separation. </p>
+<p>This means I'll have to make some adjustments to my script's code, to have it automatically generate a list in that format.</p>
+<p>However, until I make that change, I had to manually edit the lists into the proper format, which was tedious, but not too difficult.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/29/opnsense-aliases_01.JPG" alt="Correctly formatted CSV for the OPNsense Alias script, with space separated IP addresses in the Data column." width="759" height="318" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/29/responsive/opnsense-aliases_01-xs.JPG 384w ,https://korgano.github.io/media/posts/29/responsive/opnsense-aliases_01-sm.JPG 600w ,https://korgano.github.io/media/posts/29/responsive/opnsense-aliases_01-md.JPG 768w ,https://korgano.github.io/media/posts/29/responsive/opnsense-aliases_01-lg.JPG 1200w ,https://korgano.github.io/media/posts/29/responsive/opnsense-aliases_01-xl.JPG 1600w"></figure>
+<p>Once these changes were made, the new Alias.json was generated and uploaded into OPNsense, then visually inspected in the GUI:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/29/opnsense-aliases_02.JPG" alt="Confirmation that the full list of IP addresses was added to one of the Aliases." width="1600" height="860" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/29/responsive/opnsense-aliases_02-xs.JPG 384w ,https://korgano.github.io/media/posts/29/responsive/opnsense-aliases_02-sm.JPG 600w ,https://korgano.github.io/media/posts/29/responsive/opnsense-aliases_02-md.JPG 768w ,https://korgano.github.io/media/posts/29/responsive/opnsense-aliases_02-lg.JPG 1200w ,https://korgano.github.io/media/posts/29/responsive/opnsense-aliases_02-xl.JPG 1600w"></figure>
+<h2 id="mcetoc_1idkgvag76s">Next Steps</h2>
+<p>The CSV format information has been uploaded to the <a href="https://github.com/korgano/OPNsenseAliasTools" title="OPNsenseAliasTools" target="_blank" rel="noopener noreferrer">Github repo</a>, so all that needs to be done is iterating on my script to do a few things:</p>
+<ul>
+<li>Ignore IP addresses embedded in URLs.</li>
+<li>Generate a separate list for IP address ranges.</li>
+<li>Generate the text files in the proper format (IP addresses separated by spaces).</li>
+</ul>
+<p>Once these are complete, they will be tested and uploaded to the repo upon validation.</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 6.0</title>
         <author>
@@ -1246,52 +1307,6 @@ Feel free to adjust the &#96;sid&#96; (Signature ID) and &#96;rev&#96; (Revision
 <li>Wireshark's Conversations statistics tool doesn't provide trend data, just overall totals and averages, which can be a bit misleading at first glance.</li>
 </ul>
 <p>Now that this project's wrapped up, I'll be spending time on shorter cybersecurity topics while I prepare for the CompTIA Security+ exam. So keep an eye out for a wild range of topics in the near future!</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Cybersecurity Project: Epic Games Store Packet Capture - IPs 3</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ips-3/"/>
-        <id>https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ips-3/</id>
-        <media:content url="https://korgano.github.io/media/posts/17/EGS-prod-c1-w4.befa-01-2.PNG" medium="image" />
-            <category term="Tech"/>
-            <category term="PC"/>
-            <category term="Cybersecurity Projects"/>
-            <category term="Cybersecurity"/>
-
-        <updated>2024-06-11T09:36:26-04:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/17/EGS-prod-c1-w4.befa-01-2.PNG" alt="Wireshark packet capture showing the three way TCP handshake at the top." />
-                    Getting back to the Epic Games Store investigation, it's time to look into another IP address from the packet capture.
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/17/EGS-prod-c1-w4.befa-01-2.PNG" class="type:primaryImage" alt="Wireshark packet capture showing the three way TCP handshake at the top." /></p>
-                <p>Getting back to the Epic Games Store investigation, it's time to look into another IP address from the packet capture.</p>
-<p>We'll be looking at the largest capture packet for one IP address, which is targeting the <code>eos-gateway-ingressv2-prod-c1-w4.befa.live.use1a.on.epicgames.c</code> domain.</p>
-<h2>The Good Old 3-Way Handshake</h2>
-<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/17/EGS-prod-c1-w4.befa-01.PNG" alt="Wireshark packet capture showing the three way TCP handshake at the top." width="1600" height="860" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-01-xs.PNG 384w ,https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-01-sm.PNG 600w ,https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-01-md.PNG 768w ,https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-01-lg.PNG 1200w ,https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-01-xl.PNG 1600w"></figure>
-<p>The first and most obvious feature of this packet capture is the three way SYN/SYN-ACK/ACK handshake of a TCP connection. Since this is the start of the interaction with the domain/IP, this makes total sense and should be expected.</p>
-<p>The next most interesting feature of this capture is the Client Hello. In this case, we're interacting with <code>api.epicgames.dev</code>, which indicates this connection has a high probability of being related to the Unreal Engine part of EGS. If my Raspberry Pi had more RAM (it only has 2GB), I would consider setting up a SIEM to monitor this specific connection and events related to it.</p>
-<p>What is confusing without visibility into the contents of the packets is why there's multiple other three way handshakes after the initial one.</p>
-<h2>Lots of Server Hellos</h2>
-<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/17/EGS-prod-c1-w4.befa-02.PNG" alt="Wireshark packet capture showing multiple server hellos." width="1600" height="860" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-02-xs.PNG 384w ,https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-02-sm.PNG 600w ,https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-02-md.PNG 768w ,https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-02-lg.PNG 1200w ,https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-02-xl.PNG 1600w"></figure>
-<p>Curiously, more server hellos were given out. Scrolling down the packet capture gives a potential explanation:</p>
-<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/17/EGS-prod-c1-w4.befa-03.PNG" alt="Wireshark packet capture showing client key exchange." width="1600" height="860" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-03-xs.PNG 384w ,https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-03-sm.PNG 600w ,https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-03-md.PNG 768w ,https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-03-lg.PNG 1200w ,https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-03-xl.PNG 1600w"></figure>
-<p>Some of these odd server hellos are almost certainly associated with initiating a connection to obtain the certificate and client key exchange. Once that was done, the connection with the client key server ended.</p>
-<p>Unfortunately for this analysis, but generally comforting for EGS users, TLSv1.2 makes it impossible to actually see the contents of the packets. </p>
-<p>Continuing further down the capture, we see another key exchange, and then an odd number of resets:</p>
-<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/17/EGS-prod-c1-w4.befa-04.PNG" alt="Wireshark packet capture showing multiple resets." width="1600" height="860" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-04-xs.PNG 384w ,https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-04-sm.PNG 600w ,https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-04-md.PNG 768w ,https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-04-lg.PNG 1200w ,https://korgano.github.io/media/posts/17/responsive/EGS-prod-c1-w4.befa-04-xl.PNG 1600w"></figure>
-<p>Without visibility into the packet contents, it's hard to figure out why the there are so many resets. It's possible that they correlate with bouncing around the Unreal Engine store or some other part of the login process.</p>
-<p>We'll skip the massive amount of unreadable and ACK packets that made up the majority of this packet capture, and jump to the end. Here, we find something interesting - that communication between the client and server paused for 45 seconds, requiring a TCP Keep-Alive transmission. </p>
-<p>Another 15 seconds after that, an encrypted alert seems to trigger the end of the connection with the FIN-ACK packets.</p>
-<h2>Future Research</h2>
-<p>Without any way to decrypt the packets, there's not much more that can be done with this IP address. However, the fact that this connection is associated with an Epic Games API means that it's well worth researching in the future. While the connection doesn't last long, the amount of traffic is quite surprising. There's definitely something worth looking into here, even if it just turns out to be an anonymized survey of the system's hardware.</p>
             ]]>
         </content>
     </entry>

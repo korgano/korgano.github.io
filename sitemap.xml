@@ -325,6 +325,30 @@
 </image:image>
 </url>
 <url>
+<loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-70/</loc>
+<lastmod>2024-11-26T12:52:55-05:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/29/opnsense-aliases_02-2.JPG</image:loc>
+<image:title><![CDATA[Confirmation that the full list of IP addresses was added to one of the Aliases.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/29/opnsense-aliases_03.JPG</image:loc>
+<image:title><![CDATA[CSV settings for the OPNsense Alias script - Value Separator = Comma, Character Set = System, String (Value) Delimiter = Nothing]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/29/opnsense-aliases.JPG</image:loc>
+<image:title><![CDATA[OPNsense Alias Interface with only one IP applied to most aliases.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/29/opnsense-aliases_01.JPG</image:loc>
+<image:title><![CDATA[Correctly formatted CSV for the OPNsense Alias script, with space separated IP addresses in the Data column.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/29/opnsense-aliases_02.JPG</image:loc>
+<image:title><![CDATA[Confirmation that the full list of IP addresses was added to one of the Aliases.]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/cybersecurity-project-virtual-machines-arent-always-the-solution/</loc>
 <lastmod>2024-04-17T14:22:58-04:00</lastmod>
 <image:image>
