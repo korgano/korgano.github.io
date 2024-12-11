@@ -3,12 +3,117 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2024-11-26T12:52:55-05:00</updated>
+    <updated>2024-12-11T11:23:39-05:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>Tech Project: TrueNAS Scale Server 1.0</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/tech-project-truenas-scale-server-10/"/>
+        <id>https://korgano.github.io/tech-project-truenas-scale-server-10/</id>
+        <media:content url="https://korgano.github.io/media/posts/30/trueNAS-server-5-2.jpg" medium="image" />
+            <category term="Tech Projects"/>
+            <category term="Tech"/>
+            <category term="PC Hardware"/>
+            <category term="PC"/>
+
+        <updated>2024-12-10T09:00:56-05:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/30/trueNAS-server-5-2.jpg" alt="Power supply, graphics card, equipped motherboard, and hard drive caddy installed in case." />
+                    It's the holiday season, so I'm taking a break from the OPNsense project for a few reasons: Instead, I'll be&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/30/trueNAS-server-5-2.jpg" class="type:primaryImage" alt="Power supply, graphics card, equipped motherboard, and hard drive caddy installed in case." /></p>
+                <p>It's the holiday season, so I'm taking a break from the OPNsense project for a few reasons:</p>
+<ol>
+<li>The various patches don't seem to have any FreeBSD Intel WiFi driver improvements, so the connectivity issues aren't being solved.</li>
+<li>The OPNsense roadmap shows that a new version should be dropping in January.</li>
+<li>I can't really progress any further with the project beyond some minor setup, because no consistent connection = no consistent monitoring.</li>
+</ol>
+<p>Instead, I'll be pivoting into a different tech related project: building a TrueNAS Scale server!</p>
+<div class="post__toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#mcetoc_1ier6tpbhp">The Backstory</a></li>
+<li><a href="#mcetoc_1ier6tpbhq">The Hardware (Internal)</a></li>
+<li><a href="#mcetoc_1ier6tpbhr">The Hardware (Case)</a></li>
+<li><a href="#mcetoc_1ier6tpbhs">After the Install</a></li>
+<li><a href="#mcetoc_1ier6tpbht">Next Steps</a></li>
+</ul>
+</div>
+<h2 id="mcetoc_1ier6tpbhp">The Backstory</h2>
+<p>This project has a really simple backstory, in two parts.</p>
+<ol>
+<li>I had working computer hardware left over from when I rebuilt my gaming computer to use a Ryzen 7 7800X3D and an RX 7900 XTX.</li>
+<li>My father was very impressed by his friend's Plex server for streaming his media collection in the home.</li>
+</ol>
+<p>Since I was already planning to repurpose the old hardware into a server, everything synergized quite well.</p>
+<h2 id="mcetoc_1ier6tpbhq">The Hardware (Internal)</h2>
+<p>The actual hardware that's going to be running TrueNas Scale is an interesting hodge-podge of parts I've picked up over the years.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/30/trueNAS-server-4.jpg" alt="X370 Gaming K4 motherboard with Ryzen 5 1600X, custom heat sinks, 256GB NVMe SSD, and 118GB Optane drive installed." width="1000" height="750" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/30/responsive/trueNAS-server-4-xs.jpg 384w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-4-sm.jpg 600w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-4-md.jpg 768w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-4-lg.jpg 1200w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-4-xl.jpg 1600w"></figure>
+<p>The main guts of the system - the CPU, RAM, and motherboard - date back to when I originally built this to be my gaming rig. I jumped on the first generation of Ryzen in 2017 with an R5 1600X, DDR4-2666, and an AM4 X370 Gaming K4 motherboard. The motherboard in particular is the reason why I never did an in place upgrade like most other AM4 owners.</p>
+<p>The primary reason was that the X370 Gaming K4 was badly designed, with poor circuitry connecting the RAM to CPU. It was end of life'd only a few months after Ryzen hit the market.</p>
+<p>The second reason was that it was designed before BIOS Flashback, which does <strong>not </strong>require you to have a CPU to update the motherboard BIOS, was invented, so updating the BIOS is a huge pain.</p>
+<p>However, I did do some customization to the motherboard. Back in 2018, when I was wrapping up training to be a CNC machinist, I made custom heat sinks for the motherboard's Voltage Regulator Modules (VRM). The board shipped with fairly low surface area heat sinks, so I grabbed some blocks of scrap aluminum, wrote up a CNC program, and milled new heat sinks. These might survive the eventual scrapping of this hardware, either as paperweights, or as actual heat sinks.</p>
+<p>The CPU cooler was another old piece of hardware I had gotten to go with the Ryzen 5 1600X. The Cryorig H7 was a pretty cheap air cooler at the time with two main flaws:</p>
+<ol>
+<li>Excessive curvature of the contact plate.</li>
+<li>An awful installation method:</li>
+</ol>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/kNF-GHQthro" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+<p>In fact, this miserable method of installation caused me an absurd amount of grief trying to properly align the bracket for maximum contact.</p>
+<p>I had a PCI-3.0 NVMe drive lying around from when I owned an AMD Dell laptop... which died a few days after the warranty expired. So I installed that as the OS drive, since it had an integrated heat sink on it.</p>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/mD6i2toN7lE?pp=ygUSbGV2ZWwxdGVjaHMgb3B0YW5l" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+<p>Following the advice of Level1Techs, I picked a 118GB M.2 Optane stick, back when they were still available for purchase. This is going to be a cache drive for the TrueNAS metadata, which should give me some solid performance boosts.</p>
+<p>Because the Ryzen 5 1600X has no internal graphics, I needed a graphics card for the system to even boot. Luckily, I had an RX 580 8GB lying around, which used to power my brother's gaming rig, until I replaced it with the RX 6600 I had been using until I obtained the RX 7900 XTX. While not the most efficient GPU, it was more than enough to do the job. </p>
+<h2 id="mcetoc_1ier6tpbhr">The Hardware (Case)</h2>
+<p>The biggest headache of the modern era is that computer cases with 5.25 inch and 3.25 inch drive bays are becoming less common. This makes sense, as 2.5in and NVMe SSDs with larger capacities easily fulfill the capacity needs of many people, and data redundancy isn't really something they think about.</p>
+<p>(Also, if we're going to be honest, there just isn't a Keep It Stupid Simple backup solution for most people.)</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/30/trueNAS-server-1.jpg" alt="20+ year old PC case with original short feet and custom designed 3D printed feet." width="1000" height="750" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/30/responsive/trueNAS-server-1-xs.jpg 384w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-1-sm.jpg 600w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-1-md.jpg 768w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-1-lg.jpg 1200w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-1-xl.jpg 1600w"></figure>
+<p>Luckily, my father's friend had an old PC gathering dust in a corner that had 5.25in drive bays. It even had 5.25 to 3.25in drive sleds... for only 3 drives. And an old, obsolete CD drive. And a floppy drive. And the shortest feet possible for a case.</p>
+<p>Amazingly, the thing did boot and was apparently running Windows XP, so I had the job of shucking the hard drives to be returned to the original owner, in case anything valuable was on there.</p>
+<p>After gutting the case for cleaning, I decided to ditch the hard drive sleds, since I wanted to implement a RAID 10 configuration or something similar in TrueNAS. I also noticed the lack of cable access/management paths, air flow, and all the other problems that cases from 20+ years ago had.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/30/Athena-Power-BP-TLA3141SAS12-drivebay.jpg" alt="Athena Power BP-TLA3141SAS12 12 Gbps Mini-SAS HD Hot-Swap SAS / SATA 3.5&quot; HDD Internal Hard Drive Backplane Module" width="1280" height="1199" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/30/responsive/Athena-Power-BP-TLA3141SAS12-drivebay-xs.jpg 384w ,https://korgano.github.io/media/posts/30/responsive/Athena-Power-BP-TLA3141SAS12-drivebay-sm.jpg 600w ,https://korgano.github.io/media/posts/30/responsive/Athena-Power-BP-TLA3141SAS12-drivebay-md.jpg 768w ,https://korgano.github.io/media/posts/30/responsive/Athena-Power-BP-TLA3141SAS12-drivebay-lg.jpg 1200w ,https://korgano.github.io/media/posts/30/responsive/Athena-Power-BP-TLA3141SAS12-drivebay-xl.jpg 1600w"></figure>
+<p>I purchased a hot swap 5.25in to 3.25in drive bay off of Newegg, which uses the SAS interface to handle all the data from the drives. It also comes with a cooling fan, although I don't know how effective this will be with solid bay doors. This then required me to buy a separate SAS PCI-E card and an adaptor cable due to differing SAS connector types. </p>
+<p>I also purchased a fully modular power supply, since that would let me leave any unused cables outside the case. This improves air flow by not blocking air with thick cables that don't do anything useful. Air flow is a major issue with this case, because there are only two fans - an 80mm exhaust fan, and an 80mm intake fan that tries to pull air through a hole a few millimeters from the ground.</p>
+<p>To solve this problem and the problem of insufficient cable pass through, I returned to tradition: case modding.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/30/trueNAS-server-2.jpg" alt="Initial attempts to modify an old case with a dremel." width="1000" height="750" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/30/responsive/trueNAS-server-2-xs.jpg 384w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-2-sm.jpg 600w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-2-md.jpg 768w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-2-lg.jpg 1200w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-2-xl.jpg 1600w"></figure>
+<p>In the old days, people would dremel, saw, and mill computer cases to make them more useful. Since I didn't have a mill and there's no convenient local makerspace, that left me with the dremel and saw options. Unfortunately, I wasn't able to cut as cleanly as I wanted to, but I got the job done.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/30/trueNAS-server-3.jpg" alt="Finalized case modifications done by dremel and jigsaw, cutting slots for cable pass through." width="1000" height="750" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/30/responsive/trueNAS-server-3-xs.jpg 384w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-3-sm.jpg 600w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-3-md.jpg 768w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-3-lg.jpg 1200w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-3-xl.jpg 1600w"></figure>
+<p>However, I deferred on the next step of the case modification, cutting holes in the case side panel for air intake. I happen to have a large number of 120mm fans, but figuring out where to place them to avoid collisions with other hardware is pretty difficult. So to help plan that out, I went ahead and installed the majority of the hardware into the case.</p>
+<h2 id="mcetoc_1ier6tpbhs">After the Install</h2>
+<p>Putting together the PC was a bit of a pain, due to the aforementioned poor cooler mounting.</p>
+<p>The rest was pretty straight forward, at least for an experienced PC builder. The main issue, as I expected was cable management, because the power cables are <strong>thick</strong> and eat up a lot of internal volume.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/30/trueNAS-server-5.jpg" alt="Power supply, graphics card, equipped motherboard, and hard drive caddy installed in case." width="1000" height="750" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/30/responsive/trueNAS-server-5-xs.jpg 384w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-5-sm.jpg 600w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-5-md.jpg 768w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-5-lg.jpg 1200w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-5-xl.jpg 1600w"></figure>
+<p>I discovered that I would need to probably at least remove the GPU to handle hooking up the front panel connectors for the case. And at this point, I hadn't received the SAS card and cable, either. So I decided I would go install TrueNAS Scale, do some initial configuration, and then shut the system down to do more work.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/30/trueNAS-server-6.jpg" alt="TrueNAS Scale install error due to using Ventoy." width="1000" height="602" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/30/responsive/trueNAS-server-6-xs.jpg 384w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-6-sm.jpg 600w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-6-md.jpg 768w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-6-lg.jpg 1200w ,https://korgano.github.io/media/posts/30/responsive/trueNAS-server-6-xl.jpg 1600w"></figure>
+<p>Unfortunately, what should have been a straightforward operation using my Ventoy flash drive failed. This means I now have to find either a cheap flash drive or an old flash drive, and use Balena Etcher to format the drive into an installation drive.</p>
+<p>However, I was pleasantly surprised to see the computer worked, so all that hard work wasn't for nothing.</p>
+<h2 id="mcetoc_1ier6tpbht">Next Steps</h2>
+<p>Not much is left to do, but what's there is pretty important:</p>
+<ul>
+<li>Find a flash drive to use to install TrueNAS Scale.</li>
+<li>Get the SAS adapter cable and card installed.</li>
+<li>Install the front panel and connect it to the motherboard.</li>
+<li>Figure out if I need slim 120mm fans and where can I put them.</li>
+<li>Cut the holes in the side panel and install the fans.</li>
+<li>Install the hard drives and get them configured.</li>
+<li>Get media onto the disk drives.</li>
+<li>Install a Plex docker image.</li>
+<li>Find a corner to stick the server in.</li>
+</ul>
+<p>Let's see if I can get this done before Christmas.</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 7.0</title>
         <author>
@@ -1098,215 +1203,6 @@ Feel free to adjust the &#96;sid&#96; (Signature ID) and &#96;rev&#96; (Revision
 <p>The only attribute of the design I'm somewhat uncertain about is the cooling. Not just whether the cooler is sufficient for peak thermal load if there's a particularly stressful task, but about the thermal interface material (TIM). The TIM is a heat conductive material that allows heat to flow from the chip to the cooler, and if it's a bog standard thermal paste, repeated heating/cooling cycles can lead it to pump out of the gap between the two.</p>
 <p>Graphite thermal pads and phase change material are good solutions to this issue, but that would require a full tear down, which would require some extra research that's outside the scope of this project.</p>
 <p>With the primary hardware in hand, the only thing left is the CAT 8 ethernet cable, and then the project really get going.</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Cybersecurity Project: Epic Games Store Packet Capture - Statistic Analysis</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ips-4/"/>
-        <id>https://korgano.github.io/cybersecurity-project-epic-games-store-packet-capture-ips-4/</id>
-        <media:content url="https://korgano.github.io/media/posts/18/EGS-capture-conversations-2.png" medium="image" />
-            <category term="Tech"/>
-            <category term="PC"/>
-            <category term="Cybersecurity Projects"/>
-            <category term="Cybersecurity"/>
-
-        <updated>2024-06-26T13:28:59-04:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/18/EGS-capture-conversations-2.png" alt="Wireshark Conversations dump in Excel, showing connection properties and associated domains." />
-                    It's time to continue my grind through the data from the Epic Games Store packet capture! Since looking at encrypted&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/18/EGS-capture-conversations-2.png" class="type:primaryImage" alt="Wireshark Conversations dump in Excel, showing connection properties and associated domains." /></p>
-                <p>It's time to continue my grind through the data from the Epic Games Store packet capture! Since looking at encrypted packets wasn't providing many real insights, it's time to pivot statistics, courtesy of Wireshark!</p>
-<div class="post__toc">
-<h3>Table of Contents</h3>
-<ul>
-<li><a href="#mcetoc_1i1b4mninv">Conversations</a></li>
-<li><a href="#mcetoc_1i1bau7n34h">Insights</a></li>
-<li><a href="#mcetoc_1i1bfsvr76g">Preliminary Takeaways</a></li>
-</ul>
-</div>
-<h2 id="mcetoc_1i1b4mninv">Conversations</h2>
-<p>Under the Statistics options in Wireshark, Conversations is the fourth option, but possibly the most useful in terms of network flow analysis. The tool generates a table of the source/destination IPs, the total number of packets exchanged between them, the total bytes exchanged in the conversation, how many packets and bytes were exchanged in a specific direction, the relative start time of the conversation, the duration, and what the connection speed was in a specific direction.</p>
-<p>You can export this table to a spreadsheet via copying as a CSV, which I did.</p>
-<p>Why? Because if you remember earlier in this project, I generated a list of domains and the IPs associated with them. By copying the conversation data into the spreadsheet, I could then add the domains to those conversations, providing even greater context to my analysis.</p>
-<p>This allowed me to see any outliers in the data, which weren't apparent when focusing on specific packet captures.</p>
-<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/18/EGS-capture-conversations.png" alt="Wireshark Conversations dump in Excel, showing connection properties and associated domains." width="1919" height="792" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/18/responsive/EGS-capture-conversations-xs.png 384w ,https://korgano.github.io/media/posts/18/responsive/EGS-capture-conversations-sm.png 600w ,https://korgano.github.io/media/posts/18/responsive/EGS-capture-conversations-md.png 768w ,https://korgano.github.io/media/posts/18/responsive/EGS-capture-conversations-lg.png 1200w ,https://korgano.github.io/media/posts/18/responsive/EGS-capture-conversations-xl.png 1600w"></figure>
-<h2 id="mcetoc_1i1bau7n34h">Insights</h2>
-<p>Here are some interesting highlights from the data:</p>
-<table width="1470">
-<tbody>
-<tr>
-<td style="width: 99.7375px;" width="97">Address A</td>
-<td style="width: 128.8px;" width="106">Address B</td>
-<td style="width: 97.7375px;" width="59">Packets</td>
-<td style="width: 78.725px;" width="83">Bytes</td>
-<td style="width: 97.7375px;" width="101">Packets A → B</td>
-<td style="width: 78.725px;" width="83">Bytes A → B</td>
-<td style="width: 97.7375px;" width="98">Packets B → A</td>
-<td style="width: 78.725px;" width="83">Bytes B → A</td>
-<td style="width: 108.787px;" width="83">Rel Start</td>
-<td style="width: 108.787px;" width="83">Duration</td>
-<td style="width: 77.7125px;" width="83">Bits/s A → B</td>
-<td style="width: 77.7125px;" width="83">Bits/s B → A</td>
-<td style="width: 284.875px;">Domain</td>
-</tr>
-<tr>
-<td style="width: 99.7375px;" width="97">EGS Host</td>
-<td style="width: 128.8px;" width="106">23.40.57.31</td>
-<td style="width: 97.7375px;" width="59">9087</td>
-<td style="width: 78.725px;" width="83">11 MB</td>
-<td style="width: 97.7375px;" width="101">1307</td>
-<td style="width: 78.725px;" width="83">333 kB</td>
-<td style="width: 97.7375px;" width="98">7780</td>
-<td style="width: 78.725px;" width="83">11 MB</td>
-<td style="width: 108.787px;" width="83">302.7385</td>
-<td style="width: 108.787px;" width="83">399.1212</td>
-<td style="width: 77.7125px;" width="83">6680 bits/s</td>
-<td style="width: 77.7125px;" width="83">221 kbps</td>
-<td style="width: 284.875px;" width="428">e9616.d.akamaiedge.net/static-assets-prod.epicgames.com</td>
-</tr>
-</tbody>
-</table>
-<p>For example, we have this connection, which is initially to the domain <code>e9616.d.akamaiedge.net</code>, then executes a client hello that results in a connection to <code>static-assets-prod.epicgames.com</code>. This then results in 11 megabytes of data getting transferred to the EGS Host system. Based on the name of the domain, there's a high probability that this was just a number of images shown in the EGS client, likely thumbnails and banner images.</p>
-<table width="1470">
-<tbody>
-<tr>
-<td style="width: 99.7375px;" width="97">Address A</td>
-<td style="width: 158.825px;" width="106">Address B</td>
-<td style="width: 97.7375px;" width="59">Packets</td>
-<td style="width: 78.725px;" width="83">Bytes</td>
-<td style="width: 97.7375px;" width="101">Packets A → B</td>
-<td style="width: 78.725px;" width="83">Bytes A → B</td>
-<td style="width: 97.7375px;" width="98">Packets B → A</td>
-<td style="width: 78.725px;" width="83">Bytes B → A</td>
-<td style="width: 118.787px;" width="83">Rel Start</td>
-<td style="width: 101.738px;" width="83">Duration</td>
-<td style="width: 77.7125px;" width="83">Bits/s A → B</td>
-<td style="width: 77.725px;" width="83">Bits/s B → A</td>
-<td style="width: 312.875px;">Domain</td>
-</tr>
-<tr>
-<td style="width: 99.7375px;" width="97">EGS Host</td>
-<td style="width: 158.825px;" width="106">23.205.165.152</td>
-<td style="width: 97.7375px;" width="59">38879</td>
-<td style="width: 78.725px;" width="83">54 MB</td>
-<td style="width: 97.7375px;" width="101">3108</td>
-<td style="width: 78.725px;" width="83">173 kB</td>
-<td style="width: 97.7375px;" width="98">35771</td>
-<td style="width: 78.725px;" width="83">54 MB</td>
-<td style="width: 118.787px;" width="83">306.18383</td>
-<td style="width: 101.738px;" width="83">3.983</td>
-<td style="width: 77.7125px;" width="83">348 kbps</td>
-<td style="width: 77.725px;" width="83">108 Mbps</td>
-<td style="width: 312.875px;" width="428">a1859.w27.akamai.net/epicgames-download1.akamaized.net</td>
-</tr>
-</tbody>
-</table>
-<p>Next, we have another connection to an Akamai domain that then hands off to an Epic Games server. It is much less clear what this could be, given the encrypted nature of the contents. The small file size, compared to another EGS download, and the fact that I couldn't download anything through the Unreal Engine store leads me to believe that this might just be an EGS client update.</p>
-<table style="width: 0px;" width="1470">
-<tbody>
-<tr>
-<td style="width: 99.7375px;" width="97">Address A</td>
-<td style="width: 148.812px;" width="106">Address B</td>
-<td style="width: 97.7375px;" width="59">Packets</td>
-<td style="width: 78.725px;" width="83">Bytes</td>
-<td style="width: 97.7375px;" width="101">Packets A → B</td>
-<td style="width: 78.725px;" width="83">Bytes A → B</td>
-<td style="width: 97.7375px;" width="98">Packets B → A</td>
-<td style="width: 78.725px;" width="83">Bytes B → A</td>
-<td style="width: 128.8px;" width="83">Rel Start</td>
-<td style="width: 108.787px;" width="83">Duration</td>
-<td style="width: 77.7125px;" width="83">Bits/s A → B</td>
-<td style="width: 77.725px;" width="83">Bits/s B → A</td>
-<td style="width: 95.725px;">Domain</td>
-</tr>
-<tr>
-<td style="width: 99.7375px;" width="97">EGS Host</td>
-<td style="width: 148.812px;" width="106">146.75.126.33</td>
-<td style="width: 97.7375px;" width="59">598444</td>
-<td style="width: 78.725px;" width="83">684 MB</td>
-<td style="width: 97.7375px;" width="101">149461</td>
-<td style="width: 78.725px;" width="83">9 MB</td>
-<td style="width: 97.7375px;" width="98">448983</td>
-<td style="width: 78.725px;" width="83">675 MB</td>
-<td style="width: 128.8px;" width="83">404.441049</td>
-<td style="width: 108.787px;" width="83">273.8069</td>
-<td style="width: 77.7125px;" width="83">250 kbps</td>
-<td style="width: 77.725px;" width="83">19 Mbps</td>
-<td style="width: 95.725px;"> </td>
-</tr>
-</tbody>
-</table>
-<p>This is an encrypted connection to <code>fastly-download.epicgames.com</code>, which is hosted on an AmazonS3 server. The 9 megabyte upload is highly suspicious, but the 675 megabyte download is <strong>also </strong>suspicious. However, if this was the initial EGS install/update, this might make some amount of sense.</p>
-<p>(It does raise the question of why do you need over half a gigabyte of data for what's probably a browser. Even factoring in potential game dependencies like DirectX, C++, and .Net frameworks, it's a bit much.)</p>
-<table style="width: 0px;" width="1470">
-<tbody>
-<tr>
-<td style="width: 99.7375px;" width="97">Address A</td>
-<td style="width: 148.812px;" width="106">Address B</td>
-<td style="width: 103.787px;" width="59">Packets</td>
-<td style="width: 78.725px;" width="83">Bytes</td>
-<td style="width: 97.7375px;" width="101">Packets A → B</td>
-<td style="width: 78.725px;" width="83">Bytes A → B</td>
-<td style="width: 103.787px;" width="98">Packets B → A</td>
-<td style="width: 78.725px;" width="83">Bytes B → A</td>
-<td style="width: 128.8px;" width="83">Rel Start</td>
-<td style="width: 108.787px;" width="83">Duration</td>
-<td style="width: 77.7125px;" width="83">Bits/s A → B</td>
-<td style="width: 77.725px;" width="83">Bits/s B → A</td>
-<td style="width: 418.925px;">Domain</td>
-</tr>
-<tr>
-<td style="width: 99.7375px;" width="97">EGS Host</td>
-<td style="width: 148.812px;" width="106">104.18.50.190</td>
-<td style="width: 103.787px;" width="59">2606571</td>
-<td style="width: 78.725px;" width="83">3 GB</td>
-<td style="width: 97.7375px;" width="101">779871</td>
-<td style="width: 78.725px;" width="83">51 MB</td>
-<td style="width: 103.787px;" width="98">1826700</td>
-<td style="width: 78.725px;" width="83">3 GB</td>
-<td style="width: 128.8px;" width="83">620.386146</td>
-<td style="width: 108.787px;" width="83">216.3353</td>
-<td style="width: 77.7125px;" width="83">1903 kbps</td>
-<td style="width: 77.725px;" width="83">102 Mbps</td>
-<td style="width: 418.925px;" width="428">cloudflare.epicgamescdn.com.cdn.cloudflare.net</td>
-</tr>
-</tbody>
-</table>
-<p>The most suspicious thing about this connection is not that it's moving several gigabytes of data - this is the main connection where Unreal Engine 4.26 was downloaded.</p>
-<p>It's the fact that 51 megabytes were sent from <strong>my PC </strong>to the download server that's concerning. There's no logical reason why so much data would need to move from the client to the server.</p>
-<p>However, I do have a possible theory.</p>
-<p>Remember how there was a 54MB download from <code>epicgames-download1.akamaized.net</code>? That's close enough in size to the mysterious upload to be suspicious.</p>
-<p>There's a possibility that the initial 54MB download was some kind of encapsulated authorization token, which was then decapsulated after download and reuploaded to authorize the download from the Unreal Engine store. Why you would do this is a mystery, because there's likely any number of more efficient methods to accomplish this same goal.</p>
-<p>There's also a possibility that there was simply a <strong>million </strong>54 byte ACK messages sent by my computer during the process. Unlike most of the other connections, this connection was only HTTP. Which makes sense - if you're going to be pushing tons of files, including many that are already compressed, adding encryption on top is not ideal.</p>
-<p>(It does mean that I have nice list of filenames, hashes, and other data for various UE 4.26 components.)</p>
-<h2 id="mcetoc_1i1bfsvr76g">Preliminary Takeaways</h2>
-<p>With so many of the captured packets being encrypted and lacking a good TLS inspection system to use for another round of packet capture, it's time to put this project to bed.</p>
-<p>So, what are my main takeaways?</p>
-<ul>
-<li>AnyDesk is a good remote desktop solution within the confines of a home network.</li>
-<li>VirtualBox's lack of GPU pass through limits its utility as a tool for safely testing certain complex software that requires certain hardware features.</li>
-<li>Sandboxie-Plus could be a good method of testing potentially compromised/suspicious software for home labbers, but too many features require a paid license for it to be a great solution.</li>
-<li>Epic Games Store/Unreal Engine 4.26 may not behave properly when run in a basic Sandboxie configuration, making testing more difficult.</li>
-<li>EGS and Unreal Engine only run a handful of limited processes, so there doesn't appear to be any spyware in them, beyond telemetry that can be disabled via settings menus.</li>
-<li>Epic utilizes TLS for many of its internet connections to various servers, which is exemplary for security, but makes analysis of the actual traffic difficult without more advanced tools.</li>
-<li>Wireshark's lack of a built-in tool to quickly dump domains and their associated IPs is quite unfortunate, and hurts efforts by end users to help add to community generated domain block lists.</li>
-<li>In an investigation where you have a packet capture and no specific starting direction, the Conversations statistics generated by Wireshark can help identify IPs with traffic of interest.</li>
-<li>Once you have a list of domains and their associated IPs, run a Wireshark command prompt command to dump all the IPs captured in the packet, then run some kind of script to obtain all relevant IPs and associate them with the domains.</li>
-<li>EGS likes using Akamai domains as proxies/hosting for various servers, which does provide a bit of security via obscurity, but also leaves EGS potentially vulnerable to becoming a malware vector if the server is compromised.</li>
-<li>EGS winds up uploading a large amount of data while downloading files over long periods of time.</li>
-<li>54 byte ACK packets can build up over the duration of the connection and lead up to multi-megabyte totals.</li>
-<li>Wireshark's Conversations statistics tool doesn't provide trend data, just overall totals and averages, which can be a bit misleading at first glance.</li>
-</ul>
-<p>Now that this project's wrapped up, I'll be spending time on shorter cybersecurity topics while I prepare for the CompTIA Security+ exam. So keep an eye out for a wild range of topics in the near future!</p>
             ]]>
         </content>
     </entry>
