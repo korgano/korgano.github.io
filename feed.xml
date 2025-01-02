@@ -3,12 +3,113 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2024-12-11T11:23:39-05:00</updated>
+    <updated>2025-01-02T09:35:16-05:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>Quick Cyber Thoughts: Things I Hope to See at CES 2025</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/quick-cyber-thoughts-things-i-hope-to-see-at-ces-2025/"/>
+        <id>https://korgano.github.io/quick-cyber-thoughts-things-i-hope-to-see-at-ces-2025/</id>
+        <media:content url="https://korgano.github.io/media/posts/32/ces-2025-event-banner.png" medium="image" />
+            <category term="Tech"/>
+            <category term="Quick Thoughts"/>
+            <category term="PC Hardware"/>
+            <category term="PC"/>
+            <category term="Cybersecurity"/>
+            <category term="AI"/>
+
+        <updated>2024-12-30T10:26:39-05:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/32/ces-2025-event-banner.png" alt="CES 2025 event banner." />
+                    The Consumer Electronics Show (CES) has always been a window into the future of technology, setting the stage for the&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/32/ces-2025-event-banner.png" class="type:primaryImage" alt="CES 2025 event banner." /></p>
+                <p>The Consumer Electronics Show (CES) has always been a window into the future of technology, setting the stage for the innovations that will shape our lives. As we approach CES 2025, the buzz around advancements in consumer electronics is louder than ever.</p>
+<p>2025 is going to be an interesting year from a cybersecurity perspective too, for a reason I don't think anyone expected. So here's what I hope to see from CES.</p>
+<div class="post__toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#mcetoc_1igeofdkim0">Price Competition for Routers</a></li>
+<li><a href="#mcetoc_1igeofdkim1">Widely Compatible Free/Cheap Router Operating System</a></li>
+<li><a href="#mcetoc_1igeofdkim2">CAMM2 Becomes More Widely Implemented</a></li>
+<li><a href="#mcetoc_1igeofdkim3">CPUs With Good NPUs At Decent Prices</a></li>
+<li><a href="#mcetoc_1igeofdkim4">Fanless Cooling Solutions</a></li>
+<li><a href="#mcetoc_1igeofdkim5">Storage Price Per Volume Improvements</a></li>
+<li><a href="#mcetoc_1igjl3gqdm7">The Unexpected</a></li>
+</ul>
+</div>
+<h2 id="mcetoc_1igeofdkim0">Price Competition for Routers</h2>
+<p>This isn't something I expected to be a thing I would care about.</p>
+<p>Then the US government, which has had a pretty dim view of TP-Link's cybersecurity stance and possible ties to the Chinese Communist Party, decided to drop a bombshell. They are considering banning the routers outright:</p>
+<blockquote>
+<p class="u-speakableText-p2">Investigators at the Commerce, Defense and Justice departments <a data-id="3a94ccdf-06e7-4808-b0bd-f387b0116b6d" href="https://www.cnet.com/home/internet/possible-tp-link-ban-set-for-2025-what-it-means-for-your-internet-connection/" target="_self">have all opened probes</a> into the company due to its ties to Chinese cyberattacks. These departments are weighing a potential ban on the sale of TP-Link routers, according to a <a rel="noopener nofollow" data-id="3a94ccdf-06e7-4808-b0bd-f387b0116b6d" href="https://www.wsj.com/politics/national-security/us-ban-china-router-tp-link-systems-7d7507e6" target="_blank" title="(opens in a new window)" class="c-regularLink">Wall Street Journal article</a> published last week.</p>
+<p>TP-Link has become increasingly dominant in the US router market since the pandemic. According to the Journal report, it grew from 20% of total router sales in 2019 to around 65% this year. TP-Link disputed these numbers to CNET, and a separate analysis from the IT platform Lansweeper found that <a rel="noopener nofollow" data-id="3a94ccdf-06e7-4808-b0bd-f387b0116b6d" href="https://www.lansweeper.com/blog/cybersecurity/us-considers-banning-tp-link-routers-over-security-concerns/" target="_blank" title="(opens in a new window)" class="c-regularLink">12% of home routers</a> in the US are TP-Link. </p>
+<p>While there have been high-profile cyberattacks involving TP-Link routers, this potential ban is more about the company’s ties to China than specific security issues that have been publicly identified, according to cybersecurity researchers I spoke with. </p>
+<p><a href="https://www.cnet.com/home/internet/tp-link-routers-could-be-banned-next-year-are-they-actually-dangerous/">https://www.cnet.com/home/internet/tp-link-routers-could-be-banned-next-year-are-they-actually-dangerous/</a></p>
+<p>The investigation comes after a <a href="https://www.bleepingcomputer.com/news/security/microsoft-chinese-hackers-use-quad7-botnet-to-steal-credentials/" target="_blank" rel="nofollow noopener">Microsoft report revealed in October</a> that a botnet of hacked SOHO routers—tracked as Quad7, CovertNetwork-1658, or xlogin and operated by Chinese threat actors—is mainly made from TP-Link devices.</p>
+<p>"Microsoft tracks a network of compromised small office and home office (SOHO) routers as CovertNetwork-1658. SOHO routers manufactured by TP-Link make up most of this network," the company said.</p>
+<p>"Microsoft assesses that multiple Chinese threat actors use the credentials acquired from CovertNetwork-1658 password spray operations to perform computer network exploitation (CNE) activities."</p>
+<p>On Monday, the New York Times also <a href="https://www.nytimes.com/2024/12/16/us/politics/biden-administration-retaliation-china-hack.html" target="_blank" rel="nofollow noopener">reported</a> that the Biden administration will ban China Telecom's last active U.S. operations in response to Chinese state hackers <a href="https://www.bleepingcomputer.com/news/security/white-house-salt-typhoon-hacked-telcos-in-dozens-of-countries/" target="_blank" rel="nofollow noopener">breaching multiple U.S. telecom carriers</a>. The Federal Communications Commission (FCC) <a href="https://www.bleepingcomputer.com/news/security/us-bans-china-telecom-americas-over-national-security-risks/" target="_blank" rel="nofollow noopener">revoked China Telecom Americas' license</a> in January 2022 over "significant national security concerns."</p>
+<p><a href="https://www.bleepingcomputer.com/news/security/us-considers-banning-tp-link-routers-over-cybersecurity-risks/">https://www.bleepingcomputer.com/news/security/us-considers-banning-tp-link-routers-over-cybersecurity-risks/</a></p>
+</blockquote>
+<p>The fact that 65% of the market uses TP Link means that if there <strong>is </strong>a ban on TP-Link routers, <strong>especially </strong>for home office users in cybersecurity and government, there's going to be <strong>massive </strong>repercussions.</p>
+<p>We're talking about replacing every one of those people having to replace <strong>hundreds of dollars </strong>worth of hardware, in a relatively small time window, at roughly the same time.</p>
+<p>This might end up creating the router equivalent of the GPU shortages of 2021-2022, where every graphics card had its price balloon due to lack of availability, and the only affordable options were ones that barely provided any performance improvements over two generation old models.</p>
+<p>To combat this, we <strong>need </strong>to see manufacturers put out price competitive options, especially in the mesh router category. Those setups are already expensive, but provide major performance benefits for anyone operating out of a proper house, versus an apartment.</p>
+<p>It would also be nice to see government, federal or state, provide some kind of financial relief for people forced to replace their entire network setup. This could be in the form of a tax exemption/tax holiday, a rebate for turning in TP-Link hardware, or any sort of cost mitigation strategy for such a transition.</p>
+<h2 id="mcetoc_1igeofdkim1">Widely Compatible Free/Cheap Router Operating System</h2>
+<p>This would be somewhat out of left field, but if an organization/company could release a secure, low cost (free or cheap) router operating system (OS), that might be a <strong>massive </strong>gamechanger.</p>
+<p>The problem with the TP-Link ban is the cost of replacing the hardware. Routers might be affordable, but they're not cheap unless you're going pretty far down the product stack. That's why this ban has massive negative consequences: it's basically penalizing everyone who made a rational financial decision for the behavior of the manufacturer.</p>
+<p>But if you don't have to replace the hardware, just software operating the devices, then the costs to the end users drops dramatically.</p>
+<p>It might not be the right solution for everyone, especially in government or cybersecurity, but for the average home user, it might fit the bill.</p>
+<p>That naturally depends on the OS being easy to upload onto the device, <strong>especially </strong>for mesh routers, but if someone can do it, it'll be a win for everyone.</p>
+<h2 id="mcetoc_1igeofdkim2">CAMM2 Becomes More Widely Implemented</h2>
+<figure class="post__image"><img loading="lazy"  src="https://www.techpowerup.com/img/YVcQdrEtNQKsQzJY.jpg" alt="JEDEC wiring diagram of Compression Attached Memory Modules to CPU, vs conventional Random Access Memory connections to CPU." width="1497" height="840" data-is-external-image="true"></figure>
+<p>For those of you not familiar, CAMM2 is Compression Attached Memory Modules, a new way of implementing Random Access Memory (RAM). Instead of sticking up out of the motherboard on many systems, it's designed to either directly touch the motherboard, or slightly parallel.</p>
+<figure class="post__image"><img loading="lazy"  src="https://www.techpowerup.com/img/Djj9PGPlnQ6kti05.jpg" alt="Example CAMM2 RAM implementations for desktop and laptop." width="1490" height="836" data-is-external-image="true"></figure>
+<p>This design has a number of space saving advantages, especially at high capacities, but the big improvements are power efficiency and memory speed. This is due to the overall shorter path that data has to travel to get to and from the memory or CPU.</p>
+<p>How does this help cybersecurity? Well, better performance improves everything. This is especially useful for running virtualized software and operating systems. But it can also be a big help when running local AI, as RAM size and speed play a huge part of task execution.</p>
+<h2 id="mcetoc_1igeofdkim3">CPUs With Good NPUs At Decent Prices</h2>
+<p>Local AI, specifically Large Language Models (LLMs) and Small Language Models (SLMs), aren't really seeing broad adoption among the masses.</p>
+<p>However, local generative AI has a lot of direct applicability for cybersecurity practioners. First, it's a lot easier and much lower risk to test local AI for vulnerabilities, because they're running on your own hardware, not someone's cloud instance. Second, local AI is pretty good at code generation, which is something a lot of cybersecurity professionals do.</p>
+<p>Neural Processing Units (NPUs) are hardware optimized for running the kind of computations associated with LLMs. So far, these units are only proliferating into laptop CPUs, and generally aren't the highest performance, especially at the $1000+ price point that prosumer laptops fit in.</p>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/pZjqzQVc-So" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+<p>However, AMD is going to release its Strix Halo line of laptop CPUs, with up double the AI performance on NPU (40 TOPS from 20 TOPS of its predecessor), as well as over doubling its GPU core count. Since GPUs are leveraged in a variety of AI tasks, the combination should make running local AI much more performant.</p>
+<p>If laptops with these processors can hit the market at $2000 or less for workstation builds, then I think we have a good chance of seeing local AI use proliferate. This would help mitigate a lot of data safety issues created by the use of cloud AI, up to and including poorly trained personnel putting PII into LLM prompts.</p>
+<h2 id="mcetoc_1igeofdkim4">Fanless Cooling Solutions</h2>
+<figure class="post__image"><img loading="lazy"  src="https://www.techpowerup.com/img/1o1VQqh79oxO2q62.jpg" alt="Samsung Galaxy Edge 14 - comparison between conventional fans and Frore Airjet cool system." width="1000" height="600" data-is-external-image="true"></figure>
+<p>One recent technology trend of interest is the development of fanless cooling for computers. Mostly confined to laptops and other small devices, there's a cybersecurity application that most people would not think of.</p>
+<p><a href="https://www.tomshardware.com/news/steal-data-through-fan-vibrations-cybersecurity" title="Cyberattack Steals PC Data Through Fan Vibrations" target="_blank" rel="noopener noreferrer">Four years ago, researchers proved that you can steal data off of an endpoint via a mobile app (AiR-ViBeR) that tracks your device's fan vibrations.</a></p>
+<figure class="post__image"><img loading="lazy"  src="https://www.techpowerup.com/img/lkCxvbkpveYrUMei.jpg" alt="Airflow caused by Ventiva solid state cooling device." width="1584" height="960" data-is-external-image="true"></figure>
+<p>While the Frore Airjet, which uses a vibrating membrane to move air, might be vulnerable to a similar exfiltration method in the future, there is a new solution on the market. Ventiva has created a solid state device that uses ionization to move air:</p>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/fyai_kUYhLs" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+<p>Even if it cannot scale to desktop or server use, Ventiva's solution might be able to eliminate an entire vector of data exfiltration from mobile devices, which are a prime target for threat actors.</p>
+<h2 id="mcetoc_1igeofdkim5">Storage Price Per Volume Improvements</h2>
+<p>Backups are a critical part of cybersecurity, especially if there's a ransomware event that forces you to execute a recovery plan.</p>
+<p>The problem is, as you get smaller and smaller in size, you're actually <strong>less </strong>likely to have backups, for a simple reason. Storage is expensive, and have redundancy, you have to buy <strong>multiples </strong>of expensive drives to do it properly.</p>
+<figure class="post__image"><img loading="lazy"  src="http://www.trekprops.de/wordpress/wp-content/uploads/2009/10/tng_isochips_4519.jpg" alt="Clear, neon green, blue, dark red, orange and yellow isolinear chip Star Trek prop replicas from trekprops.de." width="480" height="360" data-is-external-image="true"></figure>
+<p>Sadly, we don't live in a reality where Star Trek style solid state, hotswap memory chips with large capacities, lots of longevity, and low cost exist.</p>
+<p>With file sizes ballooning, especially for media, the costs of backing up proportionally grow larger. Even cloud based backups, which have theoretical cost savings to offset their availability and control downsides, increase drastically in cost as storage needs increase. And in a bad economy, cutting costs wherever possible is going to be the norm, especially on the individual to small business level.</p>
+<p>Good cybersecurity practices start at home. And if we really want people to start getting in the habit of backing up their data, it needs to be as cheap and easy as possible. Right now, $250+ for 14+ TB drives is not viable for a lot of people. Smaller drives for smaller files, like 4TB SSDs, also aren't in a great price spot, at nearly $300 a piece.</p>
+<p>Storage capacity improvements are great, but if the costs of deploying a properly configured system for backups doesn't go down for non-enterprise scenarios, then the war against ransomware will never really go anywhere. No or minimal backups means that victims will be incentivized to pay the ransom, with no guarantee that they'll recover their files.</p>
+<h2 id="mcetoc_1igjl3gqdm7">The Unexpected</h2>
+<p>One of the great things about technology conferences is that you never know what will show up.</p>
+<p>Last year, we had a demo of QDEL, a competitor technology to Organic Light Emitting Diodes, randomly make an appearance at CES.</p>
+<p>With growing awareness of how important cybersecurity is for the average person, we might see a lot of products and services aimed at the less tech savvy.</p>
+<p>What would they be? I don't know! And that's what makes it exciting.</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Tech Project: TrueNAS Scale Server 1.0</title>
         <author>
@@ -1122,87 +1223,6 @@ Feel free to adjust the &#96;sid&#96; (Signature ID) and &#96;rev&#96; (Revision
 <p>Well, having submitted a bug report that will (hopefully) lead to this problem being solved, I'm pivoting focus.</p>
 <p>Not to a new project, but to the inevitable next step: making firewall and IPS rules.</p>
 <p> </p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 1.0 </title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-10/"/>
-        <id>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-10/</id>
-        <media:content url="https://korgano.github.io/media/posts/19/cyber-proj-tfb01-2.jpg" medium="image" />
-            <category term="Tech"/>
-            <category term="Cybersecurity Projects"/>
-            <category term="Cybersecurity"/>
-
-        <updated>2024-08-05T13:02:47-04:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/19/cyber-proj-tfb01-2.jpg" alt="Newegg store page for BOSGAME MiniPC featuring 2.5G ethernet, Intel N100 CPU, 16GB RAM, and 512GB SSD." />
-                    For the past month and a week, preparation for the CompTIA Security+ exam has taken up a lot of time&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/19/cyber-proj-tfb01-2.jpg" class="type:primaryImage" alt="Newegg store page for BOSGAME MiniPC featuring 2.5G ethernet, Intel N100 CPU, 16GB RAM, and 512GB SSD." /></p>
-                <p>For the past month and a week, preparation for the CompTIA Security+ exam has taken up a lot of time and mental capacity. Starting a new cybersecurity related project didn't seem appealing unless it was simple, straightforward, and tapped into existing skills.</p>
-<p>However, I had such a project in my back pocket, something I'd seen months earlier, but couldn't do at the time: setting up a transparent filtering bridge.</p>
-<h2>What's a Transparent Filtering Bridge?</h2>
-<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/dTUvlFfThPw" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
-<p>A transparent filtering bridge is a computing device that takes in packets, inspects them, determines if they're safe or not, and then passes the safe ones through.</p>
-<p>The transparent part refers to the fact that the network doesn't know that the device is there, requiring no alterations to the network configuration. This is a great benefit, because if something goes wrong, you can simply remove the device from the network entirely and restore the direct modem/router connection (or whatever your previous arrangement was).</p>
-<h2>The Network Layout</h2>
-<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/19/NetworkFilterBridge.drawio.svg" alt="Network diagram with a firewall in between a modem and a network segment featuring a router with multiple devices connected by WiFi, plus a Raspberry PI DNS black hole and a laptop connected by ethernet." width="607" height="471"></figure>
-<p>Since I'm implementing this in a mesh network, I'll be connecting to only one of the three routers, which happens to be the one that the Pi-Hole is connected to. And for the same reason - this connects directly to the modem, making it the logical place to handle filtering while maintaining good performance.</p>
-<h2>The MiniPC</h2>
-<p>Picking the host system for this was interesting. The MiniPC space has exploded in the last few years, thanks to Intel and AMD flooding the market with a wide variety of low power processors that can outperform Raspberry Pis and utilize common desktop/laptop components (SSDs and RAM).</p>
-<p>There were a few key requirements for the hardware:</p>
-<ol>
-<li>At least two (2) RJ45 ethernet ports.</li>
-<li>More than 1 Gig ethernet speed.</li>
-<li>At least 4 cores/4 threads for the CPU.</li>
-<li>Decent/upgradeable RAM - minimum 8GB.</li>
-<li>Cost: $200 <strong>maximum</strong>.</li>
-</ol>
-<p>Of the five requirements, the cost and RAM quantity were the most flexible, for two reasons. First, if the MiniPC design supported upgradable RAM, a low initial quantity could later be replaced as needed. Second, $200 was a soft cap - if there was a particularly good deal in terms of hardware for the price, paying more would make sense.</p>
-<p>Also, part of the reason I didn't immediately jump on this project was because Florida has two sales tax holidays for computer hardware - one at the end of July/beginning of August, and one at the beginning of January. By waiting, I would cut 6.5% off of the total price of the hardware.</p>
-<p>Everything else was a hard requirement. MiniPCs are <strong>far </strong>less upgradable than normal PCs, due to their compact nature. More of the components are hard soldered to the motherboard, so whatever you buy has to not only <strong>not </strong>bottleneck your network performance, but potentially last 5+ years (or at least until you can get an equally good deal).</p>
-<p>So, what did I wind up picking?</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/19/cyber-proj-tfb01.jpg" alt="Newegg store page for BOSGAME MiniPC featuring 2.5G ethernet, Intel N100 CPU, 16GB RAM, and 512GB SSD." width="1920" height="962" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb01-xs.jpg 384w ,https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb01-sm.jpg 600w ,https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb01-md.jpg 768w ,https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb01-lg.jpg 1200w ,https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb01-xl.jpg 1600w"></figure>
-<p>In a stroke of great timing, Newegg had a deal on this MiniPC, which was recommended in the Dave's Garage video I posted earlier. It met every single one of my requirements:</p>
-<ol>
-<li>Two (2) RJ45 ethernet jacks.</li>
-<li>2.5 Gig ethernet speed.</li>
-<li>4 cores/4 threads on the CPU.</li>
-<li><strong>16 </strong>GBs of RAM.</li>
-<li>Less than $200.</li>
-</ol>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/19/cyber-proj-tfb02.jpg" alt="BOSGAME MiniPC CPU specs: 4 cores, 4 threads, 3.4GHz max frequency, 6 watt total power draw." width="1272" height="833" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb02-xs.jpg 384w ,https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb02-sm.jpg 600w ,https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb02-md.jpg 768w ,https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb02-lg.jpg 1200w ,https://korgano.github.io/media/posts/19/responsive/cyber-proj-tfb02-xl.jpg 1600w"></figure>
-<p>Coincidentally, the N100's specs are very similar to the first gaming CPU I ever used to build a PC with - the legendary i5-3570K. The main differences are in node, power draw, and of course, size of the actual chip.</p>
-<p>Also, importantly, this is <strong>not </strong>a Raptor Lake chip, so I don't have to worry about the CPU degradation issues that are plaguing those CPUs.</p>
-<p>Based on these specs, there are only a few scenarios that I can see where this device needs to be replaced within five years:</p>
-<ul>
-<li>General failure.</li>
-<li>Affordable 2+ GB fiber ethernet comes to my area.</li>
-<li>Home routers start shipping with 5 gig ethernet ports as standard.</li>
-</ul>
-<p>In every other scenario, the routers and internet connection to my home are going to be performance bottlenecks, especially since I ordered a Cat 8 ethernet cable to directly connect this MiniPC to my modem.</p>
-<h2>Hands On</h2>
-<p>Having received the PC (luckily, before Florida was hit by a hurricane), I can speak to the physical aspects of the device.</p>
-<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/19/IMG_20240805_075033412.jpg" alt="Size comparison of the BOSGAME MiniPC to a notebook given away at a cybersecurity event." width="1975" height="845" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075033412-xs.jpg 384w ,https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075033412-sm.jpg 600w ,https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075033412-md.jpg 768w ,https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075033412-lg.jpg 1200w ,https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075033412-xl.jpg 1600w"></figure>
-<p>Comparing the size of the box with the common size of gift notebooks from cybersecurity events gives you a ballpark idea of how small the total package is.</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/19/IMG_20240805_075050397.jpg" alt="Bottom of the box details." width="2015" height="1344" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075050397-xs.jpg 384w ,https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075050397-sm.jpg 600w ,https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075050397-md.jpg 768w ,https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075050397-lg.jpg 1200w ,https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075050397-xl.jpg 1600w"></figure>
-<p>The bottom of the box has the manufacturing details, hardware specifications, and on the barcode label, which operating system is installed on the system.</p>
-<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/19/IMG_20240805_075509820.jpg" alt="The accessories for the BOSGAME MiniPC - the power adapter, a mounting bracket, and an HDMI cable." width="2000" height="1500" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075509820-xs.jpg 384w ,https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075509820-sm.jpg 600w ,https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075509820-md.jpg 768w ,https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075509820-lg.jpg 1200w ,https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075509820-xl.jpg 1600w"></figure>
-<p>The only accessories are the power adapter, a mounting bracket with screws for mounting the MiniPC to the back of a monitor, and an HDMI cable.</p>
-<figure class="post__image post__image--full"><img loading="lazy"  src="https://korgano.github.io/media/posts/19/IMG_20240805_075502150.jpg" alt="Bottom of the BOSGAME MiniPC, with instructions on how to enter BIOS or boot options." width="1568" height="1398" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075502150-xs.jpg 384w ,https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075502150-sm.jpg 600w ,https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075502150-md.jpg 768w ,https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075502150-lg.jpg 1200w ,https://korgano.github.io/media/posts/19/responsive/IMG_20240805_075502150-xl.jpg 1600w"></figure>
-<p>One nice quality of life feature is the fact that instructions on how to enter BIOS or the boot options are printed directly onto the bottom of the case. There's also an extra barcode label that confirms what system configuration you have.</p>
-<p>The build quality is generally solid, with the minor exception of the front input/output. The plastic of the top cover has some flex there, possibly due to the geometry and requirement for it to be removable for SSD/RAM upgrades. The only other surprise was the presence of a "press this with a paper clip" sized button for resetting the BIOS on the front panel. Quite useful if something goes horribly wrong.</p>
-<p>The only attribute of the design I'm somewhat uncertain about is the cooling. Not just whether the cooler is sufficient for peak thermal load if there's a particularly stressful task, but about the thermal interface material (TIM). The TIM is a heat conductive material that allows heat to flow from the chip to the cooler, and if it's a bog standard thermal paste, repeated heating/cooling cycles can lead it to pump out of the gap between the two.</p>
-<p>Graphite thermal pads and phase change material are good solutions to this issue, but that would require a full tear down, which would require some extra research that's outside the scope of this project.</p>
-<p>With the primary hardware in hand, the only thing left is the CAT 8 ethernet cable, and then the project really get going.</p>
             ]]>
         </content>
     </entry>

@@ -375,6 +375,9 @@
 <loc>https://korgano.github.io/page/3/</loc>
 </url>
 <url>
+<loc>https://korgano.github.io/page/4/</loc>
+</url>
+<url>
 <loc>https://korgano.github.io/privacy-policy/</loc>
 <lastmod>2023-09-14T11:00:07-04:00</lastmod>
 </url>
@@ -396,6 +399,14 @@
 <image:image>
 <image:loc>https://korgano.github.io/media/posts/24/chatgpt-jank-2.png</image:loc>
 <image:title><![CDATA[ChatGPT web interface that cannot connect to ChatGPT/OpenAI servers.]]></image:title>
+</image:image>
+</url>
+<url>
+<loc>https://korgano.github.io/quick-cyber-thoughts-things-i-hope-to-see-at-ces-2025/</loc>
+<lastmod>2025-01-02T09:35:16-05:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/32/ces-2025-event-banner.png</image:loc>
+<image:title><![CDATA[CES 2025 event banner.]]></image:title>
 </image:image>
 </url>
 <url>
