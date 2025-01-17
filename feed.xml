@@ -3,12 +3,88 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2025-01-02T09:35:16-05:00</updated>
+    <updated>2025-01-17T15:54:32-05:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>Quick Cyber Thoughts: CES 2025 Aftermath</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/quick-cyber-thoughts-ces-2025/"/>
+        <id>https://korgano.github.io/quick-cyber-thoughts-ces-2025/</id>
+        <media:content url="https://korgano.github.io/media/posts/33/ces-2025-event-banner.png" medium="image" />
+            <category term="Tech"/>
+            <category term="Quick Thoughts"/>
+            <category term="PC"/>
+            <category term="Cybersecurity"/>
+            <category term="AI"/>
+
+        <updated>2025-01-16T10:35:08-05:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/33/ces-2025-event-banner.png" alt="Consumer Electronics Show 2025 banner." />
+                    The Consumer Electronics Show ended last week, and I made a list of things to keep an eye out for&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/33/ces-2025-event-banner.png" class="type:primaryImage" alt="Consumer Electronics Show 2025 banner." /></p>
+                <p>The Consumer Electronics Show ended last week, and <a href="https://korgano.github.io/quick-cyber-thoughts-things-i-hope-to-see-at-ces-2025/" target="_blank" rel="noopener noreferrer">I made a list of things to keep an eye out for that touch on cybersecurity issues</a>. </p>
+<p>So it's time to see if any of those things became reality!</p>
+<div class="post__toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#mcetoc_1ihqvnhufa7">Powerful APUs with Lots of AI Capability</a></li>
+<li><a href="#mcetoc_1ihqvnhufa8">Business as Usual for Routers</a></li>
+<li><a href="#mcetoc_1ihqvnhufa9">Things I Didn't Expect</a></li>
+</ul>
+</div>
+<h2 id="mcetoc_1ihqvnhufa7">Powerful APUs with Lots of AI Capability</h2>
+<figure class="post__image"><img loading="lazy"  src="https://www.techpowerup.com/img/gUVqNeysHiq2U48E.jpg" alt="AMD AI Max Processor Model Chart" width="1274" height="717" data-is-external-image="true"></figure>
+<p>This was pretty much a gimme, mostly because I kept abreast of leaks and analysis of what the processor manufacturers were doing.</p>
+<p>AMD announced the "Strix Halo"/AI Max(+) processor line for workstation laptops and miniPCs. These processors are basically one or two chips of CPU cores next to a bigger chip that has an Neural Processing Unit for AI, a Graphics Processing Unit that can also be used for AI, and all the input/output for the whole package. What this means that if you can give this thing enough RAM, you can run a <strong>lot </strong>on this chip.</p>
+<figure class="post__image"><img loading="lazy"  src="https://www.techpowerup.com/img/L8i66eGmkKmMtcbU.jpg" alt="AMD AI Max Input/Output Die and performance specifications." width="1271" height="712" data-is-external-image="true"></figure>
+<p>With the right software and enough memory, you could easily run multiple VMs, including Kali Linux, while doing AI tasks using larger models, with up to 96GB of memory just for AI.</p>
+<p>These will be <strong>expensive </strong>machines, but if you need/want to do a lot of VM and/or local AI work in a compact system, they're going to be the go to option. Intel doesn't have anything close, and Nvidia <strong>might</strong>, but they're stuck dealing with Windows on ARM. Reworking Windows to work in a different microarchitecture hasn't worked out well, so it's Ryzen AI Max or nothing.</p>
+<p>A concerning observation is the fact that none of the systems advertised to use these APUs will use CAMM2 memory modules. It is unclear why this is the case, but it might behoove individuals and small organizations to wait to see if AI Max(+) laptops and miniPCs are sold with the better memory technology.</p>
+<h2 id="mcetoc_1ihqvnhufa8">Business as Usual for Routers</h2>
+<p>One thing that concerned me going into 2025 was the potential for a TP-Link router ban. Like many other Americans, I use TP-Link routers because they provide a compelling feature set at an affordable price. This is especially true in the mesh router space, where they cost quite a bit less than competing products from brands like NetGear and Asus.</p>
+<p>To be <strong>extremely </strong>fair to all involved, this was <strong>before </strong><a href="https://www.scotusblog.com/2025/01/supreme-court-upholds-tiktok-ban/" title="Supreme Court upholds TikTok ban" target="_blank" rel="noopener noreferrer">the United States Supreme Court ruled that the TikTok ban was constitutional</a>:</p>
+<blockquote>
+<p>The Supreme Court on Wednesday unanimously upheld a federal law that will require TikTok to shut down in the United States unless its Chinese parent company can sell off the U.S. company by Jan. 19. In <a href="https://www.supremecourt.gov/opinions/24pdf/24-656_ca7d.pdf">an unsigned opinion</a>, the justices acknowledged that, “for more than 170 million Americans,” the social media giant “offers a distinct and expansive outlet for expression, means of engagement, and source of community.” But, the court concluded, “Congress has determined that divestiture is necessary to address its well-supported national security concerns regarding TikTok’s data collection practices and relationship with a foreign adversary.”</p>
+</blockquote>
+<p>The problem is that the router industry apparently decided to keep on going like nothing was happening. Aside from price tweaks on existing products, which are done on an individual store level, the major players in the Small Office-Home Office (SOHO) space just introduced new, expensive routers. Theoretically, these would provide downward price pressure on older products. In reality, the trend in some segments of consumer electronics is that things are kept the same price and new "premium" price tiers are added on top.</p>
+<p>There also didn't appear to be any talk about the software side, which would be the low cost solution (replacing the existing TP-Link OS/firmware). The existing open source options don't cover the full range of TP-Link offerings, so at this point, a worst case scenario is an expensive replacement of all TP-Link routers.</p>
+<h2 id="mcetoc_1ihqvnhufa9">Things I Didn't Expect</h2>
+<figure class="post__image"><img loading="lazy"  src="https://www.yankodesign.com/images/design_news/2025/01/this-game-changing-wi-fi-router-has-a-connectivity-radius-of-9-9-miles/wifi_halow_ces_2025_1.jpg" alt="WiFi HaLow 9.9 mile range router." width="1280" height="960" data-is-external-image="true"></figure>
+<p><a href="https://www.yankodesign.com/2025/01/08/this-game-changing-wi-fi-router-at-ces-2025-has-a-connectivity-radius-of-9-9-miles/" title="This Game-Changing Wi-Fi Router at CES 2025 has a Connectivity Radius of 9.9 Miles" target="_blank" rel="noopener noreferrer">Something I didn't expect to see was a technology that could push WiFi range to around 10 miles:</a></p>
+<blockquote>
+<p class="post-without-image">Without getting into the specifics (because I have no technical background), the Wi-Fi HaLow router (shown above) promises to make internet connectivity seamless over massive distances. It relies on Sub-GHz frequency waves that travel long distances (like AM and FM radio) to transmit internet connectivity, so you could potentially use your home Wi-Fi router within a 10-mile radius of your house.</p>
+<p class="post-without-image">Morse Micro, the company behind the tech, hopes that this Wi-Fi capability will coexist with current 2.4Ghz and 5Ghz Wi-Fi bands. These existing bands are great for low-latency internet connectivity, but add HaLow to the mix and you get long-distance connectivity too, giving you the best of all worlds. Sub-GHz Wi-Fi won’t ever be as fast as 5GHz Wi-Fi (HaLow has max speeds of 32.5 MB/s), although those speeds are perfect for most everyday tasks like checking email, browsing the internet, or even for IoT devices to communicate with each other.</p>
+</blockquote>
+<p>While this has a number of practical applications, this does add a whole host of security concerns. WiFi HaLow is going to be an enticing target for hackers, given the increased range and therefore greater geographic opportunities for direct hacking. Properly configuring and testing these systems is also going to be a bit of an ordeal, given that they haven't been standardized yet.</p>
+<p><a href="https://www.pcworld.com/article/2575337/vlc-celebrates-6-billion-downloads-with-ai-subtitles.html" title="VLC celebrates 6 billion downloads with new AI subtitles feature" target="_blank" rel="noopener noreferrer">Another surprise came from the VLC open source media player team:</a></p>
+<blockquote>
+<p>At CES 2025, non-profit organization VideoLAN announced that their open-source media player app VLC Media Player crossed an incredible milestone: over 6 billion downloads, <a href="https://go.skimresources.com/?id=111346X1569483&amp;xs=1&amp;url=https://techcrunch.com/2025/01/09/vlc-tops-6-billion-downloads-previews-ai-generated-subtitles/&amp;xcust=2-1-2575337-1-0-0-0-0&amp;sref=https://www.pcworld.com/article/2575337/vlc-celebrates-6-billion-downloads-with-ai-subtitles.html" rel="nofollow noopener" data-subtag="2-1-2575337-1-0-0-0-0" data-domain-name="techcrunch" target="_blank">TechCrunch</a> reports.</p>
+<p>According to <a href="https://go.skimresources.com/?id=111346X1569483&amp;xs=1&amp;url=https://www.linkedin.com/feed/update/urn:li:activity:7282533937812258816/&amp;xcust=2-1-2575337-1-0-0-0-0&amp;sref=https://www.pcworld.com/article/2575337/vlc-celebrates-6-billion-downloads-with-ai-subtitles.html" rel="nofollow noopener" data-subtag="2-1-2575337-1-0-0-0-0" data-domain-name="linkedin" target="_blank">a LinkedIn post</a> written by VideoLAN’s president Jean-Baptiste Kempt, the user base for VLC continues to grow despite the ubiquitous popularity of streaming services.</p>
+<p>To celebrate its undying popularity, VideoLAN demoed at CES 2025 an upcoming feature for VLC Media Player that uses generative AI to automatically create subtitles on the fly based on the media content being played, and can even translate across languages in real time.</p>
+<p>The feature will use open-source AI models that can run locally on the user’s device without having to connect to the internet. This is a huge deal for anyone who consumes foreign-language content, who’s hard of hearing, or simply prefers subtitles while watching. And it’s especially nice for users who still rely on VLC to do things that many other video player apps can’t do, like <a href="https://www.pcworld.com/article/422753/how-to-play-dvds-in-windows-10-for-free.html">play DVDs on PC for free</a>.</p>
+</blockquote>
+<p>It'll be interesting to see how VLC accomplishes this AI integration. On one hand, these models need to be able to run with decent performance on a wide range of systems, including ones that potentially have nothing more than integrated (and therefore weak) graphics. On the other, VLC needs to integrate robust safeguards to prevent the AI from being used to execute malicious code and actions on the user's system.</p>
+<p>If anything would promote the use of local AI, it would be VLC.</p>
+<h2>The Other Things</h2>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/2lTWI7kfkt0?t=30s" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+<p>Sadly, there wasn't much progress on two other things I wanted to see. Ventiva's solid state cooling system did get a demo system built by Dell, which <strong>could </strong>mean that we could see industry adoption down the line. Dell did create the first compression attached memory modules, which then became CAMM2 memory, so it's not impossible.</p>
+<p>But it does mean that we currently still have to worry about cooling fans, from a security and maintenance point of view.</p>
+<p>Perhaps most disappointing to me was the lack of progress on improving price per gigabyte or terabyte in storage. Network Attached Storage vendors did improve their offerings with new designs and even AI integrations, but nothing for the storage itself.</p>
+<p>The root cause of not having backups is often cost, and without addressing that, we're not going to be able to grow the culture of proper backups. While off-site backups are definitely a part of a proper backup system, the fact that on-site backups are priced out of most people's ability to stand up a solution is a grim reality.</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Quick Cyber Thoughts: Things I Hope to See at CES 2025</title>
         <author>
@@ -1126,103 +1202,6 @@ Feel free to adjust the &#96;sid&#96; (Signature ID) and &#96;rev&#96; (Revision
 <figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/23/cyber-proj-tfb06.png" alt="ThriveDX login error screen." width="1920" height="912" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/23/responsive/cyber-proj-tfb06-xs.png 384w ,https://korgano.github.io/media/posts/23/responsive/cyber-proj-tfb06-sm.png 600w ,https://korgano.github.io/media/posts/23/responsive/cyber-proj-tfb06-md.png 768w ,https://korgano.github.io/media/posts/23/responsive/cyber-proj-tfb06-lg.png 1200w ,https://korgano.github.io/media/posts/23/responsive/cyber-proj-tfb06-xl.png 1600w"></figure>
 <p>To my lack of surprise, ThriveDX let me down when I needed it, right when a hurricane passed by my part of Florida.</p>
 <p>However, OPNsense released a new version with a wide range of updates, so perhaps I can make some progress by redoing the install from scratch...</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 2.0: CLI is a UX Failure</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-20/"/>
-        <id>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-20/</id>
-        <media:content url="https://korgano.github.io/media/posts/20/cyber-proj-tfb03-2.jpg" medium="image" />
-            <category term="UX/UI"/>
-            <category term="Cybersecurity Projects"/>
-            <category term="Cybersecurity"/>
-
-        <updated>2024-08-30T12:00:27-04:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/20/cyber-proj-tfb03-2.jpg" alt="Image showing rear of BOSGAME MiniPC, with arrow pointing to expected re0 ethernet port on the left and arrow pointing to expected re1 ethernet port on the right." />
-                    I never intended for there to be a four week gap between the entries in this project, but there's good reason&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/20/cyber-proj-tfb03-2.jpg" class="type:primaryImage" alt="Image showing rear of BOSGAME MiniPC, with arrow pointing to expected re0 ethernet port on the left and arrow pointing to expected re1 ethernet port on the right." /></p>
-                <p>I never intended for there to be a four week gap between the entries in this project, but<span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"> there's good reason for it.</span></p>
-<p>First, I passed my CompTIA Security+ exam about a week and a half after the first entry.</p>
-<p>Second, I spent a <strong>lot </strong>of time banging my head against OPNSense/FreeBSD's Command Line Interface, which caused a lot of problems.</p>
-<p>Let's get into those.</p>
-<div class="post__toc">
-<h3>Table of Contents</h3>
-<ul>
-<li><a href="#mcetoc_1i6ihgpmq2k">Problem 1: Ventoy</a></li>
-<li><a href="#mcetoc_1i6i0fcoua">Problem 2: Drivers</a></li>
-<li><a href="#mcetoc_1i6ihgpmq2l">Problem 3: FreeBSD/OPNsense CLI</a></li>
-<li> </li>
-<li><a href="#mcetoc_1i711djhs41">Problem 4: Did Anyone Try This on Dual Port Devices?</a></li>
-<li><a href="#mcetoc_1i711djhs42">What's Next?</a></li>
-</ul>
-</div>
-<h2 id="mcetoc_1i6ihgpmq2k">Problem 1: Ventoy</h2>
-<p>The problem of installing operating systems has long plagued anyone who works with technology.</p>
-<p>In the past, you would have to burn a disk image in some format onto a literal disk (a CD-ROM/DVD-ROM/etc...) or a USB drive, typically filling all or most of the storage on that disk. This was fine, because you could just buy a cheap, sub-$10 4-8 gigabyte flash drive.</p>
-<p>These days, when the $0-10 flash drive market is dominated by 16+ GB flash drives, burning <strong>one </strong>image to a drive is a ludicrous waste of space, even if Windows ISOs balloon up to 6GB if you include all sorts of plugins and frameworks for productivity tasks.</p>
-<p><a href="https://www.ventoy.net/" target="_blank" rel="noopener noreferrer">Ventoy is software</a> that allows your USB drive to host multiple ISOs and gives you a GUI to select which one is booted/installed.</p>
-<p>Installing OPNSense requires downloading an image... which is confusingly labelled <code>amd64</code>, even though it's apparently compatible with just about anything. This is just the <strong>first </strong>of <strong>many </strong>usability issues, because most people are more familiar with 64 bit operating systems being labelled <code>x64</code>.</p>
-<p>It turns out that Ventoy doesn't like the <code>.img</code> format, so I was looking at a potential massive progression blocker. Luckily, someone reported the latest version of the OPNSense ISO was compatible with the latest version of Ventoy, so I tried to update my USB drive.</p>
-<p>It turned out that trying to update via the actual EXE file was impossible, so I had to install an ISO on my Ventoy USB to update my Ventoy USB.</p>
-<p>...</p>
-<p>Setting that aside, I then had to reboot a computer, disable secure boot on said computer, boot into Ventoy to boot the updater ISO, then reboot the PC to reenable secure boot. Which is an absurd amount of steps to accomplish a simple task, but sadly was the most straight forward part of this whole process.</p>
-<h2 id="mcetoc_1i6i0fcoua">Problem 2: Drivers</h2>
-<p>For the less tech savvy amongst the audience, drivers are software that take the commands a device receives from the user and translates them into instructions for the hardware. Then they translate the output of the hardware generates into forms other parts of the system and/or the user receive.</p>
-<p>Basically, if you don't have drivers for your hardware, or they break for some reason (*cough* Windows 11 rolling back GPU drivers *cough*), things aren't going to end well.</p>
-<h2 id="mcetoc_1i6ihgpmq2l"><strong>Problem 3: FreeBSD/OPNsense CLI</strong></h2>
-<p>The bane of modern technology is the ancient, antiquated user experience of the command line interface.</p>
-<p>Is it incredibly fast and powerful if you know what you're doing? Yes. But if you want a summary of its flaws in the use case of "I need to install drivers to enable internet connectivity", here you go:</p>
-<h2 id="mcetoc_1i6ihgpmq2m" style="margin-top: 2.28571rem; font-family: var(--font-base); font-weight: var(--font-weight-bold); letter-spacing: var(--letter-spacing); font-size: 1.60181em;"><figure class="post__image"><img loading="lazy"  style="font-size: inherit; letter-spacing: var(--letter-spacing); color: var(--text-primary-color); font-family: var(--editor-font-family); font-weight: var(--font-weight-normal); outline: 3px solid rgba(var(--color-primary-rgb), 0.55) !important;" src="https://korgano.github.io/media/posts/20/cli-ux-sucks.png" alt="LinkedIn post by the author explaining usability failures in OPNSense command line shell interface." width="865" height="1005" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/20/responsive/cli-ux-sucks-xs.png 384w ,https://korgano.github.io/media/posts/20/responsive/cli-ux-sucks-sm.png 600w ,https://korgano.github.io/media/posts/20/responsive/cli-ux-sucks-md.png 768w ,https://korgano.github.io/media/posts/20/responsive/cli-ux-sucks-lg.png 1200w ,https://korgano.github.io/media/posts/20/responsive/cli-ux-sucks-xl.png 1600w"></figure></h2>
-<p>It gets even worse from there.</p>
-<p>So, after multiple tries and having to reload the Bing Copilot multiple times on my phone, because accessing it via browser causes it to auto-reset if you don't focus on the tab for a certain amount of time, I got it done.</p>
-<p>I managed to update the drivers, and I was confronted by this:</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/20/cyber-proj-tfb05.jpg" alt="Post-installation instructions from the Intel ethernet driver, telling user what lines to add to various configuration files." width="735" height="889" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/20/responsive/cyber-proj-tfb05-xs.jpg 384w ,https://korgano.github.io/media/posts/20/responsive/cyber-proj-tfb05-sm.jpg 600w ,https://korgano.github.io/media/posts/20/responsive/cyber-proj-tfb05-md.jpg 768w ,https://korgano.github.io/media/posts/20/responsive/cyber-proj-tfb05-lg.jpg 1200w ,https://korgano.github.io/media/posts/20/responsive/cyber-proj-tfb05-xl.jpg 1600w"></figure>
-<p>After all the issues I'd run into up until this point, it should surprise no one that I took this picture. But what I didn't realize was that following these instructions wasn't the best idea. As it turns out, OPNsense doesn't recommend directly editing <code>/etc/loader.conf</code>.</p>
-<p>In fact, it gives you a message when you access said file that boils down to "If you want to make changes here, go make a <code>/etc/loader.conf.local</code> file and make those changes there." I missed this initially, due to mental fatigue from everything I'd been through to that point. It took my hard work being wiped by rebooting the miniPC to make me realize there was an issue there.</p>
-<p>Once I figured out my issues there, I ran into an issue that I hadn't expected while trying to setup the bridge: the ethernet port numbers were reversed.</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/20/cyber-proj-tfb03.jpg" alt="Image showing rear of BOSGAME MiniPC, with arrow pointing to expected re0 ethernet port on the left and arrow pointing to expected re1 ethernet port on the right." width="1280" height="684" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/20/responsive/cyber-proj-tfb03-xs.jpg 384w ,https://korgano.github.io/media/posts/20/responsive/cyber-proj-tfb03-sm.jpg 600w ,https://korgano.github.io/media/posts/20/responsive/cyber-proj-tfb03-md.jpg 768w ,https://korgano.github.io/media/posts/20/responsive/cyber-proj-tfb03-lg.jpg 1200w ,https://korgano.github.io/media/posts/20/responsive/cyber-proj-tfb03-xl.jpg 1600w"></figure>
-<p>How did I discover this, you might ask?</p>
-<p>Well, I was trying to connect to the webGUI via ethernet connection from what I <strong>thought </strong>was <code>re1</code> to a laptop, and nothing I did was working. Initially, I believed it to be the fault of a particularly old, janky looking ethernet cable, but swapping it out for a shorter, but better looking cable didn't solve the problem. I checked the port status for <code>re1</code> via <code>ifconfig</code>, but the status was down, which was confusing, because I could see the activity light on the port flashing like crazy.</p>
-<p>After way too much time getting nowhere, I decided to check <code>re0</code>... and saw the status was <strong>up</strong>.</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/20/cyber-proj-tfb04.jpg" alt="Image showing rear of BOSGAME MiniPC, with arrow pointing to re1 ethernet port on the left and arrow pointing to re0 ethernet port on the right." width="1280" height="684" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/20/responsive/cyber-proj-tfb04-xs.jpg 384w ,https://korgano.github.io/media/posts/20/responsive/cyber-proj-tfb04-sm.jpg 600w ,https://korgano.github.io/media/posts/20/responsive/cyber-proj-tfb04-md.jpg 768w ,https://korgano.github.io/media/posts/20/responsive/cyber-proj-tfb04-lg.jpg 1200w ,https://korgano.github.io/media/posts/20/responsive/cyber-proj-tfb04-xl.jpg 1600w"></figure>
-<p>This is apparently a non-infrequent occurrence, and highlights yet another weakness of command line interfaces. A basic GUI that captured and presented network activity would've alerted me to this issue far sooner.</p>
-<p>Once I was past this hurdle, I could log into the webGUI and begin configuring the transparent filtering bridge.</p>
-<h2 id="mcetoc_1i711djhs41">Problem 4: Did Anyone Try This on Dual Port Devices?</h2>
-<p>Following the instructions to initialize the transparent filtering bridge was simple and straightforward, and having set a management IP address on the bridge, I connected it to my router and modem. I got my internet... for a few seconds before the Suricata IPS crashed.</p>
-<p>It took me a while to figure out what was going on, but since I had access to the webGUI via ethernet, I could look at the crash dumps and find key phrases. The specific fatal error that came up led me to an OPNSense forum thread that gave me the lead that Suricata might be the culprit.</p>
-<p>With that out of the way, I hooked things up back up, and got the transparent filtering bridge back up. Just with a new problem - I couldn't access the webGUI. I had access to the console, because I had the miniPC plugged into a monitor and connected to a wireless mouse and keyboard. But without webGUI access, I couldn't update the OPNSense software - which is a major problem for security, even setting aside the fact that several patches were released between when I downloaded the ISO and when I installed it on the miniPC.</p>
-<p>In fact, this seems to be a fairly common issue with OPNSense and transparent filtering bridges:</p>
-<ul>
-<li><a href="https://forum.opnsense.org/index.php?topic=42645.0" rel="nofollow">https://forum.opnsense.org/index.php?topic=42645.0</a></li>
-<li><a href="https://www.reddit.com/r/opnsense/comments/1c8oo2p/comment/l2ve6yl/" rel="nofollow">https://www.reddit.com/r/opnsense/comments/1c8oo2p/comment/l2ve6yl/</a></li>
-<li><a href="https://www.reddit.com/r/opnsense/comments/1f608es/transparent_filtering_bridge_issues/" rel="nofollow">https://www.reddit.com/r/opnsense/comments/1f608es/transparent_filtering_bridge_issues/</a></li>
-<li><a href="https://www.reddit.com/r/opnsense/comments/1c9ic3g/access_transparent_bridge_configuration_from_lan/" rel="nofollow">https://www.reddit.com/r/opnsense/comments/1c9ic3g/access_transparent_bridge_configuration_from_lan/</a></li>
-<li><a href="https://www.reddit.com/r/opnsense/comments/1ckqyjj/reaching_gui_after_placing_opnsense_between/" rel="nofollow">https://www.reddit.com/r/opnsense/comments/1ckqyjj/reaching_gui_after_placing_opnsense_between/</a></li>
-<li><a href="https://forum.opnsense.org/index.php?topic=40032.0" rel="nofollow">https://forum.opnsense.org/index.php?topic=40032.0</a></li>
-</ul>
-<p>It turns out that I wasn't the only one who saw the Dave's Garage video that kicked this project off and wanted to setup their own transparent filtering bridge, only to run into the same type of problem.</p>
-<p>Unfortunately, this is an impassable roadblock for me, at least at the moment. Attempting to use the miniPC's wireless connection as the management interface is a no-go, for two important reasons:</p>
-<ol>
-<li>I couldn't connect it to my home network at all, which is why I had to install ethernet drivers off a USB.</li>
-<li>For some reason, the command <code>ifconfig [WiFi interface] down</code> completely removed the ability to use the device.</li>
-</ol>
-<p>That's right, I have a wireless networking device that I <strong>cannot </strong>use because shutting it down apparently wiped the association to the drivers it was using.</p>
-<p>FreeBSD/OPNSense is wonderful like that.</p>
-<p>Theoretically, adding a third ethernet port via USB <strong>might </strong>solve the problem. The widespread nature of the problem and other people's noted failures with that solution make me hesitate. On one hand, I'm not particularly thrilled to spend more money on this project to solve a problem that is not my fault. On the other, it's at least a general purpose device I can use in other situations if it fails to solve the problem.</p>
-<h2 id="mcetoc_1i711djhs42">What's Next?</h2>
-<p>Well, having submitted a bug report that will (hopefully) lead to this problem being solved, I'm pivoting focus.</p>
-<p>Not to a new project, but to the inevitable next step: making firewall and IPS rules.</p>
-<p> </p>
             ]]>
         </content>
     </entry>
