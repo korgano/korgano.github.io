@@ -3,12 +3,170 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2025-01-17T15:54:32-05:00</updated>
+    <updated>2025-02-27T16:12:19-05:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>Quick Cyber Thoughts: Warp Terminal/Shell</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/quick-cyber-thoughts-warp-terminalshell/"/>
+        <id>https://korgano.github.io/quick-cyber-thoughts-warp-terminalshell/</id>
+        <media:content url="https://korgano.github.io/media/posts/34/Warp-terminal.png" medium="image" />
+            <category term="UX/UI"/>
+            <category term="Tech"/>
+            <category term="Quick Thoughts"/>
+            <category term="Cybersecurity"/>
+
+        <updated>2025-02-27T09:54:30-05:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/34/Warp-terminal.png" alt="Warp Terminal Demo by Warp Team" />
+                    For the past month and a half, I've been doing some form of DoD Cyber Workforce training. That consisted mostly&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/34/Warp-terminal.png" class="type:primaryImage" alt="Warp Terminal Demo by Warp Team" /></p>
+                <p>For the past month and a half, I've been doing some form of DoD Cyber Workforce training.</p>
+<p>That consisted mostly of a lot of slide decks, lots of lecture narration, and every so often in the Database Administrator course, actual SQL coding and SQL server related configuration work.</p>
+<p>As one can imagine, this is <strong>very</strong> draining, especially when you're subjected to 60+ slides in a deck on some topics.</p>
+<p>So, having completed all that, I want to think and talk about something entirely different.</p>
+<p>Today, we're going to talk about Warp, a multi-platform (Windows, Linux, Mac) Terminal/Shell program.</p>
+<div class="post__toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#mcetoc_1il42hdba40">What is Warp?</a></li>
+<li><a href="#mcetoc_1il42hdba41">Why This is Interesting</a></li>
+<li><a href="#mcetoc_1il42hdba42">The Issues with Warp</a></li>
+<li><a href="#mcetoc_1il4g6b46gl">How Warp Works</a></li>
+<li><a href="#mcetoc_1il4g6b46gm">Cloud-based Features (Opt-in)</a>
+<ul>
+<li><a href="#mcetoc_1il4g6b46gn">Warp AI</a></li>
+</ul>
+</li>
+<li><a href="#mcetoc_1il4g6b46go">Telemetry (Opt-out)</a></li>
+<li><a href="#mcetoc_1il4g6b46gp">What Would I Like to See</a></li>
+</ul>
+</div>
+<h2 id="mcetoc_1il42hdba40">What is Warp?</h2>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/qkduRen6QFk" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+<p>There's a lot of features in Warp, as the video above explains, but here are some of the highlights:</p>
+<ul>
+<li>A UI that puts commands and outputs into discrete blocks.</li>
+<li>Maintaining terminal session history.</li>
+<li>Git repository branch and block checking.</li>
+<li>The ability to highlight and simultaneously edit identical text.</li>
+<li>AI assistant integration for command assistance.</li>
+<li>"Permanent" web link generation for sharing terminal blocks.</li>
+</ul>
+<h2 id="mcetoc_1il42hdba41">Why This is Interesting</h2>
+<p>As the Dave's Garage video points out, the old fashioned terminal dates back to the <strong>1970s</strong>. Lacking a lot of User Experience/User Interface features and standards modern users expect makes it harder for people to actually use and get proficient with command line interfaces.</p>
+<p>The AI integration for command assistance in particular is a game changer, especially for Linux. One of Linux's <strong>massive </strong>pain points is how infuriatingly obtuse it can be to figure out the right commands for simple tasks and input them properly. And like Windows, commands with long paths become a nightmare. <a href="https://korgano.github.io/quick-cyber-thoughts-tuw-gui-wrapper/" title="Quick Cyber Thoughts: Tuw GUI Wrapper" target="_blank" rel="noopener noreferrer">That's why I use TUW to make simple GUIs for certain command line tasks I expect to do on a regular basis.</a></p>
+<p>I would argue that something like Warp <strong>should </strong>replace all the existing terminal options... or at least be the default. There are too many benefits for too many people to do otherwise.</p>
+<p>The problem is that Warp <strong>isn't </strong>that solution, at least for the personal and high security user.</p>
+<h2 id="mcetoc_1il42hdba42">The Issues with Warp</h2>
+<p>Let's get this out of the way: just looking around Warp's page tells you that this is a commercial developer first piece of software. <a href="https://www.warp.dev/pricing" title="Pricing and Plans for Warp" target="_blank" rel="noopener noreferrer">The fact that you can use it for free as a personal user is a bonus</a>, basically a way to expose people to the product and get them to evangelize it.</p>
+<p>I have no problems with this part of their business model.</p>
+<p>The issue with Warp, at least if you're a personal/high security user, is that you're dependent on Warp itself to provide your session/terminal block shares, and dependent on their AI provider for the AI capabilities.</p>
+<p><a href="https://www.warp.dev/privacy" title="Our commitment to user privacy" target="_blank" rel="noopener noreferrer">Warp does address these issues on their privacy page.</a></p>
+<p>We'll look at their own proprietary cloud features first.</p>
+<blockquote>
+<h2 id="mcetoc_1il4g6b46gl" class="css-tt1g22">How Warp Works</h2>
+<p class="css-1q9rxa2">Warp is a fully-native local application that can run without an internet connection. The core features of the terminal will always work offline.</p>
+<h2 id="mcetoc_1il4g6b46gm" class="css-14gwli7">Cloud-based Features (Opt-in)</h2>
+<p class="css-1q9rxa2">Warp also includes cloud-based features that power cool things like:</p>
+<ul class="css-1hrnkqr">
+<li class="css-pl8tmj"><span class="css-1gijr9a">Warp AI</span></li>
+<li class="css-pl8tmj"><span class="css-1gijr9a">Warp Drive</span></li>
+<li class="css-pl8tmj"><span class="css-1gijr9a">Session Sharing</span></li>
+<li class="css-pl8tmj"><span class="css-1gijr9a">Block Sharing</span></li>
+</ul>
+<p class="css-1q9rxa2">None of your data is ever sent to Warp’s servers unless you explicitly take action to send it. If you choose to use Warp Drive or block sharing and save an item, that item will be sent to Warp’s servers and stored securely in Warp’s database. Data is encrypted at rest, and you can delete this data anytime.</p>
+</blockquote>
+<p>The good:</p>
+<ul>
+<li>Outright stating that the cloud connection is <strong>not </strong>necessary to obtain most of the software's functionality.</li>
+<li>Specific listings of what parts of the app use the cloud connection.</li>
+<li>Stating that explicit action is required to send data to their servers.</li>
+<li>Stating that data is encrypted at rest.</li>
+<li>Stating the data can be deleted anytime.</li>
+</ul>
+<p>The not-great:</p>
+<ul>
+<li>Not mentioning if the data in transit is encrypted, or at least encapsulated in HTTPS.</li>
+<li>Needing servers to handle the sharing functionality.</li>
+<li>Not being able to select your own AI/cloud/session sharing provider.</li>
+</ul>
+<p>The problem for the personal/high security user is pretty much the same. You're putting all your data in one basket you may not be able to fully assess the security of, with no option to direct things to infrastructure you've configured for your needs.</p>
+<p>(It's fairly obvious that having the streaming and sharing functionality be cloud based is to lower Warp's footprint on the machine, so I can't really blame them for that.)</p>
+<p>There's also the fact that even if both parties have done their due diligence, the fact that everything has to pass through Warp's servers means that a determined threat might just choose to capture traffic going between your IP and Warp's. Even if they can't crack the encryption on the traffic, you'll still be giving valuable intel on your usage patterns.</p>
+<blockquote>
+<h3 id="mcetoc_1il4g6b46gn" class="css-1go34cv">Warp AI</h3>
+<p class="css-1q9rxa2">Warp AI includes AI Command Suggestions, AI autofill in Warp Drive, and Agent Mode. All Warp AI features are powered by OpenAI and Anthropic APIs. When you submit an AI query, Warp does not store any of this information and only passes it through our servers as we proxy requests.</p>
+<p class="css-1q9rxa2">OpenAI and Anthropic do not train their models on this data, and neither does Warp. OpenAI and Anthropic store this data for a maximum of 30 days.</p>
+<p class="css-1q9rxa2">For organizations that need to ensure OpenAI and Anthropic never store data for any period of time, a Zero Data Retention policy is available on Warp's Enterprise plan.</p>
+</blockquote>
+<p>In terms of privacy, Warp acting as a proxy server is a decent way to obfuscate the relationships between user data and AI queries. Of course, this wouldn't be an issue if you could just route those queries to a local or private cloud AI server, but it at least adds a modicum of user protection.</p>
+<p>Once we get past this, there's a stacking set of assumptions that need to be made:</p>
+<ol>
+<li>Warp does not store any data associated with AI queries.</li>
+<li>Warp does not train any using data associated with AI queries.</li>
+<li>OpenAI and Anthropic store AI query data only for 30 days maximum.</li>
+<li>OpenAI and Anthropic have a policy to not train AI on data from Warp customers.</li>
+<li>OpenAI and Anthropic AI devs actually care about any policy restricting them from using customer data.</li>
+</ol>
+<p>Let's assume the first 4 points are valid. Everyone outside the AI development team has been told that the AI development team will not use customer data for training purposes.</p>
+<p>The question is: Has anyone validated that the AI dev team is respecting that policy. Because we exist in a universe where Meta engaged in rampant piracy to acquire training data:</p>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/Wl5vg-4V2ms" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+<p>(I have no legal background that would allow me to comment on this in any great detail, but I do have one observation. Some of their sources were sites that host material that, in my experience, is literally crowd sourced preservation, due to the actual publishers never making legal digital copies.)</p>
+<p>If the AI dev team decides to throw the officially stated policy out the window, there's not much of anything everyone relying on them can do until they know and have evidence policy has been broken.</p>
+<p>This is obviously a big issue for anyone who values the confidentiality of their data.</p>
+<p>One last thing to look at is their telemetry policy:</p>
+<h2 id="mcetoc_1il4g6b46go" class="css-14gwli7">Telemetry (Opt-out)</h2>
+<blockquote>
+<p class="css-1q9rxa2">Warp records a limited number of defined telemetry events for the purposes of:</p>
+<ul class="css-1hrnkqr">
+<li class="css-pl8tmj"><span class="css-1gijr9a">Reporting app crashes</span></li>
+<li class="css-pl8tmj"><span class="css-1gijr9a">Understanding feature usage at a high-level</span></li>
+<li class="css-pl8tmj"><span class="css-1gijr9a">Supporting customers</span></li>
+<li class="css-pl8tmj"><span class="css-1gijr9a">Terminal input and output are never included in telemetry payloads.</span></li>
+</ul>
+<p class="css-1q9rxa2">You can review <a class="css-1w9l6lr" href="https://docs.warp.dev/getting-started/privacy#exhaustive-telemetry-table">an exhaustive list of all telemetry events</a> in Warp’s documentation.</p>
+<p class="css-1q9rxa2">You can also use the <a class="css-1w9l6lr" href="https://docs.warp.dev/features/network-log">Network Log</a> to monitor all communications from the Warp client to external servers.</p>
+<p class="css-1q9rxa2">Telemetry events and crash reports are enabled by default and associated with logged-in users. If you would like to opt out of telemetry and crash reports, you can disable the feature during sign up or under Settings &gt; Privacy in the Warp app.</p>
+</blockquote>
+<p>There are two main things that I appreciate in this section:</p>
+<ol>
+<li>A direct link to the Network Log documentation, so you can preplan how to evaluate how transparent the logging is.</li>
+<li>The telemetry events list addresses the vagueness of the phrase "feature usage at a high level"</li>
+</ol>
+<p>Being able to audit the network communications is a great move for transparency and security, so it's good to see Warp's commitment there.</p>
+<h2 id="mcetoc_1il4g6b46gp">What Would I Like to See</h2>
+<p>Let's imagine a world where Warp exists, alongside a near feature identical clone, Blink. Warp is as it is now. But Blink is how I would make Warp to be more secure. What would be the differences between the two?</p>
+<p>Well, Blink would have the following things:</p>
+<ul>
+<li>The ability to connect to on-host or on-server local AI.</li>
+<li>The ability to connect to your cloud AI provider of choice.</li>
+<li>The ability to connect to your cloud data storage and/or web hosting provider of choice.</li>
+<li>The ability to connect to your session sharing service of choice.</li>
+</ul>
+<p>Unfortunately, we're a few hardware and software generations away from having storage space and memory efficient local AI, so we can't just package an AI into the program and give it Retrieval Augmented Generation capabilities. That means we're going to have to have some other AI provider do that for us.</p>
+<p>Now, these are not the simplest changes in the world to implement, and there would be a great deal of testing and troubleshooting necessary before a finalized version would be released. But they would address most, if not all, the issues with confidentiality if you wanted to use full set of Warp's software features.</p>
+<p>Would Warp make these changes themselves? I doubt it, given their business model blurb on their privacy page:</p>
+<blockquote>
+<h2 class="css-14gwli7">Warp’s Business Model</h2>
+<p class="css-1q9rxa2">Warp’s business plan is built around billing power users and business teams for cloud-based features. <a class="css-1w9l6lr" href="https://www.warp.dev/pricing">Check out our pricing page to learn more</a>.</p>
+<p class="css-1q9rxa2">Please note Warp’s business model is not about collecting or monetizing any of your data.</p>
+</blockquote>
+<p>However, they eventually plan on making their client source code publicly available at some point, so perhaps that will become a reality. At the moment, it seems to be a matter of if, not when.</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Quick Cyber Thoughts: CES 2025 Aftermath</title>
         <author>
@@ -995,213 +1153,6 @@ If you need further assistance, feel free to ask!">
 <p>Since OPNsense is still a no go for now, actually testing out this rule is a no-go.</p>
 <p>So what I'll do is move onto an even harder step, creating Suricata rules, which I <em>can </em>test.</p>
 </div>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 4.0</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-40/"/>
-        <id>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-40/</id>
-        <media:content url="https://korgano.github.io/media/posts/23/cyber-proj-tfb06-2.png" medium="image" />
-            <category term="Tech"/>
-            <category term="Cybersecurity Projects"/>
-            <category term="Cybersecurity"/>
-            <category term="AI"/>
-
-        <updated>2024-09-06T10:19:00-04:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/23/cyber-proj-tfb06-2.png" alt="ThriveDX login error screen" />
-                    After a brief delay caused by ChatGPT session cookies being corrupted, we're getting back on track with the Transparent Filtering&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/23/cyber-proj-tfb06-2.png" class="type:primaryImage" alt="ThriveDX login error screen" /></p>
-                <p><a href="https://korgano.github.io/quick-cyber-thoughts-more-reasons-for-local-ai/" title="Quick Cyber Thoughts: More Reasons for Local AI" target="_blank" rel="noopener noreferrer">After a brief delay caused by ChatGPT session cookies being corrupted</a>, we're getting back on track with the Transparent Filtering Bridge project.</p>
-<p>This week, we're going to try to make Suricata IPS rules with AI, namely ChatGPT (whatever model free users get to use as 9/25/2024) and Bing Copilot. (As as aside, it's kind of annoying that ChatGPT sometimes lets free users have access to higher quality models, but doesn't explicitly notify the user which model is being used.)</p>
-<p>Since Suricata caused the OPNsense install to crash (<a href="https://github.com/opnsense/core/pull/7857/commits/6ba73f76afeff585cb6b1eeab49c08ae3026229b" title="OPNsense/Core Pull Request - Reduce pointless logging" target="_blank" rel="noopener noreferrer">possibly because someone set the default stat logging to <strong>8 seconds</strong></a>), we can't test in OPNsense itself. But I still retain ThriveDX access, so let's see if I can get the rules to run on one of their VMs running Suricata. (This is far from certain, given how janky their VMs/internet connections are.)</p>
-<h2>The Prompts</h2>
-<p>As before, the first step of the test is to come up with two prompts to feed into both AI.</p>
-<p>Why two? Well, the first is going to be a simple directory traversal detector, looking for <code>../</code> or  <span class="fontstyle0"><code>%2e%2e%2f</code>:</span></p>
-<blockquote>
-<p>Make me a Suricata IPS rule that does the following:</p>
-<ul>
-<li><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">Detects incoming connections containing ../ or </span><span class="fontstyle0" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">%2e%2e%2f.</span></li>
-<li><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">Blocks the connection.</span></li>
-<li><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">Generates a log stating "Detected directory traversal attempt from &lt;source IP&gt; to &lt;destination IP&gt; at &lt;time&gt;".</span></li>
-</ul>
-</blockquote>
-<p>The second is going to be more complex and based on a <a href="https://documents.trendmicro.com/assets/white_papers/wp-tracking-the-activities-of-teamTNT.pdf" title="Tracking the Activities of TeamTNT: A Closer Look at a Cloud-Focused Malicious Actor Group" target="_blank" rel="noopener noreferrer">TrendMicro report on TeamTNT's credential theft techniques</a>:</p>
-<blockquote>
-<p>Make me a Suricata IPS rule that does the following:</p>
-<ul>
-<li>Detects incoming connections containing "userfile=@/etc/passwd" or "userfile=@/etc/hosts".</li>
-<li>Blocks the connection.</li>
-<li>Generates a log stating "Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;."</li>
-</ul>
-</blockquote>
-<p>(Annoyingly, there are no Indicators of Compromise (IoTs) or code examples for the recently revealed Ryzen vulnerability, which was something I wanted to craft rules for.)</p>
-<h2>ChatGPT - Prompt 1</h2>
-<p>Here's what ChatGPT generated:</p>
-<blockquote>
-<h3>Steps:</h3>
-<ol>
-<li>
-<p><strong>Create the rule:</strong></p>
-<ul>
-<li>Suricata rules generally follow this structure:</li>
-<li><code>action protocol src_ip src_port direction dst_ip dst_port (rule_options;)</code></li>
-<li>For your case, you'll use <strong><code>alert</code></strong> action (to generate a log) combined with <strong><code>drop</code></strong> action (to block the connection).</li>
-<li>We'll detect <strong><code>../</code></strong> and <strong><code>%2e%2e%2f</code></strong> in the URI.</li>
-</ul>
-</li>
-<li>
-<p><strong>Rule Components:</strong></p>
-<ul>
-<li><strong>alert</strong> and <strong>drop</strong>: Both will be used to detect and block.</li>
-<li><strong>http_uri</strong>: To inspect the HTTP request URI.</li>
-<li><strong>content</strong>: To look for specific strings (<code>../</code> or <code>%2e%2e%2f</code>).</li>
-<li><strong>msg</strong>: To specify a custom log message.</li>
-<li><strong>sid</strong>: Rule identifier (must be unique).</li>
-<li><strong>flow</strong>: Specifies the direction (from the client to the server).</li>
-<li><strong>metadata</strong>: Includes information about the rule type (IPS) and severity.</li>
-<li><strong>logto</strong>: To specify log output.</li>
-</ul>
-</li>
-<li>
-<p><strong>Example Suricata Rule</strong>:</p>
-<ol>
-<li><code>alert http any any -&gt; any any (msg:"Detected directory traversal attempt from &lt;source IP&gt; to &lt;destination IP&gt; at &lt;time&gt;"; content:"../"; http_uri; nocase; sid:1000001; rev:1; logto:"traversal.log";)</code></li>
-<li><code>alert http any any -&gt; any any (msg:"Detected directory traversal attempt from &lt;source IP&gt; to &lt;destination IP&gt; at &lt;time&gt;"; content:"%2e%2e%2f"; http_uri; nocase; sid:1000002; rev:1; logto:"traversal.log";)</code></li>
-<li><code></code><code>drop http any any -&gt; any any (msg:"Blocked directory traversal attempt"; content:"../"; http_uri; nocase; sid:1000003; rev:1;)</code></li>
-<li><code></code><code>drop http any any -&gt; any any (msg:"Blocked directory traversal attempt"; content:"%2e%2e%2f"; http_uri; nocase; sid:1000004; rev:1;)</code></li>
-</ol>
-</li>
-</ol>
-</blockquote>
-<h2>Bing Copilot - Prompt 1</h2>
-<p>Here's Bing Copilot's output:</p>
-<blockquote>
-<div class="content user-select-text" tabindex="0" aria-description="" aria-label="Sent by Copilot: Sure! Here's a Suricata IPS rule that meets your requirements:
-
-&#96;&#96;&#96;yaml
-alert http any any -&gt; any any (msg:&quot;Detected directory traversal attempt from &lt;source IP&gt; to &lt;destination IP&gt; at &lt;time&gt;&quot;; content:&quot;../&quot;; nocase; http_uri; sid:1000001; rev:1;)
-alert http any any -&gt; any any (msg:&quot;Detected directory traversal attempt from &lt;source IP&gt; to &lt;destination IP&gt; at &lt;time&gt;&quot;; content:&quot;%2e%2e%2f&quot;; nocase; http_uri; sid:1000002; rev:1;)
-drop http any any -&gt; any any (msg:&quot;Blocking directory traversal attempt&quot;; content:&quot;../&quot;; nocase; http_uri; sid:1000003; rev:1;)
-drop http any any -&gt; any any (msg:&quot;Blocking directory traversal attempt&quot;; content:&quot;%2e%2e%2f&quot;; nocase; http_uri; sid:1000004; rev:1;)
-&#96;&#96;&#96;
-
-This rule does the following:
-1. **Detects incoming connections** containing &#96;../&#96; or &#96;%2e%2e%2f&#96;.
-2. **Blocks the connection** if such patterns are detected.
-3. **Generates a log** with the message &quot;Detected directory traversal attempt from &lt;source IP&gt; to &lt;destination IP&gt; at &lt;time&gt;&quot;.
-
-Feel free to adjust the &#96;sid&#96; (Signature ID) and &#96;rev&#96; (Revision) numbers as needed. Let me know if you need any further customization!">
-<div class="ac-container ac-adaptiveCard has-image">
-<div class="ac-textBlock">
-<p>Sure! Here’s a Suricata IPS rule that meets your requirements:</p>
-<pre><code class="language-yaml"><span class="hljs-string">alert</span> <span class="hljs-string">http</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">-&gt;</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">(msg:"Detected</span> <span class="hljs-string">directory</span> <span class="hljs-string">traversal</span> <span class="hljs-string">attempt</span> <span class="hljs-string">from</span> <span class="hljs-string">&lt;source</span> <span class="hljs-string">IP&gt;</span> <span class="hljs-string">to</span> <span class="hljs-string">&lt;destination</span> <span class="hljs-string">IP&gt;</span> <span class="hljs-string">at</span> <span class="hljs-string">&lt;time&gt;";</span> <span class="hljs-string">content:"../";</span> <span class="hljs-string">nocase;</span> <span class="hljs-string">http_uri;</span> <span class="hljs-string">sid:1000001;</span> <span class="hljs-string">rev:1;)</span>
-<span class="hljs-string">alert</span> <span class="hljs-string">http</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">-&gt;</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">(msg:"Detected</span> <span class="hljs-string">directory</span> <span class="hljs-string">traversal</span> <span class="hljs-string">attempt</span> <span class="hljs-string">from</span> <span class="hljs-string">&lt;source</span> <span class="hljs-string">IP&gt;</span> <span class="hljs-string">to</span> <span class="hljs-string">&lt;destination</span> <span class="hljs-string">IP&gt;</span> <span class="hljs-string">at</span> <span class="hljs-string">&lt;time&gt;";</span> <span class="hljs-string">content:"%2e%2e%2f";</span> <span class="hljs-string">nocase;</span> <span class="hljs-string">http_uri;</span> <span class="hljs-string">sid:1000002;</span> <span class="hljs-string">rev:1;)</span>
-<span class="hljs-string">drop</span> <span class="hljs-string">http</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">-&gt;</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">(msg:"Blocking</span> <span class="hljs-string">directory</span> <span class="hljs-string">traversal</span> <span class="hljs-string">attempt";</span> <span class="hljs-string">content:"../";</span> <span class="hljs-string">nocase;</span> <span class="hljs-string">http_uri;</span> <span class="hljs-string">sid:1000003;</span> <span class="hljs-string">rev:1;)</span>
-<span class="hljs-string">drop</span> <span class="hljs-string">http</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">-&gt;</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">(msg:"Blocking</span> <span class="hljs-string">directory</span> <span class="hljs-string">traversal</span> <span class="hljs-string">attempt";</span> <span class="hljs-string">content:"%2e%2e%2f";</span> <span class="hljs-string">nocase;</span> <span class="hljs-string">http_uri;</span> <span class="hljs-string">sid:1000004;</span> <span class="hljs-string">rev:1;)</span>
-</code></pre>
-<p>This rule does the following:</p>
-<ol>
-<li><strong>Detects incoming connections</strong> containing <code>../</code> or <code>%2e%2e%2f</code>.</li>
-<li><strong>Blocks the connection</strong> if such patterns are detected.</li>
-<li><strong>Generates a log</strong> with the message “Detected directory traversal attempt from &lt;source IP&gt; to &lt;destination IP&gt; at &lt;time&gt;”.</li>
-</ol>
-<p>Feel free to adjust the <code>sid</code> (Signature ID) and <code>rev</code> (Revision) numbers as needed. Let me know if you need any further customization!</p>
-</div>
-</div>
-</div>
-</blockquote>
-<h2>ChatGPT - Prompt 2</h2>
-<p>Now we move onto the second prompt:</p>
-<blockquote>
-<h3>Steps:</h3>
-<ol>
-<li>
-<p><strong>Understand the context</strong>:</p>
-<ul>
-<li>We need to detect <strong>specific strings</strong> that might indicate a file inclusion attack.</li>
-<li>The rule will look for these strings in the <strong>HTTP request body or URL parameters</strong>.</li>
-<li>Suricata will generate a log and block the connection.</li>
-</ul>
-</li>
-<li>
-<p><strong>Rule Structure</strong>:</p>
-<ul>
-<li>Use <strong><code>alert</code></strong> (to generate logs) and <strong><code>drop</code></strong> (to block the connection).</li>
-<li>Detect the strings <strong><code>userfile=@/etc/passwd</code></strong> and <strong><code>userfile=@/etc/hosts</code></strong>.</li>
-<li>Use the <strong><code>content</code></strong> option for string matching, <strong><code>http_client_body</code></strong> for detecting the attack within the HTTP request, and <strong><code>nocase</code></strong> to make it case-insensitive.</li>
-</ul>
-</li>
-<li>
-<p><strong>Example Suricata Rules</strong>:</p>
-</li>
-<li><code>alert http any any -&gt; any any (msg:"Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;"; content:"userfile=@/etc/passwd"; http_client_body; nocase; sid:2000001; rev:1;)</code></li>
-<li><code>alert http any any -&gt; any any (msg:"Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;"; content:"userfile=@/etc/hosts"; http_client_body; nocase; sid:2000002; rev:1;)</code></li>
-<li><code>drop http any any -&gt; any any (msg:"Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;"; content:"userfile=@/etc/passwd"; http_client_body; nocase; sid:2000003; rev:1;)</code></li>
-<li><code>drop http any any -&gt; any any (msg:"Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;"; content:"userfile=@/etc/hosts"; http_client_body; nocase; sid:2000004; rev:1;)</code></li>
-</ol>
-</blockquote>
-<h2>Bing Copilot - Prompt 2</h2>
-<p>Now we move to Bing Copilot:</p>
-<blockquote>
-<div class="content user-select-text" tabindex="0" aria-description="" aria-label="Sent by Copilot: Here's a Suricata IPS rule that meets your requirements:
-
-&#96;&#96;&#96;yaml
-alert http any any -&gt; any any (msg:&quot;Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;&quot;; content:&quot;userfile=@/etc/passwd&quot;; nocase; http_uri; sid:1000005; rev:1;)
-alert http any any -&gt; any any (msg:&quot;Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;&quot;; content:&quot;userfile=@/etc/hosts&quot;; nocase; http_uri; sid:1000006; rev:1;)
-drop http any any -&gt; any any (msg:&quot;Blocking potential SSH credential theft attack&quot;; content:&quot;userfile=@/etc/passwd&quot;; nocase; http_uri; sid:1000007; rev:1;)
-drop http any any -&gt; any any (msg:&quot;Blocking potential SSH credential theft attack&quot;; content:&quot;userfile=@/etc/hosts&quot;; nocase; http_uri; sid:1000008; rev:1;)
-&#96;&#96;&#96;
-
-This rule does the following:
-1. **Detects incoming connections** containing &quot;userfile=@/etc/passwd&quot; or &quot;userfile=@/etc/hosts&quot;.
-2. **Blocks the connection** if such patterns are detected.
-3. **Generates a log** with the message &quot;Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;&quot;.
-
-Feel free to adjust the &#96;sid&#96; (Signature ID) and &#96;rev&#96; (Revision) numbers as needed. Let me know if you need any further customization!">
-<div class="ac-container ac-adaptiveCard has-image">
-<div class="ac-textBlock">
-<p>Here’s a Suricata IPS rule that meets your requirements:</p>
-<pre><code class="language-yaml"><span class="hljs-string">alert</span> <span class="hljs-string">http</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">-&gt;</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">(msg:"Blocked</span> <span class="hljs-string">potential</span> <span class="hljs-string">SSH</span> <span class="hljs-string">credential</span> <span class="hljs-string">theft</span> <span class="hljs-string">attack</span> <span class="hljs-string">from</span> <span class="hljs-string">&lt;source</span> <span class="hljs-string">IP&gt;</span> <span class="hljs-string">on</span> <span class="hljs-string">&lt;destination</span> <span class="hljs-string">IP&gt;</span> <span class="hljs-string">at</span> <span class="hljs-string">&lt;time&gt;";</span> <span class="hljs-string">content:"userfile=@/etc/passwd";</span> <span class="hljs-string">nocase;</span> <span class="hljs-string">http_uri;</span> <span class="hljs-string">sid:1000005;</span> <span class="hljs-string">rev:1;)</span>
-<span class="hljs-string">alert</span> <span class="hljs-string">http</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">-&gt;</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">(msg:"Blocked</span> <span class="hljs-string">potential</span> <span class="hljs-string">SSH</span> <span class="hljs-string">credential</span> <span class="hljs-string">theft</span> <span class="hljs-string">attack</span> <span class="hljs-string">from</span> <span class="hljs-string">&lt;source</span> <span class="hljs-string">IP&gt;</span> <span class="hljs-string">on</span> <span class="hljs-string">&lt;destination</span> <span class="hljs-string">IP&gt;</span> <span class="hljs-string">at</span> <span class="hljs-string">&lt;time&gt;";</span> <span class="hljs-string">content:"userfile=@/etc/hosts";</span> <span class="hljs-string">nocase;</span> <span class="hljs-string">http_uri;</span> <span class="hljs-string">sid:1000006;</span> <span class="hljs-string">rev:1;)</span>
-<span class="hljs-string">drop</span> <span class="hljs-string">http</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">-&gt;</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">(msg:"Blocking</span> <span class="hljs-string">potential</span> <span class="hljs-string">SSH</span> <span class="hljs-string">credential</span> <span class="hljs-string">theft</span> <span class="hljs-string">attack";</span> <span class="hljs-string">content:"userfile=@/etc/passwd";</span> <span class="hljs-string">nocase;</span> <span class="hljs-string">http_uri;</span> <span class="hljs-string">sid:1000007;</span> <span class="hljs-string">rev:1;)</span>
-<span class="hljs-string">drop</span> <span class="hljs-string">http</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">-&gt;</span> <span class="hljs-string">any</span> <span class="hljs-string">any</span> <span class="hljs-string">(msg:"Blocking</span> <span class="hljs-string">potential</span> <span class="hljs-string">SSH</span> <span class="hljs-string">credential</span> <span class="hljs-string">theft</span> <span class="hljs-string">attack";</span> <span class="hljs-string">content:"userfile=@/etc/hosts";</span> <span class="hljs-string">nocase;</span> <span class="hljs-string">http_uri;</span> <span class="hljs-string">sid:1000008;</span> <span class="hljs-string">rev:1;)</span>
-</code></pre>
-<p>This rule does the following:</p>
-<ol>
-<li><strong>Detects incoming connections</strong> containing “userfile=@/etc/passwd” or “userfile=@/etc/hosts”.</li>
-<li><strong>Blocks the connection</strong> if such patterns are detected.</li>
-<li><strong>Generates a log</strong> with the message “Blocked potential SSH credential theft attack from &lt;source IP&gt; on &lt;destination IP&gt; at &lt;time&gt;”.</li>
-</ol>
-<p>Feel free to adjust the <code>sid</code> (Signature ID) and <code>rev</code> (Revision) numbers as needed. Let me know if you need any further customization!</p>
-</div>
-</div>
-</div>
-</blockquote>
-<h2>Comparing and Contrasting:</h2>
-<p>There's some interesting tidbits that came out of this:</p>
-<ul>
-<li>ChatGPT took the longest time between entering the first prompt and generating a response.</li>
-<li>ChatGPT's responses provide more information about how Suricata rules operate and how to craft them on your own, making it a better resource for beginner/occassional/intermediate users.</li>
-<li>None of the ChatGPT responses provided the full set of protocols supported by Suricata, which means referencing the documentation or creating a prompt specifically about that is required to obtain that information.</li>
-<li>Bing Copilot's responses are much more to the point, making them better for experienced users/people under time pressure.</li>
-<li>I suspect that using two different prompts in the same session causes some form of response contamination due to improper context cleanup. Both AI seem to default to HTTP being the protocol of choice, which makes sense for the first prompt, but is flat out wrong for the second prompt.*</li>
-<li>There is a lingering question about the available data on Suricata for training/Retrieval Augmented Generation. If most publicly accessible data is for HTTP Suricata rules, that might bias the results towards generating HTTP rules.</li>
-</ul>
-<p>*To be fair, I did not provide either AI with any information regarding the protocol to use for the second prompt. That was intentional, as part of the testing process.</p>
-<h2>The Unexpected Roadblock</h2>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/23/cyber-proj-tfb06.png" alt="ThriveDX login error screen." width="1920" height="912" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/23/responsive/cyber-proj-tfb06-xs.png 384w ,https://korgano.github.io/media/posts/23/responsive/cyber-proj-tfb06-sm.png 600w ,https://korgano.github.io/media/posts/23/responsive/cyber-proj-tfb06-md.png 768w ,https://korgano.github.io/media/posts/23/responsive/cyber-proj-tfb06-lg.png 1200w ,https://korgano.github.io/media/posts/23/responsive/cyber-proj-tfb06-xl.png 1600w"></figure>
-<p>To my lack of surprise, ThriveDX let me down when I needed it, right when a hurricane passed by my part of Florida.</p>
-<p>However, OPNsense released a new version with a wide range of updates, so perhaps I can make some progress by redoing the install from scratch...</p>
             ]]>
         </content>
     </entry>

@@ -1,0 +1,626 @@
+<!DOCTYPE html><html lang="en-us"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Quick Cyber Thoughts: Warp Terminal/Shell - XS Tech Thoughts</title><meta name="description" content="%pagetitle: Xavier Santana discusses confidentiality related cybersecurity issues with Warp, a multiplatform modern UXUI terminal/shell application."><meta name="generator" content="Publii Open-Source CMS for Static Site"><!-- Global site tag (gtag.js) - Google Analytics --><script type="gdpr-blocker/Analytics" async src="https://www.googletagmanager.com/gtag/js?id=G-EHLH28GQMY"></script><script type="gdpr-blocker/Analytics">window.dataLayer = window.dataLayer || [];
+				  function gtag(){dataLayer.push(arguments);}
+				  gtag('js', new Date());
+				  gtag('config', 'G-EHLH28GQMY' , { 'anonymize_ip': true });
+				  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EHLH28GQMY"></script><script>window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EHLH28GQMY');</script><link rel="stylesheet" href="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-black.css"><link rel="stylesheet" href="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-inline-color.css"><link rel="canonical" href="https://korgano.github.io/quick-cyber-thoughts-warp-terminalshell/"><link rel="alternate" type="application/atom+xml" href="https://korgano.github.io/feed.xml"><meta property="og:title" content="Quick Cyber Thoughts: Warp Terminal/Shell"><meta property="og:image" content="https://korgano.github.io/media/posts/34/Warp-terminal.png"><meta property="og:image:width" content="965"><meta property="og:image:height" content="542"><meta property="og:site_name" content="XS Tech Thoughts"><meta property="og:description" content="%pagetitle: Xavier Santana discusses confidentiality related cybersecurity issues with Warp, a multiplatform modern UXUI terminal/shell application."><meta property="og:url" content="https://korgano.github.io//quick-cyber-thoughts-warp-terminalshell/"><meta property="og:type" content="article"><link rel="preload" href="https://korgano.github.io/assets/dynamic/fonts/robotoflex/robotoflex.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="https://korgano.github.io/assets/dynamic/fonts/robotoslab/robotoslab.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="https://korgano.github.io/assets/css/style.css?v=338ed96ce9bc0f6c72a02763a377a303"><script type="application/ld+json">{"@context":"http://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://korgano.github.io/quick-cyber-thoughts-warp-terminalshell/"},"headline":"Quick Cyber Thoughts: Warp Terminal/Shell","datePublished":"2025-02-27T09:54-05:00","dateModified":"2025-02-27T16:12-05:00","image":{"@type":"ImageObject","url":"https://korgano.github.io/media/posts/34/Warp-terminal.png","height":542,"width":965},"description":"%pagetitle: Xavier Santana discusses confidentiality related cybersecurity issues with Warp, a multiplatform modern UXUI terminal/shell application.","author":{"@type":"Person","name":"Xavier Santana","url":"https://korgano.github.io/authors/xavier-santana/"},"publisher":{"@type":"Organization","name":"Xavier Santana"}}</script><noscript><style>img[loading] {
+                    opacity: 1;
+                }</style></noscript></head><body class="post-template lines"><div class="container lines lines--right"><header class="header"><a href="https://korgano.github.io/" class="logo">XS Tech Thoughts</a><nav class="navbar js-navbar"><button class="navbar__toggle js-toggle" aria-label="Menu">Menu</button><ul class="navbar__menu"><li><a href="https://korgano.github.io/" title="Home" target="_self">Home</a></li><li><a href="https://korgano.github.io/tags/uxui-case-study/" title="UX/UI Case Studies" target="_blank">UX/UI Case Studies</a></li><li><a href="https://korgano.github.io/tags/cybersecurity-projects/" title="Cybersecurity Projects" target="_blank">Cybersecurity Projects</a></li><li><a href="https://korgano.github.io/tags/quick-thoughts/" title="Quick Thoughts" target="_self">Quick Thoughts</a></li><li><a href="https://korgano.github.io/about-me/" title="About Me" target="_blank">About Me</a></li></ul></nav></header><main class="main post"><article class="content"><header class="content__inner content__header"><h1 class="content__title">Quick Cyber Thoughts: Warp Terminal/Shell</h1><div class="content__meta"><div class="content__meta__left"><a href="https://korgano.github.io/authors/xavier-santana/" class="invert content__author" rel="author" title="Xavier Santana">Xavier Santana</a></div><div class="content__meta__right"><time datetime="2025-02-27T09:54" class="content__date">February 27, 2025</time><div class="content__updated">Updated on <time datetime="2025-02-27T09:54" class="content__date">February 27, 2025</time></div></div></div></header><figure class="content__featured-image"><div class="content__featured-image__inner is-img-loading"><img src="https://korgano.github.io/media/posts/34/Warp-terminal.png" srcset="https://korgano.github.io/media/posts/34/responsive/Warp-terminal-xs.png 384w, https://korgano.github.io/media/posts/34/responsive/Warp-terminal-sm.png 600w, https://korgano.github.io/media/posts/34/responsive/Warp-terminal-md.png 768w, https://korgano.github.io/media/posts/34/responsive/Warp-terminal-lg.png 1200w, https://korgano.github.io/media/posts/34/responsive/Warp-terminal-xl.png 1600w" sizes="(min-width: 37.5em) 1600px, 80vw" loading="eager" height="542" width="965" alt="Warp Terminal Demo by Warp Team"></div></figure><div class="content__inner"><div class="content__entry"><p>For the past month and a half, I've been doing some form of DoD Cyber Workforce training.</p><p>That consisted mostly of a lot of slide decks, lots of lecture narration, and every so often in the Database Administrator course, actual SQL coding and SQL server related configuration work.</p><p>As one can imagine, this is <strong>very</strong> draining, especially when you're subjected to 60+ slides in a deck on some topics.</p><p>So, having completed all that, I want to think and talk about something entirely different.</p><p>Today, we're going to talk about Warp, a multi-platform (Windows, Linux, Mac) Terminal/Shell program.</p><div class="post__toc"><h3>Table of Contents</h3><ul><li><a href="#mcetoc_1il42hdba40">What is Warp?</a></li><li><a href="#mcetoc_1il42hdba41">Why This is Interesting</a></li><li><a href="#mcetoc_1il42hdba42">The Issues with Warp</a></li><li><a href="#mcetoc_1il4g6b46gl">How Warp Works</a></li><li><a href="#mcetoc_1il4g6b46gm">Cloud-based Features (Opt-in)</a><ul><li><a href="#mcetoc_1il4g6b46gn">Warp AI</a></li></ul></li><li><a href="#mcetoc_1il4g6b46go">Telemetry (Opt-out)</a></li><li><a href="#mcetoc_1il4g6b46gp">What Would I Like to See</a></li></ul></div><h2 id="mcetoc_1il42hdba40">What is Warp?</h2><figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/qkduRen6QFk" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure><p>There's a lot of features in Warp, as the video above explains, but here are some of the highlights:</p><ul><li>A UI that puts commands and outputs into discrete blocks.</li><li>Maintaining terminal session history.</li><li>Git repository branch and block checking.</li><li>The ability to highlight and simultaneously edit identical text.</li><li>AI assistant integration for command assistance.</li><li>"Permanent" web link generation for sharing terminal blocks.</li></ul><h2 id="mcetoc_1il42hdba41">Why This is Interesting</h2><p>As the Dave's Garage video points out, the old fashioned terminal dates back to the <strong>1970s</strong>. Lacking a lot of User Experience/User Interface features and standards modern users expect makes it harder for people to actually use and get proficient with command line interfaces.</p><p>The AI integration for command assistance in particular is a game changer, especially for Linux. One of Linux's <strong>massive </strong>pain points is how infuriatingly obtuse it can be to figure out the right commands for simple tasks and input them properly. And like Windows, commands with long paths become a nightmare. <a href="https://korgano.github.io/quick-cyber-thoughts-tuw-gui-wrapper/" title="Quick Cyber Thoughts: Tuw GUI Wrapper" target="_blank" rel="noopener noreferrer">That's why I use TUW to make simple GUIs for certain command line tasks I expect to do on a regular basis.</a></p><p>I would argue that something like Warp <strong>should </strong>replace all the existing terminal options... or at least be the default. There are too many benefits for too many people to do otherwise.</p><p>The problem is that Warp <strong>isn't </strong>that solution, at least for the personal and high security user.</p><h2 id="mcetoc_1il42hdba42">The Issues with Warp</h2><p>Let's get this out of the way: just looking around Warp's page tells you that this is a commercial developer first piece of software. <a href="https://www.warp.dev/pricing" title="Pricing and Plans for Warp" target="_blank" rel="noopener noreferrer">The fact that you can use it for free as a personal user is a bonus</a>, basically a way to expose people to the product and get them to evangelize it.</p><p>I have no problems with this part of their business model.</p><p>The issue with Warp, at least if you're a personal/high security user, is that you're dependent on Warp itself to provide your session/terminal block shares, and dependent on their AI provider for the AI capabilities.</p><p><a href="https://www.warp.dev/privacy" title="Our commitment to user privacy" target="_blank" rel="noopener noreferrer">Warp does address these issues on their privacy page.</a></p><p>We'll look at their own proprietary cloud features first.</p><blockquote><h2 id="mcetoc_1il4g6b46gl" class="css-tt1g22">How Warp Works</h2><p class="css-1q9rxa2">Warp is a fully-native local application that can run without an internet connection. The core features of the terminal will always work offline.</p><h2 id="mcetoc_1il4g6b46gm" class="css-14gwli7">Cloud-based Features (Opt-in)</h2><p class="css-1q9rxa2">Warp also includes cloud-based features that power cool things like:</p><ul class="css-1hrnkqr"><li class="css-pl8tmj"><span class="css-1gijr9a">Warp AI</span></li><li class="css-pl8tmj"><span class="css-1gijr9a">Warp Drive</span></li><li class="css-pl8tmj"><span class="css-1gijr9a">Session Sharing</span></li><li class="css-pl8tmj"><span class="css-1gijr9a">Block Sharing</span></li></ul><p class="css-1q9rxa2">None of your data is ever sent to Warp’s servers unless you explicitly take action to send it. If you choose to use Warp Drive or block sharing and save an item, that item will be sent to Warp’s servers and stored securely in Warp’s database. Data is encrypted at rest, and you can delete this data anytime.</p></blockquote><p>The good:</p><ul><li>Outright stating that the cloud connection is <strong>not </strong>necessary to obtain most of the software's functionality.</li><li>Specific listings of what parts of the app use the cloud connection.</li><li>Stating that explicit action is required to send data to their servers.</li><li>Stating that data is encrypted at rest.</li><li>Stating the data can be deleted anytime.</li></ul><p>The not-great:</p><ul><li>Not mentioning if the data in transit is encrypted, or at least encapsulated in HTTPS.</li><li>Needing servers to handle the sharing functionality.</li><li>Not being able to select your own AI/cloud/session sharing provider.</li></ul><p>The problem for the personal/high security user is pretty much the same. You're putting all your data in one basket you may not be able to fully assess the security of, with no option to direct things to infrastructure you've configured for your needs.</p><p>(It's fairly obvious that having the streaming and sharing functionality be cloud based is to lower Warp's footprint on the machine, so I can't really blame them for that.)</p><p>There's also the fact that even if both parties have done their due diligence, the fact that everything has to pass through Warp's servers means that a determined threat might just choose to capture traffic going between your IP and Warp's. Even if they can't crack the encryption on the traffic, you'll still be giving valuable intel on your usage patterns.</p><blockquote><h3 id="mcetoc_1il4g6b46gn" class="css-1go34cv">Warp AI</h3><p class="css-1q9rxa2">Warp AI includes AI Command Suggestions, AI autofill in Warp Drive, and Agent Mode. All Warp AI features are powered by OpenAI and Anthropic APIs. When you submit an AI query, Warp does not store any of this information and only passes it through our servers as we proxy requests.</p><p class="css-1q9rxa2">OpenAI and Anthropic do not train their models on this data, and neither does Warp. OpenAI and Anthropic store this data for a maximum of 30 days.</p><p class="css-1q9rxa2">For organizations that need to ensure OpenAI and Anthropic never store data for any period of time, a Zero Data Retention policy is available on Warp's Enterprise plan.</p></blockquote><p>In terms of privacy, Warp acting as a proxy server is a decent way to obfuscate the relationships between user data and AI queries. Of course, this wouldn't be an issue if you could just route those queries to a local or private cloud AI server, but it at least adds a modicum of user protection.</p><p>Once we get past this, there's a stacking set of assumptions that need to be made:</p><ol><li>Warp does not store any data associated with AI queries.</li><li>Warp does not train any using data associated with AI queries.</li><li>OpenAI and Anthropic store AI query data only for 30 days maximum.</li><li>OpenAI and Anthropic have a policy to not train AI on data from Warp customers.</li><li>OpenAI and Anthropic AI devs actually care about any policy restricting them from using customer data.</li></ol><p>Let's assume the first 4 points are valid. Everyone outside the AI development team has been told that the AI development team will not use customer data for training purposes.</p><p>The question is: Has anyone validated that the AI dev team is respecting that policy. Because we exist in a universe where Meta engaged in rampant piracy to acquire training data:</p><figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/Wl5vg-4V2ms" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure><p>(I have no legal background that would allow me to comment on this in any great detail, but I do have one observation. Some of their sources were sites that host material that, in my experience, is literally crowd sourced preservation, due to the actual publishers never making legal digital copies.)</p><p>If the AI dev team decides to throw the officially stated policy out the window, there's not much of anything everyone relying on them can do until they know and have evidence policy has been broken.</p><p>This is obviously a big issue for anyone who values the confidentiality of their data.</p><p>One last thing to look at is their telemetry policy:</p><h2 id="mcetoc_1il4g6b46go" class="css-14gwli7">Telemetry (Opt-out)</h2><blockquote><p class="css-1q9rxa2">Warp records a limited number of defined telemetry events for the purposes of:</p><ul class="css-1hrnkqr"><li class="css-pl8tmj"><span class="css-1gijr9a">Reporting app crashes</span></li><li class="css-pl8tmj"><span class="css-1gijr9a">Understanding feature usage at a high-level</span></li><li class="css-pl8tmj"><span class="css-1gijr9a">Supporting customers</span></li><li class="css-pl8tmj"><span class="css-1gijr9a">Terminal input and output are never included in telemetry payloads.</span></li></ul><p class="css-1q9rxa2">You can review <a class="css-1w9l6lr" href="https://docs.warp.dev/getting-started/privacy#exhaustive-telemetry-table">an exhaustive list of all telemetry events</a> in Warp’s documentation.</p><p class="css-1q9rxa2">You can also use the <a class="css-1w9l6lr" href="https://docs.warp.dev/features/network-log">Network Log</a> to monitor all communications from the Warp client to external servers.</p><p class="css-1q9rxa2">Telemetry events and crash reports are enabled by default and associated with logged-in users. If you would like to opt out of telemetry and crash reports, you can disable the feature during sign up or under Settings &gt; Privacy in the Warp app.</p></blockquote><p>There are two main things that I appreciate in this section:</p><ol><li>A direct link to the Network Log documentation, so you can preplan how to evaluate how transparent the logging is.</li><li>The telemetry events list addresses the vagueness of the phrase "feature usage at a high level"</li></ol><p>Being able to audit the network communications is a great move for transparency and security, so it's good to see Warp's commitment there.</p><h2 id="mcetoc_1il4g6b46gp">What Would I Like to See</h2><p>Let's imagine a world where Warp exists, alongside a near feature identical clone, Blink. Warp is as it is now. But Blink is how I would make Warp to be more secure. What would be the differences between the two?</p><p>Well, Blink would have the following things:</p><ul><li>The ability to connect to on-host or on-server local AI.</li><li>The ability to connect to your cloud AI provider of choice.</li><li>The ability to connect to your cloud data storage and/or web hosting provider of choice.</li><li>The ability to connect to your session sharing service of choice.</li></ul><p>Unfortunately, we're a few hardware and software generations away from having storage space and memory efficient local AI, so we can't just package an AI into the program and give it Retrieval Augmented Generation capabilities. That means we're going to have to have some other AI provider do that for us.</p><p>Now, these are not the simplest changes in the world to implement, and there would be a great deal of testing and troubleshooting necessary before a finalized version would be released. But they would address most, if not all, the issues with confidentiality if you wanted to use full set of Warp's software features.</p><p>Would Warp make these changes themselves? I doubt it, given their business model blurb on their privacy page:</p><blockquote><h2 class="css-14gwli7">Warp’s Business Model</h2><p class="css-1q9rxa2">Warp’s business plan is built around billing power users and business teams for cloud-based features. <a class="css-1w9l6lr" href="https://www.warp.dev/pricing">Check out our pricing page to learn more</a>.</p><p class="css-1q9rxa2">Please note Warp’s business model is not about collecting or monetizing any of your data.</p></blockquote><p>However, they eventually plan on making their client source code publicly available at some point, so perhaps that will become a reality. At the moment, it seems to be a matter of if, not when.</p></div><footer class="content__footer"><div class="content__tag-share"><div class="content__tag"><h3 class="content__tag__title">Posted in</h3><ul class="content__tag__list"><li><a href="https://korgano.github.io/tags/cybersecurity/">Cybersecurity</a></li><li><a href="https://korgano.github.io/tags/quick-thoughts/">Quick Thoughts</a></li><li><a href="https://korgano.github.io/tags/tech/">Tech</a></li><li><a href="https://korgano.github.io/tags/uxui/">UX/UI</a></li></ul></div><div class="content__share"><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fkorgano.github.io%2Fquick-cyber-thoughts-warp-terminalshell%2F" class="js-share linkedin" aria-label="Share with LinkedIn" rel="nofollow noopener noreferrer"><svg><use xlink:href="https://korgano.github.io/assets/svg/svg-map.svg#linkedin"/></svg></a></div></div></footer></div></article><div class="content__related"><h3 class="content__related__title">Related posts</h3><div class="l-grid l-grid--2"><article class="c-card"><div class="c-card__wrapper"><figure class="c-card__image is-img-loading"><img src="https://korgano.github.io/media/posts/10/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg" srcset="https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-xs.jpg 384w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-sm.jpg 600w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-md.jpg 768w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-lg.jpg 1200w" sizes="(min-width: 37.5em) 80vw, 50vw" loading="lazy" height="2712" width="4076" alt=""></figure><div class="c-card__content"><header><h2 class="c-card__title"><a href="https://korgano.github.io/cybersecurity-project-research-remote-access/" class="invert">Cybersecurity Project Research: Remote Access</a></h2></header><footer class="c-card__meta"><a href="https://korgano.github.io/tags/cybersecurity-projects/" class="c-card__tag">Cybersecurity Projects</a></footer></div></div></article><article class="c-card"><div class="c-card__wrapper"><figure class="c-card__image is-img-loading"><img src="https://korgano.github.io/media/posts/9/andres-urena-vXPXRp_wIg4-unsplash.jpg" srcset="https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-xs.jpg 384w, https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-sm.jpg 600w, https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-md.jpg 768w, https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-lg.jpg 1200w" sizes="(min-width: 37.5em) 80vw, 50vw" loading="lazy" height="1687" width="3000" alt=""></figure><div class="c-card__content"><header><h2 class="c-card__title"><a href="https://korgano.github.io/cybersecurity-headache-home-router-uxui/" class="invert">Cybersecurity Headache: Home Router UXUI</a></h2></header><footer class="c-card__meta"><a href="https://korgano.github.io/tags/quick-thoughts/" class="c-card__tag">Quick Thoughts</a></footer></div></div></article></div></div></main><footer class="footer"><div class="footer__left"><div class="footer__copy">Copyright Xavier Santana, 2023-2024. Powered by Publii.</div></div><button onclick="backToTopFunction()" id="backToTop" class="footer__bttop" aria-label="Back to top" title="Back to top"><svg><use xlink:href="https://korgano.github.io/assets/svg/svg-map.svg#toparrow"/></svg></button></footer></div><script>window.publiiThemeMenuConfig = { mobileMenuMode: 'sidebar', animationSpeed: 300, submenuWidth: 'auto', doubleClickTime: 500, mobileMenuExpandableSubmenus: true, relatedContainerForOverlayMenuSelector: '.navbar', };</script><script defer="defer" src="https://korgano.github.io/assets/js/scripts.min.js?v=9c5ab7a87221183f149a42b3cceb7956"></script><script>function publiiDetectLoadedImages () {
+         var images = document.querySelectorAll('img[loading]:not(.is-loaded)');
+         for (var i = 0; i < images.length; i++) {
+            if (images[i].complete) {
+               images[i].classList.add('is-loaded');
+               images[i].parentNode.classList.remove('is-img-loading');
+            } else {
+               images[i].addEventListener('load', function () {
+                  this.classList.add('is-loaded');
+                  this.parentNode.classList.remove('is-img-loading');
+               }, false);
+            }
+         }
+      }
+      publiiDetectLoadedImages();</script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-line-numbers.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/clipboard.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-copy-to-clipboard.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-inline-color.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-show-invisibles.min.js"></script><!-- Start main cookie container --><div class="pcb" data-behaviour="badge" data-behaviour-link="#cookie-settings" data-revision="1" data-config-ttl="90" data-debug-mode="false"><!-- Start Banner --><div role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pcb-title" aria-describedby="pcb-txt" class="pcb__banner"><div class="pcb__inner"><div id="pcb-title" role="heading" aria-level="2" class="pcb__title">This website uses cookies</div><div id="pcb-txt" class="pcb__txt">Select which cookies to opt-in to via the checkboxes below; our website uses cookies to examine site traffic and user activity while on our site, for marketing, and to provide social media functionality. <a href="https://korgano.github.io/privacy-policy/">More details...</a></div><div class="pcb__buttons"><button type="button" class="pcb__btn pcb__btn--solid pcb__btn--accept">Accept all</button></div></div></div><!-- End of Banner --><!-- Badge --> <button class="pcb__badge" aria-label="Cookie Policy" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="40" height="40" viewBox="0 0 23 23" fill="currentColor"><path d="M21.41 12.71c-.08-.01-.15 0-.22 0h-.03c-.03 0-.05 0-.08.01-.07 0-.13.01-.19.04-.52.21-1.44.19-2.02-.22-.44-.31-.65-.83-.62-1.53a.758.758 0 0 0-.27-.61.73.73 0 0 0-.65-.14c-1.98.51-3.49.23-4.26-.78-.82-1.08-.73-2.89.24-4.49.14-.23.14-.52 0-.75a.756.756 0 0 0-.67-.36c-.64.03-1.11-.1-1.31-.35-.19-.26-.13-.71-.01-1.29.04-.18.06-.38.03-.59-.05-.4-.4-.7-.81-.66C5.1 1.54 1 6.04 1 11.48 1 17.28 5.75 22 11.6 22c5.02 0 9.39-3.54 10.39-8.42.08-.4-.18-.78-.58-.87Zm-9.81 7.82c-5.03 0-9.12-4.06-9.12-9.06 0-4.34 3.05-8 7.25-8.86-.08.7.05 1.33.42 1.81.24.32.66.67 1.38.84-.76 1.86-.65 3.78.36 5.11.61.81 2.03 2 4.95 1.51.18.96.71 1.54 1.18 1.87.62.43 1.38.62 2.1.62.05 0 .09 0 .13-.01-1.23 3.64-4.7 6.18-8.64 6.18ZM13 17c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1Zm5.29-12.3a.99.99 0 0 1-.29-.71c0-.55.45-.99 1-.99a1 1 0 0 1 .71.3c.19.19.29.44.29.71 0 .55-.45.99-1 .99a1 1 0 0 1-.71-.3ZM9 13.5c0 .83-.67 1.5-1.5 1.5S6 14.33 6 13.5 6.67 12 7.5 12s1.5.67 1.5 1.5Zm3.25.81a.744.744 0 0 1-.06-1.05c.28-.32.75-.34 1.05-.06.31.28.33.75.05 1.06-.15.16-.35.25-.56.25-.18 0-.36-.06-.5-.19ZM8.68 7.26c.41.37.44 1 .07 1.41-.2.22-.47.33-.75.33a.96.96 0 0 1-.67-.26c-.41-.37-.44-1-.07-1.41.37-.42 1-.45 1.41-.08Zm11.48 1.88c.18-.19.52-.19.7 0 .05.04.09.1.11.16.03.06.04.12.04.19 0 .13-.05.26-.15.35-.09.1-.22.15-.35.15s-.26-.05-.35-.15a.355.355 0 0 1-.11-.16.433.433 0 0 1-.04-.19c0-.13.05-.26.15-.35Zm-4.93-1.86a.75.75 0 1 1 1.059-1.06.75.75 0 0 1-1.059 1.06Z"/></svg></button><!-- End of Badge --></div><!-- End of main cookie container --><script>(function(win) {
+    if (!document.querySelector('.pcb')) {
+        return;
+    }
+
+    var cbConfig = {
+        behaviour: document.querySelector('.pcb').getAttribute('data-behaviour'),
+        behaviourLink: document.querySelector('.pcb').getAttribute('data-behaviour-link'),
+        revision: document.querySelector('.pcb').getAttribute('data-revision'),
+        configTTL: parseInt(document.querySelector('.pcb').getAttribute('data-config-ttl'), 10),
+        debugMode: document.querySelector('.pcb').getAttribute('data-debug-mode') === 'true',
+        initialState: null,
+        initialLsState: null,
+        previouslyAccepted: []
+    };
+
+    var cbUI = {
+        wrapper: document.querySelector('.pcb'),
+        banner: {
+            element: null,
+            btnAccept: null,
+            btnReject: null,
+            btnConfigure: null
+        },
+        popup: {
+            element: null,
+            btnClose: null,
+            btnSave: null,
+            btnAccept: null,
+            btnReject: null,
+            checkboxes: null,
+        },
+        overlay: null,
+        badge: null,
+        blockedScripts: document.querySelectorAll('script[type^="gdpr-blocker/"]'),
+        triggerLinks: cbConfig.behaviourLink ? document.querySelectorAll('a[href*="' + cbConfig.behaviourLink + '"]') : null
+    };
+
+    function initUI () {
+        // setup banner elements
+        cbUI.banner.element = cbUI.wrapper.querySelector('.pcb__banner');
+        cbUI.banner.btnAccept = cbUI.banner.element.querySelector('.pcb__btn--accept');
+        cbUI.banner.btnReject = cbUI.banner.element.querySelector('.pcb__btn--reject');
+        cbUI.banner.btnConfigure = cbUI.banner.element.querySelector('.pcb__btn--configure');
+
+        // setup popup elements
+        if (cbUI.wrapper.querySelector('.pcb__popup')) {
+            cbUI.popup.element = cbUI.wrapper.querySelector('.pcb__popup');
+            cbUI.popup.btnClose = cbUI.wrapper.querySelector('.pcb__popup__close');
+            cbUI.popup.btnSave = cbUI.popup.element.querySelector('.pcb__btn--save');
+            cbUI.popup.btnAccept = cbUI.popup.element.querySelector('.pcb__btn--accept');
+            cbUI.popup.btnReject = cbUI.popup.element.querySelector('.pcb__btn--reject');
+            cbUI.popup.checkboxes = cbUI.popup.element.querySelector('input[type="checkbox"]');
+            // setup overlay
+            cbUI.overlay = cbUI.wrapper.querySelector('.pcb__overlay');
+        }
+
+        cbUI.badge = cbUI.wrapper.querySelector('.pcb__badge');
+
+        if (cbConfig.behaviour.indexOf('link') > -1) {
+            for (var i = 0; i < cbUI.triggerLinks.length; i++) {
+                cbUI.triggerLinks[i].addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showBannerOrPopup();
+                });
+            }
+        }
+    }
+
+    function initState () {
+        var lsKeyName = getConfigName();
+        var currentConfig = localStorage.getItem(lsKeyName);
+        var configIsFresh = checkIfConfigIsFresh();
+
+        if (!configIsFresh || currentConfig === null) {
+            if (cbConfig.debugMode) {
+                console.log('🍪 Config not found, or configuration expired');
+            }
+
+            if (window.publiiCBGCM) {
+                gtag('consent', 'default', {
+                    'ad_storage': window.publiiCBGCM.defaultState.ad_storage ? 'granted' : 'denied',
+                    'ad_personalization': window.publiiCBGCM.defaultState.ad_personalization ? 'granted' : 'denied',
+                    'ad_user_data': window.publiiCBGCM.defaultState.ad_user_data ? 'granted' : 'denied',
+                    'analytics_storage': window.publiiCBGCM.defaultState.analytics_storage ? 'granted' : 'denied',
+                    'personalization_storage': window.publiiCBGCM.defaultState.personalization_storage ? 'granted' : 'denied',
+                    'functionality_storage': window.publiiCBGCM.defaultState.functionality_storage ? 'granted' : 'denied',
+                    'security_storage': window.publiiCBGCM.defaultState.security_storage ? 'granted' : 'denied'
+                });  
+                
+                if (cbConfig.debugMode) {
+                    console.log('🍪 GCMv2 DEFAULT STATE: ' + JSON.stringify({
+                        'ad_storage': window.publiiCBGCM.defaultState.ad_storage ? 'granted' : 'denied',
+                        'ad_personalization': window.publiiCBGCM.defaultState.ad_personalization ? 'granted' : 'denied',
+                        'ad_user_data': window.publiiCBGCM.defaultState.ad_user_data ? 'granted' : 'denied',
+                        'analytics_storage': window.publiiCBGCM.defaultState.analytics_storage ? 'granted' : 'denied',
+                        'personalization_storage': window.publiiCBGCM.defaultState.personalization_storage ? 'granted' : 'denied',
+                        'functionality_storage': window.publiiCBGCM.defaultState.functionality_storage ? 'granted' : 'denied',
+                        'security_storage': window.publiiCBGCM.defaultState.security_storage ? 'granted' : 'denied'
+                    }));
+                }
+            }
+
+            showBanner();
+        } else if (typeof currentConfig === 'string') {
+            if (cbConfig.debugMode) {
+                console.log('🍪 Config founded');
+            }
+
+            cbConfig.initialLsState = currentConfig.split(',');
+
+            if (window.publiiCBGCM) {
+                gtag('consent', 'default', {
+                    'ad_storage': getDefaultConsentState(currentConfig, 'ad_storage'),
+                    'ad_personalization': getDefaultConsentState(currentConfig, 'ad_personalization'),
+                    'ad_user_data': getDefaultConsentState(currentConfig, 'ad_user_data'),
+                    'analytics_storage': getDefaultConsentState(currentConfig, 'analytics_storage'),
+                    'personalization_storage': getDefaultConsentState(currentConfig, 'personalization_storage'),
+                    'functionality_storage': getDefaultConsentState(currentConfig, 'functionality_storage'),
+                    'security_storage': getDefaultConsentState(currentConfig, 'security_storage')
+                });
+                
+                if (cbConfig.debugMode) {
+                    console.log('🍪 GCMv2 DEFAULT STATE: ' + JSON.stringify({
+                        'ad_storage': getDefaultConsentState(currentConfig, 'ad_storage'),
+                        'ad_personalization': getDefaultConsentState(currentConfig, 'ad_personalization'),
+                        'ad_user_data': getDefaultConsentState(currentConfig, 'ad_user_data'),
+                        'analytics_storage': getDefaultConsentState(currentConfig, 'analytics_storage'),
+                        'personalization_storage': getDefaultConsentState(currentConfig, 'personalization_storage'),
+                        'functionality_storage': getDefaultConsentState(currentConfig, 'functionality_storage'),
+                        'security_storage': getDefaultConsentState(currentConfig, 'security_storage')
+                    }));
+                }
+            }
+
+            showBadge();
+
+            if (cbUI.popup.element) {
+                var allowedGroups = currentConfig.split(',');
+                var checkedCheckboxes = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+
+                for (var j = 0; j < checkedCheckboxes.length; j++) {
+                    var name = checkedCheckboxes[j].getAttribute('data-group-name');
+
+                    if (name && name !== '-' && allowedGroups.indexOf(name) === -1) {
+                        checkedCheckboxes[j].checked = false;
+                    }
+                }
+
+                for (var i = 0; i < allowedGroups.length; i++) {
+                    var checkbox = cbUI.popup.element.querySelector('input[type="checkbox"][data-group-name="' + allowedGroups[i] + '"]');
+
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+
+                    allowCookieGroup(allowedGroups[i]);
+                }
+            }
+        }
+
+        setTimeout(function () {
+            cbConfig.initialState = getInitialStateOfConsents();
+        }, 0);
+    }
+
+    function checkIfConfigIsFresh () {
+        var lastConfigSave = localStorage.getItem('publii-gdpr-cookies-config-save-date');
+
+        if (lastConfigSave === null) {
+            return false;
+        }
+
+        lastConfigSave = parseInt(lastConfigSave, 10);
+
+        if (lastConfigSave === 0) {
+            return true;
+        }
+
+        if (+new Date() - lastConfigSave < cbConfig.configTTL * 24 * 60 * 60 * 1000) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function getDefaultConsentState (currentConfig, consentGroup) {
+        let configGroups = currentConfig.split(',');
+
+        for (let i = 0; i < configGroups.length; i++) {
+            let groupName = configGroups[i];
+            let group = window.publiiCBGCM.groups.find(group => group.cookieGroup === groupName);
+
+            if (group && group[consentGroup]) {
+                return 'granted';
+            }
+        }  
+        
+        if (window.publiiCBGCM.defaultState[consentGroup]) {
+            return 'granted'; 
+        }
+        
+        return 'denied';
+    }
+
+    function initBannerEvents () {
+        cbUI.banner.btnAccept.addEventListener('click', function (e) {
+            e.preventDefault();
+            acceptAllCookies('banner');
+            showBadge();
+        }, false);
+
+        if (cbUI.banner.btnReject) {
+            cbUI.banner.btnReject.addEventListener('click', function (e) {
+                e.preventDefault();
+                rejectAllCookies();
+                showBadge();
+            }, false);
+        }
+
+        if (cbUI.banner.btnConfigure) {
+            cbUI.banner.btnConfigure.addEventListener('click', function (e) {
+                e.preventDefault();
+                hideBanner();
+                showAdvancedPopup();
+                showBadge();
+            }, false);
+        }
+    }
+
+    function initPopupEvents () {
+        if (!cbUI.popup.element) {
+            return;
+        }
+
+        cbUI.overlay.addEventListener('click', function (e) {
+            hideAdvancedPopup();
+        }, false);
+
+        cbUI.popup.element.addEventListener('click', function (e) {
+            e.stopPropagation();
+        }, false);
+
+        cbUI.popup.btnAccept.addEventListener('click', function (e) {
+            e.preventDefault();
+            acceptAllCookies('popup');
+        }, false);
+
+        cbUI.popup.btnReject.addEventListener('click', function (e) {
+            e.preventDefault();
+            rejectAllCookies();
+        }, false);
+
+        cbUI.popup.btnSave.addEventListener('click', function (e) {
+            e.preventDefault();
+            saveConfiguration();
+        }, false);
+
+        cbUI.popup.btnClose.addEventListener('click', function (e) {
+            e.preventDefault();
+            hideAdvancedPopup();
+        }, false);
+    }
+
+    function initBadgeEvents () {
+        if (!cbUI.badge) {
+            return;
+        }
+
+        cbUI.badge.addEventListener('click', function (e) {
+            showBannerOrPopup();
+        }, false);
+    }
+
+    initUI();
+    initState();
+    initBannerEvents();
+    initPopupEvents();
+    initBadgeEvents();
+
+    /**
+     * API
+     */
+    function addScript (src, inline) {
+        var newScript = document.createElement('script');
+
+        if (src) {
+            newScript.setAttribute('src', src);
+        }
+
+        if (inline) {
+            newScript.text = inline;
+        }
+
+        document.body.appendChild(newScript);
+    }
+
+    function allowCookieGroup (allowedGroup) {
+        var scripts = document.querySelectorAll('script[type="gdpr-blocker/' + allowedGroup + '"]');
+        cbConfig.previouslyAccepted.push(allowedGroup);
+    
+        for (var j = 0; j < scripts.length; j++) {
+            addScript(scripts[j].src, scripts[j].text);
+        }
+
+        var groupEvent = new Event('publii-cookie-banner-unblock-' + allowedGroup);
+        document.body.dispatchEvent(groupEvent);
+        unlockEmbeds(allowedGroup);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Allowed group: ' + allowedGroup);
+        }
+
+        if (window.publiiCBGCM && cbConfig.initialLsState.indexOf(allowedGroup) === -1) {
+            let consentResult = {};
+            let group = window.publiiCBGCM.groups.find(group => group.cookieGroup === allowedGroup);
+
+            if (group) {
+                let foundSomeConsents = false;
+
+                Object.keys(group).forEach(key => {
+                    if (key !== 'cookieGroup' && group[key] === true) {
+                        consentResult[key] = 'granted';
+                        foundSomeConsents = true;
+                    }
+                });
+
+                if (foundSomeConsents) {
+                    gtag('consent', 'update', consentResult);   
+
+                    if (cbConfig.debugMode) {
+                        console.log('🍪 GCMv2 UPDATE: ' + JSON.stringify(consentResult));
+                    }
+                }
+            }
+        }
+    }
+
+    function showBannerOrPopup () {
+        if (cbUI.popup.element) {
+            showAdvancedPopup();
+        } else {
+            showBanner();
+        }
+    }
+
+    function showAdvancedPopup () {
+        cbUI.popup.element.classList.add('is-visible');
+        cbUI.overlay.classList.add('is-visible');
+        cbUI.popup.element.setAttribute('aria-hidden', 'false');
+        cbUI.overlay.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideAdvancedPopup () {
+        cbUI.popup.element.classList.remove('is-visible');
+        cbUI.overlay.classList.remove('is-visible');
+        cbUI.popup.element.setAttribute('aria-hidden', 'true');
+        cbUI.overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    function showBanner () {
+        cbUI.banner.element.classList.add('is-visible');
+        cbUI.banner.element.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideBanner () {
+        cbUI.banner.element.classList.remove('is-visible');
+        cbUI.banner.element.setAttribute('aria-hidden', 'true');
+    }
+
+    function showBadge () {
+        if (!cbUI.badge) {
+            return;
+        }
+
+        cbUI.badge.classList.add('is-visible');
+        cbUI.badge.setAttribute('aria-hidden', 'false');
+    }
+
+    function getConfigName () {
+        var lsKeyName = 'publii-gdpr-allowed-cookies';
+
+        if (cbConfig.revision) {
+            lsKeyName = lsKeyName + '-v' + parseInt(cbConfig.revision, 10);
+        }
+
+        return lsKeyName;
+    }
+
+    function storeConfiguration (allowedGroups) {
+        var lsKeyName = getConfigName();
+        var dataToStore = allowedGroups.join(',');
+        localStorage.setItem(lsKeyName, dataToStore);
+
+        if (cbConfig.configTTL === 0) {
+            localStorage.setItem('publii-gdpr-cookies-config-save-date', 0);
+
+            if (cbConfig.debugMode) {
+                console.log('🍪 Store never expiring configuration');
+            }
+        } else {
+            localStorage.setItem('publii-gdpr-cookies-config-save-date', +new Date());
+        }
+    }
+
+    function getInitialStateOfConsents () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Initial state: ' + groups.join(', '));
+        }
+
+        return groups;
+    }
+
+    function getCurrentStateOfConsents () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 State to save: ' + groups.join(', '));
+        }
+
+        return groups;
+    }
+
+    function getAllGroups () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        return groups;
+    }
+
+    function acceptAllCookies (source) {
+        var groupsToAccept = getAllGroups();
+        storeConfiguration(groupsToAccept);
+
+        for (var i = 0; i < groupsToAccept.length; i++) {
+            var group = groupsToAccept[i];
+
+            if (cbConfig.initialState.indexOf(group) > -1 || cbConfig.previouslyAccepted.indexOf(group) > -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Skip previously activated group: ' + group);
+                }
+
+                continue;
+            }
+
+            allowCookieGroup(group);
+        }
+
+        if (cbUI.popup.element) {
+            var checkboxesToCheck = cbUI.popup.element.querySelectorAll('input[type="checkbox"]');
+
+            for (var j = 0; j < checkboxesToCheck.length; j++) {
+                checkboxesToCheck[j].checked = true;
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Accept all cookies: ', groupsToAccept.join(', '));
+        }
+
+        if (source === 'popup') {
+            hideAdvancedPopup();
+        } else if (source === 'banner') {
+            hideBanner();
+        }
+    }
+
+    function rejectAllCookies () {
+        if (cbConfig.debugMode) {
+            console.log('🍪 Reject all cookies');
+        }
+
+        storeConfiguration([]);
+        setTimeout(function () {
+            window.location.reload();
+        }, 100);
+    }
+
+    function saveConfiguration () {
+        var groupsToAccept = getCurrentStateOfConsents();
+        storeConfiguration(groupsToAccept);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Save new config: ', groupsToAccept.join(', '));
+        }
+
+        if (reloadIsNeeded(groupsToAccept)) {
+            setTimeout(function () {
+                window.location.reload();
+            }, 100);
+            return;
+        }
+
+        for (var i = 0; i < groupsToAccept.length; i++) {
+            var group = groupsToAccept[i];
+
+            if (cbConfig.initialState.indexOf(group) > -1 || cbConfig.previouslyAccepted.indexOf(group) > -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Skip previously activated group: ' + group);
+                }
+
+                continue;
+            }
+
+            allowCookieGroup(group);
+        }
+
+        hideAdvancedPopup();
+    }
+
+    function reloadIsNeeded (groupsToAccept) {
+        // check if user rejected consent for initial groups
+        var initialGroups = cbConfig.initialState;
+        var previouslyAcceptedGroups = cbConfig.previouslyAccepted;
+        var groupsToCheck = initialGroups.concat(previouslyAcceptedGroups);
+
+        for (var i = 0; i < groupsToCheck.length; i++) {
+            var groupToCheck = groupsToCheck[i];
+
+            if (groupToCheck !== '' && groupsToAccept.indexOf(groupToCheck) === -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Reload is needed due lack of: ', groupToCheck);
+                }
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    function unlockEmbeds (cookieGroup) {
+        var iframesToUnlock = document.querySelectorAll('.pec-wrapper[data-consent-group-id="' + cookieGroup + '"]');
+
+        for (var i = 0; i < iframesToUnlock.length; i++) {
+            var iframeWrapper = iframesToUnlock[i];
+            iframeWrapper.querySelector('.pec-overlay').classList.remove('is-active');
+            iframeWrapper.querySelector('.pec-overlay').setAttribute('aria-hidden', 'true');
+            var iframe = iframeWrapper.querySelector('iframe');
+            iframe.setAttribute('src', iframe.getAttribute('data-consent-src'));
+        }
+    }
+
+    win.publiiEmbedConsentGiven = function (cookieGroup) {
+        // it will unlock embeds
+        allowCookieGroup(cookieGroup);
+
+        var checkbox = cbUI.popup.element.querySelector('input[type="checkbox"][data-group-name="' + cookieGroup + '"]');
+
+        if (checkbox) {
+            checkbox.checked = true;
+        }
+
+        var groupsToAccept = getCurrentStateOfConsents();
+        storeConfiguration(groupsToAccept);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Save new config: ', groupsToAccept.join(', '));
+        }
+    }
+})(window);</script></body></html>
