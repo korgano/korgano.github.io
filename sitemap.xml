@@ -382,6 +382,30 @@
 <lastmod>2023-09-14T11:00:07-04:00</lastmod>
 </url>
 <url>
+<loc>https://korgano.github.io/quick-cyber-thoughts-ai-coding-security/</loc>
+<lastmod>2025-03-21T14:03:44-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/35/laptop-2external-monitors.png</image:loc>
+<image:title><![CDATA[AI generated image of laptop on table with 2 external monitors and various image creation flaws.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/35/ai-code-under-attack.png</image:loc>
+<image:title><![CDATA[Developer announcing he developed software as a service on social media, then reporting being deluged with attacks days later.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/35/lm-studio-sys-prompt.png</image:loc>
+<image:title><![CDATA[LM Studio Power User interface, where right hand side contains a system prompt for how the LLM should handle critical thinking.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/35/chatgpt_sys_prompt_tweak.png</image:loc>
+<image:title><![CDATA[ChatGPT exhibiting Chain of Draft behavior after potential system prompt addition.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/35/coding-agent-workflow-2.png</image:loc>
+<image:title><![CDATA[Flowchart of Agentic AI coding process, where a coding prompt is handed off to a coding LLM, then the code is passed through vulnerability scanning LLMs, a vulnerability test is passed to another LLM to generate a code revision prompt, the code revision prompt is passed to the coding LLM, the code is revised according to the new prompt, and then delivered to the initial LLM for display.]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/quick-cyber-thoughts-ces-2025/</loc>
 <lastmod>2025-01-17T15:54:32-05:00</lastmod>
 <image:image>

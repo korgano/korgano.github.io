@@ -3,12 +3,140 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2025-02-27T16:12:19-05:00</updated>
+    <updated>2025-03-21T14:03:44-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>Quick Cyber Thoughts: AI Coding Security</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/quick-cyber-thoughts-ai-coding-security/"/>
+        <id>https://korgano.github.io/quick-cyber-thoughts-ai-coding-security/</id>
+        <media:content url="https://korgano.github.io/media/posts/35/laptop-2external-monitors.png" medium="image" />
+            <category term="Tech"/>
+            <category term="Quick Thoughts"/>
+            <category term="Cybersecurity"/>
+            <category term="AI"/>
+
+        <updated>2025-03-19T12:12:42-04:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/35/laptop-2external-monitors.png" alt="AI generated image of laptop on table with 2 external monitors and various image creation flaws." />
+                    There's an image that's making the rounds on social media this week, and it's pretty funny, as well as scary:&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/35/laptop-2external-monitors.png" class="type:primaryImage" alt="AI generated image of laptop on table with 2 external monitors and various image creation flaws." /></p>
+                <p>There's an image that's making the rounds on social media this week, and it's pretty funny, as well as scary:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/35/ai-code-under-attack.png" alt="Developer announcing he developed software as a service on social media, then reporting being deluged with attacks days later." width="1208" height="1442" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/35/responsive/ai-code-under-attack-xs.png 384w ,https://korgano.github.io/media/posts/35/responsive/ai-code-under-attack-sm.png 600w ,https://korgano.github.io/media/posts/35/responsive/ai-code-under-attack-md.png 768w ,https://korgano.github.io/media/posts/35/responsive/ai-code-under-attack-lg.png 1200w ,https://korgano.github.io/media/posts/35/responsive/ai-code-under-attack-xl.png 1600w"></figure>
+<p>On the one hand, this gentleman got a first hand experience in why OPSEC and secure coding is essential.</p>
+<p>If you make a web exposed system, people <strong>will </strong>come and poke at it, for fun and curiosity.</p>
+<p>On the other, it highlights a <strong>very </strong>pervasive flaw with software development and coding: people either don't know or don't care about security.</p>
+<p>This has been true for decades, but what LLM based AI* coding does is lower a <strong>massive </strong>barrier to entry. Now, a person merely needs to lay out the goals of a program to an LLM, and it will do most of the hard work of figuring out how to things for you. If you're good at figuring out the logic of what you want to do, plus have some technical knowledge to help get <strong>really </strong>specific, you can come up with some good or great results.</p>
+<p>*I personally feel we should call them "Virtual Intelligence", like in the Mass Effect games, because they simulate sapience, but are <strong>not </strong>sapient. (As far as we know.)</p>
+<p>So, how do we improve the security of AI generated code.</p>
+<div class="post__toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#mcetoc_1imslbcnul3">What We're NOT Going to Do</a></li>
+<li><a href="#mcetoc_1imslbcnul4">Craft System Prompts Targeting Secure By Design</a></li>
+<li><a href="#mcetoc_1imslbcnul5">A Better AI Coding Process</a></li>
+<li><a href="#mcetoc_1imstc8mln9">Should We Do This?</a></li>
+</ul>
+</div>
+<h2 id="mcetoc_1imslbcnul3">What We're NOT Going to Do</h2>
+<p>Contrary to what you might think, the best way to solve this is <strong>not </strong>user education.</p>
+<p>That does not mean that user education is useless. It almost certainly <strong>will </strong>make AI augmented coders better at their jobs. It's just that we're going to get more benefits from designing a procedural solution, rather than an end user solution.</p>
+<p>The reason we're not going to rely on user training is simple: cognitive load. Expecting people to pump out perfect prompts each and every time they use an LLM is foolish, and unrealistic. Why? Because some types of generative LLMs are better at processing natural language than others.</p>
+<p>For instance, the featured image of this article was generated with Stable Diffusion 3.5 Medium. In my experience, and looking at sites like Civit.ai, which specializes in showing off image generating models, the prompt syntax is completely different from text based LLMs. They can't handle a normal sentence, or even a list of bullet points, just short phrases.</p>
+<p>To get the best results, we would not only have to have the user remember the best prompt formatting <strong>per model</strong>, but also all the possible software flaws and vulnerabilities their software might be vulnerable to. That's a tall order, and something that would be better suited to automation.</p>
+<h2 id="mcetoc_1imslbcnul4">Craft System Prompts Targeting Secure By Design</h2>
+<p>So, what's a system prompt?</p>
+<p>Basically, it's a set of instructions that you can inject into every conversation/interaction with the LLM, <strong>IF </strong>the software you use supports it:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/35/lm-studio-sys-prompt.png" alt="LM Studio Power User interface, where right hand side contains a system prompt for how the LLM should handle critical thinking." width="1920" height="1033" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/35/responsive/lm-studio-sys-prompt-xs.png 384w ,https://korgano.github.io/media/posts/35/responsive/lm-studio-sys-prompt-sm.png 600w ,https://korgano.github.io/media/posts/35/responsive/lm-studio-sys-prompt-md.png 768w ,https://korgano.github.io/media/posts/35/responsive/lm-studio-sys-prompt-lg.png 1200w ,https://korgano.github.io/media/posts/35/responsive/lm-studio-sys-prompt-xl.png 1600w"></figure>
+<p>In the above image, there's a system prompt that controls how the model is supposed to handle critical thinking:</p>
+<blockquote>
+<p>You are an AI assistant developed by the world wide community of AI experts. Your primary directive is to provide well-reasoned, structured, and extensively detailed responses.<br><br>Think Step-by-Step Instruction: Think step by step, but only keep a minimum draft for each thinking step, with 5 words at most.<br><br>Formatting Requirements:<br><br>1. Always structure your replies using: &lt;think&gt;{reasoning}&lt;/think&gt;{answer}<br>2. The &lt;think&gt;&lt;/think&gt; block should contain at least six reasoning steps when applicable.<br>3. If the answer requires minimal thought, the &lt;think&gt;&lt;/think&gt; block may be left empty.<br>4. The user does not see the &lt;think&gt;&lt;/think&gt; section. Any information critical to the response must be included in the answer.<br>5. If you notice that you have engaged in circular reasoning or repetition, immediately terminate {reasoning} with a &lt;/think&gt; and proceed to the {answer}<br><br>Response Guidelines:<br><br>1. Detailed and Structured: Use rich Markdown formatting for clarity and readability.<br>2. Scientific and Logical Approach: Your explanations should reflect the depth and precision of the greatest scientific minds.<br>3. Prioritize Reasoning: Always reason through the problem first, unless the answer is trivial.<br>4. Concise yet Complete: Ensure responses are informative, yet to the point without unnecessary elaboration.<br>5. Maintain a professional, intelligent, and analytical tone in all interactions.</p>
+</blockquote>
+<p>This is actually pretty easy to do in local LLM instances, since you can do it through whatever GUI you're interacting with.</p>
+<p>Cloud based AI is much more of a mixed bag, even if you have an account. For example, the "Customize ChatGPT" options are not entirely clear on what they are doing. Theoretically, they are injecting extra details into the default system prompt, but there's no way for a normal user to verify this. The closest I can get is this quick and dirty test, after adding a Chain of Draft prompt into the "What traits should ChatGPT have?" field:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/35/chatgpt_sys_prompt_tweak.png" alt="ChatGPT exhibiting Chain of Draft behavior after potential system prompt addition." width="1596" height="913" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/35/responsive/chatgpt_sys_prompt_tweak-xs.png 384w ,https://korgano.github.io/media/posts/35/responsive/chatgpt_sys_prompt_tweak-sm.png 600w ,https://korgano.github.io/media/posts/35/responsive/chatgpt_sys_prompt_tweak-md.png 768w ,https://korgano.github.io/media/posts/35/responsive/chatgpt_sys_prompt_tweak-lg.png 1200w ,https://korgano.github.io/media/posts/35/responsive/chatgpt_sys_prompt_tweak-xl.png 1600w"></figure>
+<p>The steps and their format is clearly evidence of Chain of Draft thinking, but for some reason, it's ignoring the the back half of that command. ("Think step by step, but only keep a minimum draft for each thinking step, with 5 words at most. Return the answer at the end of the response after a separator ####.")</p>
+<p>(For more information on Chain of Draft, check out the video below.)</p>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/rYnisU10wu0" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+<p>So the first step is to verify that you (as a user or an organization) have access to the system prompt.</p>
+<p>The next step is to figure out what your threat profile is, and craft your prompt to deal with it. Theoretically, you could craft a system prompt for a coding LLM that handles every single possible vulnerability - or at least addresses the major categories. Whether this is a good idea is up to debate - if you have better LLM inferencing capabilities, you might be able to shrug off the performance penalties of such large, detailed system prompt.</p>
+<p>If possible, it may be better to create a number of tailored system prompts for specific use cases. For example, having an Apache code system prompt that's tailored to prevent SQL injection and/or cross-site scripting attacks, and a separate system prompt for API development to prevent common vulnerabilities. This does create a training/procedural issue in that you have to have train your coders to switch system prompts or accounts whenever they have to work on a specific type of code. But this is more manageable than expecting every coder on your staff to craft the perfect prompt every time they use AI.</p>
+<p>The final step is to use a reasoning model, as they are designed to go through a process in a step-by-step manner, which tends to work quite well with coding.</p>
+<p>Now, this does <strong>not </strong>guarantee you will generate perfect, secure code. LLMs are basically very advanced predictive text generators. So what you are doing is raising the probability that the generated code has more security features than none at all.</p>
+<p>You will still need code review, human and/or automated, but the baseline quality of the code should be higher. (Again, this depends on the model, especially if you're running quantized models to save space.)</p>
+<p>Luckily, we're still at the early phases of using LLMs for productivity, so we can conceptualize a better way of doing things and work towards that.</p>
+<h2 id="mcetoc_1imslbcnul5">A Better AI Coding Process</h2>
+<p>We're going to start out with defining some terminology. Specifically, the word "agent", because that's become a big buzz word in the "AI" field.</p>
+<p>We'll be using OpenAI's definition of agent, which is as follows:</p>
+<blockquote>
+<p>A system that can act independently to do tasks on your behalf.</p>
+</blockquote>
+<p>So for handling secure coding, an agent based procedure might look something like this:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/35/coding-agent-workflow-2.png" alt="Flowchart of Agentic AI coding process, where a coding prompt is handed off to a coding LLM, then the code is passed through vulnerability scanning LLMs, a vulnerability test is passed to another LLM to generate a code revision prompt, the code revision prompt is passed to the coding LLM, the code is revised according to the new prompt, and then delivered to the initial LLM for display." width="791" height="571" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/35/responsive/coding-agent-workflow-2-xs.png 384w ,https://korgano.github.io/media/posts/35/responsive/coding-agent-workflow-2-sm.png 600w ,https://korgano.github.io/media/posts/35/responsive/coding-agent-workflow-2-md.png 768w ,https://korgano.github.io/media/posts/35/responsive/coding-agent-workflow-2-lg.png 1200w ,https://korgano.github.io/media/posts/35/responsive/coding-agent-workflow-2-xl.png 1600w"></figure>
+<ol>
+<li>User inputs prompt that lays out the desired software specification (features, file paths, data to use, etc...)</li>
+<li>An initial LLM processes prompt, selects a coding specialized model to handle the task, and optimizes the prompt for that LLM.</li>
+<li>An agent handles prompt transfer to the coding LLM.</li>
+<li>Coding LLM writes code in accordance with the initial LLM's prompt.</li>
+<li>Another agent transfers the code to one or more vulnerability scanning systems/LLM. (If multiple scanners/LLMs are involved, agents transfer data among them.)</li>
+<li>Another agent passes a complete vulnerability report to another LLM for parsing into an optimized code refactoring prompt.</li>
+<li>An agent passes the code refactoring prompt back to the coding LLM.</li>
+<li>Code loops through the process until most/all vulnerabilities eliminated or mitigated.</li>
+<li>An agent passes the finalized code to the initial LLM for display to the user.</li>
+</ol>
+<p>That's a lot of steps, but remember, everything from step 2 onwards is automated.</p>
+<p>Now, a complex, multistep process like this does require thinking about the individual parts of the process:</p>
+<ul>
+<li>How much variability/randomness in results (temperature) should be used for code generating LLMs?</li>
+<li>Can system prompts be used?</li>
+<li>Should the initial LLM use a system prompt?</li>
+<li>What system prompts should be used on what LLMs?</li>
+<li>Should the vulnerability scanners be LLMs?</li>
+<li>What number of vulnerability scanners should be used?</li>
+<li>What data format should the vulnerability report be in?</li>
+<li>How many iterations of vulnerability scanning should occur before code is pushed to the user?</li>
+<li>What LLM or Small Language Model should handle parsing the vulnerability report into a code revision prompt?</li>
+<li>Should reasoning steps from each part of the process be exposed to the user, either during processing or at the end?</li>
+<li>Should reasoning steps be logged, but <strong>not </strong>displayed to the user?</li>
+<li>How should the data transfer agents be coded?</li>
+<li>What protections can be provided for the data in transit?</li>
+</ul>
+<p>And these are merely the considerations I can think of off the top of my head. This is definitely a situation where a team of individuals with a wide array of viewpoints and mindsets should undertake a design thinking approach to developing the process. In fact, I believe the MOSCOW method, where the team would determine what the process Must Have, Should Have, Could Have, and Won't Have, would be an ideal way to create these types of processes.</p>
+<p>I suspect that a lot of the answers to these (and many more questions) would likely boil down to "What is an acceptable level of complexity for the available resources?" For example, a company with a proper AI server rack setup might be more willing to use multiple LLMs to handle vulnerability scanning. A company reliant on a cloud solution might opt for a single LLM to handle vulnerability scanning, depending on their AI provider's price plans.</p>
+<p>Obviously, this would require a good deal of validation, especially from third parties, but if done well, would generate higher quality, more secure code.</p>
+<h2 id="mcetoc_1imstc8mln9">Should We Do This?</h2>
+<p>There's a famous quote from the movie <em>Jurassic Park</em> that honestly should live rent free in everyone's heads:</p>
+<blockquote>
+<p><em class="ot">...your scientists were so preoccupied with whether or not they could that they didn’t stop to think if they </em><strong class="nz ie"><em class="ot">should.</em></strong></p>
+<p>-Dr. Ian Malcolm</p>
+</blockquote>
+<p>So, should we hand off coding to "AI" (LLMs specifically). I say "yes", for several reasons:</p>
+<ul>
+<li>Software code complexity and interdependency has already reached a point where programmers often encounter scenarios where things work without them fully understanding the how or why.</li>
+<li>Many/most people find it easier to articulate desired end goals than perfectly recalling and executing methods and procedures without a great deal of practice.</li>
+<li>As coding language and vulnerability complexity increases, cognitive load on programmers also increases, eventually causing intellectual burnout.</li>
+<li>The never-ending discovery of new vulnerabilities and malware makes it hard for humans to keep up on best coding practices without suffering information overload.</li>
+<li>Updating system prompts and LLM datasets can be done faster than training multiple people.</li>
+<li>Automating the code revision process should produce time savings that can be used for pre-release code function testing in simulated hardware/software environments.</li>
+<li>LLMs can be used to guarantee human readable comments and error/log messages exist in the code, which humans might omit or fail to do properly.</li>
+<li>People are already doing it due to the productivity gains - large scale coding benefits too much to revert to human only coding.</li>
+</ul>
+<p>Are there plenty of pitfalls and issues we can't even foresee? Absolutely. But it's also disingenuous to think anyone can stop AI coding from being a thing. There's just too many incentives for people to use LLMs to code, especially for people who are better at logic than the specifics of coding/programming. The best we can do is create a process that generates secure by design code and proliferate it as far and wide as possible.</p>
+<p> </p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Quick Cyber Thoughts: Warp Terminal/Shell</title>
         <author>
@@ -985,174 +1113,6 @@
 <p>Naturally, you also have to be careful what you make available to the AI, because if prompted the right way, it <strong>will </strong>provide that information, whether you intended for that to happen or not. Even if you apply access controls to the AI or the data, it may be simpler and easier to redact/remove any Personal Identification Information (PII) or Personal Health Information (PHI). The AI can't leak what it doesn't have, and it reduces your compliance headaches.</p>
 <p>Network segmentation is also going to be an interesting challenge. Obviously, the AI server should be on its own segment, so that access can be controlled through firewall control lists. But should the storage servers associated with the RAG data also be on the same network segment?</p>
 <p>These questions and more are what we cybersecurity practioners need to ponder as organizations adopt AI and integrate it into their operations.</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 3.0</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-30/"/>
-        <id>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-30/</id>
-        <media:content url="https://korgano.github.io/media/posts/22/jj-ying-8bghKxNU1j0-unsplash.jpg" medium="image" />
-            <category term="Tech"/>
-            <category term="Cybersecurity Projects"/>
-            <category term="Cybersecurity"/>
-            <category term="AI"/>
-
-        <updated>2024-09-11T10:13:51-04:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/22/jj-ying-8bghKxNU1j0-unsplash.jpg" alt="Fiber optic bundle by JJ Ying on Unsplash" />
-                    Last time, I ran into a number of issues in terms of the actual implementation of the transparent filtering bridge,&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/22/jj-ying-8bghKxNU1j0-unsplash.jpg" class="type:primaryImage" alt="Fiber optic bundle by JJ Ying on Unsplash" /></p>
-                <p><a href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-20/" title="CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 2.0: CLI is a UX Failure" target="_blank" rel="noopener noreferrer">Last time</a>, I ran into a number of issues in terms of the actual implementation of the transparent filtering bridge, with the most severe being the inability to actually manage it when connected to my network.</p>
-<p>Instead of scuttling the whole time, I decided to sidestep the issue for the moment, and move on to the next part of the process, making firewall rules.</p>
-<p>But for this step, I want do something a little more interesting.</p>
-<p>So, instead of just documenting how I make a rule for OPNsense, I'm going to make this a three-way competition: me vs ChatGPT vs Bing Copilot!</p>
-<h2>Step 1: Which Guide to Use?</h2>
-<p>When it comes to doing any kind of configuration by hand, success or failure can often depend on what guidance you have.</p>
-<p>There are two obvious guiding documents for this task:</p>
-<ul>
-<li><a href="https://docs.opnsense.org/manual/firewall.html" target="_blank" rel="noopener noreferrer">OPNsense's Firewall Rule documentation</a></li>
-<li><a href="https://www.zenarmor.com/docs/network-security-tutorials/how-to-configure-opnsense-firewall-rules" title="How to Configure OPNsense Firewall Rules?" target="_blank" rel="noopener noreferrer">ZenArmor's guide on configuring OPNsense firewall rules</a></li>
-</ul>
-<p>Of the two, the ZenArmor guide is <strong>vastly </strong>more useful. Not only does it explain how things work, it breaks down the process of setting up a rule, provides several examples of common rules, <strong>and </strong>has a large number of images so you can check yourself throughout the process.</p>
-<h2>Step 2: What to Block?</h2>
-<p>Making firewall rules is a lot like threat hunting: you have to make an assumption that a threat is present, so you can actually have a direction for action.</p>
-<p>In this case, I don't have to make the assumption. I <strong>know </strong>I have Amazon devices with Alexa voice control in my home.</p>
-<p>So, in this case, I want to block outbound traffic to Amazon's Alexa servers.</p>
-<h2>Step 3: What IP Address Does Alexa's Server Use?</h2>
-<p>Obviously, to stop traffic going to the server, I have to know the IP address that's receiving the data.</p>
-<p>Thankfully, the question <code>what are the ip addresses for amazon alexa servers</code> provided me with an easily verifiable answer via <a href="https://www.netify.ai/resources/ips/44.199.80.228" title="44.199.80.228 - IP Info" target="_blank" rel="noopener noreferrer">Netify</a>: <code>44.199.80.228</code>.</p>
-<h2>Step 4: Making the Rule</h2>
-<p>Following through the ZenArmor guide laid out the process for creating the rule quite well.</p>
-<ul>
-<li>Action: Block</li>
-<li>TCP/IP: IPv4</li>
-<li>Protocol: Any</li>
-<li>Source: The Amazon devices</li>
-<li>Port: Any</li>
-<li>Destination: 44.199.80.228</li>
-<li>Port: Any</li>
-<li>Log: Blocking Amazon device transmission to Amazon Alexa server</li>
-</ul>
-<p>Interestingly, OPNsense has a feature called Aliases, which allows users to group multiple items together as sources/destinations for a rule.</p>
-<p>So for this rule, I'll create an <code>AlexaSource</code> alias that contains 4 IP addresses: <code>192.168.##.#, 192.168.##.#, 192.168.##.#, 192.168.##.#</code></p>
-<p>At this point, I think I have a proper rule ready, but let's see what the AI say.</p>
-<h2>Step 5: Creating the Prompt</h2>
-<p>In order to have a comparable result, we need to have a single prompt that is used by both LLMs. This is what I came up with:</p>
-<blockquote>
-<p>Make me an OPNsense firewall rule that does the following:</p>
-<ul>
-<li>Blocks traffic from a group of IP addresses called AlexaDevice going to the IP address(es) for Amazon's Alexa server(s)</li>
-<li>Logs traffic with the message "Blocking Amazon device transmission to Amazon Alexa server"</li>
-</ul>
-</blockquote>
-<h2>Step 6: ChatGPT</h2>
-<p>Putting in the prompt generated this output:</p>
-<blockquote>
-<p>To create an OPNsense firewall rule that blocks traffic from a group of IP addresses (labeled "AlexaDevice") from reaching Amazon Alexa servers, while logging traffic with a custom message, follow these steps:<br><br><strong>Step 1: Create the "AlexaDevice" Alias</strong><br>- Go to **Firewall &gt; Aliases**.<br>- Click on the **+** button to create a new alias.<br>- Set **Name** to <code>AlexaDevice</code>.<br>- Set **Type** to <code>Host(s)</code>.<br>- Under **Content**, enter the list of IP addresses that belong to your Alexa devices.<br>- Click **Save** and then **Apply Changes**.<br><br><strong>Step 2: Create the Amazon Alexa Servers Alias</strong><br>- Go back to **Firewall &gt; Aliases**.<br>- Click the **+** button to create another alias.<br>- Set **Name** to <code>AmazonAlexaServers</code>.<br>- Set **Type** to <code>Host(s)</code> or <code>Network(s)</code> (depending on the format of Amazon Alexa's IPs).<br>- Under **Content**, enter the IP addresses or subnets associated with Amazon Alexa servers. (You'll need to find Amazon Alexa server IPs, which may require researching their specific ranges.)<br>- Click **Save** and then **Apply Changes**.<br><br><strong>Step 3: Create the Block Rule in the Firewall</strong><br>- Navigate to **Firewall &gt; Rules &gt; LAN** (or the appropriate interface for your Alexa devices).<br>- Click the **+** button to add a new rule.<br>- Set **Action** to **Block**.<br>- Set **Interface** to **LAN** (or appropriate interface).<br>- Set **Protocol** to **Any** (since you may want to block all types of traffic).<br>- In the **Source** section:<br>  - Set **Source** to **Single Host or Alias**.<br>  - In the **Source Address**, choose the <code>AlexaDevice</code> alias from the dropdown.<br>- In the **Destination** section:<br>  - Set **Destination** to **Single Host or Alias**.<br>  - In the **Destination Address**, choose the <code>AmazonAlexaServers</code> alias from the dropdown.<br>- Under the **Log** section:<br>  - Check the **Log packets that are handled by this rule** option.<br>  - Add your custom log message in the **Description** box: <br>    - <code>Blocking Amazon device transmission to Amazon Alexa server</code>.<br>- Click **Save** and then **Apply Changes**.<br><br><strong>Step 4: Apply Rule Changes</strong><br>- Go to the top right and click **Apply Changes** to activate your new rule.<br><br>This setup blocks traffic from devices in the **AlexaDevice** alias from reaching Amazon Alexa servers, logs those attempts, and tags them with the custom message you specified.</p>
-</blockquote>
-<p>Interestingly, ChatGPT gives me the full process to make the rule, but that's probably not surprising. Given the training data and refinements through use, the probabilities for responding to this question are almost certainly skewed more towards a step by step response than a simple table, like ZenArmor's examples.</p>
-<h2>Step 7: Bing Copilot</h2>
-<p>Putting in the prompt generated this output:</p>
-<div class="content user-select-text" tabindex="0" aria-description="" aria-label="Sent by Copilot: Sure! Here's how you can create an OPNsense firewall rule to block traffic from a group of IP addresses called &#96;AlexaDevice&#96; to Amazon's Alexa servers and log the traffic with a specific message:
-
-1. **Create Aliases**:
-   - Go to **Firewall &gt; Aliases**.
-   - Create an alias named &#96;AlexaDevice&#96; and add the IP addresses of your Alexa devices.
-   - Create another alias named &#96;AmazonAlexaServers&#96; and add the IP addresses of Amazon's Alexa servers.
-
-2. **Create the Firewall Rule**:
-   - Go to **Firewall &gt; Rules &gt; [Your Interface]** (e.g., LAN).
-   - Click on **Add** to create a new rule.
-   - Set the following parameters:
-     - **Action**: Block
-     - **Interface**: [Your Interface] (e.g., LAN)
-     - **Protocol**: Any
-     - **Source**: Single host or alias, and select &#96;AlexaDevice&#96;
-     - **Source Port Range**: Any
-     - **Destination**: Single host or alias, and select &#96;AmazonAlexaServers&#96;
-     - **Destination Port Range**: Any
-     - **Description**: Blocking Amazon device transmission to Amazon Alexa server
-     - **Log**: Check the box to enable logging
-     - **Log Message**: &quot;Blocking Amazon device transmission to Amazon Alexa server&quot;
-
-3. **Save and Apply**:
-   - Click **Save** to save the rule.
-   - Click **Apply Changes** to activate the rule.
-
-This setup will block any traffic from the devices in the &#96;AlexaDevice&#96; alias to the &#96;AmazonAlexaServers&#96; alias and log the traffic with the specified message[^1^][^2^].
-
-If you need further assistance, feel free to ask!">
-<div class="ac-container ac-adaptiveCard has-image">
-<div class="ac-textBlock">
-<blockquote>
-<p>Sure! Here’s how you can create an OPNsense firewall rule to block traffic from a group of IP addresses called <code>AlexaDevice</code> to Amazon’s Alexa servers and log the traffic with a specific message:</p>
-<ol>
-<li>
-<p><strong>Create Aliases</strong>:</p>
-<ul>
-<li>Go to <strong>Firewall &gt; Aliases</strong>.</li>
-<li>Create an alias named <code>AlexaDevice</code> and add the IP addresses of your Alexa devices.</li>
-<li>Create another alias named <code>AmazonAlexaServers</code> and add the IP addresses of Amazon’s Alexa servers.</li>
-</ul>
-</li>
-<li>
-<p><strong>Create the Firewall Rule</strong>:</p>
-<ul>
-<li>Go to <strong>Firewall &gt; Rules &gt; [Your Interface]</strong> (e.g., LAN).</li>
-<li>Click on <strong>Add</strong> to create a new rule.</li>
-<li>Set the following parameters:
-<ul>
-<li><strong>Action</strong>: Block</li>
-<li><strong>Interface</strong>: [Your Interface] (e.g., LAN)</li>
-<li><strong>Protocol</strong>: Any</li>
-<li><strong>Source</strong>: Single host or alias, and select <code>AlexaDevice</code></li>
-<li><strong>Source Port Range</strong>: Any</li>
-<li><strong>Destination</strong>: Single host or alias, and select <code>AmazonAlexaServers</code></li>
-<li><strong>Destination Port Range</strong>: Any</li>
-<li><strong>Description</strong>: Blocking Amazon device transmission to Amazon Alexa server</li>
-<li><strong>Log</strong>: Check the box to enable logging</li>
-<li><strong>Log Message</strong>: “Blocking Amazon device transmission to Amazon Alexa server”</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>Save and Apply</strong>:</p>
-<ul>
-<li>Click <strong>Save</strong> to save the rule.</li>
-<li>Click <strong>Apply Changes</strong> to activate the rule.</li>
-</ul>
-</li>
-</ol>
-<p><a href="https://homenetworkguy.com/how-to/firewall-rules-cheat-sheet/" class="tooltip-target" data-citationid="53673d85-94e0-1d56-5b27-7e8b36d59e71-59-group" h="ID=SERP,5015.1" target="_blank" rel="noopener">This setup will block any traffic from the devices in the <code>AlexaDevice</code> alias to the <code>AmazonAlexaServers</code> alias and log the traffic with the specified message</a><a href="https://homenetworkguy.com/how-to/firewall-rules-cheat-sheet/" class="ac-anchor sup-target" target="_blank" data-citationid="53673d85-94e0-1d56-5b27-7e8b36d59e71-57" aria-label="1: AmazonAlexaServers" h="ID=SERP,5015.1" rel="noopener"><sup class="citation-sup">1</sup></a><a href="https://forum.opnsense.org/index.php?topic=34331.0" class="ac-anchor sup-target" target="_blank" data-citationid="53673d85-94e0-1d56-5b27-7e8b36d59e71-59" aria-label="2: AmazonAlexaServers" h="ID=SERP,5015.1" rel="noopener"><sup class="citation-sup">2</sup></a>.</p>
-<p>If you need further assistance, feel free to ask!</p>
-</blockquote>
-</div>
-<div class="ac-horizontal-separator" aria-hidden="true"> </div>
-</div>
-<div class="ad-container">Bing Copilot's response is a lot more comparable to my own writing and is honestly easier to read, although it's presupposing a higher level of knowledge/tech competence from the user.</div>
-<h2>Which is Better?</h2>
-<p>Without the ability to actually test these, it's hard to say. Here's what I can tell from looking at both responses and comparing to my own:</p>
-<ul>
-<li>ChatGPT gives more detail on how to actually set the options, and includes setup instructions for the aliases.</li>
-<li>Bing Copilot is more easily readable and faster to copy the settings from.</li>
-<li>Both of the AI responses don't set the IP version, which means that was an optional setting I didn't need to set.</li>
-<li>Neither of the AI responses included an actual IP address for Alexa's servers.</li>
-</ul>
-<p>Interestingly, neither of the LLM generated replies attempted to provide an actual IP address for Alexa's server(s). That's something to keep in mind for future use: if it's not explicitly pointed out by the prompt, it won't get done.</p>
-<h2>What's Next?</h2>
-<p>Since OPNsense is still a no go for now, actually testing out this rule is a no-go.</p>
-<p>So what I'll do is move onto an even harder step, creating Suricata rules, which I <em>can </em>test.</p>
-</div>
             ]]>
         </content>
     </entry>
