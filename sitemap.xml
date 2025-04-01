@@ -357,6 +357,82 @@
 </image:image>
 </url>
 <url>
+<loc>https://korgano.github.io/cybersecurity-project-windows-defender-firewall-stig-script/</loc>
+<lastmod>2025-04-01T16:06:30-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/VirtualBox_Win11-Ent-IOT_29_03_2025_11_25_42-2.png</image:loc>
+<image:title><![CDATA[Default Windows Defender Firewall settings on Windows 11 Enterprise IOT LTSC: Firewall on in all domains, inbound connections blocked by default, outbound connections allowed by default.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/VirtualBox_Win11-Ent-IOT_29_03_2025_11_25_42.png</image:loc>
+<image:title><![CDATA[Default Windows Defender Firewall settings on Windows 11 Enterprise IOT LTSC: Firewall on in all domains, inbound connections blocked by default, outbound connections allowed by default.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/VirtualBox_Win11-Ent-IOT_29_03_2025_11_26_42.png</image:loc>
+<image:title><![CDATA[Verifying Windows 11 Enterprise IOT LTSC firewall setting freedom by changing Log Dropped Packages to &quot;Yes&quot; from &quot;No (Default)&quot;.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_44_39-thumbnail.png</image:loc>
+<image:title><![CDATA[Logged actions of the script.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_46_07-thumbnail.png</image:loc>
+<image:title><![CDATA[Domain Profile rules merging being unchanged.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_46_26-thumbnail.png</image:loc>
+<image:title><![CDATA[Updated Domain Profile logging settings.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_46_52-thumbnail.png</image:loc>
+<image:title><![CDATA[Private Profile rules merging being unchanged.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_47_02-thumbnail.png</image:loc>
+<image:title><![CDATA[Updated Private Profile logging settings.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_47_23-thumbnail.png</image:loc>
+<image:title><![CDATA[Public Profile rules merging being unchanged.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_47_35-thumbnail.png</image:loc>
+<image:title><![CDATA[Updated Public Profile logging settings.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/VirtualBox_Win11-Ent-IOT_29_03_2025_11_52_02.png</image:loc>
+<image:title><![CDATA[Looking for the HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\ entry in the Windows 11 Enterprise IOT LTSC registry.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_53_55-thumbnail.png</image:loc>
+<image:title><![CDATA[Public Profile registry entries in Windows 11 Enterprise IOT LTSC.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_54_17-thumbnail.png</image:loc>
+<image:title><![CDATA[Domain Profile registry entries in Windows 11 Enterprise IOT LTSC.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_54_39-thumbnail.png</image:loc>
+<image:title><![CDATA[Private Profile registry entries in Windows 11 Enterprise IOT LTSC.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/VirtualBox_Win11-Ent-IOT_01_04_2025_10_07_59.png</image:loc>
+<image:title><![CDATA[Log output of WinFirewall-STIG-tester-v4 with false negative readings for the connection logging findings.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_01_04_2025_10_08_42-thumbnail.png</image:loc>
+<image:title><![CDATA[Domain Profile with logging enabled for dropped and successful connections.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_01_04_2025_10_09_08-thumbnail.png</image:loc>
+<image:title><![CDATA[Private Profile with logging enabled for dropped and successful connections.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_01_04_2025_10_09_21-thumbnail.png</image:loc>
+<image:title><![CDATA[Public Profile with logging enabled for dropped and successful connections.]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/local-ai-hardware-ux-cybersecurity/</loc>
 <lastmod>2023-09-24T18:27:50-04:00</lastmod>
 <image:image>

@@ -3,12 +3,152 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2025-03-21T14:03:44-04:00</updated>
+    <updated>2025-04-01T16:06:30-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>Cybersecurity Project: Windows Defender Firewall STIG Script</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/cybersecurity-project-windows-defender-firewall-stig-script/"/>
+        <id>https://korgano.github.io/cybersecurity-project-windows-defender-firewall-stig-script/</id>
+        <media:content url="https://korgano.github.io/media/posts/36/VirtualBox_Win11-Ent-IOT_29_03_2025_11_25_42-2.png" medium="image" />
+            <category term="Tech"/>
+            <category term="PC"/>
+            <category term="Cybersecurity Projects"/>
+            <category term="Cybersecurity"/>
+            <category term="AI"/>
+
+        <updated>2025-03-31T10:03:20-04:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/36/VirtualBox_Win11-Ent-IOT_29_03_2025_11_25_42-2.png" alt="Default Windows Defender Firewall settings on Windows 11 Enterprise IOT LTSC: Firewall on in all domains, inbound connections blocked by default, outbound connections allowed by default." />
+                    Having focused a lot on networking and AI implications for security lately, I've decided to pivot into something a little&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/36/VirtualBox_Win11-Ent-IOT_29_03_2025_11_25_42-2.png" class="type:primaryImage" alt="Default Windows Defender Firewall settings on Windows 11 Enterprise IOT LTSC: Firewall on in all domains, inbound connections blocked by default, outbound connections allowed by default." /></p>
+                <p>Having focused a lot on networking and AI implications for security lately, I've decided to pivot into something a little different, but still connected: Compliance.</p>
+<p>The Defense Information Systems Agency (DISA) provides unclassified Security Technical Implementation Guides (STIGs) for hardening specific systems. For those who <strong>don't </strong>want to go on a government monitored system, <a href="https://stigviewer.com/" title="DISA STIG Viewer" target="_blank" rel="noopener noreferrer">DISA STIG Viewer</a> is a good option to check these guides out.</p>
+<p>I decided to make a script that would do two main things:</p>
+<ol>
+<li>Check the status of the system regarding the controls/settings.</li>
+<li> </li>
+<li>Update the settings/implement the controls.</li>
+</ol>
+<div class="post__toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#mcetoc_1inma3p0pa">Picking a STIG</a></li>
+<li> </li>
+</ul>
+</div>
+<h2 id="mcetoc_1inma3p0pa">Picking a STIG</h2>
+<p>Given the number of STIGs, one might be overwhelmed and get into decision paralysis.</p>
+<p>However, I used a simple metric to cutdown the number of choices: Did I have the software/hardware in use on a system I used? This was because I wanted to implement the STIGs across all the systems I used and maintained.</p>
+<p>This reduced the options to 4:</p>
+<ol>
+<li>Windows 10</li>
+<li>Windows 11</li>
+<li>Firefox</li>
+<li>Windows Defender Firewall</li>
+</ol>
+<p>From there, I then picked the one with the smallest number of controls to implement: Windows Defender Firewall.</p>
+<h2>Making the Script</h2>
+<p>The next step was to make the script.</p>
+<p>I chose to utilize AI, namely ChatGPT, for this, for a few reasons:</p>
+<ol>
+<li>I wanted to save time in creating the script.</li>
+<li>It allows for faster iteration.</li>
+<li>If the process worked, I could then apply it to other STIGs.</li>
+</ol>
+<p>To do this, I examined the STIG's CSV file, where all the controls and their requirements are enumerated. What I discovered for the <a href="https://stigviewer.com/stigs/microsoft_windows_defender_firewall_with_advanced_security" title="Microsoft Windows Defender Firewall with Advanced Security Security Technical Implementation Guide" target="_blank" rel="noopener noreferrer">Windows Firewall STIG</a> was not a well ordered spreadsheet. Instead, it seemed more like a standard page, laid out in numerous rows, in a single column format.</p>
+<p>Cross checking with the CSVs for some of the other STIGs revealed this to be simply this specific STIG's format.</p>
+<p>That led me to write a prompt that laid out the specifics of what I wanted done, instead of uploading the CSV and then referring to it in the prompt. That prompt is available <a href="https://github.com/korgano/WinDefender-Firewall-STIG-Validator/blob/main/Prompts/WinFirewall-STIG-Prompt.txt" title="WinFirewall-STIG-Prompt.txt" target="_blank" rel="noopener noreferrer">here</a>, on a GitHub repo that contains the prompts and the generated scripts.</p>
+<p>The process took a few hours, mostly because I would get confused at times, due to how similar and repetitive many elements of the tasks were. I implemented all but one of the STIG controls, with the final control being omitted due to the lack of a remote management connection.</p>
+<h2>The First Iteration</h2>
+<p>After the hard work of crafting the prompt was done, the first iteration of the script was generated (<a href="https://github.com/korgano/WinDefender-Firewall-STIG-Validator/blob/main/PastIterations/WinFirewall-STIG-tester-v1.ps1" title="WinFirewall-STIG-tester-v1.ps1 on GitHub" target="_blank" rel="noopener noreferrer">code here</a>). Since downloading the Windows image was taking a while (more on that later), this iteration was tested on a live Windows 10 system. (Said system had nothing of real value, and could've really used the excuse to be upgraded.)</p>
+<p>The script ran its functions properly, but the CSV output generated revealed I had made an understandable oversight. There were no descriptions to explain what the actual controls were doing, just ID numbers.</p>
+<h2>Iterations 2 &amp; 3</h2>
+<p>Curious to see how the script would be changed, I gave ChatGPT <a href="https://github.com/korgano/WinDefender-Firewall-STIG-Validator/blob/main/Prompts/Add-Descriptions-Prompt.txt" title="Add-Descriptions-Prompt.txt" target="_blank" rel="noopener noreferrer">this follow up prompt</a>. This generated the second iteration, which had the following code added to the existing script:</p>
+<blockquote>
+<p><code># Mapping of Findings to their Descriptions</code><br><code>$descriptions = @{</code><br><code>    "V-241989" = "Windows Defender Firewall must be enabled when connected to a domain."</code><br><code>    "V-241990" = "Windows Defender Firewall must be enabled when connected to a private network."</code><br><code>    "V-241991" = "Windows Defender Firewall must be enabled when connected to a public network."</code><br><code>    "V-241992" = "Windows Defender Firewall must block unsolicited inbound connections when connected to a domain."</code><br><code>    "V-241993" = "Windows Defender Firewall must allow outbound connections, unless explicitly blocked by rule."</code><br><code>    "V-241994" = "Windows Defender Firewall log size must be configured for domain connections."</code><br><code>    "V-241995" = "Windows Defender Firewall must log dropped packets when connected to a domain."</code><br><code>    "V-241996" = "Windows Defender Firewall must log successful connections when connected to a domain."</code><br><code>    "V-241997" = "Windows Defender Firewall must block unsolicited inbound connections when connected to a private network."</code><br><code>    "V-241998" = "Windows Defender Firewall must allow outbound connections on a private network, unless explicitly blocked by rule."</code><br><code>    "V-241999" = "Windows Defender Firewall log size must be configured for private network connections."</code><br><code>    "V-242000" = "Windows Defender Firewall must log dropped packets when connected to a private network."</code><br><code>    "V-242001" = "Windows Defender Firewall must log successful connections when connected to a private network."</code><br><code>    "V-242002" = "Windows Defender Firewall must block unsolicited inbound connections when connected to a public network."</code><br><code>    "V-242003" = "Windows Defender Firewall must allow outbound connections on a public network, unless explicitly blocked by rule."</code><br><code>    "V-242004" = "Windows Defender Firewall public network connections must not merge local firewall rules with Group policy settings."</code><br><code>    "V-242005" = "Windows Defender Firewall public network connections must not merge local connection rules with Group policy settings."</code><br><code>    "V-242006" = "Windows Defender Firewall log size must be configured for public connections."</code><br><code>    "V-242007" = "Windows Defender Firewall must log dropped packets when connected to a public network."</code><br><code>    "V-242008" = "Windows Defender Firewall must log successful connections when connected to a public network."</code><br><code>}</code></p>
+</blockquote>
+<p>Based on my admittedly shoddy understanding of programming/coding best practices, this is basically creating an array that stores the variables associated with the actual descriptions.</p>
+<p>This is presumably more efficient than just doing a brute force, manual addition of a field called <code>Description</code> to each row, and then putting in the string of text.</p>
+<p>This didn't address any issues with the log identifying things by row numbers instead of the finding numbers, but that was easily dealt with in the third iteration. All it took was editing the code in VS Code.</p>
+<h2>Testing in Windows 11 Enterprise IOT LTSC</h2>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/iu0Ob0HBFNo" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+<p>The choice of Windows 11 Enterprise IOT LTSC came about after I decided to do some verification on the Windows 10 test system after generating the second iteration.</p>
+<p>It turned out that even settings like the firewall log size are so locked down on Windows Home editions that the commands have no actual effect. Inputting the specific commands into an administrator command prompt yields an "Access is denied." response.</p>
+<p>(The reader is free to speculate as to the reasoning for this.)</p>
+<p>Actually downloading the image took an annoying amount of time, as the website hosting the non-trial images does not work well with browser download managers. A separate download manager is required, and if you don't use Edge, it can be hard to get the download link for the ISO.</p>
+<p>Once the virtual machine was ready, I made a snapshot of the initial configuration, and checked the defaults:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/36/VirtualBox_Win11-Ent-IOT_29_03_2025_11_25_42.png" alt="Default Windows Defender Firewall settings on Windows 11 Enterprise IOT LTSC: Firewall on in all domains, inbound connections blocked by default, outbound connections allowed by default." width="1024" height="768" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_29_03_2025_11_25_42-xs.png 384w ,https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_29_03_2025_11_25_42-sm.png 600w ,https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_29_03_2025_11_25_42-md.png 768w ,https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_29_03_2025_11_25_42-lg.png 1200w ,https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_29_03_2025_11_25_42-xl.png 1600w"></figure>
+<p>To verify that Enterprise IOT LTSC was <strong>not</strong> as locked down as the Home version, I checked if I could change the logging settings:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/36/VirtualBox_Win11-Ent-IOT_29_03_2025_11_26_42.png" alt="Verifying Windows 11 Enterprise IOT LTSC firewall setting freedom by changing Log Dropped Packages to &quot;Yes&quot; from &quot;No (Default)&quot;." width="1024" height="768" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_29_03_2025_11_26_42-xs.png 384w ,https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_29_03_2025_11_26_42-sm.png 600w ,https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_29_03_2025_11_26_42-md.png 768w ,https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_29_03_2025_11_26_42-lg.png 1200w ,https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_29_03_2025_11_26_42-xl.png 1600w"></figure>
+<p>With that confirmed, I ran the third iteration of the script:</p>
+<div class="gallery-wrapper"><div class="gallery"  data-is-empty="false" data-translation="Add images" data-columns="4">
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_44_39.png" data-size="1024x768"><img loading="lazy" src="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_44_39-thumbnail.png" alt="Logged actions of the script." width="768" height="576"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_46_07.png" data-size="1024x768"><img loading="lazy" src="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_46_07-thumbnail.png" alt="Domain Profile rules merging being unchanged." width="768" height="576"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_46_26.png" data-size="1024x768"><img loading="lazy" src="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_46_26-thumbnail.png" alt="Updated Domain Profile logging settings." width="768" height="576"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_46_52.png" data-size="1024x768"><img loading="lazy" src="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_46_52-thumbnail.png" alt="Private Profile rules merging being unchanged." width="768" height="576"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_47_02.png" data-size="1024x768"><img loading="lazy" src="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_47_02-thumbnail.png" alt="Updated Private Profile logging settings." width="768" height="576"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_47_23.png" data-size="1024x768"><img loading="lazy" src="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_47_23-thumbnail.png" alt="Public Profile rules merging being unchanged." width="768" height="576"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_47_35.png" data-size="1024x768"><img loading="lazy" src="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_47_35-thumbnail.png" alt="Updated Public Profile logging settings." width="768" height="576"></a></figure>
+</div></div>
+<p>For whatever reason, attempting to change the rules merging settings failed. So I decided to look at the registry:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/36/VirtualBox_Win11-Ent-IOT_29_03_2025_11_52_02.png" alt="Looking for the HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\ entry in the Windows 11 Enterprise IOT LTSC registry." width="1024" height="768" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_29_03_2025_11_52_02-xs.png 384w ,https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_29_03_2025_11_52_02-sm.png 600w ,https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_29_03_2025_11_52_02-md.png 768w ,https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_29_03_2025_11_52_02-lg.png 1200w ,https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_29_03_2025_11_52_02-xl.png 1600w"></figure>
+<p>V-242004 of the Windows Firewall STIG says that the following should be present:</p>
+<blockquote>
+<p>Registry Hive: HKEY_LOCAL_MACHINE<br>Registry Path: \SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\</p>
+</blockquote>
+<p>It was not, and it's not entirely clear why. Since the Windows Defender Firewall STIG was last updated in August 2023, it's entirely possible that entire setting has been depreciated by Microsoft, or made useless without an actual Group Policy.</p>
+<div class="gallery-wrapper"><div class="gallery"  data-is-empty="false" data-translation="Add images" data-columns="3">
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_53_55.png" data-size="1024x768"><img loading="lazy" src="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_53_55-thumbnail.png" alt="Public Profile registry entries in Windows 11 Enterprise IOT LTSC." width="768" height="576"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_54_17.png" data-size="1024x768"><img loading="lazy" src="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_54_17-thumbnail.png" alt="Domain Profile registry entries in Windows 11 Enterprise IOT LTSC." width="768" height="576"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_54_39.png" data-size="1024x768"><img loading="lazy" src="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_29_03_2025_11_54_39-thumbnail.png" alt="Private Profile registry entries in Windows 11 Enterprise IOT LTSC." width="768" height="576"></a></figure>
+</div></div>
+<p>The <code>CurrentControlSet</code> registry entries for the various profiles <strong>did </strong>exist, which was why those settings could be correctly updated.</p>
+<h2>Iteration 4 &amp; 5</h2>
+<p>To add an extra level of confidence to the results of the script, I decided to add a validation pass with <a href="https://github.com/korgano/WinDefender-Firewall-STIG-Validator/blob/main/Prompts/Add-Validation-Prompt.txt" title="Add-Validation-Prompt.txt" target="_blank" rel="noopener noreferrer">the following prompt</a>:</p>
+<blockquote>
+<p>Update script to do the following:<br>-Log if command has been granted permissions to execute<br>-Validate that the settings have been properly updated<br>-If settings have not been properly updated, set corrected value to False, and log correction failure</p>
+</blockquote>
+<p>I then ran <a href="https://github.com/korgano/WinDefender-Firewall-STIG-Validator/blob/main/PastIterations/WinFirewall-STIG-tester-v4.ps1" title="WinFirewall-STIG-tester-v4.ps1" target="_blank" rel="noopener noreferrer">this iteration of the script</a> on a modified snapshot of initial install, with the full Guest Additions package installed. This was the result:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/36/VirtualBox_Win11-Ent-IOT_01_04_2025_10_07_59.png" alt="Log output of WinFirewall-STIG-tester-v4 with false negative readings for the connection logging findings." width="1024" height="768" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_01_04_2025_10_07_59-xs.png 384w ,https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_01_04_2025_10_07_59-sm.png 600w ,https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_01_04_2025_10_07_59-md.png 768w ,https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_01_04_2025_10_07_59-lg.png 1200w ,https://korgano.github.io/media/posts/36/responsive/VirtualBox_Win11-Ent-IOT_01_04_2025_10_07_59-xl.png 1600w"></figure>
+<p>Oddly enough, all the validation checks for the connection logging settings failed. So I examined the actual settings through the GUI:</p>
+<div class="gallery-wrapper"><div class="gallery"  data-is-empty="false" data-translation="Add images" data-columns="3">
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_01_04_2025_10_08_42.png" data-size="1024x768"><img loading="lazy" src="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_01_04_2025_10_08_42-thumbnail.png" alt="Domain Profile with logging enabled for dropped and successful connections." width="768" height="576"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_01_04_2025_10_09_08.png" data-size="1024x768"><img loading="lazy" src="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_01_04_2025_10_09_08-thumbnail.png" alt="Private Profile with logging enabled for dropped and successful connections." width="768" height="576"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_01_04_2025_10_09_21.png" data-size="1024x768"><img loading="lazy" src="https://korgano.github.io/media/posts/36/gallery/VirtualBox_Win11-Ent-IOT_01_04_2025_10_09_21-thumbnail.png" alt="Public Profile with logging enabled for dropped and successful connections." width="768" height="576"></a></figure>
+</div></div>
+<p>Since the system reported that the settings <strong>had </strong>been configured correctly, that pointed to an error in the script.</p>
+<p>Opening up the Registry Editor and searching for the name <code>LogDroppedPackets</code> revealed that I had made the following error in the original prompt:</p>
+<blockquote>
+<p><code>Incorrect: "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile",</code><br><code>Incorrect: "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile"</code></p>
+<p><code>Correct: "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging",</code><br><code>Correct: "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\Logging"</code></p>
+</blockquote>
+<p>As a result, the script was checking the wrong area in the registry, finding no registry entry for <code>LogDroppedPackets</code> or <code>LogSuccessfulConnections</code>, and declaring that the correction had failed. In essence, the quintessential false negative.</p>
+<p>This was easily corrected in <a href="https://github.com/korgano/WinDefender-Firewall-STIG-Validator/blob/main/WinFirewall-STIG-tester-v5.ps1" title="WinFirewall-STIG-tester-v5.ps1" target="_blank" rel="noopener noreferrer">the fifth iteration</a> by amending the paths.</p>
+<h2>Takeaways</h2>
+<ul>
+<li>DISA STIG Viewer is a great resource for anyone looking to understand DOD compliance or looking for a guide on how to harden their systems.</li>
+<li>STIG Viewer's CSVs for a particular STIG may not be correctly formatted.</li>
+<li>For smaller STIGs, handcrafting prompts instead of uploading a CSV for AI code generation is possible, but runs the risk of errors in the code.</li>
+<li>Including a validation test is a good way to spot errors in output.</li>
+<li>Using reasoning LLMs to iteratively update code is quite effective if the user knows how to articulate what their objective is.</li>
+<li>Windows 11 Home gives the user far less ability to fine tune security controls with its implementation of Windows Defender Firewall.</li>
+</ul>
+<h2 id="mcetoc_1inma2kuk5"></h2>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Quick Cyber Thoughts: AI Coding Security</title>
         <author>
@@ -1057,62 +1197,6 @@
 <p>There's a non-zero use case for a GUI when you have a long command that requires multiple file and/or folder paths. But if we're honest, I doubt that it's all that common, and you're better off using a conventional script... unless your organization just blanket disables command line <strong>and </strong>PowerShell. Then this might be your only option.</p>
 <p>But what comes to mind is a stupid simple way to execute troubleshooting commands on an endpoint PC for a non-technical and/or non-permissioned user. For example, you could make multiple Tuw based executable files for ping testing when a user calls with a network connection issue. One file would execute <code>ping 8.8.8.8</code>, another would ping a specified endpoint, and so on, and each would only require the user to make a few clicks.</p>
 <p>Naturally, you'd need to have someone qualified inspect the source code and verify that it was safe to use, but on the plus side, all those JSONs for your GUIs should be compatible across versions. If there's ever a problem, you can just rebuild the embedded GUI executables by combining a known good version of Tuw with those JSONs.</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Quick Cyber Thoughts: More Reasons for Local AI</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/quick-cyber-thoughts-more-reasons-for-local-ai/"/>
-        <id>https://korgano.github.io/quick-cyber-thoughts-more-reasons-for-local-ai/</id>
-        <media:content url="https://korgano.github.io/media/posts/24/chatgpt-jank.png" medium="image" />
-            <category term="Tech"/>
-            <category term="Quick Thoughts"/>
-            <category term="Cybersecurity"/>
-            <category term="AI"/>
-
-        <updated>2024-09-19T10:17:01-04:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/24/chatgpt-jank.png" alt="ChatGPT web interface that cannot connect to ChatGPT/OpenAI servers." />
-                    This week, I was hoping to follow up on my previous cybersecurity project post, only to run into an unforeseen&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/24/chatgpt-jank.png" class="type:primaryImage" alt="ChatGPT web interface that cannot connect to ChatGPT/OpenAI servers." /></p>
-                <p>This week, I was hoping to follow up on <a href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-30/" title="CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 3.0" target="_blank" rel="noopener noreferrer">my previous cybersecurity project post</a>, only to run into an unforeseen problem.</p>
-<p>Since it's best to make lemonade out of lemons, let's talk about what happens when web AI interfaces stop working.</p>
-<h2>The Problem</h2>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/24/chatgpt-jank-2.png" alt="ChatGPT web interface that cannot connect to ChatGPT/OpenAI servers." width="1920" height="952" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/24/responsive/chatgpt-jank-2-xs.png 384w ,https://korgano.github.io/media/posts/24/responsive/chatgpt-jank-2-sm.png 600w ,https://korgano.github.io/media/posts/24/responsive/chatgpt-jank-2-md.png 768w ,https://korgano.github.io/media/posts/24/responsive/chatgpt-jank-2-lg.png 1200w ,https://korgano.github.io/media/posts/24/responsive/chatgpt-jank-2-xl.png 1600w"></figure>
-<p>Two days ago, my ChatGPT session went from normal to what you see above.</p>
-<p>Typing does nothing - I can make a prompt, but there's no data transmission to ChatGPT.</p>
-<p>Clearing cache, temporarily disabling PiHole DNS blackhole, and ad/script blockers do nothing. I'll have to do more investigation to see if the connectivity issue is on my end or ChatGPT's, but it does provide another great example of why local AI is a good idea.</p>
-<p>(Bing Copilot is still available, so it's not something that affecting all web AI, as far as I can tell.)</p>
-<h2>AI Needs High Availability</h2>
-<p>In IT/cybersecurity, the Five 9s are the gold standard for availability - 99.999% uptime.</p>
-<p>Let's set aside all the data confidentiality and integrity issues that might come with using AI (Large and Small Language Models - LLMs/SLMs). The main benefit of AI at the moment is generating content - informational or artistic - quickly and in accordance with the user's input.</p>
-<p>In order to be useful, it needs to be <strong>available</strong>, and an AI hosted on someone else's servers is always going to be vulnerable to service disruption. It could be at their end, your end, or even the ISP in general, but there's plenty of failure points on the chain.</p>
-<p>So, how do we get around this?</p>
-<h2>Exploit the Training Bubble Pop</h2>
-<p><a href="https://www.rand.org/pubs/research_reports/RRA2680-1.html" title="The Root Causes of Failure for Artificial Intelligence Projects and How They Can Succeed" target="_blank" rel="noopener noreferrer">80% of AI projects fail</a>, according to RAND Corporation research.</p>
-<p>Most of that comes down to inflated expectations created by Hollywood and grifters, but also a fundamental misunderstanding of how LLMs and SLMs function. You don't <strong>need </strong>to train the AI on your data to get useful outputs from it. You can use Retrieval Augmented Generation (RAG) to expand the AI's knowledge base:</p>
-<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/T-D1OfcDW1M?pp=ygUecmV0cmlldmFsIGF1Z21lbnRlZCBnZW5lcmF0aW9u" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
-<p>So we only need the hardware to do the inferencing (generating responses), which is a lower tier of complexity and performance requirements than training.</p>
-<p>Graphics cards and Neural Processing Unit (NPU) equipped chips are providing most of the inferencing hardware on the market, but they're not exactly cost efficient. Decent performance GPUs cost hundreds of dollars, and NPU equipped processors are only in laptops, which also require hundreds of dollars each. What are we to do?</p>
-<p>Well, thanks to the billions of dollars spent on AI training hardware, which is also capable of inferencing, and the general trend of AI project failure, the answer is simple. Wait for the AI training bubble to pop, and acquire the used hardware as it's being liquidated to keep the companies afloat.</p>
-<h2>Things to Keep in Mind</h2>
-<p>So, on top of all the usual caveats about buying used hardware, especially in a corporate environment, there's one specific thing to keep in mind:</p>
-<p>AMD's server chips have a fuse in them that trips when they are initialized, locking them to a specific vendor's motherboards.</p>
-<p>This raises the cost of some used AI server hardware, as buying a matched processor and motherboard set is going to be safer than trying to get two separate units and hope that AMD didn't put even more specific fuses in there to further restrict hardware choice.</p>
-<p>Another thing to consider is what information will be provided to the AI through RAG, where the information is to be hosted, and how implement network segmentation.</p>
-<p>For instance, for a local AI server in a home or single-building small business, it may make sense to host all the RAG data you want on that same system. (It may also be the only option, if you're using software that doesn't allow for remote access to data.) However, the more data you have, the more likely it is that a NAS or Storage Area Network (SAN) might be necessary.</p>
-<p>What that data is also plays a huge part in figuring out your storage needs. If you're just pulling down text documentation for software you're using and making it accessible to the AI, you could probably get away with way less storage than an organization that's using RAG on multimedia content.</p>
-<p>Naturally, you also have to be careful what you make available to the AI, because if prompted the right way, it <strong>will </strong>provide that information, whether you intended for that to happen or not. Even if you apply access controls to the AI or the data, it may be simpler and easier to redact/remove any Personal Identification Information (PII) or Personal Health Information (PHI). The AI can't leak what it doesn't have, and it reduces your compliance headaches.</p>
-<p>Network segmentation is also going to be an interesting challenge. Obviously, the AI server should be on its own segment, so that access can be controlled through firewall control lists. But should the storage servers associated with the RAG data also be on the same network segment?</p>
-<p>These questions and more are what we cybersecurity practioners need to ponder as organizations adopt AI and integrate it into their operations.</p>
             ]]>
         </content>
     </entry>
