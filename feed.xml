@@ -3,12 +3,144 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2025-05-16T07:44:28-04:00</updated>
+    <updated>2025-05-23T15:39:17-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>Quick Tech Thoughts: Computex 2025</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/quick-tech-thoughts-computex-2025/"/>
+        <id>https://korgano.github.io/quick-tech-thoughts-computex-2025/</id>
+        <media:content url="https://korgano.github.io/media/posts/39/05rNRArkzOxhgSDWsZqRneF-1.webp" medium="image" />
+            <category term="Tech"/>
+            <category term="Quick Thoughts"/>
+            <category term="PC Hardware"/>
+            <category term="Cybersecurity"/>
+            <category term="AI"/>
+
+        <updated>2025-05-20T09:10:40-04:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/39/05rNRArkzOxhgSDWsZqRneF-1.webp" alt="Computex 2025 Key Art" />
+                    Computex 2025 has just wrapped up, showcasing all sorts of computing related hardware and, of course, lots of AI related&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/39/05rNRArkzOxhgSDWsZqRneF-1.webp" class="type:primaryImage" alt="Computex 2025 Key Art" /></p>
+                <p>Computex 2025 has just wrapped up, showcasing all sorts of computing related hardware and, of course, lots of AI related things.</p>
+<p>This year had some odd surprises, so let's jump into it.</p>
+<div class="post__toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#mcetoc_1irv4itv2lp">Intel Surprise #1: Budget AI GPUs for Home Labbers?</a></li>
+<li><a href="#mcetoc_1irv4itv2lq">Intel Surprise #2: $500 24 GB GPUs</a></li>
+<li><a href="#mcetoc_1irv4itv2lr">Intel Surprise #3: A Sub-$1000 Dual GPU</a></li>
+<li><a href="#mcetoc_1irv4itv2ls">The Intel Hold Up</a></li>
+<li><a href="#mcetoc_1irv4itv2lt">AMD Getting Serious About ROCM on Windows</a></li>
+</ul>
+</div>
+<h2 id="mcetoc_1irv4itv2lp">Intel Surprise #1: Budget AI GPUs for Home Labbers?</h2>
+<figure class="post__image"><img loading="lazy"  src="https://cdn.videocardz.com/1/2025/05/INTEL-ARC-PRO-B50-B60-4.jpg" alt="Intel Arc Pro B50 GOU specifications, design features, and software compatibility." width="2560" height="1440" data-is-external-image="true"></figure>
+<p>Intel's Graphics Card Division has not had a good time, to put it mildly.</p>
+<p>While people were excited for the B580 due to its mix of features, performance, and purported low price point, Intel basically couldn't supply the thing at the price people wanted. The B570, a cutdown version of the B580 with reductions in specs and MSRP, basically made no impact. Driver updates have been few and far between, and support for their own software features has been pretty minimal.</p>
+<p>So it was shocking to see Intel announce the B50, a half-height, half-length GPU that only uses 70 watts of power.</p>
+<p>Why?</p>
+<p>Because this is basically a card for budget home labbers. This is the kind of card you can buy and slap into a cheap Dell/HP/Lenovo OEM desktop, as seen below (in gaming <strong>and </strong>home lab contexts):</p>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/XCWsUiJZiiA" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/Ir53nheghcI" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+<p>These typically cheap, used systems tend to have a few constraints when it comes to provisioning them with new hardware:</p>
+<ul>
+<li>They cannot support full width GPUs (or any other PCIe cards, for that matter).</li>
+<li>The front to back length of the case is typically much shorter than most PC cases.</li>
+<li>They use TFX power supplies with low wattages and limited power connectors.</li>
+<li>Many designs use proprietary motherboards and other components, constraining upgrades.</li>
+</ul>
+<p>The B50 meets all the requirements to fit in these systems:</p>
+<ul>
+<li>Half-width.</li>
+<li>Compact length.</li>
+<li>70 watt power draw can be supplied through the motherboard PCIe slot.</li>
+</ul>
+<p>The main constraints on the B50 are:</p>
+<ul>
+<li>Clearance - some of these compact towers do not provide two PCIe slots worth of clearance from the motherboard slot to the power supply.</li>
+<li>Price - the B50 has an MSRP of $300, which may or may not be realistic or achievable on release day.</li>
+<li>Noise - it has a blower fan, which typically have a noise profile that's worse than the typical fan arrangements on other graphics cards.</li>
+</ul>
+<p>In exchange, you are getting a GPU that can provide over 3x the TOPs of the best price/performance APUs AMD produces (Strix/Gorgon Point), <strong>and </strong>16GB of VRAM. It's pretty hard to beat this combination if you're on a budget.</p>
+<h2 id="mcetoc_1irv4itv2lq">Intel Surprise #2: $500 24 GB GPUs</h2>
+<figure class="post__image"><img loading="lazy"  src="https://cdn.videocardz.com/1/2025/05/INTEL-ARC-PRO-B50-B60-7.jpg" alt="Intel Arc Pro B60 specifications, design features, and software compatibility." width="2560" height="1440" data-is-external-image="true"></figure>
+<p>The next surprise wasn't necessarily the fact that Intel was producing a 24GB professional card. That had leaked weeks prior to Computex.</p>
+<p>What <strong>was </strong>surprising was the price point: $500.</p>
+<p>However, this makes sense when we factor in a few things:</p>
+<ul>
+<li>According to analysts like Moore's Law is Dead, GDDR6 chip prices may be as low as $6 per chip.</li>
+<li>The B580 already had 12GB of VRAM.</li>
+<li>Clamshelling - mounting VRAM chips to the rear of the printed circuit board (PCB) - has become a more common technique for increasing VRAM capacity in GPUs.</li>
+<li>The B580's low MSRP came at the cost of slashing margins as much as possible.</li>
+</ul>
+<p>On a technical level, $500 is almost certainly a price where Intel and its add-in board (AIB) partners can make a sustainable amount of profit. From a pure business angle, it's surprising that Intel didn't try to charge <strong>more </strong>for 24GB of VRAM, given how its competitors (AMD and Nvidia) handle segmentation.</p>
+<p>That said, AI performance is not necessarily this card's strong suite. The performance gains over the B50 are not great, at least going by the TOPs figure. However, what you do get is more VRAM, and therefore a bigger context window, or interaction memory, for an AI. </p>
+<h2 id="mcetoc_1irv4itv2lr">Intel Surprise #3: A Sub-$1000 Dual GPU</h2>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/Y8MWbPBP9i0" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+<p>It's not everyday when you get to see old technological concepts return from the dead.</p>
+<p>Roughly 15 years ago, GPU AIBs gave up on the idea of combining two GPUs into a single graphics card. There were just too many hurdles in terms of synchronizing the GPUs and their outputs, causing limited software support for those use-cases. Then MaxSun, an Intel AIB, revived it for the B60 professional cards.</p>
+<p>Let's get the drawbacks out of the way:</p>
+<ul>
+<li>This card requires a motherboard that can support PCIe bifurcation - splitting the interface from x16 to x8/x8.</li>
+<li>The operating system and AI software will see it as two GPUs.</li>
+<li>It requires using Nvidia's infamous 12 volt High Power connector, which has notorious melting issues.</li>
+</ul>
+<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/Y36LMS5y34A" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
+<p>So, what would anyone use this for? Well, besides running gigantic models or training workloads by splitting the load across two GPUs, the most obvious use case is running two models at the same time with large context windows. For example, running a coding LLM and an image generation model at the same time.</p>
+<p>A particularly interesting cybersecurity application is running a generative model alongside Cisco Foundation AI's <a href="https://huggingface.co/fdtn-ai/Foundation-Sec-8B" title="Foundation-Sec-8B - Model Card">Foundation-Sec-8B</a> model. What is Foundation-Sec-8B?</p>
+<blockquote>
+<p>Foundation-Sec-8B (Llama-3.1-FoundationAI-SecurityLLM-base-8B) is an open-weight, 8-billion parameter base language model specialized for cybersecurity applications. It extends Llama-3.1-8B model through continued pretraining on a curated corpus of cybersecurity-specific text, including threat intelligence reports, vulnerability databases, incident response documentation, and security standards. It has been trained to understand security concepts, terminology, and practices across multiple security domains. The model is designed to serve as a domain-adapted base model for use in applications such as threat detection, vulnerability assessment, security automation, and attack simulation. Foundation-Sec-8B enables organizations to build AI-driven security tools that can be deployed locally, reducing dependency on cloud-based AI services while maintaining high performance on security-related tasks.</p>
+</blockquote>
+<p>With this graphics card, assuming proper configuration, it would be possible to create an agentic workflow where code is generated in one model, then passed to Foundation-Sec for vulnerability assessment, then return the vulnerability report to the coding model. A 24GB VRAM buffer would be an appropriate size for Foundation-Sec (~16.2 GB)</p>
+<p>It should be noted that this particular configuration makes the most sense if you are budget/space/slot constrained and can't afford a system with multiple B60 GPUs.</p>
+<p>Or if you have a motherboard with a <strong>lot </strong>of PCIe 5.0x16 slots, and want to populate every one of them with as many GPUs as possible.</p>
+<h2 id="mcetoc_1irv4itv2ls">The Intel Hold Up</h2>
+<p>The primary road block for these products is the fact that they will be releasing as integrated parts of professional products first. In fact, one could say they're a pipe cleaner for the drivers prior to the consumer release.</p>
+<p>With a scheduled professional release in Q3 2025, and consumer release in Q4 2025, barring delays, it could be <strong>many </strong>months before this hardware becomes available, although it would not surprise me if the B50 made its way to consumers sooner than expected.</p>
+<h2 id="mcetoc_1irv4itv2lt">AMD Getting Serious About ROCM on Windows</h2>
+<p>It's hard to imagine now, but 15 years ago, AMD was a company on the verge of death.</p>
+<p>A bad bet on CPU architecture for the Bulldozer/Piledriver series of CPUs left them in a precarious financial position. While they were able to star clawing their way back to success with their Ryzen CPU architecture in 2017, that bad decision meant that they were at a massive disadvantage against Nvidia. During this period, Nvidia laid down the foundation of its CUDA compute ecosystem, which currently dominates the AI landscape.</p>
+<p>Never the less, AMD has an open-source software stack for accelerated computing, called ROCm (Radeon Open Compute Platform). This stack has been largely focused on data center and workstations, so it has high Linux hardware compatibility, but very poor Windows compatibility. This is a pretty big issue, because AMD's own hardware cannot run CUDA - and the conversion layer, ZLUDA, is a pain to install and troubleshoot. </p>
+<figure class="post__image"><img loading="lazy"  src="https://cdn.videocardz.com/1/2025/05/AMD-ROCM-COMPUTEX-4.jpg" alt="AMD ROCm Windows Support Timeline" width="1100" height="520" data-is-external-image="true"></figure>
+<p>AMD announced official Windows support at Computex 2025, with specific frameworks either being supported in July (ONNX-EP) or sometime in Q3 (PyTorch). They also enabled support on RDNA 4 graphics cards, which will be relevant a little bit later. Linux support is also expanding to Ubuntu and Red Hat EPEL in the back half of 2025.</p>
+<h2>AMD Launches a 16GB GPU for $350</h2>
+<figure class="post__image"><img loading="lazy"  src="https://cdn.videocardz.com/1/2025/05/RADEON-RX-9060XT-4.jpg" alt="AMD slide showing price, VRAM amounts, and release date for RX 9060 XT graphics cards." width="1200" height="646" data-is-external-image="true"></figure>
+<p>As if timed to take the wind out of Intel's sails, AMD announced a new (but known well beforehand) GPU with 16GB VRAM at $350.</p>
+<p>(There is also an 8GB version at $300, but literally no one but the most desperate should be paying that much for an 8GB card in 2025.)</p>
+<p>Setting aside whether the $350 price will stick, what the RX 9060 XT offers verses the B50 is a mixed set of features:</p>
+<ul>
+<li>16GB of VRAM.</li>
+<li>ROCm acceleration support.</li>
+<li>Up to 182 watt power draw.</li>
+<li>Release date inside of 2 weeks.</li>
+</ul>
+<p>The interesting thing with RDNA 4, and AMD GPUs in general, is that despite ROCm not being available on Windows, it is <strong>not </strong>necessary for decent performance in text LLM inferencing tasks. Many chat interfaces rely on Llama, an open source inferencing software library. The library has support for a variety of APIs and frameworks, including Vulkan (an open-source graphics API). Meaning that if someone only wanted to experiment with text only Generative AI, the 9060 XT (16GB) might be a decent budget option in the current market.</p>
+<h2>The TP-Link Ban Idea Returns; Still No Solution to the Obvious Consequences</h2>
+<p>This is something that I was keeping an eye on in January, <a href="https://korgano.github.io/quick-cyber-thoughts-ces-2025/" title="Quick Cyber Thoughts: CES 2025 Aftermath" target="_blank" rel="noopener noreferrer">in the lead up to CES 2025</a>, and has resurfaced after a months long hibernation:</p>
+<blockquote>
+<p>A group of Republican lawmakers are urging the Trump administration to ban sales of <a href="https://www.pcmag.com/brands/tp-link" target="_self">TP-Link</a> networking products, including the company’s popular <a href="https://www.pcmag.com/picks/the-best-wireless-routers" target="_self">Wi-Fi routers</a>. </p>
+<p>The Commerce, Defense, and Justice Departments have reportedly been <a href="https://www.pcmag.com/news/us-considers-banning-tp-link-routers-over-security-concerns" target="_self">investigating TP-Link</a> for national security risks. On Wednesday, the lawmakers—including 12 GOP senators—wrote to the Commerce Department to voice support for its investigation, and called on the White House to block further sales of TP-Link products in the US. </p>
+<p><a href="https://www.pcmag.com/news/tp-link-accused-of-keeping-router-prices-low-to-help-china-conduct-cyberattacks">-https://www.pcmag.com/news/tp-link-accused-of-keeping-router-prices-low-to-help-china-conduct-cyberattacks</a></p>
+</blockquote>
+<p>Basically, <a href="https://www.cotton.senate.gov/imo/media/doc/tplinkfinal.pdf" title="TP-Link Letter - Office of Tom Cotton" target="_blank" rel="noopener noreferrer">lawmakers have reasonable and understandable concerns that TP-Link has monopolized a huge portion of the Small Office-Home Office (SOHO) router market, and may be a weak point in America's internet infrastructure</a>.</p>
+<p>I have no problem with the argument or the sentiment. The problem is that there's also no sign of thought about what happens <strong>after </strong>the requested investigation. And I mean from both the government and private sector. This is not particularly surprising from the government, given all the strife lately, but it is concerning that router manufacturers don't seem to be rising to the challenge of filling the void that would be caused by TP-Link routers being outright banned by the US government.</p>
+<p>Given the supply disruptions we've seen due to the Trump administration's use of tariffs as a negotiation tool, it's highly likely that if router manufacturers don't start a gradual increase in supply, there'll be a painful run on routers if the TP-Link ban goes through.</p>
+<p>Of course, the best solution would be providing a simple, effective way to replace the firmware on these devices with up-to-date versions of OpenWRT, a router operating system. Unfortunately, with only a fraction of TP-Link devices currently supported, it looks like a lot of Americans will be paying an unforeseen price for their past IT equipment choices.</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Quick Cyber Thoughts: Absolute Zero Reasoning</title>
         <author>
@@ -1113,170 +1245,6 @@ PLEASE help me figure out what's wrong with it: [code]</code></pre>
 <li>Generate the text files in the proper format (IP addresses separated by spaces).</li>
 </ul>
 <p>Once these are complete, they will be tested and uploaded to the repo upon validation.</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 6.0</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-60/"/>
-        <id>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-60/</id>
-        <media:content url="https://korgano.github.io/media/posts/28/pi-hole-blocklists-07-2.jpg" medium="image" />
-            <category term="Tech"/>
-            <category term="PC"/>
-            <category term="Cybersecurity Projects"/>
-            <category term="Cybersecurity"/>
-            <category term="AI"/>
-
-        <updated>2024-11-13T15:34:12-05:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/28/pi-hole-blocklists-07-2.jpg" alt="Pi-Hole DNS Block List with IP address entries." />
-                    Last time on the transparent filtering bridge project, I bounced my head off of the progression blockers with setting up&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/28/pi-hole-blocklists-07-2.jpg" class="type:primaryImage" alt="Pi-Hole DNS Block List with IP address entries." /></p>
-                <p>Last time on the transparent filtering bridge project, I bounced my head off of the progression blockers with setting up a WiFi management connection.</p>
-<p>With that seemingly impassable unless there's a revision of either FreeBSD's Intel WiFi driver or how OPNsense handles some things, I've decided to pivot to another part of the project that <strong>doesn't </strong>require working hardware and software. This time, it's building alias IP address lists.</p>
-<div class="post__toc">
-<h3>Table of Contents</h3>
-<ul>
-<li><a href="#mcetoc_1icvlr9di2cm">What's an Alias?</a></li>
-<li><a href="#mcetoc_1icvlr9di2cn">How to Get the Aliases into OPNsense</a></li>
-<li><a href="#mcetoc_1icvlr9di2co">Getting the IP Addresses</a></li>
-<li><a href="#mcetoc_1icvlr9di2cp">Picking the Category</a></li>
-<li><a href="#mcetoc_1icvlr9di2cq">Second Time's the Charm</a></li>
-<li><a href="#mcetoc_1icvlr9di2cr">Refining the Process</a></li>
-<li><a href="#mcetoc_1icvlr9di2cs">Validating Some Results</a></li>
-<li><a href="#mcetoc_1icvlr9di2ct">Next Steps</a></li>
-</ul>
-</div>
-<h2 id="mcetoc_1icvlr9di2cm">What's an Alias?</h2>
-<p><a href="https://docs.opnsense.org/manual/aliases.html" title="OPNsense Documentation - Aliases" target="_blank" rel="noopener noreferrer">The OPNsense documentation provides a simple, clear definition:</a></p>
-<p>Aliases are named lists of networks, hosts or ports that can be used as one entity by selecting the alias name in the various supported sections of the firewall. These aliases are particularly useful to condense firewall rules and minimize changes.</p>
-<p>So what am I going to put in these alias lists?</p>
-<p>Well, as it turns out, a number of the Pi-Hole block lists I use have a <strong>lot </strong>of IP address entries. Since Pi-Hole doesn't block them, due to being a DNS black hole, that means it'll be OPNsense's job to block them.</p>
-<h2 id="mcetoc_1icvlr9di2cn">How to Get the Aliases into OPNsense</h2>
-<p>Ironically, I stumbled onto a pretty simple solution for mass importation of alias entries while trying some more troubleshooting on the OPNsense connectivity issues.</p>
-<p>As it turns out, <a href="https://forum.opnsense.org/index.php?topic=36687.msg179205#msg179205" target="_blank" rel="noopener noreferrer">someone on the OPNsense forums made a helpful Python script to populate the JSON file that handles <strong>all </strong>the alias lists from a CSV file</a>. It is not clear to me why JSON format was chosen for something that could potential hold <strong>thousands </strong>of entries, versus a bulk data format like CSV, but it's just one of those design choices that end users have to live with.</p>
-<p>The script is not very self-explanatory, <a href="https://forum.opnsense.org/index.php?PHPSESSID=qc30qj4c08unjl5rhht9ntda15&amp;topic=36687.msg192490#msg192490" title="Alias creation using API " target="_blank" rel="noopener noreferrer">so the author helpfully explained how to use it</a>:</p>
-<p><span class="bbc_u"><strong>Steps:</strong></span></p>
-<ul class="bbc_list">
-<li>Install Python if you do not already have it</li>
-<li>Install any of the required Python modules if you don't have them (json, uuid, csv) - <em>see below *</em></li>
-<li>Save the script as a *.py file</li>
-<li>Download your current list of Aliases from your OPNsense device: Firewall&gt;Aliases&gt;'download' (button bottom right of the Alias list) - save the file as 'opnsense_aliases.json'</li>
-<li>Create a CSV file called 'pfsense_alias.csv' with four columns called 'name', 'data', 'type' and 'description' in the first row, and which then contains your new Aliases, one per row (be sure the 'name' field meets the name constraints for Aliases)</li>
-<li>Update the two 'with open...' script lines to include the full path to each of the above files</li>
-<li>Run the script</li>
-<li>Upload the resultant json output file back into your OPNsense device: Firewall&gt;Aliases&gt;'upload' (next to the 'download' button)</li>
-</ul>
-<p><br><strong>What does this script do?</strong></p>
-<ul class="bbc_list">
-<li>It reads in the current list of aliases you downloaded from your device into a Python variable (dict)</li>
-<li>It then reads in the CSV file containing your list of new (additional) aliases, also into a Python dict</li>
-<li>It ADDS (<em>appends</em>) all the <span class="bbc_u">new</span> aliases to the current list (no deletions, assuming you don't experience a uuid collision)</li>
-<li>It then saves the new expanded list of aliases over the previously downloaded alias json file</li>
-</ul>
-<p><br>Obviously, you need Python and the required modules to run the script.</p>
-<p>So, all I need to do is get the IP addresses into a properly formatted CSV, then I can upload that into OPNsense for later.</p>
-<h2 id="mcetoc_1icvlr9di2co">Getting the IP Addresses</h2>
-<p>Thankfully, Pi-Hole makes accessing the block lists incredibly easy... perhaps <strong>too </strong>easy:</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/28/pi-hole-blocklists.jpg" alt="Pi-Hole Block List page with 50 entries, showing block lists for ads, tracking, and malware." width="1583" height="2652" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-xs.jpg 384w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-sm.jpg 600w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-md.jpg 768w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-lg.jpg 1200w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-xl.jpg 1600w"></figure>
-<p>Why do I have nearly 100 block lists?</p>
-<p>Well, to be honest, two main reasons:</p>
-<ol>
-<li>I don't like unified block lists, because they make troubleshooting harder and might block things I want.</li>
-<li>I don't mind a little extra CPU load due to redundant entries, versus the possibility of losing blocking due to block lists dying.</li>
-</ol>
-<p>It's simply not practical to handle all those lists at the same time, so my plan is as follows:</p>
-<ol>
-<li>Break the scripts up into categories.</li>
-<li>Pick one category to use.</li>
-<li>Develop a script to pull the IP addresses out of that category's block lists.</li>
-<li>Once validated, clone the script for other categories.</li>
-<li>Fill out the CSV with the data for each category.</li>
-<li>Run the CSV-to-JSON script to convert the data for import.</li>
-</ol>
-<h2 id="mcetoc_1icvlr9di2cp">Picking the Category</h2>
-<p>To start off the project, I wanted a category that had a reasonable amount of scripts. Ideally, a dozen or less, so that I could troubleshoot things if necessary without too many headaches.</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/28/pi-hole-blocklists-02.jpg" alt="Pi-Hole block lists featuring the word segment &quot;mal&quot;." width="1583" height="955" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-02-xs.jpg 384w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-02-sm.jpg 600w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-02-md.jpg 768w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-02-lg.jpg 1200w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-02-xl.jpg 1600w"></figure>
-<p>As it so happened, my first choice, "malware", actually was a perfect fit for this task. Even with a partial match, there were only 10 lists, which I whittled down to 8. These are the lists I used for the script development process:</p>
-<blockquote>
-<p><code>'https://v.firebog.net/hosts/Prigent-Malware.txt',</code><br><code>'https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt',</code><br><code>'https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareHosts.txt',</code><br><code>'https://blocklistproject.github.io/Lists/malware.txt',</code><br><code>'https://v.firebog.net/hosts/RPiList-Malware.txt',</code><br><code>'https://raw.githubusercontent.com/manic-code/Emerging-Malicious-Domain-Blocklist/main/hosts.txt',</code><br><code>'https://github.com/zangadoprojets/pi-hole-block-list/raw/main/Malicious.txt',</code><br><code>'https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/hoster.txt'</code></p>
-</blockquote>
-<h2 id="mcetoc_1icvlr9di2cq">Second Time's the Charm</h2>
-<p>Initially, I wanted to make the script to pull IP addresses from these block lists with PowerShell. I've had good results using PowerShell to scrape logs for specific content before, so I thought I could do it with minimal issues.</p>
-<p>I was wrong.</p>
-<p>Here's the prompt I used with Microsoft Copilot:</p>
-<blockquote>
-<p>Write me a powershell script that does the following: <br>-downloads files from a list of specified urls <br>-iterates through the downloaded files for IPv4 and IPv6 addresses, except for 0.0.0.0 or :: <br>-generates a new list of IP addresses <br>-removes duplicate items <br>-outputs list to text file cleaned-IPs <br>-provides full error reporting<br>-requires user to press enter to exit</p>
-</blockquote>
-<p>What I got was a script that used regular expressions in a for-each loop to scrape the files for the IP addresses. That part worked. What didn't work, for no discernable reason, was handing off the array of scraped IPs to the rest of the script for clean up and writing to a text file.</p>
-<p>Passing the script off to ChatGPT's Code LLM didn't help resolve the issue, so I decided to pivot into another direction.</p>
-<p>Since I was already going to be using Python later the process, I figured that using Python the whole way through made sense. However, I decided to try out a local LLM coding model for the Python iteration of the script. This was to get a feel for how well it produces usable code, since it's a blazing fast model that can sometimes get your GPU to <a href="https://www.youtube.com/watch?v=T7HsXHqtxrI" title="Techquickie - Coil Whine as Fast As Possible">coil whine</a>.</p>
-<p>Here's the prompt I used with the Qwen2.5-Coder-7B-Instruct-GGUF model:</p>
-<blockquote>
-<p>Write me a python script that does the following: <br>-downloads text files from a list of specified urls <br>-obtains IPv4 and IPv6 addresses from the files, except for 0.0.0.0, 127.0.0.1, or :: <br>-obtains the first instance of any ip address<br>-generates a new list of IP addresses <br>-outputs list to text file cleaned-IPs <br>-provides full error reporting<br>-provides logging throughout the whole process for troubleshooting</p>
-</blockquote>
-<p>Here's the output it gave me:</p>
-<blockquote>
-<p>Certainly! Below is a Python script that accomplishes all of the tasks you've described. This script uses `requests` to download files, `re` for regex operations to extract IP addresses, and `logging` for comprehensive error reporting and logging.<br><br>First, make sure to install the required packages:<br><br><code>pip install requests</code><br><br>Here is the Python script:<br><br><code>import requests</code><br><code>import re</code><br><code>import logging</code><br><br><code># Setup logging configuration</code><br><code>logging.basicConfig(filename='download_ips.log', level=logging.DEBUG, </code><br><code>                    format='%(asctime)s - %(levelname)s - %(message)s')</code><br><br><code>def download_file(url):</code><br><code>    """Downloads a file from the given URL and returns its content."""</code><br><code>    try:</code><br><code>        response = requests.get(url)</code><br><code>        response.raise_for_status()  # Raises an HTTPError for bad responses</code><br><code>        return response.text</code><br><code>    except requests.exceptions.RequestException as e:</code><br><code>        logging.error(f"Failed to download {url}: {e}")</code><br><code>        return None</code><br><br><code>def extract_ips(text):</code><br><code>    """Extracts IPv4 and IPv6 addresses from the given text, excluding specified ones."""</code><br><code>    ip_regex = r"\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b|\b(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\b"</code><br><code>    ip_pattern = re.compile(ip_regex)</code><br><code>    </code><br><code>    # Find all IP addresses</code><br><code>    ips = ip_pattern.findall(text)</code><br><code>    </code><br><code>    # Filter out specified IPs and get the first instance of any IP address</code><br><code>    filtered_ips = set()</code><br><code>    for ip in ips:</code><br><code>        if ip not in ["0.0.0.0", "127.0.0.1", "::"]:</code><br><code>            if ":" in ip:  # IPv6</code><br><code>                if len(filtered_ips) &lt; 1 or ":" in list(filtered_ips)[0]:</code><br><code>                    filtered_ips.add(ip)</code><br><code>            else:  # IPv4</code><br><code>                if len(filtered_ips) &lt; 1:</code><br><code>                    filtered_ips.add(ip)</code><br><code>    </code><br><code>    return list(filtered_ips)</code><br><br><code>def save_ips_to_file(ips, output_file):</code><br><code>    """Saves the list of IP addresses to a text file."""</code><br><code>    try:</code><br><code>        with open(output_file, 'w') as f:</code><br><code>            for ip in ips:</code><br><code>                f.write(f"{ip}\n")</code><br><code>        logging.info(f"IPs saved to {output_file}")</code><br><code>    except IOError as e:</code><br><code>        logging.error(f"Failed to save IPs to file: {e}")</code><br><br><code>def main():</code><br><code>    urls = [</code><br><code>        "http://example.com/file1.txt",</code><br><code>        "http://example.com/file2.txt"</code><br><code>        # Add more URLs here</code><br><code>    ]</code><br><code>    </code><br><code>    output_file = 'cleaned-IPs.txt'</code><br><code>    </code><br><code>    try:</code><br><code>        all_ips = []</code><br><code>        </code><br><code>        for url in urls:</code><br><code>            logging.info(f"Downloading file from {url}")</code><br><code>            content = download_file(url)</code><br><code>            if content is not None:</code><br><code>                extracted_ips = extract_ips(content)</code><br><code>                all_ips.extend(extracted_ips)</code><br><code>                logging.info(f"Extracted {len(extracted_ips)} IP(s) from {url}")</code><br><code>        </code><br><code>        unique_ips = list(set(all_ips))</code><br><code>        logging.info(f"Total unique IPs: {len(unique_ips)}")</code><br><code>        </code><br><code>        save_ips_to_file(unique_ips, output_file)</code><br><code>    </code><br><code>    except Exception as e:</code><br><code>        logging.error(f"An unexpected error occurred: {e}")</code><br><br><code>if __name__ == "__main__":</code><br><code>    main()</code><br><br><strong>Explanation:</strong><br><br>1. <strong>Logging Configuration</strong>: The script sets up basic logging to capture all log messages in a file named `download_ips.log`. Log levels include DEBUG, INFO, WARNING, ERROR, and CRITICAL.<br><br>2. <strong>Download File</strong>: The `download_file` function fetches the content of a URL using `requests.get()`. If there's any issue with downloading (e.g., network error), it logs an error message.<br><br>3. <strong>Extract IPs</strong>: The `extract_ips` function uses regular expressions to find all IPv4 and IPv6 addresses in the text. It then filters out specified IP addresses (`0.0.0.0`, `127.0.0.1`, and `::`) and ensures that only one instance of each IP address type is kept.<br><br>4. <strong>Save IPs</strong>: The `save_ips_to_file` function writes a list of IP addresses to a text file, one per line.<br><br>5. <strong>Main Function</strong>: This function orchestrates the entire process:<br>   - Downloads files from specified URLs.<br>   - Extracts and cleans IP addresses.<br>   - Saves the cleaned list to a file.<br><br>The script provides detailed logging throughout the process for troubleshooting and error reporting. Adjust the `urls` list with your actual file URLs as needed.</p>
-</blockquote>
-<p>This script actually produced results on the first try! However, it was a strange result - only <strong>6</strong> IP addresses.</p>
-<p>During my attempts to troubleshoot the PowerShell script, I visually confirmed that there were <strong>hundreds </strong>(at minimum) of IPv4 addresses in a <strong>single </strong>block list:</p>
-<p> </p>
-<p>Querying the same local model with the following prompt didn't really help resolve the problem:</p>
-<blockquote>
-<p>Modify the script to do:<br>-read lines like 127.0.0.1 173.208.96.42<br>-obtain the part that is not 127.0.0.1</p>
-</blockquote>
-<p>So I pivoted to Copilot to see if it could identify and solve the issue:</p>
-<blockquote>
-<p>tell me why the following python code cannot retrieve ipv4 addresses from lines starting with 127.0.0.1 or 0.0.0.0: </p>
-<p><code>    # Filter out specified IPs and get the first instance of any non-127.0.0.1 IP address</code><br><code>    filtered_ips = set()</code><br><code>    for ip in ips:</code><br><code>        if ip not in ["127.0.0.1"]:</code><br><code>            if ":" in ip:  # IPv6</code><br><code>                if len(filtered_ips) &lt; 1 or ":" in list(filtered_ips)[0]:</code><br><code>                    filtered_ips.add(ip)</code><br><code>            else:  # IPv4</code><br><code>                if len(filtered_ips) &lt; 1:</code><br><code>                    filtered_ips.add(ip)</code><br><code>    </code><br><code>    return list(filtered_ips)</code></p>
-</blockquote>
-<p>The Copilot response:</p>
-<blockquote>
-<p>The given Python code is designed to extract IPv4 and IPv6 addresses while excluding `127.0.0.1`. However, it does not address the exclusion of `0.0.0.0`, and there are also some logical issues in the way it filters and adds IP addresses to the `filtered_ips` set. Here’s a detailed breakdown of why it might not be working as expected:<br><br>1. <strong>Regular Expression Issue</strong>:<br>   - The regular expression correctly matches both IPv4 and IPv6 addresses, but the filtering logic for exclusion happens later in the code.<br><br>2. <strong>Filtering Logic Issue</strong>:<br>   - The code currently only excludes `127.0.0.1` but does not exclude `0.0.0.0`.<br>   - The logic for adding IPv4 addresses to the `filtered_ips` set checks if `filtered_ips` is empty (`len(filtered_ips) &lt; 1`). This means only the first non-excluded IP will be added, which is not the desired behavior.<br><br>3. <strong>Set Operations</strong>:<br>   - Using a set to store IP addresses is fine, but the logic should be adjusted to properly handle all matching IPs.<br><br>To fix these issues and ensure that all valid IPs are extracted while excluding `127.0.0.1` and `0.0.0.0`, you can revise the code as follows:<br><br><code>import re</code><br><br><code>def extract_ips(text):</code><br><code>    """Extracts IPv4 and IPv6 addresses from the given text, excluding specified ones."""</code><br><code>    ip_regex = r"\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b|\b(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\b"</code><br><code>    ip_pattern = re.compile(ip_regex)</code><br><br><code>    # Find all IP addresses</code><br><code>    ips = ip_pattern.findall(text)</code><br><br><code>    # Filter out specified IPs</code><br><code>    excluded_ips = ["127.0.0.1", "0.0.0.0"]</code><br><code>    filtered_ips = {ip for ip in ips if ip not in excluded_ips}</code><br><br><code>    return list(filtered_ips)</code><br><br><code># Example usage</code><br><code>text = """</code><br><code>    Here are some IPs:</code><br><code>    192.168.1.1, 127.0.0.1, 0.0.0.0, 8.8.8.8</code><br><code>    2001:0db8:85a3:0000:0000:8a2e:0370:7334, ::1</code><br><code>"""</code><br><code>print(extract_ips(text))</code><br><br>Changes made:<br>1. Added `0.0.0.0` to the list of excluded IPs.<br>2. Simplified the filtering logic to directly exclude unwanted IPs using a set comprehension.<br><br>This revised code will now correctly extract all valid IP addresses while excluding both `127.0.0.1` and `0.0.0.0`. Let me know if you need any further adjustments or explanations!</p>
-</blockquote>
-<p>Inserting the refined code segment into the script solved the problem, and I extracted a total of 3642 IPv4 addresses. Annoyingly, a single 0.0.0.0 address made it through, but that was a small price to pay.</p>
-<h2 id="mcetoc_1icvlr9di2cr">Refining the Process</h2>
-<p>After proving out the script, I went back to Pi-Hole and cleaned up the descriptions to provide better context and help sort things for future searches.</p>
-<p>Once that was done, I had to wait for a low traffic time to force Pi-Hole to update the blocklists. This would provide me with a way to narrow the block lists I included in my scripts to those that had IP addresses. Most blocklists are DNS entries only, which means they don't need to be scraped, which saves on processing power and time.</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/28/pi-hole-blocklists-07.jpg" alt="Adblock Plus block list with IP addresses inside of URLs" width="1583" height="775" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-xs.jpg 384w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-sm.jpg 600w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-md.jpg 768w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-lg.jpg 1200w ,https://korgano.github.io/media/posts/28/responsive/pi-hole-blocklists-07-xl.jpg 1600w"></figure>
-<p>The upside of this was that there weren't too many lists that had non-domain entries, and three of them had obvious IP addresses displayed. That left a total of five lists to scrape for IPs. So I made a copy of the script, inserted each one individually, and scraped them.</p>
-<p>Once that was done, I commented out the block list URL and added a comment with how many IP addresses were present. To my surprise, Easylist had easily over a hundred entries, which wasn't apparent .</p>
-<p>As a result, I only needed three alias categories:</p>
-<ul>
-<li>Ads + Tracking</li>
-<li>Crypto</li>
-<li>Malware</li>
-</ul>
-<h2 id="mcetoc_1icvlr9di2cs">Validating Some Results</h2>
-<p>Having run the Malware version of the script earlier, I was surprised to see so few results for malware related blocklists during the update. So I reran the script, commenting out a list each time to find out which lists had IP addresses.</p>
-<p>Examining these blocklists revealed that these were coming from DNS entries with embedded IP addresses in them.</p>
-<p>Running the IP address through VirusTotal revealed that this was a Google cloud IP. How exactly it was involved in malware distribution was unclear, but IP address itself was given a clean bill of health.</p>
-<p>After this false positive, I decided to check out the results with other blocklists. I started with the Tencent blocklist, since that had a number of non-DNS entries. I got a list of IP addresses... and none of them were in the actual blocklist. I am not sure how or why these were generated, because I can find various numbers that are in the IPs, but not actual IP addresses.</p>
-<p>A second blocklist had this same issue, so I went back to Copilot and asked it to revise the code to include what line each IP address was found on:</p>
-<blockquote>
-<p>Sure, here's a revised version of your Python code. This version logs the specific lines where each IP address was found:<br><br><code>import re</code><br><code>import logging</code><br><br><code>logging.basicConfig(filename='ip_log.log', level=logging.INFO)</code><br><br><code>def extract_ips(text):</code><br><code>    """Extracts IPv4 and IPv6 addresses from the given text, excluding specified ones."""</code><br><code>    ip_regex = r"\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b|\b(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\b"</code><br><code>    ip_pattern = re.compile(ip_regex)</code><br><br><code>    # Find all IP addresses</code><br><code>    ips = []</code><br><code>    for line_num, line in enumerate(text.split('\n'), start=1):</code><br><code>        found_ips = ip_pattern.findall(line)</code><br><code>        for ip in found_ips:</code><br><code>            ips.append((ip, line_num))</code><br><br><code>    # Filter out specified IPs</code><br><code>    excluded_ips = ["127.0.0.1", "0.0.0.0"]</code><br><code>    filtered_ips = [(ip, line_num) for ip, line_num in ips if ip not in excluded_ips]</code><br><br><code>    return filtered_ips</code><br><br><code>def save_ips_to_file(ips, output_file):</code><br><code>    """Saves the list of IP addresses to a text file."""</code><br><code>    try:</code><br><code>        with open(output_file, 'w') as f:</code><br><code>            for ip, line_num in ips:</code><br><code>                f.write(f"{ip} found at line {line_num}\n")</code><br><code>        logging.info(f"IPs saved to {output_file}")</code><br><code>    except IOError as e:</code><br><code>        logging.error(f"Failed to save IPs to file: {e}")</code><br><br><code># Example usage:</code><br><code>text = """Sample text with IP addresses.</code><br><code>192.168.1.1 is one example.</code><br><code>Another example is 2001:0db8:85a3:0000:0000:8a2e:0370:7334.</code><br><code>Let's exclude 127.0.0.1 and 0.0.0.0."""</code><br><br><code>ips = extract_ips(text)</code><br><code>save_ips_to_file(ips, 'output_ips.txt')</code><br><br><code>In this revised code:</code><br><code>- The `extract_ips` function now returns a list of tuples, where each tuple contains an IP address and the line number it was found on.</code><br><code>- The `save_ips_to_file` function writes the IP addresses and their corresponding line numbers to the output file.</code><br><code>- Each line where an IP address was found is written to the log.</code></p>
-</blockquote>
-<p>Oddly enough, this did provide the lines for the IPs, but those lines in the files on Github were for domains, not IP addresses. Even more confusing was running this revised script on the EasyList blocklist, which provided IPs actually specified in the list.</p>
-<p>Why this is happening is beyond my programming knowledge to diagnose, so what I'll do is upload a version of the script with the logging so someone else can use it to solve the problem.</p>
-<h2 id="mcetoc_1icvlr9di2ct">Next Steps</h2>
-<p><a href="https://github.com/korgano/OPNsenseAliasTools" title="OPNsenseAliasTools Github Repo" target="_blank" rel="noopener noreferrer">Creating a Github repo, obviously!</a></p>
-<p>Making the code open source is an obvious decision. First of all, I've already posted tons of it here. Second, I'm more of a coder than a programmer - I can write code and I can definitely think of the logic, but I don't have the skill or experience to be called a programmer.</p>
-<p>So if someone out there can figure out why the script is producing IP addresses out of nowhere and solve the problem, that's fine by me.</p>
-<p>Additionally, I'll have to go back to OPNsense and create the full set of Aliases there, since user created Aliases get auto-generated hashes(?), like </p>
-<div>
-<div><code>"66ea4c00-feec-469e-9a82-bf5cba0405a9"</code>.</div>
-<div> </div>
-<div>Once that's done, the rest of the process is just running the scripts, dumping the results into the CSV, running the OPNsense forum script, and doing some documentation.</div>
-</div>
             ]]>
         </content>
     </entry>
