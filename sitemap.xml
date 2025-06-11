@@ -177,6 +177,50 @@
 </image:image>
 </url>
 <url>
+<loc>https://korgano.github.io/cybersecurity-project-nmap-780-vs-797/</loc>
+<lastmod>2025-06-11T10:20:30-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/40/nmap-03-2.png</image:loc>
+<image:title><![CDATA[Nmap 7.97 ARP Ping Scan produces a list of host names and associated IP/MAC addresses.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/40/nmap-01.png</image:loc>
+<image:title><![CDATA[Initiation of Nmap scan, with query and scan information.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/40/nmap-02.png</image:loc>
+<image:title><![CDATA[Nmap 7.97 has a shorter list of service ports being scanned.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/40/nmap-02a.png</image:loc>
+<image:title><![CDATA[The point where Nmap 7.80 and 7.97 service numbers change.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/40/nmap-03.png</image:loc>
+<image:title><![CDATA[Nmap 7.97 ARP Ping Scan produces a list of host names and associated IP/MAC addresses.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/40/nmap-04.png</image:loc>
+<image:title><![CDATA[Nmap 7.80 Syn Stealth Scan checks 13000 ports.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/40/nmap-04b.png</image:loc>
+<image:title><![CDATA[Nmap 7.97 Syn Stealth scan checks 15000 ports.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/40/nmap-05.png</image:loc>
+<image:title><![CDATA[Nmap ARP Response in 7.97 (right) is more detailed than 7.80 (left), including vendor name and reset reasons.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/40/nmap-06.png</image:loc>
+<image:title><![CDATA[Nmap 7.97 HTTP service report delivers a concise report on OS, device type, and method, while 7.80 dumps HTML content.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/40/nmap-07.png</image:loc>
+<image:title><![CDATA[Beginning of Nmap HTTP scraping for Raspberry Pi in versions 7.80 and 7.97.]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/cybersecurity-project-research-remote-access/</loc>
 <lastmod>2024-03-18T13:08:19-04:00</lastmod>
 <image:image>
@@ -452,6 +496,9 @@
 </url>
 <url>
 <loc>https://korgano.github.io/page/4/</loc>
+</url>
+<url>
+<loc>https://korgano.github.io/page/5/</loc>
 </url>
 <url>
 <loc>https://korgano.github.io/privacy-policy/</loc>
