@@ -393,6 +393,54 @@
 </image:image>
 </url>
 <url>
+<loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-80/</loc>
+<lastmod>2025-07-02T07:45:57-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/41/cyber-proj-tfb11-2.png</image:loc>
+<image:title><![CDATA[OPNSense traffic reporting graphs showing incoming and outgoing traffic on the bridge and WiFi connections.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/41/cyber-proj-tfb08a.jpg</image:loc>
+<image:title><![CDATA[FreeBSD boot up sequence showing that Intel WiFi iwlwifi firmware was not present.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/41/cyber-proj-tfb08b.jpg</image:loc>
+<image:title><![CDATA[Downloaded firmware file for Intel WiFi iwlwifi produces &quot;File too small&quot; error on boot.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/41/cyber-proj-tfb08c.png</image:loc>
+<image:title><![CDATA[OPNSense WiFi interface rules to access router, let in HTTPS, and let out HTTPs.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/41/cyber-proj-tfb08d.png</image:loc>
+<image:title><![CDATA[OPNSense rule page help for setting states.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/41/cyber-proj-tfb10.png</image:loc>
+<image:title><![CDATA[Transparent Filtering Bridge configuration with multiple aliases, blocking potential threat traffic from entering or exiting the network.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/41/cyber-proj-tfb09.png</image:loc>
+<image:title><![CDATA[Suricata rule options for TP-LINK Devices.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/41/cyber-proj-tfb09a.png</image:loc>
+<image:title><![CDATA[OPNSense Suricata IPS policies set for use on the Transparent Filtering Bridge.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/41/cyber-proj-tfb11.png</image:loc>
+<image:title><![CDATA[OPNSense traffic reporting graphs showing incoming and outgoing traffic on the bridge and WiFi connections.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/41/cyber-proj-tfb12-4.png</image:loc>
+<image:title><![CDATA[OPNSense Top Talkers, showing incoming and outgoing traffic statistics.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/41/cyber-proj-tfb13.png</image:loc>
+<image:title><![CDATA[OPNSense log showing the WiFi connection failing within an hour of one reboot, then rebooting at noon to restore connectivity.]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/cybersecurity-project-virtual-machines-arent-always-the-solution/</loc>
 <lastmod>2024-04-17T14:22:58-04:00</lastmod>
 <image:image>
