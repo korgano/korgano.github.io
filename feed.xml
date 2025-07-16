@@ -3,12 +3,376 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2025-07-02T07:45:57-04:00</updated>
+    <updated>2025-07-16T07:45:23-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.0</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-90/"/>
+        <id>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-90/</id>
+        <media:content url="https://korgano.github.io/media/posts/42/cyber-proj-tfb15.png" medium="image" />
+            <category term="Tech Projects"/>
+            <category term="Tech"/>
+            <category term="Cybersecurity Projects"/>
+            <category term="Cybersecurity"/>
+
+        <updated>2025-07-15T10:03:54-04:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/42/cyber-proj-tfb15.png" alt="OPNSense NTP Denial of Service Scan Detection" />
+                    It's been a bit over two weeks, so it's time to check in on the Transparent Filtering Bridge. Having gotten&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/42/cyber-proj-tfb15.png" class="type:primaryImage" alt="OPNSense NTP Denial of Service Scan Detection" /></p>
+                <p>It's been a bit over two weeks, so it's time to check in on the Transparent Filtering Bridge. Having gotten the hardware to <strong>finally </strong>have a functioning management connection, I left the device to do its job, filtering traffic as it passed between the modem and primary router of my mesh network. With a mixture of firewall and Suricata rules in place, what I'm primarily looking for is what, if any, rules have been triggered.</p>
+<div class="post__toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#mcetoc_1j078l7n11a">For Some Reason, Config Changes</a></li>
+<li><a href="#mcetoc_1j0842akm15q">Tweaking the Cron Job Timer</a></li>
+<li><a href="#mcetoc_1j0842akm15r">Checking the Firewall Logs</a></li>
+<li><a href="#mcetoc_1j0842akm15s">Filtering Out the Noise</a></li>
+<li><a href="#mcetoc_1j0842akm15t">Checking Up On Suricata</a></li>
+<li><a href="#mcetoc_1j0842akm15u">What To Do Next</a></li>
+<li><a href="#mcetoc_1j0842akm15v">Takeaways</a></li>
+</ul>
+</div>
+<h2 id="mcetoc_1j078l7n11a">For Some Reason, Config Changes</h2>
+<p>One thing that happened between the last entry and now was an automatic Windows update, which closed out my browser, where I had the OPNSense webGUI tab open. This seemed to be helping maintain the connection to device, which would sometimes intermittently fail. I also had a cron job set to reset the interface every 6 hours to address the issue.</p>
+<p>However, when I tried accessing OPNSense webGUI to start this article, I got connection errors.</p>
+<p>So I connected a keyboard and mouse to the miniPC, turned on the monitor, and saw that there was no IP address on the console. Attempting to reset the services wound up freezing on the OPT1 interface (the WiFi), so I cancelled out of that. Then I restarted the miniPC, which brought the IP address back to the interface, but no actual web connectivity.</p>
+<p>This meant it was time to dig into the <code>/usr/local/etc/rc.d/wpa_supplicant</code> file again, which is where I made an interesting discovery. At some point, for some reason, changes had been made to the file. My best guess was that this occurred after the installation of the WiFi firmware, but it's unclear why that would change some comment lines and strip the <code>rcvar</code> value.</p>
+<p>Since the <code>rcvar</code> was what told the machine to enable the WiFi authentication, this explained the WiFi connection issues.</p>
+<p>After making minimal changes to the file (returning the comment values to their original values and fixing the missing <code>rcvar</code> value), I reset the WiFi service and regained connectivity.</p>
+<h2 id="mcetoc_1j0842akm15q">Tweaking the Cron Job Timer</h2>
+<p>Due to the unusual nature of the <code>wpa_supplicant</code> file changes, I decided to reduce the time gap between WiFi interface resets from 6 hours to 4. This would give me more opportunities to retain or regain WiFi access should connection issues continue.</p>
+<p>Not even an hour after I got access back, the WiFi connection went down, which proved this was a smart decision.</p>
+<p>In a major irritation, the WiFi connection seemed to be failing silently a few minutes after being reset, making it hard to interact with the webGUI. In a bizarre situation, I managed to access a specific page of the webGUI, despite not being able to reach the webGUI in general. Even more annoying was the fact that I managed to randomly get access by refreshing the tabs for the webGUI.</p>
+<p>More experimentation (and possibly FreeBSD kernel updates) is clearly needed to resolve this issue.</p>
+<h2 id="mcetoc_1j0842akm15r">Checking the Firewall Logs</h2>
+<p>After updating the cron job configuration, the first thing I did was check the firewall logs.</p>
+<p>One of the more irritating aspects of OPNSense is that <strong>all </strong>firewall logs seem to be seem priority level - Informational. This means that any rule that passes or blocks traffic generates a log in that same level, meaning it is <strong>very </strong>easy to get lost in all the data. Luckily, the provided search option is quite effective - it was easy to get just the logs of blocked connections on the bridge interface.</p>
+<p>(Incidentally, it seems logical to me that someone running a firewall would put logging of blocked traffic at a higher log level.)</p>
+<p>Since these logs were all in a machine readable format that I had no experience with, I decided to download a 50 entry log for analysis with ChatGPT and other tools. The first thing I did was sanitize any of my personal IP addresses.</p>
+<p>Here is an example of a block coming in:</p>
+<p><code>2025-06-17T09:58:31-04:00    Informational    filterlog     2,,,02f4bab031b57d1e30553ce08e0ec131,bridge0,match,block,in,4,0x0,,238,27873,0,DF,6,tcp,71,3.77.205.84,Home IP,443,52742,31,PA,4127654128:4127654159,2661296198,118,,</code></p>
+<p>For contrast, a block going out:</p>
+<p><code>2025-06-25T11:06:30-04:00    Informational    filterlog     68,,,ff197ebab7ec0da7fe008f0f6ffee42b,bridge0,match,block,out,4,0x0,,127,21852,0,DF,6,tcp,52,Home IP,1.1.1.1,21124,443,0,S,2052234833,,64240,,mss;nop;wscale;nop;nop;sackOK</code></p>
+<p>The bits and pieces that I can read without assistance is mostly the interface information, the fact that the rule matched, the action taken, direction of the traffic, protocol, port, and IP addresses.</p>
+<p>Annoyingly, there's no way to get a simplified view that includes the rule name/description, which would make identifying what is going on much easier.</p>
+<p>To figure out what the logs are truly saying, I provided ChatGPT with the above entries and the following query:</p>
+<blockquote>
+<p>In plain english, explain the OPNSense firewall log format based on these two example entries:</p>
+</blockquote>
+<p>ChatGPT's response was as follows, omitting the Timestamp, Severity, and Process information:</p>
+<blockquote>
+<p data-start="251" data-end="387">Following that, the comma‑separated values represent fields defined by pf’s raw filter log format <span class="" data-state="closed"><span class="ms-1 inline-flex max-w-full items-center relative top-[-0.094rem] animate-[show_150ms_ease-in]"><a href="https://docs.netgate.com/pfsense/en/latest/monitoring/logs/raw-filter-format.html" target="_blank" rel="noopener" alt="https://docs.netgate.com/pfsense/en/latest/monitoring/logs/raw-filter-format.html" class="flex h-4.5 overflow-hidden rounded-xl px-2 text-[9px] font-medium text-token-text-secondary! bg-[#F4F4F4]! dark:bg-[#303030]! transition-colors duration-150 ease-in-out"><span class="relative start-0 bottom-0 flex h-full w-full items-center"><span class="flex h-4 w-full items-center justify-between overflow-hidden"><span class="max-w-full grow truncate overflow-hidden text-center">Netgate Documentation</span></span></span></a></span></span>:</p>
+<ol data-start="389" data-end="2502">
+<li data-start="389" data-end="468">
+<p data-start="392" data-end="468"><strong data-start="392" data-end="407">Rule Number</strong> (<code data-start="409" data-end="412">2</code> / <code data-start="415" data-end="419">68</code>): The index of the firewall rule that matched.</p>
+</li>
+<li data-start="469" data-end="546">
+<p data-start="472" data-end="546"><strong data-start="472" data-end="491">Sub‑rule Number</strong> (blank): Secondary rule index if using nested rules.</p>
+</li>
+<li data-start="547" data-end="622">
+<p data-start="550" data-end="622"><strong data-start="550" data-end="560">Anchor</strong> (blank): Name of the anchor (rule set) containing the rule.</p>
+</li>
+<li data-start="623" data-end="700">
+<p data-start="626" data-end="700"><strong data-start="626" data-end="640">Tracker ID</strong> (<code data-start="642" data-end="651">02f4ba…</code> / <code data-start="654" data-end="663">ff197e…</code>): Unique flow‑tracking identifier.</p>
+</li>
+<li data-start="701" data-end="788">
+<p data-start="704" data-end="788"><strong data-start="704" data-end="722">Real Interface</strong> (<code data-start="724" data-end="733">bridge0</code>): The actual network interface the packet traversed.</p>
+</li>
+<li data-start="789" data-end="854">
+<p data-start="792" data-end="854"><strong data-start="792" data-end="802">Reason</strong> (<code data-start="804" data-end="811">match</code>): Why it was logged (typically <code data-start="843" data-end="850">match</code>).</p>
+</li>
+<li data-start="855" data-end="924">
+<p data-start="858" data-end="924"><strong data-start="858" data-end="868">Action</strong> (<code data-start="870" data-end="877">block</code>): What the firewall did (<code data-start="903" data-end="909">pass</code> or <code data-start="913" data-end="920">block</code>).</p>
+</li>
+<li data-start="925" data-end="1004">
+<p data-start="928" data-end="1004"><strong data-start="928" data-end="941">Direction</strong> (<code data-start="943" data-end="947">in</code> / <code data-start="950" data-end="955">out</code>): Traffic direction relative to the interface.</p>
+</li>
+<li data-start="1005" data-end="1071">
+<p data-start="1008" data-end="1071"><strong data-start="1008" data-end="1022">IP Version</strong> (<code data-start="1024" data-end="1027">4</code>): Internet Protocol version (<code data-start="1057" data-end="1060">4</code> or <code data-start="1064" data-end="1067">6</code>).</p>
+</li>
+<li data-start="1072" data-end="1135">
+<p data-start="1076" data-end="1135"><strong data-start="1076" data-end="1083">TOS</strong> (<code data-start="1085" data-end="1090">0x0</code>): Type‑of‑Service byte from the IP header.</p>
+</li>
+<li data-start="1136" data-end="1197">
+<p data-start="1140" data-end="1197"><strong data-start="1140" data-end="1147">ECN</strong> (blank): Explicit Congestion Notification bits.</p>
+</li>
+<li data-start="1198" data-end="1269">
+<p data-start="1202" data-end="1269"><strong data-start="1202" data-end="1209">TTL</strong> (<code data-start="1211" data-end="1216">238</code> / <code data-start="1219" data-end="1224">127</code>): Time‑to‑Live (IPv4) or Hop Limit (IPv6).</p>
+</li>
+<li data-start="1270" data-end="1336">
+<p data-start="1274" data-end="1336"><strong data-start="1274" data-end="1283">IP ID</strong> (<code data-start="1285" data-end="1292">27873</code> / <code data-start="1295" data-end="1302">21852</code>): Packet identification number.</p>
+</li>
+<li data-start="1337" data-end="1404">
+<p data-start="1341" data-end="1404"><strong data-start="1341" data-end="1360">Fragment Offset</strong> (<code data-start="1362" data-end="1365">0</code>): Position within fragmented packet.</p>
+</li>
+<li data-start="1405" data-end="1479">
+<p data-start="1409" data-end="1479"><strong data-start="1409" data-end="1421">IP Flags</strong> (<code data-start="1423" data-end="1427">DF</code>): IP fragmentation flags (<code data-start="1454" data-end="1458">DF</code>, <code data-start="1460" data-end="1464">MF</code>, or <code data-start="1469" data-end="1475">none</code>).</p>
+</li>
+<li data-start="1480" data-end="1563">
+<p data-start="1484" data-end="1563"><strong data-start="1484" data-end="1499">Protocol ID</strong> (<code data-start="1501" data-end="1504">6</code>): Numeric protocol identifier (e.g., <code data-start="1542" data-end="1545">6</code>=TCP, <code data-start="1551" data-end="1555">17</code>=UDP).</p>
+</li>
+<li data-start="1564" data-end="1626">
+<p data-start="1568" data-end="1626"><strong data-start="1568" data-end="1585">Protocol Text</strong> (<code data-start="1587" data-end="1592">tcp</code>): Human‑readable protocol name.</p>
+</li>
+<li data-start="1627" data-end="1694">
+<p data-start="1631" data-end="1694"><strong data-start="1631" data-end="1648">Packet Length</strong> (<code data-start="1650" data-end="1654">71</code> / <code data-start="1657" data-end="1661">52</code>): Total size of the IP packet.</p>
+</li>
+<li data-start="1695" data-end="1767">
+<p data-start="1699" data-end="1767"><strong data-start="1699" data-end="1712">Source IP</strong> (<code data-start="1714" data-end="1727">3.77.205.84</code> / <code data-start="1730" data-end="1739">Home IP</code>): Originating IP address.</p>
+</li>
+<li data-start="1768" data-end="1836">
+<p data-start="1772" data-end="1836"><strong data-start="1772" data-end="1790">Destination IP</strong> (<code data-start="1792" data-end="1801">Home IP</code> / <code data-start="1804" data-end="1813">1.1.1.1</code>): Target IP address.</p>
+</li>
+<li data-start="1837" data-end="1909">
+<p data-start="1841" data-end="1909"><strong data-start="1841" data-end="1856">Source Port</strong> (<code data-start="1858" data-end="1863">443</code> / <code data-start="1866" data-end="1873">21124</code>): Originating port (for TCP/UDP).</p>
+</li>
+<li data-start="1910" data-end="1982">
+<p data-start="1914" data-end="1982"><strong data-start="1914" data-end="1934">Destination Port</strong> (<code data-start="1936" data-end="1943">52742</code> / <code data-start="1946" data-end="1951">443</code>): Target port (for TCP/UDP).</p>
+</li>
+<li data-start="1983" data-end="2052">
+<p data-start="1987" data-end="2052"><strong data-start="1987" data-end="2002">Data Length</strong> (<code data-start="2004" data-end="2008">31</code> / <code data-start="2011" data-end="2014">0</code>): Payload size (excluding headers).</p>
+</li>
+<li data-start="2053" data-end="2128">
+<p data-start="2057" data-end="2128"><strong data-start="2057" data-end="2070">TCP Flags</strong> (<code data-start="2072" data-end="2076">PA</code> / <code data-start="2079" data-end="2082">S</code>): TCP control flags (e.g., <code data-start="2110" data-end="2113">S</code>, <code data-start="2115" data-end="2119">PA</code>, <code data-start="2121" data-end="2124" data-is-only-node="">F</code>).</p>
+</li>
+<li data-start="2129" data-end="2199">
+<p data-start="2133" data-end="2199"><strong data-start="2133" data-end="2152">Sequence Number</strong> (<code data-start="2154" data-end="2166">4127654128</code> / <code data-start="2169" data-end="2181">2052234833</code>): TCP sequence.</p>
+</li>
+<li data-start="2200" data-end="2275">
+<p data-start="2204" data-end="2275"><strong data-start="2204" data-end="2229">Acknowledgment Number</strong> (<code data-start="2231" data-end="2243">4127654159</code> / blank): TCP acknowledgment.</p>
+</li>
+<li data-start="2276" data-end="2343">
+<p data-start="2280" data-end="2343"><strong data-start="2280" data-end="2295">Window Size</strong> (<code data-start="2297" data-end="2309">2661296198</code> / <code data-start="2312" data-end="2319">64240</code>): TCP receive window.</p>
+</li>
+<li data-start="2344" data-end="2413">
+<p data-start="2348" data-end="2413"><strong data-start="2348" data-end="2366">Urgent Pointer</strong> (<code data-start="2368" data-end="2373">118</code> / blank): Urgent data pointer if set.</p>
+</li>
+<li data-start="2414" data-end="2502">
+<p data-start="2418" data-end="2502"><strong data-start="2418" data-end="2433">TCP Options</strong> (blank / <code data-start="2443" data-end="2474">mss;nop;wscale;nop;nop;sackOK</code>): Negotiated TCP options.</p>
+</li>
+</ol>
+<p data-start="2504" data-end="2621">These fields allow you to reconstruct packet details, rule decisions, and flow context directly from the log entries.</p>
+</blockquote>
+<p data-start="2504" data-end="2621">In another showcase of poor UXUI decisions, <a href="https://github.com/opnsense/core/issues/6590#issuecomment-1572679573" title="How to find firewall rule numbers in OPNSense" target="_blank" rel="noopener noreferrer">the way to correlate rules and the rule numbers in webGUI is to access an obscure page</a>, one most users will never think to look at. This is somewhat forgivable due to the numbers themselves being non-permanent assignments, based on the last time the system was rebooted/reloaded. But it is suboptimal UX.</p>
+<div class="gallery-wrapper"><div class="gallery"  data-is-empty="false" data-translation="Add images" data-columns="2">
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb16-2.png" data-size="1920x921"><img loading="lazy" src="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb16-2-thumbnail.png" alt="OPNSense Rules part 1" width="768" height="368"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb17.png" data-size="1920x921"><img loading="lazy" src="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb17-thumbnail.png" alt="OPNSense Rules part 2" width="768" height="368"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb18.png" data-size="1920x921"><img loading="lazy" src="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb18-thumbnail.png" alt="OPNSense Rules part 3" width="768" height="368"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb19.png" data-size="1920x921"><img loading="lazy" src="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb19-thumbnail.png" alt="OPNSense Rules part 4" width="768" height="368"></a></figure>
+</div></div>
+<p data-start="2504" data-end="2621">Unfortunately, rule 2 was fairly incomprehensible, likely due to being a default rule: <code>@2 block drop in log inet all label "02f4bab031b57d1e30553ce08e0ec131"</code></p>
+<p data-start="2504" data-end="2621">Rule 68, on the other hand, was <strong>much </strong>more understandable: <code>@68 block drop out log quick on bridge0 inet from any to &lt;Ads_Tracking:843&gt; label "ff197ebab7ec0da7fe008f0f6ffee42b"</code></p>
+<p data-start="2504" data-end="2621">So that outbound connection was a (perceived) attempt to connect to an ad/tracking server, successfully showing that my Aliases and rules do work.</p>
+<h2 id="mcetoc_1j0842akm15s" data-start="2504" data-end="2621">Filtering Out the Noise</h2>
+<p data-start="2504" data-end="2621">Since I wanted to do some amount of inspection of these suspicious IPs, I then needed a way to filter my log for unique IPs. In addition, I would get data on the quantity of those uniques, as well as how many were duplicated.</p>
+<p data-start="2504" data-end="2621">To do this, I would use Microsoft Copilot to generate a PowerShell script to filter the data for me. The prompt was as follows:</p>
+<blockquote>
+<p data-start="2504" data-end="2621">Write me a powershell script that does the following:<br>-reads content of file `filter.log`<br>-reads lines of the following format `2025-06-25T11:06:30-04:00 Informational filterlog 68,,,ff197ebab7ec0da7fe008f0f6ffee42b,bridge0,match,block,out,4,0x0,,127,21852,0,DF,6,tcp,52,Home IP,1.1.1.1,21124,443,0,S,2052234833,,64240,,mss;nop;wscale;nop;nop;sackOK` <br>-counts unique and duplicate IPv4 addresses <br>-identifies unique IPv4 addresses <br>-outputs unique IPv4 address count, duplicate IPv4 address count, and all unique IPv4 addresses to new file `filter-cleaned.log`</p>
+</blockquote>
+<p data-start="2504" data-end="2621">This was the following output:</p>
+<pre class="language-markdown line-numbers"><code># PowerShell Script to Extract and Count IPv4 Addresses
+
+```powershell
+# Define input and output files
+$inputFile  = 'filter.log'
+$outputFile = 'filter-cleaned.log'
+
+# IPv4 regex (0–255 range)
+$ipv4Pattern = '\b(?:(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\b'
+
+# Read all lines, extract every IPv4 match
+$allIps = Get-Content $inputFile |
+    ForEach-Object {
+        [regex]::Matches($_, $ipv4Pattern) |
+        ForEach-Object { $_.Value }
+    }
+
+# Compute counts
+$uniqueIps      = $allIps | Sort-Object | Get-Unique
+$uniqueCount    = $uniqueIps.Count
+$duplicateCount = $allIps.Count - $uniqueCount
+
+# Prepare header lines
+$header = @(
+    "Unique IPv4 address count: $uniqueCount"
+    "Duplicate IPv4 address count: $duplicateCount"
+    ""
+    "Unique IPv4 addresses:"
+)
+
+# Write header and unique IPs to the output file
+$header | Set-Content  $outputFile
+$uniqueIps | Add-Content $outputFile
+```
+
+---
+
+## How This Works
+
+- The script reads every line from `filter.log` and applies a strict IPv4 regex to find address patterns.  
+- All matches are collected into `$allIps`, preserving duplicates.  
+- Unique addresses are extracted via `Sort-Object | Get-Unique`.  
+- Duplicate count is derived by subtracting the number of unique addresses from total matches.  
+- Results (counts + list of unique IPs) are written to `filter-cleaned.log`.
+
+---
+
+## Further Enhancements You Might Consider
+
+- If you need the list of IPs that appear more than once, group `$allIps` with `Group-Object` and filter where `.Count -gt 1`.  
+- For very large logs, use `Select-String -Pattern $ipv4Pattern -AllMatches` to stream matches rather than loading the entire file at once.  
+- Extend the script to handle IPv6 by adding a second regex and interleaving results.  
+- Export the results in CSV or JSON for integration with monitoring tools or dashboards.  </code></pre>
+<p>I ran the script and got this confusing result:</p>
+<p><code>Unique IPv4 address count: 877</code><br><code>Duplicate IPv4 address count: 11597</code></p>
+<p>Believing myself to have only gotten a sample size of 50, I began randomly searching the original log file for random IP on the unique list, only to keep finding them. The mystery was answered when I opened the log file in VS Code, revealing that I had dumped the <strong>entire </strong>list of log entries matching the <code>blocked bridge</code> query. I was, in fact, analyzing the full two or so weeks worth of log entries, not just the 50 entries on display in the webGUI.</p>
+<p>To gain more higher level insights, I returned to Copilot and asked it for a new script:</p>
+<blockquote>
+<p>Write me a powershell script that does the following: <br>-reads content of file `filter.log` <br>-reads lines of the following format `2025-06-25T11:06:30-04:00 Informational filterlog 68,,,ff197ebab7ec0da7fe008f0f6ffee42b,bridge0,match,block,out,4,0x0,,127,21852,0,DF,6,tcp,52,Home IP,1.1.1.1,21124,443,0,S,2052234833,,64240,,mss;nop;wscale;nop;nop;sackOK` <br>-counts the number of `in` and `out` entries <br>-generates a count of how many times unique IPv4 addresses appear in the log <br>-Generates a list of how many unique IPv4 addresses are associated with `in` or `out` entries, or both -outputs all data to new file `filter-statistics.log`</p>
+</blockquote>
+<p>Here's what Copilot gave me:</p>
+<pre class="language-markdown line-numbers"><code>```powershell
+# PowerShell Script: filter-statistics.ps1
+# Reads filter.log, parses “in”/“out” entries and IPv4s, produces filter-statistics.log
+
+# Set input/output paths
+$inputFile   = 'filter.log'
+$outputFile  = 'filter-statistics.log'
+
+# Initialize counters &amp; storage
+$inCount     = 0
+$outCount    = 0
+$ipStats     = @{}
+
+# Strict IPv4 regex
+$ipv4Pattern = '\b(?:(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\b'
+
+# Process each line
+Get-Content $inputFile | ForEach-Object {
+    $line = $_.Trim()
+    if ([string]::IsNullOrWhiteSpace($line)) { return }
+
+    # Split on commas
+    $fields = $line -split ','
+
+    # Skip malformed or too-short lines
+    if ($fields.Count -lt 20) { return }
+
+    # Extract direction and IP
+    $direction = $fields[7].ToLower()
+    $ip        = $fields[19].Trim()
+
+    # Validate IPv4 format
+    if (-not [regex]::IsMatch($ip, $ipv4Pattern)) { return }
+
+    # Tally global in/out counts
+    switch ($direction) {
+        'in'  { $inCount++ }
+        'out' { $outCount++ }
+    }
+
+    # Initialize per-IP record if needed
+    if (-not $ipStats.ContainsKey($ip)) {
+        $ipStats[$ip] = [PSCustomObject]@{
+            Total = 0
+            In    = 0
+            Out   = 0
+        }
+    }
+
+    # Update per-IP stats
+    $ipStats[$ip].Total++
+    if ($direction -eq 'in')  { $ipStats[$ip].In++ }
+    if ($direction -eq 'out') { $ipStats[$ip].Out++ }
+}
+
+# Compute summary numbers
+$uniqueIpCount  = $ipStats.Keys.Count
+$onlyInCount    = ($ipStats.GetEnumerator() |
+                    Where-Object { $_.Value.In  -gt 0 -and $_.Value.Out -eq 0 }).Count
+$onlyOutCount   = ($ipStats.GetEnumerator() |
+                    Where-Object { $_.Value.Out -gt 0 -and $_.Value.In  -eq 0 }).Count
+$bothCount      = ($ipStats.GetEnumerator() |
+                    Where-Object { $_.Value.In  -gt 0 -and $_.Value.Out -gt 0 }).Count
+
+# Build output lines
+$output = @()
+$output += "Total IN entries: $inCount"
+$output += "Total OUT entries: $outCount"
+$output += "Unique IPv4 addresses: $uniqueIpCount"
+$output += "Unique IPv4 addresses only IN: $onlyInCount"
+$output += "Unique IPv4 addresses only OUT: $onlyOutCount"
+$output += "Unique IPv4 addresses both IN and OUT: $bothCount"
+$output += ''
+$output += "IPv4 address frequencies (desc):"
+
+# Append per-IP frequencies
+$ipStats.GetEnumerator() |
+  Sort-Object { $_.Value.Total } -Descending |
+  ForEach-Object { $output += ("{0}: {1}" -f $_.Key, $_.Value.Total) }
+
+# Write everything to the output file
+$output | Set-Content $outputFile
+```
+
+Save this as `filter-statistics.ps1` in the same folder as your `filter.log` file.  
+Run it in PowerShell—after completion, `filter-statistics.log` will contain:
+
+- Total counts of “in” and “out” entries  
+- Number of unique IPv4 addresses  
+- How many unique addresses appear only in, only out, or in both directions  
+- A breakdown of each IPv4 address and how many times it occurs</code></pre>
+<p>The results were mindboggling:</p>
+<p><code>Total IN entries: 10301</code><br><code>Total OUT entries: 108</code><br><code>Unique IPv4 addresses: 643</code><br><code>Unique IPv4 addresses only IN: 641</code><br><code>Unique IPv4 addresses only OUT: 2</code><br><code>Unique IPv4 addresses both IN and OUT: 0</code><br><br><code>IPv4 address frequencies (desc):</code><br><code>216.21.13.15: 840</code><br><code>216.21.13.14: 840</code><br><code>34.107.243.93: 314</code><br><code>52.18.33.33: 242</code><br><code>54.246.231.114: 213</code><br><code>23.197.209.185: 194</code><br><code>23.197.210.93: 167</code><br><code>15.197.177.151: 109</code><br><code>3.33.169.122: 109</code><br><code>67.195.176.151: 108</code><br><code>1.1.1.1: 106</code></p>
+<p>First of all, the 840 entries <strong>each </strong>from <code>216.21.13.15</code> and <code>216.21.13.14</code> were quite alarming. The VirusTotal pages for each IP (<a href="https://www.virustotal.com/gui/ip-address/216.21.13.15/detection" title="216.21.13.15 (216.21.12.0/23) Detection Details" target="_blank" rel="noopener noreferrer">216.21.13.15</a>, <a href="https://www.virustotal.com/gui/ip-address/216.21.13.14" title="216.21.13.14 (216.21.12.0/23) Detection Details" target="_blank" rel="noopener noreferrer">216.21.13.14</a>) made it pretty clear that they were associated with malware. I immediately examined the logs, and saw these connections were blocked on the way in. In fact, the only outbound connections that were blocked were to <code>1.1.1.1</code> and a local network address.</p>
+<p>It's unclear if there's actual malicious traffic coming from Cloudflare (<code>1.1.1.1</code>), or just malware sometimes routing through Cloudflare. Something similar might be happening with <code>34.107.243.93</code>, which is <a href="https://www.virustotal.com/gui/ip-address/34.107.243.93/community" title="Community Commentary on 34.107.243.93 (34.104.0.0/13)" target="_blank" rel="noopener noreferrer">an IP address that seems to be associated with Firefox</a>, but might be used for any number of malicious activities.</p>
+<p>The other addresses are just Amazon or Akami cloud IPs, which means they could be used by anyone for anything at any moment.</p>
+<p>Something that's a bit concerning about these two scripts is the fact that the numbers don't line up, despite them taking in the same log, which was not edited between runs. Despite using the same LLM and same conversation, there was randomness in how it interpreted the results to generate a calculation that was slightly different.</p>
+<h2 id="mcetoc_1j0842akm15t">Checking Up On Suricata</h2>
+<p>After obtaining the log data for the standard firewall, I then proceeded to check the Suricata logs. I didn't expect much from this, because as an IPS, it would really only activate if there was an active threat.</p>
+<p>As it turned out, I was right and wrong. I was correct to assume little would be revealed, but I was wrong in that I <strong>did </strong>have two detections.</p>
+<div class="gallery-wrapper"><div class="gallery"  data-is-empty="false" data-translation="Add images" data-columns="2">
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb14-2.png" data-size="1920x921"><img loading="lazy" src="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb14-2-thumbnail.png" alt="OPNSense NTP Denial of Service Scan Detection 1" width="768" height="368"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb15-2.png" data-size="1920x921"><img loading="lazy" src="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb15-2-thumbnail.png" alt="OPNSense NTP Denial of Service Scan Detection 2" width="768" height="368"></a></figure>
+</div></div>
+<p>Curiously, they were both Network Time Protocol DOS scans, which were annoying allowed by Suricata.</p>
+<p><a href="https://www.virustotal.com/gui/ip-address/122.228.23.224/community" title="122.228.23.224 (122.228.0.0/19) Community Assessment" target="_blank" rel="noopener noreferrer">Doing a VirusTotal check revealed that this was an actor from the People's Republic of China</a>, which has done this type of thing for at least a year. Interestingly, one member of the VirusTotal community posted about escalating numbers of scans over a period of months, while I had basically two in a two week span.</p>
+<p>What this really proved was the value of a multi-layered detection setup. The blocking firewall rules clearly did not include this IP address, but if I hadn't had Suricata, I wouldn't have known this even happened. It would be a total false negative, and if for some reason I got hit with a DDoS attack, I would have no warning or idea what was happening.</p>
+<h2 id="mcetoc_1j0842akm15u">What To Do Next</h2>
+<p>Normally, there would be a clear path forward, but there's a few factors that complicate things:</p>
+<ul>
+<li>The inconsistent connectivity makes it hard to update and iterate things in a timely manner.</li>
+<li>Figuring out how to revise the <code>wpa_supplicant</code> file to fix the connectivity issues could take a great deal of time.</li>
+<li>There's a major OPNSense version update scheduled for the end of the month, which may require me to do a <strong>lot </strong>of reconfiguration if I can't simply do an in-place update.</li>
+</ul>
+<p>These all provide incentives to <strong>not </strong>engage in another round of data collection and analysis with the Transparent Filtering Bridge.</p>
+<p>However, due to the fact that I <strong>do </strong>have the log for the period between these latest two posts, I can experiment with various methods for cleaning and analyzing the data while addressing the other issues.</p>
+<h2 id="mcetoc_1j0842akm15v">Takeaways</h2>
+<ul>
+<li>There are FreeBSD/OPNSense processes that can alter the key files and behaviors required for me to maintain a wireless management connection.</li>
+<li>Testing firewall blocking rules aimed at malicious/tracking traffic is more effective over a longer period of time (24+ hours).</li>
+<li>In a Small Office/Home Office environment, Suricata IPS detections may be low/nonexistent, even over a prolonged period of time, depending on your configuration.</li>
+<li>The pfSense firewall log format is quite complex and hard to analyze for humans, but is incredibly information dense and ideal for machine analysis.</li>
+<li>At minimum, in a little over a week and a half, I blocked hundreds of malicious or tracking connection attempts coming into my network, and only two going out.</li>
+<li>In the same time span, I received two NTP scans that might be precursors to DOS attacks from actors in the PRC.</li>
+<li>The NTP scans were not detected by the standard firewall, proving that multi-layer defenses are key to maintaining good cyber hygiene.</li>
+</ul>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 8.0</title>
         <author>
@@ -1186,107 +1550,6 @@ PLEASE help me figure out what's wrong with it: [code]</code></pre>
 <p>But it does mean that we currently still have to worry about cooling fans, from a security and maintenance point of view.</p>
 <p>Perhaps most disappointing to me was the lack of progress on improving price per gigabyte or terabyte in storage. Network Attached Storage vendors did improve their offerings with new designs and even AI integrations, but nothing for the storage itself.</p>
 <p>The root cause of not having backups is often cost, and without addressing that, we're not going to be able to grow the culture of proper backups. While off-site backups are definitely a part of a proper backup system, the fact that on-site backups are priced out of most people's ability to stand up a solution is a grim reality.</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Quick Cyber Thoughts: Things I Hope to See at CES 2025</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/quick-cyber-thoughts-things-i-hope-to-see-at-ces-2025/"/>
-        <id>https://korgano.github.io/quick-cyber-thoughts-things-i-hope-to-see-at-ces-2025/</id>
-        <media:content url="https://korgano.github.io/media/posts/32/ces-2025-event-banner.png" medium="image" />
-            <category term="Tech"/>
-            <category term="Quick Thoughts"/>
-            <category term="PC Hardware"/>
-            <category term="PC"/>
-            <category term="Cybersecurity"/>
-            <category term="AI"/>
-
-        <updated>2024-12-30T10:26:39-05:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/32/ces-2025-event-banner.png" alt="CES 2025 event banner." />
-                    The Consumer Electronics Show (CES) has always been a window into the future of technology, setting the stage for the&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/32/ces-2025-event-banner.png" class="type:primaryImage" alt="CES 2025 event banner." /></p>
-                <p>The Consumer Electronics Show (CES) has always been a window into the future of technology, setting the stage for the innovations that will shape our lives. As we approach CES 2025, the buzz around advancements in consumer electronics is louder than ever.</p>
-<p>2025 is going to be an interesting year from a cybersecurity perspective too, for a reason I don't think anyone expected. So here's what I hope to see from CES.</p>
-<div class="post__toc">
-<h3>Table of Contents</h3>
-<ul>
-<li><a href="#mcetoc_1igeofdkim0">Price Competition for Routers</a></li>
-<li><a href="#mcetoc_1igeofdkim1">Widely Compatible Free/Cheap Router Operating System</a></li>
-<li><a href="#mcetoc_1igeofdkim2">CAMM2 Becomes More Widely Implemented</a></li>
-<li><a href="#mcetoc_1igeofdkim3">CPUs With Good NPUs At Decent Prices</a></li>
-<li><a href="#mcetoc_1igeofdkim4">Fanless Cooling Solutions</a></li>
-<li><a href="#mcetoc_1igeofdkim5">Storage Price Per Volume Improvements</a></li>
-<li><a href="#mcetoc_1igjl3gqdm7">The Unexpected</a></li>
-</ul>
-</div>
-<h2 id="mcetoc_1igeofdkim0">Price Competition for Routers</h2>
-<p>This isn't something I expected to be a thing I would care about.</p>
-<p>Then the US government, which has had a pretty dim view of TP-Link's cybersecurity stance and possible ties to the Chinese Communist Party, decided to drop a bombshell. They are considering banning the routers outright:</p>
-<blockquote>
-<p class="u-speakableText-p2">Investigators at the Commerce, Defense and Justice departments <a data-id="3a94ccdf-06e7-4808-b0bd-f387b0116b6d" href="https://www.cnet.com/home/internet/possible-tp-link-ban-set-for-2025-what-it-means-for-your-internet-connection/" target="_self">have all opened probes</a> into the company due to its ties to Chinese cyberattacks. These departments are weighing a potential ban on the sale of TP-Link routers, according to a <a rel="noopener nofollow" data-id="3a94ccdf-06e7-4808-b0bd-f387b0116b6d" href="https://www.wsj.com/politics/national-security/us-ban-china-router-tp-link-systems-7d7507e6" target="_blank" title="(opens in a new window)" class="c-regularLink">Wall Street Journal article</a> published last week.</p>
-<p>TP-Link has become increasingly dominant in the US router market since the pandemic. According to the Journal report, it grew from 20% of total router sales in 2019 to around 65% this year. TP-Link disputed these numbers to CNET, and a separate analysis from the IT platform Lansweeper found that <a rel="noopener nofollow" data-id="3a94ccdf-06e7-4808-b0bd-f387b0116b6d" href="https://www.lansweeper.com/blog/cybersecurity/us-considers-banning-tp-link-routers-over-security-concerns/" target="_blank" title="(opens in a new window)" class="c-regularLink">12% of home routers</a> in the US are TP-Link. </p>
-<p>While there have been high-profile cyberattacks involving TP-Link routers, this potential ban is more about the company’s ties to China than specific security issues that have been publicly identified, according to cybersecurity researchers I spoke with. </p>
-<p><a href="https://www.cnet.com/home/internet/tp-link-routers-could-be-banned-next-year-are-they-actually-dangerous/">https://www.cnet.com/home/internet/tp-link-routers-could-be-banned-next-year-are-they-actually-dangerous/</a></p>
-<p>The investigation comes after a <a href="https://www.bleepingcomputer.com/news/security/microsoft-chinese-hackers-use-quad7-botnet-to-steal-credentials/" target="_blank" rel="nofollow noopener">Microsoft report revealed in October</a> that a botnet of hacked SOHO routers—tracked as Quad7, CovertNetwork-1658, or xlogin and operated by Chinese threat actors—is mainly made from TP-Link devices.</p>
-<p>"Microsoft tracks a network of compromised small office and home office (SOHO) routers as CovertNetwork-1658. SOHO routers manufactured by TP-Link make up most of this network," the company said.</p>
-<p>"Microsoft assesses that multiple Chinese threat actors use the credentials acquired from CovertNetwork-1658 password spray operations to perform computer network exploitation (CNE) activities."</p>
-<p>On Monday, the New York Times also <a href="https://www.nytimes.com/2024/12/16/us/politics/biden-administration-retaliation-china-hack.html" target="_blank" rel="nofollow noopener">reported</a> that the Biden administration will ban China Telecom's last active U.S. operations in response to Chinese state hackers <a href="https://www.bleepingcomputer.com/news/security/white-house-salt-typhoon-hacked-telcos-in-dozens-of-countries/" target="_blank" rel="nofollow noopener">breaching multiple U.S. telecom carriers</a>. The Federal Communications Commission (FCC) <a href="https://www.bleepingcomputer.com/news/security/us-bans-china-telecom-americas-over-national-security-risks/" target="_blank" rel="nofollow noopener">revoked China Telecom Americas' license</a> in January 2022 over "significant national security concerns."</p>
-<p><a href="https://www.bleepingcomputer.com/news/security/us-considers-banning-tp-link-routers-over-cybersecurity-risks/">https://www.bleepingcomputer.com/news/security/us-considers-banning-tp-link-routers-over-cybersecurity-risks/</a></p>
-</blockquote>
-<p>The fact that 65% of the market uses TP Link means that if there <strong>is </strong>a ban on TP-Link routers, <strong>especially </strong>for home office users in cybersecurity and government, there's going to be <strong>massive </strong>repercussions.</p>
-<p>We're talking about replacing every one of those people having to replace <strong>hundreds of dollars </strong>worth of hardware, in a relatively small time window, at roughly the same time.</p>
-<p>This might end up creating the router equivalent of the GPU shortages of 2021-2022, where every graphics card had its price balloon due to lack of availability, and the only affordable options were ones that barely provided any performance improvements over two generation old models.</p>
-<p>To combat this, we <strong>need </strong>to see manufacturers put out price competitive options, especially in the mesh router category. Those setups are already expensive, but provide major performance benefits for anyone operating out of a proper house, versus an apartment.</p>
-<p>It would also be nice to see government, federal or state, provide some kind of financial relief for people forced to replace their entire network setup. This could be in the form of a tax exemption/tax holiday, a rebate for turning in TP-Link hardware, or any sort of cost mitigation strategy for such a transition.</p>
-<h2 id="mcetoc_1igeofdkim1">Widely Compatible Free/Cheap Router Operating System</h2>
-<p>This would be somewhat out of left field, but if an organization/company could release a secure, low cost (free or cheap) router operating system (OS), that might be a <strong>massive </strong>gamechanger.</p>
-<p>The problem with the TP-Link ban is the cost of replacing the hardware. Routers might be affordable, but they're not cheap unless you're going pretty far down the product stack. That's why this ban has massive negative consequences: it's basically penalizing everyone who made a rational financial decision for the behavior of the manufacturer.</p>
-<p>But if you don't have to replace the hardware, just software operating the devices, then the costs to the end users drops dramatically.</p>
-<p>It might not be the right solution for everyone, especially in government or cybersecurity, but for the average home user, it might fit the bill.</p>
-<p>That naturally depends on the OS being easy to upload onto the device, <strong>especially </strong>for mesh routers, but if someone can do it, it'll be a win for everyone.</p>
-<h2 id="mcetoc_1igeofdkim2">CAMM2 Becomes More Widely Implemented</h2>
-<figure class="post__image"><img loading="lazy"  src="https://www.techpowerup.com/img/YVcQdrEtNQKsQzJY.jpg" alt="JEDEC wiring diagram of Compression Attached Memory Modules to CPU, vs conventional Random Access Memory connections to CPU." width="1497" height="840" data-is-external-image="true"></figure>
-<p>For those of you not familiar, CAMM2 is Compression Attached Memory Modules, a new way of implementing Random Access Memory (RAM). Instead of sticking up out of the motherboard on many systems, it's designed to either directly touch the motherboard, or slightly parallel.</p>
-<figure class="post__image"><img loading="lazy"  src="https://www.techpowerup.com/img/Djj9PGPlnQ6kti05.jpg" alt="Example CAMM2 RAM implementations for desktop and laptop." width="1490" height="836" data-is-external-image="true"></figure>
-<p>This design has a number of space saving advantages, especially at high capacities, but the big improvements are power efficiency and memory speed. This is due to the overall shorter path that data has to travel to get to and from the memory or CPU.</p>
-<p>How does this help cybersecurity? Well, better performance improves everything. This is especially useful for running virtualized software and operating systems. But it can also be a big help when running local AI, as RAM size and speed play a huge part of task execution.</p>
-<h2 id="mcetoc_1igeofdkim3">CPUs With Good NPUs At Decent Prices</h2>
-<p>Local AI, specifically Large Language Models (LLMs) and Small Language Models (SLMs), aren't really seeing broad adoption among the masses.</p>
-<p>However, local generative AI has a lot of direct applicability for cybersecurity practioners. First, it's a lot easier and much lower risk to test local AI for vulnerabilities, because they're running on your own hardware, not someone's cloud instance. Second, local AI is pretty good at code generation, which is something a lot of cybersecurity professionals do.</p>
-<p>Neural Processing Units (NPUs) are hardware optimized for running the kind of computations associated with LLMs. So far, these units are only proliferating into laptop CPUs, and generally aren't the highest performance, especially at the $1000+ price point that prosumer laptops fit in.</p>
-<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/pZjqzQVc-So" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
-<p>However, AMD is going to release its Strix Halo line of laptop CPUs, with up double the AI performance on NPU (40 TOPS from 20 TOPS of its predecessor), as well as over doubling its GPU core count. Since GPUs are leveraged in a variety of AI tasks, the combination should make running local AI much more performant.</p>
-<p>If laptops with these processors can hit the market at $2000 or less for workstation builds, then I think we have a good chance of seeing local AI use proliferate. This would help mitigate a lot of data safety issues created by the use of cloud AI, up to and including poorly trained personnel putting PII into LLM prompts.</p>
-<h2 id="mcetoc_1igeofdkim4">Fanless Cooling Solutions</h2>
-<figure class="post__image"><img loading="lazy"  src="https://www.techpowerup.com/img/1o1VQqh79oxO2q62.jpg" alt="Samsung Galaxy Edge 14 - comparison between conventional fans and Frore Airjet cool system." width="1000" height="600" data-is-external-image="true"></figure>
-<p>One recent technology trend of interest is the development of fanless cooling for computers. Mostly confined to laptops and other small devices, there's a cybersecurity application that most people would not think of.</p>
-<p><a href="https://www.tomshardware.com/news/steal-data-through-fan-vibrations-cybersecurity" title="Cyberattack Steals PC Data Through Fan Vibrations" target="_blank" rel="noopener noreferrer">Four years ago, researchers proved that you can steal data off of an endpoint via a mobile app (AiR-ViBeR) that tracks your device's fan vibrations.</a></p>
-<figure class="post__image"><img loading="lazy"  src="https://www.techpowerup.com/img/lkCxvbkpveYrUMei.jpg" alt="Airflow caused by Ventiva solid state cooling device." width="1584" height="960" data-is-external-image="true"></figure>
-<p>While the Frore Airjet, which uses a vibrating membrane to move air, might be vulnerable to a similar exfiltration method in the future, there is a new solution on the market. Ventiva has created a solid state device that uses ionization to move air:</p>
-<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/fyai_kUYhLs" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
-<p>Even if it cannot scale to desktop or server use, Ventiva's solution might be able to eliminate an entire vector of data exfiltration from mobile devices, which are a prime target for threat actors.</p>
-<h2 id="mcetoc_1igeofdkim5">Storage Price Per Volume Improvements</h2>
-<p>Backups are a critical part of cybersecurity, especially if there's a ransomware event that forces you to execute a recovery plan.</p>
-<p>The problem is, as you get smaller and smaller in size, you're actually <strong>less </strong>likely to have backups, for a simple reason. Storage is expensive, and have redundancy, you have to buy <strong>multiples </strong>of expensive drives to do it properly.</p>
-<figure class="post__image"><img loading="lazy"  src="http://www.trekprops.de/wordpress/wp-content/uploads/2009/10/tng_isochips_4519.jpg" alt="Clear, neon green, blue, dark red, orange and yellow isolinear chip Star Trek prop replicas from trekprops.de." width="480" height="360" data-is-external-image="true"></figure>
-<p>Sadly, we don't live in a reality where Star Trek style solid state, hotswap memory chips with large capacities, lots of longevity, and low cost exist.</p>
-<p>With file sizes ballooning, especially for media, the costs of backing up proportionally grow larger. Even cloud based backups, which have theoretical cost savings to offset their availability and control downsides, increase drastically in cost as storage needs increase. And in a bad economy, cutting costs wherever possible is going to be the norm, especially on the individual to small business level.</p>
-<p>Good cybersecurity practices start at home. And if we really want people to start getting in the habit of backing up their data, it needs to be as cheap and easy as possible. Right now, $250+ for 14+ TB drives is not viable for a lot of people. Smaller drives for smaller files, like 4TB SSDs, also aren't in a great price spot, at nearly $300 a piece.</p>
-<p>Storage capacity improvements are great, but if the costs of deploying a properly configured system for backups doesn't go down for non-enterprise scenarios, then the war against ransomware will never really go anywhere. No or minimal backups means that victims will be incentivized to pay the ransom, with no guarantee that they'll recover their files.</p>
-<h2 id="mcetoc_1igjl3gqdm7">The Unexpected</h2>
-<p>One of the great things about technology conferences is that you never know what will show up.</p>
-<p>Last year, we had a demo of QDEL, a competitor technology to Organic Light Emitting Diodes, randomly make an appearance at CES.</p>
-<p>With growing awareness of how important cybersecurity is for the average person, we might see a lot of products and services aimed at the less tech savvy.</p>
-<p>What would they be? I don't know! And that's what makes it exciting.</p>
             ]]>
         </content>
     </entry>
