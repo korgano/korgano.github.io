@@ -3,12 +3,1018 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2025-07-16T07:45:23-04:00</updated>
+    <updated>2025-07-22T08:35:14-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.1</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-91/"/>
+        <id>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-91/</id>
+        <media:content url="https://korgano.github.io/media/posts/43/cyber-proj-tfb20-2.jpg" medium="image" />
+            <category term="Tech Projects"/>
+            <category term="Tech"/>
+            <category term="PC"/>
+            <category term="AI"/>
+
+        <updated>2025-07-21T09:56:21-04:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/43/cyber-proj-tfb20-2.jpg" alt="Transparent Filtering Bridge miniPC wpa_supplicant file." />
+                    This entry is not technically cybersecurity related, so feel free to skip it. We're going to look at how I&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/43/cyber-proj-tfb20-2.jpg" class="type:primaryImage" alt="Transparent Filtering Bridge miniPC wpa_supplicant file." /></p>
+                <p>This entry is not technically cybersecurity related, so feel free to skip it.</p>
+<p>We're going to look at how I used AI to help address the WiFi network connectivity issues I've been having with the miniPC I use to host the transparent filtering bridge.</p>
+<p>For reference, this was the contents of the <code>wpa_supplicant</code> file that I discovered. This was altered from the original code I entered into the machine in <a href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-80/" title="Transparent Filtering Bridge (+Extras) 8.0" target="_blank" rel="noopener noreferrer">article 8.0</a>.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/43/cyber-proj-tfb20.jpg" alt="Transparent Filtering Bridge miniPC wpa_supplicant file." width="1956" height="1396" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-xs.jpg 384w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-sm.jpg 600w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-md.jpg 768w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-lg.jpg 1200w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-xl.jpg 1600w"></figure>
+<div class="post__toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#mcetoc_1j0p1tptp238">Staring with Copilot</a></li>
+<li><a href="#mcetoc_1j0p1tptp239">The ChatGPT Iteration</a></li>
+<li><a href="#mcetoc_1j0p1tptp23a">The Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex Iteration</a></li>
+<li><a href="#mcetoc_1j0p1tptp23b">Correcting the Configuration File Path</a></li>
+<li><a href="#mcetoc_1j0p1tptp23c">Automation Scripts</a></li>
+<li><a href="#mcetoc_1j0p1tptp23d">The Next Steps</a></li>
+</ul>
+</div>
+<h2 id="mcetoc_1j0p1tptp238">Staring with Copilot</h2>
+<p>My process was simple - I started with Copilot, providing this prompt based on the photograph of the <code>wpa_supplicant </code>file on the miniPC:</p>
+<blockquote>
+<p>revise this code for FreeBSD to ensure iwlwifi0_wlan is enabled and remains functioning at all times:</p>
+<p>``` <br>#!/bin/sh <br># <br># PROVIDE: wpa_supplicant <br># REQUIRE: NETWORKING <br># KEYWORD: shutdown</p>
+<p>./etc/rc.subr <br>./etc/network.subr</p>
+<p>name="wpa_supplicant"</p>
+<p>desc="WPA/802.11 Supplicant for wireless network devices" rcvar=wpa_supplicant_enable</p>
+<p>ifn="2" <br>if [ -z "$ifn" ]; then <br>       return 1</p>
+<p>fi</p>
+<p>if is_wired_interface $(ifn) ; then <br>       drivers="wired" <br>else <br>       drivers="bsd" <br>fi</p>
+<p>load_rc_config $name</p>
+<p>command=$(wpa_supplicant_program) <br>conf_file=$(wpa_supplicant_conf_file) <br>pidfile="/var/run/$(name)/$(ifn).pid" <br>command_args="-B -i -ifn -c $conf_file -D $driver -P $pidfile" required_files=$conf_file <br>required_modules="wlan_wep wlan_tkip wlan_ccmp"</p>
+<p>run_rc_command "$1"</p>
+<p>```</p>
+<p>Add comments as needed to explain code functionality and speed up troubleshooting.</p>
+</blockquote>
+<p>Here is the Copilot output when set to reason:</p>
+<pre class="language-markdown line-numbers"><code># Revised FreeBSD RC.d Script for iwlwifi0_wlan
+
+Below is a complete `/usr/local/etc/rc.d/wpa_supplicant` script that:
+
+- Ensures the Intel wireless driver is loaded  
+- Creates and brings up the `iwlwifi0_wlan` interface if it doesn’t already exist  
+- Launches `wpa_supplicant` as a daemon  
+- Provides status, start and stop routines with clear error messages  
+
+Save this as `/usr/local/etc/rc.d/wpa_supplicant` and make it executable (`chmod +x`).
+
+```sh
+#!/bin/sh
+#
+# PROVIDE: wpa_supplicant
+# REQUIRE: DAEMON NETWORKING if_iwlwifi
+# KEYWORD: shutdown
+#
+# Add the following to /etc/rc.conf to enable this service:
+#   wpa_supplicant_enable="YES"
+#   wpa_supplicant_iface="iwlwifi0_wlan"
+#   wpa_supplicant_driver="bsd"
+#   wpa_supplicant_conf="/etc/wpa_supplicant.conf"
+#
+
+. /etc/rc.subr          # import rc_* functions
+. /etc/network.subr     # import network helper functions
+
+name="wpa_supplicant"
+rcvar="wpa_supplicant_enable"
+
+# load overrides from rc.conf, set defaults
+load_rc_config $name
+
+: ${wpa_supplicant_enable:="NO"}           # YES to start at boot
+: ${wpa_supplicant_iface:="iwlwifi0_wlan"} # logical WLAN interface
+: ${wpa_supplicant_driver:="bsd"}          # driver backend
+: ${wpa_supplicant_conf:="/etc/wpa_supplicant.conf"}
+
+# path to the wpa_supplicant binary
+command="/usr/sbin/wpa_supplicant"
+
+# pidfile lives under /var/run/&lt;name&gt;.&lt;iface&gt;.pid
+pidfile="/var/run/${name}.${wpa_supplicant_iface}.pid"
+
+# arguments to wpa_supplicant
+command_args="-B \
+    -i ${wpa_supplicant_iface} \
+    -D ${wpa_supplicant_driver} \
+    -c ${wpa_supplicant_conf} \
+    -P ${pidfile}"
+
+# override default actions
+start_cmd="wpa_supplicant_start"
+stop_cmd="wpa_supplicant_stop"
+status_cmd="wpa_supplicant_status"
+
+#
+# start: load driver, create interface, bring it up, then start daemon
+#
+wpa_supplicant_start()
+{
+    # 1) Load the iwlwifi kernel module if not already present
+    if ! kldstat -n if_iwlwifi &gt; /dev/null 2&gt;&amp;1; then
+        kldload if_iwlwifi \
+            || err 1 "Unable to load if_iwlwifi kernel module"
+    fi
+
+    # 2) Create the wlan interface if missing
+    if ! ifconfig ${wpa_supplicant_iface} &gt; /dev/null 2&gt;&amp;1; then
+        ifconfig iwlwifi0 create wlandev iwlwifi0 \
+            || err 1 "Failed to create interface ${wpa_supplicant_iface}"
+    fi
+
+    # 3) Bring the wireless interface up
+    ifconfig ${wpa_supplicant_iface} up \
+        || err 1 "Could not bring up ${wpa_supplicant_iface}"
+
+    # 4) Launch wpa_supplicant in the background
+    ${command} ${command_args} \
+        || err 1 "wpa_supplicant failed to start"
+}
+
+#
+# status: check the pidfile to see if wpa_supplicant is running
+#
+wpa_supplicant_status()
+{
+    check_pidfile "${pidfile}" "${command}"
+}
+
+#
+# stop: terminate the daemon and clean up the pidfile
+#
+wpa_supplicant_stop()
+{
+    if [ -f "${pidfile}" ]; then
+        kill -TERM "$(cat ${pidfile})" &gt; /dev/null 2&gt;&amp;1 \
+            || err 1 "Failed to kill wpa_supplicant (PID: $(cat ${pidfile}))"
+        rm -f "${pidfile}"
+    else
+        err 1 "PID file not found, is wpa_supplicant running?"
+    fi
+}
+
+run_rc_command "$1"
+```
+
+---
+
+## `/etc/rc.conf` Example
+
+Add these lines to enable and configure the service at boot:
+
+```sh
+wpa_supplicant_enable="YES"
+wpa_supplicant_iface="iwlwifi0_wlan"
+wpa_supplicant_driver="bsd"
+wpa_supplicant_conf="/etc/wpa_supplicant.conf"
+```
+
+---
+
+## Troubleshooting Tips
+
+- If the interface never shows up, verify that `if_iwlwifi.ko` exists in `/boot/modules` or your compiled module directory.
+- Use `kldstat` and `kldload` manually to confirm kernel module loading.
+- Check `/var/log/messages` or run `tail -f /var/log/messages` while starting the service for driver errors.
+- To debug wpa_supplicant, add `-d` or `-dd` to `command_args` for verbose output.
+- Confirm your `/etc/wpa_supplicant.conf` has correct SSID and PSK entries, and file permissions allow only root to read it.
+
+---
+
+### Next Steps
+
+You may want to:
+
+- Integrate a keep-alive monitor (e.g., a wrapper loop or cron job) that restarts the service if the link drops.
+- Explore `wpa_cli -a /path/to/script.sh` for automated reconnection on authentication failures.
+- Tune driver parameters (e.g., power saving) via `/boot/loader.conf` for performance.</code></pre>
+<p>Implementing this with minor alterations (for example <code>wlan0</code> instead of <code>wlan</code>, changing the <code>conf</code> file path and name) increased availability. While there are still random connection failures, it seems to happen less frequently. Within each 4 hour window between WiFi connection restarts, it seems like only the last hour or so is where the connection seems to time out.</p>
+<h2 id="mcetoc_1j0p1tptp239">The ChatGPT Iteration</h2>
+<p>Out of pure curiosity, I decided to see how ChatGPT, set to reason, would generate code from the same prompt.</p>
+<p>Here's the result:</p>
+<pre class="language-markdown line-numbers"><code>```sh
+#!/bin/sh
+#
+# PROVIDE: wpa_supplicant
+# REQUIRE: NETWORKING
+# BEFORE: LOGIN
+# KEYWORD: shutdown
+#
+# Ensure Intel iwlwifi device stays up and managed by wpa_supplicant
+#
+
+. /etc/rc.subr
+
+name="wpa_supplicant"
+rcvar="${name}_enable"
+
+# load user settings from /etc/rc.conf
+load_rc_config $name
+
+# default settings (override in /etc/rc.conf as needed)
+: ${wpa_supplicant_enable:="NO"}                       # enable in rc.conf
+: ${wpa_supplicant_wlandev:="iwm0"}                    # physical device
+: ${wpa_supplicant_if:="wlan0"}                        # logical interface
+: ${wpa_supplicant_conf:="/etc/wpa_supplicant.conf"}   # config file
+: ${wpa_supplicant_driver:="wpa"}                      # driver backend
+: ${wpa_supplicant_flags:=""}                          # extra options
+
+# load required kernel modules at boot (if not already loaded)
+kld_list="if_iwm.ko"   # Intel wireless driver
+kld_list+=" iwmfw.ko"  # firmware for iwlwifi devices
+
+start_cmd="${name}_start"
+stop_cmd="${name}_stop"
+
+wpa_supplicant_start() {
+    # create wlan interface if missing
+    if ! ifconfig ${wpa_supplicant_if} &gt;/dev/null 2&gt;&amp;1; then
+        ifconfig ${wpa_supplicant_if} create wlandev ${wpa_supplicant_wlandev} \
+                  wlanmode sta || return 1
+    fi
+
+    # bring up the interface
+    ifconfig ${wpa_supplicant_if} up || return 1
+
+    # launch wpa_supplicant in background
+    /usr/sbin/wpa_supplicant -B \
+        -i ${wpa_supplicant_if} \
+        -c ${wpa_supplicant_conf} \
+        -D ${wpa_supplicant_driver} \
+        -P /var/run/${name}.${wpa_supplicant_if}.pid \
+        ${wpa_supplicant_flags}
+}
+
+wpa_supplicant_stop() {
+    # terminate daemon and remove interface
+    killproc -p /var/run/${name}.${wpa_supplicant_if}.pid /usr/sbin/wpa_supplicant
+    ifconfig ${wpa_supplicant_if} destroy
+}
+
+run_rc_command "$1"
+```
+
+**How it works:**
+
+* **Module loading**
+
+  * Ensures `if_iwm.ko` and `iwmfw.ko` are loaded at boot, so the Intel wireless device is available ([Reddit][1]).
+* **Interface creation**
+
+  * Checks for `wlan0`; if missing, creates it from `iwm0` in station mode ([Sacred Heart School][2]).
+* **Bringing up interface**
+
+  * Uses `ifconfig wlan0 up` to activate the wireless interface.
+* **Starting wpa\_supplicant**
+
+  * Runs `wpa_supplicant` with `-B` (daemonize), interface, config file, driver, and PID file arguments.
+* **Stopping and cleanup**
+
+  * `killproc` stops the daemon and `ifconfig wlan0 destroy` removes the logical interface.
+
+To enable and keep running:
+
+1. Add to `/etc/rc.conf`:
+
+   ```sh
+   wpa_supplicant_enable="YES"
+   wpa_supplicant_wlandev="iwm0"
+   wpa_supplicant_if="wlan0"
+   wpa_supplicant_conf="/etc/wpa_supplicant.conf"
+   ```
+2. Ensure firmware loader settings in `/boot/loader.conf`:
+
+   ```sh
+   if_iwm_load="YES"
+   iwmfw_load="YES"
+   ```
+3. Reboot or start manually:
+
+   ```sh
+   service wpa_supplicant start
+   ```
+
+####
+
+[1]: https://www.reddit.com/r/freebsd/comments/13sa7sv/wifi_setup_help_needed/?utm_source=chatgpt.com "Wifi setup help needed! : r/freebsd"
+[2]: https://www.sacredheartsc.com/blog/freebsd-14-on-the-desktop/?utm_source=chatgpt.com "FreeBSD 14 on the Desktop"</code></pre>
+<p>Before I use DiffChecker to see specific differences, here's what I notice with my own eyes:</p>
+<ul>
+<li>ChatGPT decided to change the <code>rcvar</code> name to a generic value.</li>
+<li>ChatGPT added a config value for the actual WiFi hardware device.</li>
+<li>ChatGPT decided that it needed to ensure the Intel WiFi firmware booted.</li>
+<li>The code for <code>wpa_supplicant_start</code> and <code>wpa_supplicant_stop</code> are completely different.</li>
+<li>There's no <code>wpa_supplicant_status</code> command.</li>
+<li>Practically no comments and no logging code.</li>
+</ul>
+<p>Unfortunately, loading both iterations of the code into DiffChecker didn't work as well as I hoped. The ChatGPT script, being only 59 lines long, compared to the 94 lines of the Copilot script, kept being aligned with highly dissimilar parts of the code based on the line numbers.</p>
+<h2 id="mcetoc_1j0p1tptp23a">The Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex Iteration</h2>
+<p>Since I like to experiment with open source LLMs, I decided to try one by DavidAU, one of my preferred AI tuners. Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex is a 800MB coding model with reasoning capabilities, which is an absurdly small model by any standards.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/43/cyber-proj-tfb22.png" alt="Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex loaded in LM Studio." width="1920" height="1033" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb22-xs.png 384w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb22-sm.png 600w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb22-md.png 768w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb22-lg.png 1200w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb22-xl.png 1600w"></figure>
+<p>The small size had me morbidly curious as to the quality of the output, so I provided it with the same prompt as Copilot and ChatGPT. This is what it produced:</p>
+<pre class="language-markdown line-numbers"><code>&lt;think&gt;
+Okay, I need to modify the given shell script for FreeBSD to ensure that `iwwlan` (or `iwlan`) is enabled and remains functional at all times. The user provided a command that sets up the system using `/etc/rc/subr` and `network.subr`. My task is to add comments and optimize the code to ensure these steps work correctly.
+
+First, I'll start with understanding the existing script. The current setup uses `ifn`, which refers to the interface (e.g., `eth0`, `wlan0`) and sets up the command for wpa_supplicant. However, FreeBSD uses `iwwlan` instead of `/dev/net/wlan`. So I need to replace `iwwlan` with `iwwan`.
+
+Next, I'll update the `command` line to use `/dev/deviwlan` instead of `/dev/devnet`. This should correctly interface with the network driver in FreeBSD.
+
+Also, since FreeBSD uses `ifconfig` and `sysctl`, I need to ensure that these tools are installed. If they aren't present, my current approach might fail. So I'll add dependencies like `ifconfig` and `sysctl` if needed.
+
+I should also update the `rcvar` and other rc variables to ensure they're correctly set after initial configuration. Then, make sure all necessary modules and files are installed before running the script.
+
+Finally, adding comments where appropriate will help users understand each step and troubleshoot any issues. This ensures that even those unfamiliar with FreeBSD or networking configurations can understand and modify the code.
+&lt;/think&gt;
+
+Here's the revised script with added comments to ensure clarity and correctness for FreeBSD:
+
+```bash
+#!/bin/sh
+
+# PROVIDE: wpa_supplicant
+# DESC:
+#     Configure WPA/802-11 supplicant for wireless network devices
+#
+# KEYWORDS: 
+#       networking; shutdown
+#
+
+NAME="wpa_supplicant"
+DESCR="WPA/802-11 Supplicant for wireless network devices"
+
+RCVAR=wpa_supplicant_enable
+
+# Define interface to use
+ifn="2" # Replace with the correct interface (eth0, wlan0 or wwan0)
+
+# Check if the interface is active
+if [ -z "$ifn" ]; then
+    return 1
+fi
+
+# Set up required modules
+drivers="wired"
+required_modules="wlan_wep wlan_tkip wlan_ccmp"
+
+# Initialize network configuration
+run_rc_command "$1"
+
+# Ensure necessary files and dependencies are present
+ifconfig $ifn set
+sysctl --set /net/eth0/flags=0
+sysctl --set /net/eth0/devdeviwlan=0
+
+# Set up wpa_supplicant command
+command=$(wpa_supplicant_program)
+conf_file="$conf_file"
+pidfile="/var/run/$name/$ifn.pid"
+
+# Add command arguments
+command_args="-B -i -ifn -c $conf_file -D $driver -P $pidfile"
+
+# Ensure required modules are installed
+if [ "$required_modules" != "" ] &amp;&amp; [[ "$required_modules" != '' ]]
+
+# Set up the rc subroutines and network subroutines
+/etc/rc/subr
+/etc/network.subr
+```
+
+**Changes Made:**
+1. Replace `iwwlan` with `/dev/deviwlan` to interface with the network driver in FreeBSD.
+2. Use `ifconfig` instead of `sysctl` to set interfaces and devices if necessary.
+3. Add comments explaining each part of the script to assist troubleshooting.
+4. Ensure dependencies are installed before execution.
+
+**Explanation:**
+
+- `ifconfig` ensures the interface is correctly configured, which is necessary for `wpa_supplicant` to communicate with the network driver.
+- `sysctl` sets up networking parameters to ensure optimal performance and security settings.</code></pre>
+<p>Just eyeballing this code tells me this is not a substantive improvement over the original <code>wpa_supplicant</code> code, which would be disappointing if I didn't know this was a tiny model.</p>
+<p>It wouldn't be surprising to see that it's capable of putting out simple scripts, but that's something to test out later.</p>
+<h2 id="mcetoc_1j0p1tptp23b">Correcting the Configuration File Path</h2>
+<p>One thing that probably contributed to the connection issues was the non-specific nature of the configuration file path. To find the proper path, I had to use shell commands to find all files containing <code>wpa_sup</code>:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/43/cyber-proj-tfb21.jpg" alt="Finding the iwlwifi0_wlan0 configuration file and deleting an unnecessary file." width="1964" height="1368" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb21-xs.jpg 384w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb21-sm.jpg 600w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb21-md.jpg 768w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb21-lg.jpg 1200w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb21-xl.jpg 1600w"></figure>
+<p> </p>
+<h2 id="mcetoc_1j0p1tptp23c">Automation Scripts</h2>
+<p>Since I can't rule out that the big OPNSense update is going to wipe out all the changes I've made to wpa_supplicant and associated files, I decided to have a script ready to make those files as necessary.</p>
+<p>For this task, I decided to pit Copilot and ChatGPT against each other, each with the same code (the initial Copilot generation) and prompt.</p>
+<p>The prompt was as follows:</p>
+<pre class="language-markdown line-numbers"><code>Write me an automation script for FreeBSD shell that does the following:
+-Generate `/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf` with the following configuration:
+```
+crtl_interface=/var/run/wpa_supplicant
+crtl_interface_group=0
+ap_scan=1
+fast_reauth=1
+network={
+ssid="Placeholder"
+scan_ssid=1
+priority=5
+key_mgmt=WPA-PSK
+psk="Placeholder"
+pairwise=CCMP TKIP
+group=CCMP TKIP
+}
+```
+-Generate `/etc/rc.d/wpa_supplicant` with the following code content:
+```
+#!/bin/sh
+#
+# PROVIDE: wpa_supplicant
+# REQUIRE: DAEMON NETWORKING if_iwlwifi
+# KEYWORD: shutdown
+#
+# Add the following to /etc/rc.conf to enable this service:
+#   wpa_supplicant_enable="YES"
+#   wpa_supplicant_iface="iwlwifi0_wlan0"
+#   wpa_supplicant_driver="bsd"
+#   wpa_supplicant_conf="/etc/wpa_supplicant.conf"
+#
+
+. /etc/rc.subr          # import rc_* functions
+. /etc/network.subr     # import network helper functions
+
+name="wpa_supplicant"
+rcvar="wpa_supplicant_enable"
+
+# load overrides from rc.conf, set defaults
+load_rc_config $name
+
+: ${wpa_supplicant_enable:="YES"}           # YES to start at boot
+: ${wpa_supplicant_iface:="iwlwifi0_wlan0"} # logical WLAN interface
+: ${wpa_supplicant_driver:="bsd"}          # driver backend
+: ${wpa_supplicant_conf:="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"}
+
+# path to the wpa_supplicant binary
+command="/usr/sbin/wpa_supplicant"
+
+# pidfile lives under /var/run/&lt;name&gt;.&lt;iface&gt;.pid
+pidfile="/var/run/${name}.${wpa_supplicant_iface}.pid"
+
+# arguments to wpa_supplicant
+command_args="-B \
+    -i ${wpa_supplicant_iface} \
+    -D ${wpa_supplicant_driver} \
+    -c ${wpa_supplicant_conf} \
+    -P ${pidfile}"
+
+# override default actions
+start_cmd="wpa_supplicant_start"
+stop_cmd="wpa_supplicant_stop"
+status_cmd="wpa_supplicant_status"
+
+#
+# start: load driver, create interface, bring it up, then start daemon
+#
+wpa_supplicant_start()
+{
+    # 1) Load the iwlwifi kernel module if not already present
+    if ! kldstat -n if_iwlwifi &gt; /dev/null 2&gt;&amp;1; then
+        kldload if_iwlwifi \
+            || err 1 "Unable to load if_iwlwifi kernel module - /etc/rc.d/wpa_supplicant"
+    fi
+
+    # 2) Create the wlan interface if missing
+    if ! ifconfig ${wpa_supplicant_iface} &gt; /dev/null 2&gt;&amp;1; then
+        ifconfig iwlwifi0 create wlandev iwlwifi0 \
+            || err 1 "Failed to create interface ${wpa_supplicant_iface} - /etc/rc.d/wpa_supplicant"
+    fi
+
+    # 3) Bring the wireless interface up
+    ifconfig ${wpa_supplicant_iface} up \
+        || err 1 "Could not bring up ${wpa_supplicant_iface} - /etc/rc.d/wpa_supplicant"
+
+    # 4) Launch wpa_supplicant in the background
+    ${command} ${command_args} \
+        || err 1 "wpa_supplicant failed to start - /etc/rc.d/wpa_supplicant"
+}
+
+#
+# status: check the pidfile to see if wpa_supplicant is running
+#
+wpa_supplicant_status()
+{
+    check_pidfile "${pidfile}" "${command}"
+}
+
+#
+# stop: terminate the daemon and clean up the pidfile
+#
+wpa_supplicant_stop()
+{
+    if [ -f "${pidfile}" ]; then
+        kill -TERM "$(cat ${pidfile})" &gt; /dev/null 2&gt;&amp;1 \
+            || err 1 "Failed to kill wpa_supplicant (PID: $(cat ${pidfile}))"
+        rm -f "${pidfile}"
+    else
+        err 1 "PID file not found, is wpa_supplicant running? - /etc/rc.d/wpa_supplicant"
+    fi
+}
+
+run_rc_command "$1"
+```
+-apply `chmod +x` to `/etc/rc.d/wpa_supplicant`
+-generate `/etc/rc.conf.local` with the following configuration:
+```
+wpa_supplicant_enable="YES"
+wpa_supplicant_iface="iwlwifi0_wlan"
+wpa_supplicant_driver="bsd"
+wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+```</code></pre>
+<p>Here's what Copilot generated:</p>
+<pre class="language-markdown line-numbers"><code># FreeBSD Shell Automation Script for wpa_supplicant Setup
+
+The following script automates:
+
+- Creation of the WPA supplicant configuration under `/var/etc`  
+- Installation of the `/etc/rc.d/wpa_supplicant` startup script  
+- Proper execute permissions  
+- Generation of `/etc/rc.conf.local` with service settings  
+
+Save this as, for example, `setup_wpa.sh`, make it executable, and run as root.
+
+```sh
+#!/bin/sh
+#
+# setup_wpa.sh
+# Automates wpa_supplicant config, rc.d script, permissions, and rc.conf.local
+#
+
+set -e
+
+# Ensure script is run as root
+if [ "$(id -u)" -ne 0 ]; then
+  echo "Error: This script must be run as root."
+  exit 1
+fi
+
+# 1) Create WPA supplicant config directory and file
+mkdir -p /var/etc
+
+cat &lt;&lt; 'EOF' &gt; /var/etc/wpa_supplicant_iwlwifi0_wlan0.conf
+ctrl_interface=/var/run/wpa_supplicant
+ctrl_interface_group=0
+ap_scan=1
+fast_reauth=1
+network={
+    ssid="Placeholder"
+    scan_ssid=1
+    priority=5
+    key_mgmt=WPA-PSK
+    psk="Placeholder"
+    pairwise=CCMP TKIP
+    group=CCMP TKIP
+}
+EOF
+
+echo "Created /var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+
+# 2) Install the rc.d startup script
+cat &lt;&lt; 'EOF' &gt; /etc/rc.d/wpa_supplicant
+#!/bin/sh
+#
+# PROVIDE: wpa_supplicant
+# REQUIRE: DAEMON NETWORKING if_iwlwifi
+# KEYWORD: shutdown
+#
+# Add the following to /etc/rc.conf to enable this service:
+#   wpa_supplicant_enable="YES"
+#   wpa_supplicant_iface="iwlwifi0_wlan0"
+#   wpa_supplicant_driver="bsd"
+#   wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+#
+
+. /etc/rc.subr
+. /etc/network.subr
+
+name="wpa_supplicant"
+rcvar="wpa_supplicant_enable"
+
+load_rc_config $name
+
+: ${wpa_supplicant_enable:="YES"}
+: ${wpa_supplicant_iface:="iwlwifi0_wlan0"}
+: ${wpa_supplicant_driver:="bsd"}
+: ${wpa_supplicant_conf:="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"}
+
+command="/usr/sbin/wpa_supplicant"
+pidfile="/var/run/${name}.${wpa_supplicant_iface}.pid"
+command_args="-B \
+    -i ${wpa_supplicant_iface} \
+    -D ${wpa_supplicant_driver} \
+    -c ${wpa_supplicant_conf} \
+    -P ${pidfile}"
+
+start_cmd="wpa_supplicant_start"
+stop_cmd="wpa_supplicant_stop"
+status_cmd="wpa_supplicant_status"
+
+wpa_supplicant_start()
+{
+    if ! kldstat -n if_iwlwifi &gt;/dev/null 2&gt;&amp;1; then
+        kldload if_iwlwifi || err 1 "Unable to load if_iwlwifi"
+    fi
+
+    if ! ifconfig ${wpa_supplicant_iface} &gt;/dev/null 2&gt;&amp;1; then
+        ifconfig iwlwifi0 create wlandev iwlwifi0 \
+            || err 1 "Failed to create interface ${wpa_supplicant_iface}"
+    fi
+
+    ifconfig ${wpa_supplicant_iface} up \
+        || err 1 "Could not bring up ${wpa_supplicant_iface}"
+
+    ${command} ${command_args} \
+        || err 1 "wpa_supplicant failed to start"
+}
+
+wpa_supplicant_status()
+{
+    check_pidfile "${pidfile}" "${command}"
+}
+
+wpa_supplicant_stop()
+{
+    if [ -f "${pidfile}" ]; then
+        kill -TERM "$(cat ${pidfile})" &gt;/dev/null 2&gt;&amp;1 \
+            || err 1 "Failed to kill wpa_supplicant"
+        rm -f "${pidfile}"
+    else
+        err 1 "PID file not found, is wpa_supplicant running?"
+    fi
+}
+
+run_rc_command "$1"
+EOF
+
+chmod +x /etc/rc.d/wpa_supplicant
+echo "Installed and made executable: /etc/rc.d/wpa_supplicant"
+
+# 3) Generate /etc/rc.conf.local
+cat &lt;&lt; 'EOF' &gt; /etc/rc.conf.local
+wpa_supplicant_enable="YES"
+wpa_supplicant_iface="iwlwifi0_wlan"
+wpa_supplicant_driver="bsd"
+wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+EOF
+
+echo "Created /etc/rc.conf.local"
+
+echo "Setup complete. You can now enable the service with:"
+echo "  service wpa_supplicant start"
+```
+
+---
+
+## Usage Notes
+
+- Update the `ssid` and `psk` placeholders in  
+  `/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf` before connecting to your network.
+
+- To enable on every boot, ensure `/etc/rc.conf.local` is sourced  
+  (FreeBSD does this by default).  
+
+- Verify the driver module with `kldstat | grep if_iwlwifi` after reboot.
+
+- Check logs via `dmesg` or `/var/log/messages` if the interface fails to come up.
+
+---
+
+## Further Enhancements
+
+- Parameterize SSID/PSK as script arguments for non-interactive setups.  
+- Add backups of existing config files before overwriting.  
+- Integrate wireless scanning (`wpa_cli scan`) and status checks post-start.  
+- Extend for multiple SSIDs by looping over an array of network blocks.</code></pre>
+<p>Here's what ChatGPT generated:</p>
+<pre class="language-markdown line-numbers"><code>* Plan script steps
+* Create WPA config file
+* Create rc.d service script
+* Apply executable permission
+* Create rc.conf.local file
+
+####
+
+```sh
+#!/bin/sh
+#
+# Automation script to configure wpa_supplicant on FreeBSD
+# Usage: sh setup_wpa.sh
+set -e
+
+# 1) Generate wpa_supplicant configuration
+mkdir -p /var/etc
+cat &gt; /var/etc/wpa_supplicant_iwlwifi0_wlan0.conf &lt;&lt; 'EOF'
+ctrl_interface=/var/run/wpa_supplicant
+ctrl_interface_group=0
+ap_scan=1
+fast_reauth=1
+network={
+    ssid="Placeholder"
+    scan_ssid=1
+    priority=5
+    key_mgmt=WPA-PSK
+    psk="Placeholder"
+    pairwise=CCMP TKIP
+    group=CCMP TKIP
+}
+EOF
+
+# 2) Generate rc.d wpa_supplicant service script
+cat &gt; /etc/rc.d/wpa_supplicant &lt;&lt; 'EOF'
+#!/bin/sh
+#
+# PROVIDE: wpa_supplicant
+# REQUIRE: DAEMON NETWORKING if_iwlwifi
+# KEYWORD: shutdown
+#
+# Add the following to /etc/rc.conf to enable this service:
+#   wpa_supplicant_enable="YES"
+#   wpa_supplicant_iface="iwlwifi0_wlan0"
+#   wpa_supplicant_driver="bsd"
+#   wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+#
+
+. /etc/rc.subr          # import rc_* functions
+. /etc/network.subr     # import network helper functions
+
+name="wpa_supplicant"
+rcvar="wpa_supplicant_enable"
+
+# load overrides from rc.conf, set defaults
+load_rc_config $name
+
+: ${wpa_supplicant_enable:="YES"}            # YES to start at boot
+: ${wpa_supplicant_iface:="iwlwifi0_wlan0"}  # logical WLAN interface
+: ${wpa_supplicant_driver:="bsd"}            # driver backend
+: ${wpa_supplicant_conf:="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"}
+
+# path to the wpa_supplicant binary
+command="/usr/sbin/wpa_supplicant"
+
+# pidfile lives under /var/run/&lt;name&gt;.&lt;iface&gt;.pid
+pidfile="/var/run/${name}.${wpa_supplicant_iface}.pid"
+
+# arguments to wpa_supplicant
+command_args="-B \
+    -i ${wpa_supplicant_iface} \
+    -D ${wpa_supplicant_driver} \
+    -c ${wpa_supplicant_conf} \
+    -P ${pidfile}"
+
+# override default actions
+start_cmd="wpa_supplicant_start"
+stop_cmd="wpa_supplicant_stop"
+status_cmd="wpa_supplicant_status"
+
+wpa_supplicant_start()
+{
+    # 1) Load the iwlwifi kernel module if not already present
+    if ! kldstat -n if_iwlwifi &gt; /dev/null 2&gt;&amp;1; then
+        kldload if_iwlwifi \
+            || err 1 "Unable to load if_iwlwifi kernel module"
+    fi
+
+    # 2) Create the wlan interface if missing
+    if ! ifconfig ${wpa_supplicant_iface} &gt; /dev/null 2&gt;&amp;1; then
+        ifconfig iwlwifi0 create wlandev iwlwifi0 \
+            || err 1 "Failed to create interface ${wpa_supplicant_iface}"
+    fi
+
+    # 3) Bring the wireless interface up
+    ifconfig ${wpa_supplicant_iface} up \
+        || err 1 "Could not bring up ${wpa_supplicant_iface}"
+
+    # 4) Launch wpa_supplicant in the background
+    ${command} ${command_args} \
+        || err 1 "wpa_supplicant failed to start"
+}
+
+wpa_supplicant_status()
+{
+    check_pidfile "${pidfile}" "${command}"
+}
+
+wpa_supplicant_stop()
+{
+    if [ -f "${pidfile}" ]; then
+        kill -TERM "$(cat ${pidfile})" &gt; /dev/null 2&gt;&amp;1 \
+            || err 1 "Failed to kill wpa_supplicant (PID: $(cat ${pidfile}))"
+        rm -f "${pidfile}"
+    else
+        err 1 "PID file not found, is wpa_supplicant running?"
+    fi
+}
+
+run_rc_command "$1"
+EOF
+
+# 3) Make service script executable
+chmod +x /etc/rc.d/wpa_supplicant
+
+# 4) Generate local rc.conf overrides
+cat &gt; /etc/rc.conf.local &lt;&lt; 'EOF'
+wpa_supplicant_enable="YES"
+wpa_supplicant_iface="iwlwifi0_wlan"
+wpa_supplicant_driver="bsd"
+wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+EOF
+
+echo "Configuration complete."
+```
+
+# References
+
+* wpa\_supplicant configuration file placement and options ([docs.freebsd.org][1])
+* Use of wpa\_supplicant(8) for WPA-PSK in FreeBSD ([freebsdhandbook.com][2])
+
+[1]: https://docs.freebsd.org/en/books/handbook/network/?utm_source=chatgpt.com "Chapter 7. Network"
+[2]: https://www.freebsdhandbook.com/advanced-networking?utm_source=chatgpt.com "Chapter 32. Advanced Networking - FreeBSD Handbook"</code></pre>
+<p>Comparing the scripts in DiffChecker revealed some interesting changes, but most were in the following categories:</p>
+<ul>
+<li>Differences in comments - omissions or verbiage.</li>
+<li>Different constructions of the same commands (<code><span class="diff-chunk_chunk__MRDHe undefined">cat </span></code><span class="diff-chunk_chunk__MRDHe diff-chunk_removed__oVJqp"><code>&lt;&lt; 'EOF' &gt; /etc/rc.d/wpa_supplicant</code> vs <code><span class="diff-chunk_chunk__MRDHe undefined">cat </span><span class="diff-chunk_chunk__MRDHe diff-chunk_inserted__dGN9u">&gt; /etc/rc.d/wpa_supplicant &lt;&lt; 'EOF'</span></code></span>).</li>
+<li>Copilot having a function to ensure the script is running as root.</li>
+<li>ChatGPT having a comment on how to use the script.</li>
+<li>Copilot having better user feedback via process completion messages.</li>
+</ul>
+<p>After some quick Googling, it seems that the <code>cat &lt;&lt; 'EOF' &gt; /etc/rc.d/wpa_supplicant</code> construction is the more correct one, so it seems Copilot is more technically accurate. </p>
+<h2 id="mcetoc_1j0p1tptp23d">The Next Steps</h2>
+<p>What's next isn't particularly exciting:</p>
+<ul>
+<li>Combine best elements of ChatGPT script into Copilot script.</li>
+<li>Save the file and place it on the flash drive I store the other files I add to OPNSense.</li>
+<li>Wait for the OPNSense 25.7 finalized release to see if it completely obliterates various things I've added.</li>
+</ul>
+<p>For reference, here's the finalized version of the script I've come up with:</p>
+<pre class="language-bash line-numbers"><code>#!/bin/sh
+#
+# setup_wpa.sh
+# Automates wpa_supplicant config, rc.d script, permissions, and rc.conf.local
+# Usage: sh setup_wpa.sh
+
+set -e
+
+# Ensure script is run as root
+if [ "$(id -u)" -ne 0 ]; then
+  echo "Error: This script must be run as root."
+  exit 1
+fi
+
+# 1) Create WPA supplicant config directory and file
+mkdir -p /var/etc
+
+cat &lt;&lt; 'EOF' &gt; /var/etc/wpa_supplicant_iwlwifi0_wlan0.conf
+ctrl_interface=/var/run/wpa_supplicant
+ctrl_interface_group=0
+ap_scan=1
+fast_reauth=1
+network={
+    ssid="Placeholder"
+    scan_ssid=1
+    priority=5
+    key_mgmt=WPA-PSK
+    psk="Placeholder"
+    pairwise=CCMP TKIP
+    group=CCMP TKIP
+}
+EOF
+
+echo "Created /var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+
+# 2) Install the rc.d startup script
+cat &lt;&lt; 'EOF' &gt; /etc/rc.d/wpa_supplicant
+#!/bin/sh
+#
+# PROVIDE: wpa_supplicant
+# REQUIRE: DAEMON NETWORKING if_iwlwifi
+# KEYWORD: shutdown
+#
+# Add the following to /etc/rc.conf to enable this service:
+#   wpa_supplicant_enable="YES"
+#   wpa_supplicant_iface="iwlwifi0_wlan0"
+#   wpa_supplicant_driver="bsd"
+#   wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+#
+
+. /etc/rc.subr          # import rc_* functions
+. /etc/network.subr     # import network helper functions
+
+name="wpa_supplicant"
+rcvar="wpa_supplicant_enable"
+
+# load overrides from rc.conf, set defaults
+load_rc_config $name
+
+: ${wpa_supplicant_enable:="YES"}           # YES to start at boot
+: ${wpa_supplicant_iface:="iwlwifi0_wlan0"} # logical WLAN interface
+: ${wpa_supplicant_driver:="bsd"}          # driver backend
+: ${wpa_supplicant_conf:="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"}
+
+# path to the wpa_supplicant binary
+command="/usr/sbin/wpa_supplicant"
+
+# pidfile lives under /var/run/&lt;name&gt;.&lt;iface&gt;.pid
+pidfile="/var/run/${name}.${wpa_supplicant_iface}.pid"
+
+# arguments to wpa_supplicant
+command_args="-B \
+    -i ${wpa_supplicant_iface} \
+    -D ${wpa_supplicant_driver} \
+    -c ${wpa_supplicant_conf} \
+    -P ${pidfile}"
+
+# override default actions
+start_cmd="wpa_supplicant_start"
+stop_cmd="wpa_supplicant_stop"
+status_cmd="wpa_supplicant_status"
+
+#
+# start: load driver, create interface, bring it up, then start daemon
+#
+wpa_supplicant_start()
+{
+    # 1) Load the iwlwifi kernel module if not already present
+    if ! kldstat -n if_iwlwifi &gt; /dev/null 2&gt;&amp;1; then
+        kldload if_iwlwifi \
+            || err 1 "Unable to load if_iwlwifi kernel module - /etc/rc.d/wpa_supplicant"
+    fi
+
+    # 2) Create the wlan interface if missing
+    if ! ifconfig ${wpa_supplicant_iface} &gt; /dev/null 2&gt;&amp;1; then
+        ifconfig iwlwifi0 create wlandev iwlwifi0 \
+            || err 1 "Failed to create interface ${wpa_supplicant_iface} - /etc/rc.d/wpa_supplicant"
+    fi
+
+    # 3) Bring the wireless interface up
+    ifconfig ${wpa_supplicant_iface} up \
+        || err 1 "Could not bring up ${wpa_supplicant_iface} - /etc/rc.d/wpa_supplicant"
+
+    # 4) Launch wpa_supplicant in the background
+    ${command} ${command_args} \
+        || err 1 "wpa_supplicant failed to start - /etc/rc.d/wpa_supplicant"
+}
+
+#
+# status: check the pidfile to see if wpa_supplicant is running
+#
+wpa_supplicant_status()
+{
+    check_pidfile "${pidfile}" "${command}"
+}
+
+#
+# stop: terminate the daemon and clean up the pidfile
+#
+wpa_supplicant_stop()
+{
+    if [ -f "${pidfile}" ]; then
+        kill -TERM "$(cat ${pidfile})" &gt; /dev/null 2&gt;&amp;1 \
+            || err 1 "Failed to kill wpa_supplicant (PID: $(cat ${pidfile}))"
+        rm -f "${pidfile}"
+    else
+        err 1 "PID file not found, is wpa_supplicant running? - /etc/rc.d/wpa_supplicant"
+    fi
+}
+
+run_rc_command "$1"
+EOF
+
+chmod +x /etc/rc.d/wpa_supplicant
+echo "Installed and made executable: /etc/rc.d/wpa_supplicant"
+
+# 3) Generate /etc/rc.conf.local
+cat &lt;&lt; 'EOF' &gt; /etc/rc.conf.local
+wpa_supplicant_enable="YES"
+wpa_supplicant_iface="iwlwifi0_wlan"
+wpa_supplicant_driver="bsd"
+wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+EOF
+
+echo "Created /etc/rc.conf.local"
+
+echo "Setup complete. You can now enable the service with:"
+echo "  service wpa_supplicant start"</code></pre>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.0</title>
         <author>
@@ -1474,82 +2480,6 @@ PLEASE help me figure out what's wrong with it: [code]</code></pre>
 <p class="css-1q9rxa2">Please note Warp’s business model is not about collecting or monetizing any of your data.</p>
 </blockquote>
 <p>However, they eventually plan on making their client source code publicly available at some point, so perhaps that will become a reality. At the moment, it seems to be a matter of if, not when.</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Quick Cyber Thoughts: CES 2025 Aftermath</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/quick-cyber-thoughts-ces-2025/"/>
-        <id>https://korgano.github.io/quick-cyber-thoughts-ces-2025/</id>
-        <media:content url="https://korgano.github.io/media/posts/33/ces-2025-event-banner.png" medium="image" />
-            <category term="Tech"/>
-            <category term="Quick Thoughts"/>
-            <category term="PC"/>
-            <category term="Cybersecurity"/>
-            <category term="AI"/>
-
-        <updated>2025-01-16T10:35:08-05:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/33/ces-2025-event-banner.png" alt="Consumer Electronics Show 2025 banner." />
-                    The Consumer Electronics Show ended last week, and I made a list of things to keep an eye out for&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/33/ces-2025-event-banner.png" class="type:primaryImage" alt="Consumer Electronics Show 2025 banner." /></p>
-                <p>The Consumer Electronics Show ended last week, and <a href="https://korgano.github.io/quick-cyber-thoughts-things-i-hope-to-see-at-ces-2025/" target="_blank" rel="noopener noreferrer">I made a list of things to keep an eye out for that touch on cybersecurity issues</a>. </p>
-<p>So it's time to see if any of those things became reality!</p>
-<div class="post__toc">
-<h3>Table of Contents</h3>
-<ul>
-<li><a href="#mcetoc_1ihqvnhufa7">Powerful APUs with Lots of AI Capability</a></li>
-<li><a href="#mcetoc_1ihqvnhufa8">Business as Usual for Routers</a></li>
-<li><a href="#mcetoc_1ihqvnhufa9">Things I Didn't Expect</a></li>
-</ul>
-</div>
-<h2 id="mcetoc_1ihqvnhufa7">Powerful APUs with Lots of AI Capability</h2>
-<figure class="post__image"><img loading="lazy"  src="https://www.techpowerup.com/img/gUVqNeysHiq2U48E.jpg" alt="AMD AI Max Processor Model Chart" width="1274" height="717" data-is-external-image="true"></figure>
-<p>This was pretty much a gimme, mostly because I kept abreast of leaks and analysis of what the processor manufacturers were doing.</p>
-<p>AMD announced the "Strix Halo"/AI Max(+) processor line for workstation laptops and miniPCs. These processors are basically one or two chips of CPU cores next to a bigger chip that has an Neural Processing Unit for AI, a Graphics Processing Unit that can also be used for AI, and all the input/output for the whole package. What this means that if you can give this thing enough RAM, you can run a <strong>lot </strong>on this chip.</p>
-<figure class="post__image"><img loading="lazy"  src="https://www.techpowerup.com/img/L8i66eGmkKmMtcbU.jpg" alt="AMD AI Max Input/Output Die and performance specifications." width="1271" height="712" data-is-external-image="true"></figure>
-<p>With the right software and enough memory, you could easily run multiple VMs, including Kali Linux, while doing AI tasks using larger models, with up to 96GB of memory just for AI.</p>
-<p>These will be <strong>expensive </strong>machines, but if you need/want to do a lot of VM and/or local AI work in a compact system, they're going to be the go to option. Intel doesn't have anything close, and Nvidia <strong>might</strong>, but they're stuck dealing with Windows on ARM. Reworking Windows to work in a different microarchitecture hasn't worked out well, so it's Ryzen AI Max or nothing.</p>
-<p>A concerning observation is the fact that none of the systems advertised to use these APUs will use CAMM2 memory modules. It is unclear why this is the case, but it might behoove individuals and small organizations to wait to see if AI Max(+) laptops and miniPCs are sold with the better memory technology.</p>
-<h2 id="mcetoc_1ihqvnhufa8">Business as Usual for Routers</h2>
-<p>One thing that concerned me going into 2025 was the potential for a TP-Link router ban. Like many other Americans, I use TP-Link routers because they provide a compelling feature set at an affordable price. This is especially true in the mesh router space, where they cost quite a bit less than competing products from brands like NetGear and Asus.</p>
-<p>To be <strong>extremely </strong>fair to all involved, this was <strong>before </strong><a href="https://www.scotusblog.com/2025/01/supreme-court-upholds-tiktok-ban/" title="Supreme Court upholds TikTok ban" target="_blank" rel="noopener noreferrer">the United States Supreme Court ruled that the TikTok ban was constitutional</a>:</p>
-<blockquote>
-<p>The Supreme Court on Wednesday unanimously upheld a federal law that will require TikTok to shut down in the United States unless its Chinese parent company can sell off the U.S. company by Jan. 19. In <a href="https://www.supremecourt.gov/opinions/24pdf/24-656_ca7d.pdf">an unsigned opinion</a>, the justices acknowledged that, “for more than 170 million Americans,” the social media giant “offers a distinct and expansive outlet for expression, means of engagement, and source of community.” But, the court concluded, “Congress has determined that divestiture is necessary to address its well-supported national security concerns regarding TikTok’s data collection practices and relationship with a foreign adversary.”</p>
-</blockquote>
-<p>The problem is that the router industry apparently decided to keep on going like nothing was happening. Aside from price tweaks on existing products, which are done on an individual store level, the major players in the Small Office-Home Office (SOHO) space just introduced new, expensive routers. Theoretically, these would provide downward price pressure on older products. In reality, the trend in some segments of consumer electronics is that things are kept the same price and new "premium" price tiers are added on top.</p>
-<p>There also didn't appear to be any talk about the software side, which would be the low cost solution (replacing the existing TP-Link OS/firmware). The existing open source options don't cover the full range of TP-Link offerings, so at this point, a worst case scenario is an expensive replacement of all TP-Link routers.</p>
-<h2 id="mcetoc_1ihqvnhufa9">Things I Didn't Expect</h2>
-<figure class="post__image"><img loading="lazy"  src="https://www.yankodesign.com/images/design_news/2025/01/this-game-changing-wi-fi-router-has-a-connectivity-radius-of-9-9-miles/wifi_halow_ces_2025_1.jpg" alt="WiFi HaLow 9.9 mile range router." width="1280" height="960" data-is-external-image="true"></figure>
-<p><a href="https://www.yankodesign.com/2025/01/08/this-game-changing-wi-fi-router-at-ces-2025-has-a-connectivity-radius-of-9-9-miles/" title="This Game-Changing Wi-Fi Router at CES 2025 has a Connectivity Radius of 9.9 Miles" target="_blank" rel="noopener noreferrer">Something I didn't expect to see was a technology that could push WiFi range to around 10 miles:</a></p>
-<blockquote>
-<p class="post-without-image">Without getting into the specifics (because I have no technical background), the Wi-Fi HaLow router (shown above) promises to make internet connectivity seamless over massive distances. It relies on Sub-GHz frequency waves that travel long distances (like AM and FM radio) to transmit internet connectivity, so you could potentially use your home Wi-Fi router within a 10-mile radius of your house.</p>
-<p class="post-without-image">Morse Micro, the company behind the tech, hopes that this Wi-Fi capability will coexist with current 2.4Ghz and 5Ghz Wi-Fi bands. These existing bands are great for low-latency internet connectivity, but add HaLow to the mix and you get long-distance connectivity too, giving you the best of all worlds. Sub-GHz Wi-Fi won’t ever be as fast as 5GHz Wi-Fi (HaLow has max speeds of 32.5 MB/s), although those speeds are perfect for most everyday tasks like checking email, browsing the internet, or even for IoT devices to communicate with each other.</p>
-</blockquote>
-<p>While this has a number of practical applications, this does add a whole host of security concerns. WiFi HaLow is going to be an enticing target for hackers, given the increased range and therefore greater geographic opportunities for direct hacking. Properly configuring and testing these systems is also going to be a bit of an ordeal, given that they haven't been standardized yet.</p>
-<p><a href="https://www.pcworld.com/article/2575337/vlc-celebrates-6-billion-downloads-with-ai-subtitles.html" title="VLC celebrates 6 billion downloads with new AI subtitles feature" target="_blank" rel="noopener noreferrer">Another surprise came from the VLC open source media player team:</a></p>
-<blockquote>
-<p>At CES 2025, non-profit organization VideoLAN announced that their open-source media player app VLC Media Player crossed an incredible milestone: over 6 billion downloads, <a href="https://go.skimresources.com/?id=111346X1569483&amp;xs=1&amp;url=https://techcrunch.com/2025/01/09/vlc-tops-6-billion-downloads-previews-ai-generated-subtitles/&amp;xcust=2-1-2575337-1-0-0-0-0&amp;sref=https://www.pcworld.com/article/2575337/vlc-celebrates-6-billion-downloads-with-ai-subtitles.html" rel="nofollow noopener" data-subtag="2-1-2575337-1-0-0-0-0" data-domain-name="techcrunch" target="_blank">TechCrunch</a> reports.</p>
-<p>According to <a href="https://go.skimresources.com/?id=111346X1569483&amp;xs=1&amp;url=https://www.linkedin.com/feed/update/urn:li:activity:7282533937812258816/&amp;xcust=2-1-2575337-1-0-0-0-0&amp;sref=https://www.pcworld.com/article/2575337/vlc-celebrates-6-billion-downloads-with-ai-subtitles.html" rel="nofollow noopener" data-subtag="2-1-2575337-1-0-0-0-0" data-domain-name="linkedin" target="_blank">a LinkedIn post</a> written by VideoLAN’s president Jean-Baptiste Kempt, the user base for VLC continues to grow despite the ubiquitous popularity of streaming services.</p>
-<p>To celebrate its undying popularity, VideoLAN demoed at CES 2025 an upcoming feature for VLC Media Player that uses generative AI to automatically create subtitles on the fly based on the media content being played, and can even translate across languages in real time.</p>
-<p>The feature will use open-source AI models that can run locally on the user’s device without having to connect to the internet. This is a huge deal for anyone who consumes foreign-language content, who’s hard of hearing, or simply prefers subtitles while watching. And it’s especially nice for users who still rely on VLC to do things that many other video player apps can’t do, like <a href="https://www.pcworld.com/article/422753/how-to-play-dvds-in-windows-10-for-free.html">play DVDs on PC for free</a>.</p>
-</blockquote>
-<p>It'll be interesting to see how VLC accomplishes this AI integration. On one hand, these models need to be able to run with decent performance on a wide range of systems, including ones that potentially have nothing more than integrated (and therefore weak) graphics. On the other, VLC needs to integrate robust safeguards to prevent the AI from being used to execute malicious code and actions on the user's system.</p>
-<p>If anything would promote the use of local AI, it would be VLC.</p>
-<h2>The Other Things</h2>
-<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/2lTWI7kfkt0?t=30s" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
-<p>Sadly, there wasn't much progress on two other things I wanted to see. Ventiva's solid state cooling system did get a demo system built by Dell, which <strong>could </strong>mean that we could see industry adoption down the line. Dell did create the first compression attached memory modules, which then became CAMM2 memory, so it's not impossible.</p>
-<p>But it does mean that we currently still have to worry about cooling fans, from a security and maintenance point of view.</p>
-<p>Perhaps most disappointing to me was the lack of progress on improving price per gigabyte or terabyte in storage. Network Attached Storage vendors did improve their offerings with new designs and even AI integrations, but nothing for the storage itself.</p>
-<p>The root cause of not having backups is often cost, and without addressing that, we're not going to be able to grow the culture of proper backups. While off-site backups are definitely a part of a proper backup system, the fact that on-site backups are priced out of most people's ability to stand up a solution is a grim reality.</p>
             ]]>
         </content>
     </entry>

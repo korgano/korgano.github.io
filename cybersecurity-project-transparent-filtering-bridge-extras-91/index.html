@@ -1,0 +1,1519 @@
+<!DOCTYPE html><html lang="en-us"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.1 - XS Tech Thoughts</title><meta name="description" content="Xavier Santana of XS Tech Thoughts demonstrates AI coding of FreeBSD scripts to improve network performance and automate setting restoration after OPNSense updates."><meta name="generator" content="Publii Open-Source CMS for Static Site"><!-- Global site tag (gtag.js) - Google Analytics --><script type="gdpr-blocker/Analytics" async src="https://www.googletagmanager.com/gtag/js?id=G-EHLH28GQMY"></script><script type="gdpr-blocker/Analytics">window.dataLayer = window.dataLayer || [];
+				  function gtag(){dataLayer.push(arguments);}
+				  gtag('js', new Date());
+				  gtag('config', 'G-EHLH28GQMY' , { 'anonymize_ip': true });
+				  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EHLH28GQMY"></script><script>window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EHLH28GQMY');</script><link rel="stylesheet" href="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-black.css"><link rel="stylesheet" href="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-inline-color.css"><link rel="canonical" href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-91/"><link rel="alternate" type="application/atom+xml" href="https://korgano.github.io/feed.xml" title="XS Tech Thoughts - RSS"><meta property="og:title" content="CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.1"><meta property="og:image" content="https://korgano.github.io/media/posts/43/cyber-proj-tfb20-2.jpg"><meta property="og:image:width" content="1956"><meta property="og:image:height" content="1396"><meta property="og:site_name" content="XS Tech Thoughts"><meta property="og:description" content="Xavier Santana of XS Tech Thoughts demonstrates AI coding of FreeBSD scripts to improve network performance and automate setting restoration after OPNSense updates."><meta property="og:url" content="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-91/"><meta property="og:type" content="article"><link rel="preload" href="https://korgano.github.io/assets/dynamic/fonts/robotoflex/robotoflex.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="https://korgano.github.io/assets/dynamic/fonts/robotoslab/robotoslab.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="https://korgano.github.io/assets/css/style.css?v=338ed96ce9bc0f6c72a02763a377a303"><script type="application/ld+json">{"@context":"http://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-91/"},"headline":"CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.1","datePublished":"2025-07-21T09:56-04:00","dateModified":"2025-07-22T08:35-04:00","image":{"@type":"ImageObject","url":"https://korgano.github.io/media/posts/43/cyber-proj-tfb20-2.jpg","height":1396,"width":1956},"description":"Xavier Santana of XS Tech Thoughts demonstrates AI coding of FreeBSD scripts to improve network performance and automate setting restoration after OPNSense updates.","author":{"@type":"Person","name":"Xavier Santana","url":"https://korgano.github.io/authors/xavier-santana/"},"publisher":{"@type":"Organization","name":"Xavier Santana"}}</script><noscript><style>img[loading] {
+                    opacity: 1;
+                }</style></noscript></head><body class="post-template lines"><div class="container lines lines--right"><header class="header"><a href="https://korgano.github.io/" class="logo">XS Tech Thoughts</a><nav class="navbar js-navbar"><button class="navbar__toggle js-toggle" aria-label="Menu">Menu</button><ul class="navbar__menu"><li><a href="https://korgano.github.io/" title="Home" target="_self">Home</a></li><li><a href="https://korgano.github.io/tags/uxui-case-study/" title="UX/UI Case Studies" target="_blank">UX/UI Case Studies</a></li><li><a href="https://korgano.github.io/tags/cybersecurity-projects/" title="Cybersecurity Projects" target="_blank">Cybersecurity Projects</a></li><li><a href="https://korgano.github.io/tags/quick-thoughts/" title="Quick Thoughts" target="_self">Quick Thoughts</a></li><li><a href="https://korgano.github.io/about-me/" title="About Me" target="_blank">About Me</a></li></ul></nav></header><main class="main post"><article class="content"><header class="content__inner content__header"><h1 class="content__title">CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.1</h1><div class="content__meta"><div class="content__meta__left"><a href="https://korgano.github.io/authors/xavier-santana/" class="invert content__author" rel="author" title="Xavier Santana">Xavier Santana</a></div><div class="content__meta__right"><time datetime="2025-07-21T09:56" class="content__date">July 21, 2025</time><div class="content__updated">Updated on <time datetime="2025-07-21T09:56" class="content__date">July 22, 2025</time></div></div></div></header><figure class="content__featured-image"><div class="content__featured-image__inner is-img-loading"><img src="https://korgano.github.io/media/posts/43/cyber-proj-tfb20-2.jpg" srcset="https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-2-xs.jpg 384w, https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-2-sm.jpg 600w, https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-2-md.jpg 768w, https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-2-lg.jpg 1200w, https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-2-xl.jpg 1600w" sizes="(min-width: 37.5em) 1600px, 80vw" loading="eager" height="1396" width="1956" alt="Transparent Filtering Bridge miniPC wpa_supplicant file."></div></figure><div class="content__inner"><div class="content__entry"><p>This entry is not technically cybersecurity related, so feel free to skip it.</p><p>We're going to look at how I used AI to help address the WiFi network connectivity issues I've been having with the miniPC I use to host the transparent filtering bridge.</p><p>For reference, this was the contents of the <code>wpa_supplicant</code> file that I discovered. This was altered from the original code I entered into the machine in <a href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-80/" title="Transparent Filtering Bridge (+Extras) 8.0" target="_blank" rel="noopener noreferrer">article 8.0</a>.</p><figure class="post__image"><img loading="lazy" src="https://korgano.github.io/media/posts/43/cyber-proj-tfb20.jpg" alt="Transparent Filtering Bridge miniPC wpa_supplicant file." width="1956" height="1396" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-xs.jpg 384w, https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-sm.jpg 600w, https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-md.jpg 768w, https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-lg.jpg 1200w, https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-xl.jpg 1600w"></figure><div class="post__toc"><h3>Table of Contents</h3><ul><li><a href="#mcetoc_1j0p1tptp238">Staring with Copilot</a></li><li><a href="#mcetoc_1j0p1tptp239">The ChatGPT Iteration</a></li><li><a href="#mcetoc_1j0p1tptp23a">The Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex Iteration</a></li><li><a href="#mcetoc_1j0p1tptp23b">Correcting the Configuration File Path</a></li><li><a href="#mcetoc_1j0p1tptp23c">Automation Scripts</a></li><li><a href="#mcetoc_1j0p1tptp23d">The Next Steps</a></li></ul></div><h2 id="mcetoc_1j0p1tptp238">Staring with Copilot</h2><p>My process was simple - I started with Copilot, providing this prompt based on the photograph of the <code>wpa_supplicant</code>file on the miniPC:</p><blockquote><p>revise this code for FreeBSD to ensure iwlwifi0_wlan is enabled and remains functioning at all times:</p><p>```<br>#!/bin/sh<br>#<br># PROVIDE: wpa_supplicant<br># REQUIRE: NETWORKING<br># KEYWORD: shutdown</p><p>./etc/rc.subr<br>./etc/network.subr</p><p>name="wpa_supplicant"</p><p>desc="WPA/802.11 Supplicant for wireless network devices" rcvar=wpa_supplicant_enable</p><p>ifn="2"<br>if [ -z "$ifn" ]; then<br>       return 1</p><p>fi</p><p>if is_wired_interface $(ifn) ; then<br>       drivers="wired"<br>else<br>       drivers="bsd"<br>fi</p><p>load_rc_config $name</p><p>command=$(wpa_supplicant_program)<br>conf_file=$(wpa_supplicant_conf_file)<br>pidfile="/var/run/$(name)/$(ifn).pid"<br>command_args="-B -i -ifn -c $conf_file -D $driver -P $pidfile" required_files=$conf_file<br>required_modules="wlan_wep wlan_tkip wlan_ccmp"</p><p>run_rc_command "$1"</p><p>```</p><p>Add comments as needed to explain code functionality and speed up troubleshooting.</p></blockquote><p>Here is the Copilot output when set to reason:</p><pre class="language-markdown line-numbers"><code># Revised FreeBSD RC.d Script for iwlwifi0_wlan
+
+Below is a complete `/usr/local/etc/rc.d/wpa_supplicant` script that:
+
+- Ensures the Intel wireless driver is loaded  
+- Creates and brings up the `iwlwifi0_wlan` interface if it doesn’t already exist  
+- Launches `wpa_supplicant` as a daemon  
+- Provides status, start and stop routines with clear error messages  
+
+Save this as `/usr/local/etc/rc.d/wpa_supplicant` and make it executable (`chmod +x`).
+
+```sh
+#!/bin/sh
+#
+# PROVIDE: wpa_supplicant
+# REQUIRE: DAEMON NETWORKING if_iwlwifi
+# KEYWORD: shutdown
+#
+# Add the following to /etc/rc.conf to enable this service:
+#   wpa_supplicant_enable="YES"
+#   wpa_supplicant_iface="iwlwifi0_wlan"
+#   wpa_supplicant_driver="bsd"
+#   wpa_supplicant_conf="/etc/wpa_supplicant.conf"
+#
+
+. /etc/rc.subr          # import rc_* functions
+. /etc/network.subr     # import network helper functions
+
+name="wpa_supplicant"
+rcvar="wpa_supplicant_enable"
+
+# load overrides from rc.conf, set defaults
+load_rc_config $name
+
+: ${wpa_supplicant_enable:="NO"}           # YES to start at boot
+: ${wpa_supplicant_iface:="iwlwifi0_wlan"} # logical WLAN interface
+: ${wpa_supplicant_driver:="bsd"}          # driver backend
+: ${wpa_supplicant_conf:="/etc/wpa_supplicant.conf"}
+
+# path to the wpa_supplicant binary
+command="/usr/sbin/wpa_supplicant"
+
+# pidfile lives under /var/run/&lt;name&gt;.&lt;iface&gt;.pid
+pidfile="/var/run/${name}.${wpa_supplicant_iface}.pid"
+
+# arguments to wpa_supplicant
+command_args="-B \
+    -i ${wpa_supplicant_iface} \
+    -D ${wpa_supplicant_driver} \
+    -c ${wpa_supplicant_conf} \
+    -P ${pidfile}"
+
+# override default actions
+start_cmd="wpa_supplicant_start"
+stop_cmd="wpa_supplicant_stop"
+status_cmd="wpa_supplicant_status"
+
+#
+# start: load driver, create interface, bring it up, then start daemon
+#
+wpa_supplicant_start()
+{
+    # 1) Load the iwlwifi kernel module if not already present
+    if ! kldstat -n if_iwlwifi &gt; /dev/null 2&gt;&amp;1; then
+        kldload if_iwlwifi \
+            || err 1 "Unable to load if_iwlwifi kernel module"
+    fi
+
+    # 2) Create the wlan interface if missing
+    if ! ifconfig ${wpa_supplicant_iface} &gt; /dev/null 2&gt;&amp;1; then
+        ifconfig iwlwifi0 create wlandev iwlwifi0 \
+            || err 1 "Failed to create interface ${wpa_supplicant_iface}"
+    fi
+
+    # 3) Bring the wireless interface up
+    ifconfig ${wpa_supplicant_iface} up \
+        || err 1 "Could not bring up ${wpa_supplicant_iface}"
+
+    # 4) Launch wpa_supplicant in the background
+    ${command} ${command_args} \
+        || err 1 "wpa_supplicant failed to start"
+}
+
+#
+# status: check the pidfile to see if wpa_supplicant is running
+#
+wpa_supplicant_status()
+{
+    check_pidfile "${pidfile}" "${command}"
+}
+
+#
+# stop: terminate the daemon and clean up the pidfile
+#
+wpa_supplicant_stop()
+{
+    if [ -f "${pidfile}" ]; then
+        kill -TERM "$(cat ${pidfile})" &gt; /dev/null 2&gt;&amp;1 \
+            || err 1 "Failed to kill wpa_supplicant (PID: $(cat ${pidfile}))"
+        rm -f "${pidfile}"
+    else
+        err 1 "PID file not found, is wpa_supplicant running?"
+    fi
+}
+
+run_rc_command "$1"
+```
+
+---
+
+## `/etc/rc.conf` Example
+
+Add these lines to enable and configure the service at boot:
+
+```sh
+wpa_supplicant_enable="YES"
+wpa_supplicant_iface="iwlwifi0_wlan"
+wpa_supplicant_driver="bsd"
+wpa_supplicant_conf="/etc/wpa_supplicant.conf"
+```
+
+---
+
+## Troubleshooting Tips
+
+- If the interface never shows up, verify that `if_iwlwifi.ko` exists in `/boot/modules` or your compiled module directory.
+- Use `kldstat` and `kldload` manually to confirm kernel module loading.
+- Check `/var/log/messages` or run `tail -f /var/log/messages` while starting the service for driver errors.
+- To debug wpa_supplicant, add `-d` or `-dd` to `command_args` for verbose output.
+- Confirm your `/etc/wpa_supplicant.conf` has correct SSID and PSK entries, and file permissions allow only root to read it.
+
+---
+
+### Next Steps
+
+You may want to:
+
+- Integrate a keep-alive monitor (e.g., a wrapper loop or cron job) that restarts the service if the link drops.
+- Explore `wpa_cli -a /path/to/script.sh` for automated reconnection on authentication failures.
+- Tune driver parameters (e.g., power saving) via `/boot/loader.conf` for performance.</code></pre><p>Implementing this with minor alterations (for example <code>wlan0</code> instead of <code>wlan</code>, changing the <code>conf</code> file path and name) increased availability. While there are still random connection failures, it seems to happen less frequently. Within each 4 hour window between WiFi connection restarts, it seems like only the last hour or so is where the connection seems to time out.</p><h2 id="mcetoc_1j0p1tptp239">The ChatGPT Iteration</h2><p>Out of pure curiosity, I decided to see how ChatGPT, set to reason, would generate code from the same prompt.</p><p>Here's the result:</p><pre class="language-markdown line-numbers"><code>```sh
+#!/bin/sh
+#
+# PROVIDE: wpa_supplicant
+# REQUIRE: NETWORKING
+# BEFORE: LOGIN
+# KEYWORD: shutdown
+#
+# Ensure Intel iwlwifi device stays up and managed by wpa_supplicant
+#
+
+. /etc/rc.subr
+
+name="wpa_supplicant"
+rcvar="${name}_enable"
+
+# load user settings from /etc/rc.conf
+load_rc_config $name
+
+# default settings (override in /etc/rc.conf as needed)
+: ${wpa_supplicant_enable:="NO"}                       # enable in rc.conf
+: ${wpa_supplicant_wlandev:="iwm0"}                    # physical device
+: ${wpa_supplicant_if:="wlan0"}                        # logical interface
+: ${wpa_supplicant_conf:="/etc/wpa_supplicant.conf"}   # config file
+: ${wpa_supplicant_driver:="wpa"}                      # driver backend
+: ${wpa_supplicant_flags:=""}                          # extra options
+
+# load required kernel modules at boot (if not already loaded)
+kld_list="if_iwm.ko"   # Intel wireless driver
+kld_list+=" iwmfw.ko"  # firmware for iwlwifi devices
+
+start_cmd="${name}_start"
+stop_cmd="${name}_stop"
+
+wpa_supplicant_start() {
+    # create wlan interface if missing
+    if ! ifconfig ${wpa_supplicant_if} &gt;/dev/null 2&gt;&amp;1; then
+        ifconfig ${wpa_supplicant_if} create wlandev ${wpa_supplicant_wlandev} \
+                  wlanmode sta || return 1
+    fi
+
+    # bring up the interface
+    ifconfig ${wpa_supplicant_if} up || return 1
+
+    # launch wpa_supplicant in background
+    /usr/sbin/wpa_supplicant -B \
+        -i ${wpa_supplicant_if} \
+        -c ${wpa_supplicant_conf} \
+        -D ${wpa_supplicant_driver} \
+        -P /var/run/${name}.${wpa_supplicant_if}.pid \
+        ${wpa_supplicant_flags}
+}
+
+wpa_supplicant_stop() {
+    # terminate daemon and remove interface
+    killproc -p /var/run/${name}.${wpa_supplicant_if}.pid /usr/sbin/wpa_supplicant
+    ifconfig ${wpa_supplicant_if} destroy
+}
+
+run_rc_command "$1"
+```
+
+**How it works:**
+
+* **Module loading**
+
+  * Ensures `if_iwm.ko` and `iwmfw.ko` are loaded at boot, so the Intel wireless device is available ([Reddit][1]).
+* **Interface creation**
+
+  * Checks for `wlan0`; if missing, creates it from `iwm0` in station mode ([Sacred Heart School][2]).
+* **Bringing up interface**
+
+  * Uses `ifconfig wlan0 up` to activate the wireless interface.
+* **Starting wpa\_supplicant**
+
+  * Runs `wpa_supplicant` with `-B` (daemonize), interface, config file, driver, and PID file arguments.
+* **Stopping and cleanup**
+
+  * `killproc` stops the daemon and `ifconfig wlan0 destroy` removes the logical interface.
+
+To enable and keep running:
+
+1. Add to `/etc/rc.conf`:
+
+   ```sh
+   wpa_supplicant_enable="YES"
+   wpa_supplicant_wlandev="iwm0"
+   wpa_supplicant_if="wlan0"
+   wpa_supplicant_conf="/etc/wpa_supplicant.conf"
+   ```
+2. Ensure firmware loader settings in `/boot/loader.conf`:
+
+   ```sh
+   if_iwm_load="YES"
+   iwmfw_load="YES"
+   ```
+3. Reboot or start manually:
+
+   ```sh
+   service wpa_supplicant start
+   ```
+
+####
+
+[1]: https://www.reddit.com/r/freebsd/comments/13sa7sv/wifi_setup_help_needed/?utm_source=chatgpt.com "Wifi setup help needed! : r/freebsd"
+[2]: https://www.sacredheartsc.com/blog/freebsd-14-on-the-desktop/?utm_source=chatgpt.com "FreeBSD 14 on the Desktop"</code></pre><p>Before I use DiffChecker to see specific differences, here's what I notice with my own eyes:</p><ul><li>ChatGPT decided to change the <code>rcvar</code> name to a generic value.</li><li>ChatGPT added a config value for the actual WiFi hardware device.</li><li>ChatGPT decided that it needed to ensure the Intel WiFi firmware booted.</li><li>The code for <code>wpa_supplicant_start</code> and <code>wpa_supplicant_stop</code> are completely different.</li><li>There's no <code>wpa_supplicant_status</code> command.</li><li>Practically no comments and no logging code.</li></ul><p>Unfortunately, loading both iterations of the code into DiffChecker didn't work as well as I hoped. The ChatGPT script, being only 59 lines long, compared to the 94 lines of the Copilot script, kept being aligned with highly dissimilar parts of the code based on the line numbers.</p><h2 id="mcetoc_1j0p1tptp23a">The Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex Iteration</h2><p>Since I like to experiment with open source LLMs, I decided to try one by DavidAU, one of my preferred AI tuners. Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex is a 800MB coding model with reasoning capabilities, which is an absurdly small model by any standards.</p><figure class="post__image"><img loading="lazy" src="https://korgano.github.io/media/posts/43/cyber-proj-tfb22.png" alt="Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex loaded in LM Studio." width="1920" height="1033" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb22-xs.png 384w, https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb22-sm.png 600w, https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb22-md.png 768w, https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb22-lg.png 1200w, https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb22-xl.png 1600w"></figure><p>The small size had me morbidly curious as to the quality of the output, so I provided it with the same prompt as Copilot and ChatGPT. This is what it produced:</p><pre class="language-markdown line-numbers"><code>&lt;think&gt;
+Okay, I need to modify the given shell script for FreeBSD to ensure that `iwwlan` (or `iwlan`) is enabled and remains functional at all times. The user provided a command that sets up the system using `/etc/rc/subr` and `network.subr`. My task is to add comments and optimize the code to ensure these steps work correctly.
+
+First, I'll start with understanding the existing script. The current setup uses `ifn`, which refers to the interface (e.g., `eth0`, `wlan0`) and sets up the command for wpa_supplicant. However, FreeBSD uses `iwwlan` instead of `/dev/net/wlan`. So I need to replace `iwwlan` with `iwwan`.
+
+Next, I'll update the `command` line to use `/dev/deviwlan` instead of `/dev/devnet`. This should correctly interface with the network driver in FreeBSD.
+
+Also, since FreeBSD uses `ifconfig` and `sysctl`, I need to ensure that these tools are installed. If they aren't present, my current approach might fail. So I'll add dependencies like `ifconfig` and `sysctl` if needed.
+
+I should also update the `rcvar` and other rc variables to ensure they're correctly set after initial configuration. Then, make sure all necessary modules and files are installed before running the script.
+
+Finally, adding comments where appropriate will help users understand each step and troubleshoot any issues. This ensures that even those unfamiliar with FreeBSD or networking configurations can understand and modify the code.
+&lt;/think&gt;
+
+Here's the revised script with added comments to ensure clarity and correctness for FreeBSD:
+
+```bash
+#!/bin/sh
+
+# PROVIDE: wpa_supplicant
+# DESC:
+#     Configure WPA/802-11 supplicant for wireless network devices
+#
+# KEYWORDS: 
+#       networking; shutdown
+#
+
+NAME="wpa_supplicant"
+DESCR="WPA/802-11 Supplicant for wireless network devices"
+
+RCVAR=wpa_supplicant_enable
+
+# Define interface to use
+ifn="2" # Replace with the correct interface (eth0, wlan0 or wwan0)
+
+# Check if the interface is active
+if [ -z "$ifn" ]; then
+    return 1
+fi
+
+# Set up required modules
+drivers="wired"
+required_modules="wlan_wep wlan_tkip wlan_ccmp"
+
+# Initialize network configuration
+run_rc_command "$1"
+
+# Ensure necessary files and dependencies are present
+ifconfig $ifn set
+sysctl --set /net/eth0/flags=0
+sysctl --set /net/eth0/devdeviwlan=0
+
+# Set up wpa_supplicant command
+command=$(wpa_supplicant_program)
+conf_file="$conf_file"
+pidfile="/var/run/$name/$ifn.pid"
+
+# Add command arguments
+command_args="-B -i -ifn -c $conf_file -D $driver -P $pidfile"
+
+# Ensure required modules are installed
+if [ "$required_modules" != "" ] &amp;&amp; [[ "$required_modules" != '' ]]
+
+# Set up the rc subroutines and network subroutines
+/etc/rc/subr
+/etc/network.subr
+```
+
+**Changes Made:**
+1. Replace `iwwlan` with `/dev/deviwlan` to interface with the network driver in FreeBSD.
+2. Use `ifconfig` instead of `sysctl` to set interfaces and devices if necessary.
+3. Add comments explaining each part of the script to assist troubleshooting.
+4. Ensure dependencies are installed before execution.
+
+**Explanation:**
+
+- `ifconfig` ensures the interface is correctly configured, which is necessary for `wpa_supplicant` to communicate with the network driver.
+- `sysctl` sets up networking parameters to ensure optimal performance and security settings.</code></pre><p>Just eyeballing this code tells me this is not a substantive improvement over the original <code>wpa_supplicant</code> code, which would be disappointing if I didn't know this was a tiny model.</p><p>It wouldn't be surprising to see that it's capable of putting out simple scripts, but that's something to test out later.</p><h2 id="mcetoc_1j0p1tptp23b">Correcting the Configuration File Path</h2><p>One thing that probably contributed to the connection issues was the non-specific nature of the configuration file path. To find the proper path, I had to use shell commands to find all files containing <code>wpa_sup</code>:</p><figure class="post__image"><img loading="lazy" src="https://korgano.github.io/media/posts/43/cyber-proj-tfb21.jpg" alt="Finding the iwlwifi0_wlan0 configuration file and deleting an unnecessary file." width="1964" height="1368" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb21-xs.jpg 384w, https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb21-sm.jpg 600w, https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb21-md.jpg 768w, https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb21-lg.jpg 1200w, https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb21-xl.jpg 1600w"></figure><p> </p><h2 id="mcetoc_1j0p1tptp23c">Automation Scripts</h2><p>Since I can't rule out that the big OPNSense update is going to wipe out all the changes I've made to wpa_supplicant and associated files, I decided to have a script ready to make those files as necessary.</p><p>For this task, I decided to pit Copilot and ChatGPT against each other, each with the same code (the initial Copilot generation) and prompt.</p><p>The prompt was as follows:</p><pre class="language-markdown line-numbers"><code>Write me an automation script for FreeBSD shell that does the following:
+-Generate `/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf` with the following configuration:
+```
+crtl_interface=/var/run/wpa_supplicant
+crtl_interface_group=0
+ap_scan=1
+fast_reauth=1
+network={
+ssid="Placeholder"
+scan_ssid=1
+priority=5
+key_mgmt=WPA-PSK
+psk="Placeholder"
+pairwise=CCMP TKIP
+group=CCMP TKIP
+}
+```
+-Generate `/etc/rc.d/wpa_supplicant` with the following code content:
+```
+#!/bin/sh
+#
+# PROVIDE: wpa_supplicant
+# REQUIRE: DAEMON NETWORKING if_iwlwifi
+# KEYWORD: shutdown
+#
+# Add the following to /etc/rc.conf to enable this service:
+#   wpa_supplicant_enable="YES"
+#   wpa_supplicant_iface="iwlwifi0_wlan0"
+#   wpa_supplicant_driver="bsd"
+#   wpa_supplicant_conf="/etc/wpa_supplicant.conf"
+#
+
+. /etc/rc.subr          # import rc_* functions
+. /etc/network.subr     # import network helper functions
+
+name="wpa_supplicant"
+rcvar="wpa_supplicant_enable"
+
+# load overrides from rc.conf, set defaults
+load_rc_config $name
+
+: ${wpa_supplicant_enable:="YES"}           # YES to start at boot
+: ${wpa_supplicant_iface:="iwlwifi0_wlan0"} # logical WLAN interface
+: ${wpa_supplicant_driver:="bsd"}          # driver backend
+: ${wpa_supplicant_conf:="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"}
+
+# path to the wpa_supplicant binary
+command="/usr/sbin/wpa_supplicant"
+
+# pidfile lives under /var/run/&lt;name&gt;.&lt;iface&gt;.pid
+pidfile="/var/run/${name}.${wpa_supplicant_iface}.pid"
+
+# arguments to wpa_supplicant
+command_args="-B \
+    -i ${wpa_supplicant_iface} \
+    -D ${wpa_supplicant_driver} \
+    -c ${wpa_supplicant_conf} \
+    -P ${pidfile}"
+
+# override default actions
+start_cmd="wpa_supplicant_start"
+stop_cmd="wpa_supplicant_stop"
+status_cmd="wpa_supplicant_status"
+
+#
+# start: load driver, create interface, bring it up, then start daemon
+#
+wpa_supplicant_start()
+{
+    # 1) Load the iwlwifi kernel module if not already present
+    if ! kldstat -n if_iwlwifi &gt; /dev/null 2&gt;&amp;1; then
+        kldload if_iwlwifi \
+            || err 1 "Unable to load if_iwlwifi kernel module - /etc/rc.d/wpa_supplicant"
+    fi
+
+    # 2) Create the wlan interface if missing
+    if ! ifconfig ${wpa_supplicant_iface} &gt; /dev/null 2&gt;&amp;1; then
+        ifconfig iwlwifi0 create wlandev iwlwifi0 \
+            || err 1 "Failed to create interface ${wpa_supplicant_iface} - /etc/rc.d/wpa_supplicant"
+    fi
+
+    # 3) Bring the wireless interface up
+    ifconfig ${wpa_supplicant_iface} up \
+        || err 1 "Could not bring up ${wpa_supplicant_iface} - /etc/rc.d/wpa_supplicant"
+
+    # 4) Launch wpa_supplicant in the background
+    ${command} ${command_args} \
+        || err 1 "wpa_supplicant failed to start - /etc/rc.d/wpa_supplicant"
+}
+
+#
+# status: check the pidfile to see if wpa_supplicant is running
+#
+wpa_supplicant_status()
+{
+    check_pidfile "${pidfile}" "${command}"
+}
+
+#
+# stop: terminate the daemon and clean up the pidfile
+#
+wpa_supplicant_stop()
+{
+    if [ -f "${pidfile}" ]; then
+        kill -TERM "$(cat ${pidfile})" &gt; /dev/null 2&gt;&amp;1 \
+            || err 1 "Failed to kill wpa_supplicant (PID: $(cat ${pidfile}))"
+        rm -f "${pidfile}"
+    else
+        err 1 "PID file not found, is wpa_supplicant running? - /etc/rc.d/wpa_supplicant"
+    fi
+}
+
+run_rc_command "$1"
+```
+-apply `chmod +x` to `/etc/rc.d/wpa_supplicant`
+-generate `/etc/rc.conf.local` with the following configuration:
+```
+wpa_supplicant_enable="YES"
+wpa_supplicant_iface="iwlwifi0_wlan"
+wpa_supplicant_driver="bsd"
+wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+```</code></pre><p>Here's what Copilot generated:</p><pre class="language-markdown line-numbers"><code># FreeBSD Shell Automation Script for wpa_supplicant Setup
+
+The following script automates:
+
+- Creation of the WPA supplicant configuration under `/var/etc`  
+- Installation of the `/etc/rc.d/wpa_supplicant` startup script  
+- Proper execute permissions  
+- Generation of `/etc/rc.conf.local` with service settings  
+
+Save this as, for example, `setup_wpa.sh`, make it executable, and run as root.
+
+```sh
+#!/bin/sh
+#
+# setup_wpa.sh
+# Automates wpa_supplicant config, rc.d script, permissions, and rc.conf.local
+#
+
+set -e
+
+# Ensure script is run as root
+if [ "$(id -u)" -ne 0 ]; then
+  echo "Error: This script must be run as root."
+  exit 1
+fi
+
+# 1) Create WPA supplicant config directory and file
+mkdir -p /var/etc
+
+cat &lt;&lt; 'EOF' &gt; /var/etc/wpa_supplicant_iwlwifi0_wlan0.conf
+ctrl_interface=/var/run/wpa_supplicant
+ctrl_interface_group=0
+ap_scan=1
+fast_reauth=1
+network={
+    ssid="Placeholder"
+    scan_ssid=1
+    priority=5
+    key_mgmt=WPA-PSK
+    psk="Placeholder"
+    pairwise=CCMP TKIP
+    group=CCMP TKIP
+}
+EOF
+
+echo "Created /var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+
+# 2) Install the rc.d startup script
+cat &lt;&lt; 'EOF' &gt; /etc/rc.d/wpa_supplicant
+#!/bin/sh
+#
+# PROVIDE: wpa_supplicant
+# REQUIRE: DAEMON NETWORKING if_iwlwifi
+# KEYWORD: shutdown
+#
+# Add the following to /etc/rc.conf to enable this service:
+#   wpa_supplicant_enable="YES"
+#   wpa_supplicant_iface="iwlwifi0_wlan0"
+#   wpa_supplicant_driver="bsd"
+#   wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+#
+
+. /etc/rc.subr
+. /etc/network.subr
+
+name="wpa_supplicant"
+rcvar="wpa_supplicant_enable"
+
+load_rc_config $name
+
+: ${wpa_supplicant_enable:="YES"}
+: ${wpa_supplicant_iface:="iwlwifi0_wlan0"}
+: ${wpa_supplicant_driver:="bsd"}
+: ${wpa_supplicant_conf:="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"}
+
+command="/usr/sbin/wpa_supplicant"
+pidfile="/var/run/${name}.${wpa_supplicant_iface}.pid"
+command_args="-B \
+    -i ${wpa_supplicant_iface} \
+    -D ${wpa_supplicant_driver} \
+    -c ${wpa_supplicant_conf} \
+    -P ${pidfile}"
+
+start_cmd="wpa_supplicant_start"
+stop_cmd="wpa_supplicant_stop"
+status_cmd="wpa_supplicant_status"
+
+wpa_supplicant_start()
+{
+    if ! kldstat -n if_iwlwifi &gt;/dev/null 2&gt;&amp;1; then
+        kldload if_iwlwifi || err 1 "Unable to load if_iwlwifi"
+    fi
+
+    if ! ifconfig ${wpa_supplicant_iface} &gt;/dev/null 2&gt;&amp;1; then
+        ifconfig iwlwifi0 create wlandev iwlwifi0 \
+            || err 1 "Failed to create interface ${wpa_supplicant_iface}"
+    fi
+
+    ifconfig ${wpa_supplicant_iface} up \
+        || err 1 "Could not bring up ${wpa_supplicant_iface}"
+
+    ${command} ${command_args} \
+        || err 1 "wpa_supplicant failed to start"
+}
+
+wpa_supplicant_status()
+{
+    check_pidfile "${pidfile}" "${command}"
+}
+
+wpa_supplicant_stop()
+{
+    if [ -f "${pidfile}" ]; then
+        kill -TERM "$(cat ${pidfile})" &gt;/dev/null 2&gt;&amp;1 \
+            || err 1 "Failed to kill wpa_supplicant"
+        rm -f "${pidfile}"
+    else
+        err 1 "PID file not found, is wpa_supplicant running?"
+    fi
+}
+
+run_rc_command "$1"
+EOF
+
+chmod +x /etc/rc.d/wpa_supplicant
+echo "Installed and made executable: /etc/rc.d/wpa_supplicant"
+
+# 3) Generate /etc/rc.conf.local
+cat &lt;&lt; 'EOF' &gt; /etc/rc.conf.local
+wpa_supplicant_enable="YES"
+wpa_supplicant_iface="iwlwifi0_wlan"
+wpa_supplicant_driver="bsd"
+wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+EOF
+
+echo "Created /etc/rc.conf.local"
+
+echo "Setup complete. You can now enable the service with:"
+echo "  service wpa_supplicant start"
+```
+
+---
+
+## Usage Notes
+
+- Update the `ssid` and `psk` placeholders in  
+  `/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf` before connecting to your network.
+
+- To enable on every boot, ensure `/etc/rc.conf.local` is sourced  
+  (FreeBSD does this by default).  
+
+- Verify the driver module with `kldstat | grep if_iwlwifi` after reboot.
+
+- Check logs via `dmesg` or `/var/log/messages` if the interface fails to come up.
+
+---
+
+## Further Enhancements
+
+- Parameterize SSID/PSK as script arguments for non-interactive setups.  
+- Add backups of existing config files before overwriting.  
+- Integrate wireless scanning (`wpa_cli scan`) and status checks post-start.  
+- Extend for multiple SSIDs by looping over an array of network blocks.</code></pre><p>Here's what ChatGPT generated:</p><pre class="language-markdown line-numbers"><code>* Plan script steps
+* Create WPA config file
+* Create rc.d service script
+* Apply executable permission
+* Create rc.conf.local file
+
+####
+
+```sh
+#!/bin/sh
+#
+# Automation script to configure wpa_supplicant on FreeBSD
+# Usage: sh setup_wpa.sh
+set -e
+
+# 1) Generate wpa_supplicant configuration
+mkdir -p /var/etc
+cat &gt; /var/etc/wpa_supplicant_iwlwifi0_wlan0.conf &lt;&lt; 'EOF'
+ctrl_interface=/var/run/wpa_supplicant
+ctrl_interface_group=0
+ap_scan=1
+fast_reauth=1
+network={
+    ssid="Placeholder"
+    scan_ssid=1
+    priority=5
+    key_mgmt=WPA-PSK
+    psk="Placeholder"
+    pairwise=CCMP TKIP
+    group=CCMP TKIP
+}
+EOF
+
+# 2) Generate rc.d wpa_supplicant service script
+cat &gt; /etc/rc.d/wpa_supplicant &lt;&lt; 'EOF'
+#!/bin/sh
+#
+# PROVIDE: wpa_supplicant
+# REQUIRE: DAEMON NETWORKING if_iwlwifi
+# KEYWORD: shutdown
+#
+# Add the following to /etc/rc.conf to enable this service:
+#   wpa_supplicant_enable="YES"
+#   wpa_supplicant_iface="iwlwifi0_wlan0"
+#   wpa_supplicant_driver="bsd"
+#   wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+#
+
+. /etc/rc.subr          # import rc_* functions
+. /etc/network.subr     # import network helper functions
+
+name="wpa_supplicant"
+rcvar="wpa_supplicant_enable"
+
+# load overrides from rc.conf, set defaults
+load_rc_config $name
+
+: ${wpa_supplicant_enable:="YES"}            # YES to start at boot
+: ${wpa_supplicant_iface:="iwlwifi0_wlan0"}  # logical WLAN interface
+: ${wpa_supplicant_driver:="bsd"}            # driver backend
+: ${wpa_supplicant_conf:="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"}
+
+# path to the wpa_supplicant binary
+command="/usr/sbin/wpa_supplicant"
+
+# pidfile lives under /var/run/&lt;name&gt;.&lt;iface&gt;.pid
+pidfile="/var/run/${name}.${wpa_supplicant_iface}.pid"
+
+# arguments to wpa_supplicant
+command_args="-B \
+    -i ${wpa_supplicant_iface} \
+    -D ${wpa_supplicant_driver} \
+    -c ${wpa_supplicant_conf} \
+    -P ${pidfile}"
+
+# override default actions
+start_cmd="wpa_supplicant_start"
+stop_cmd="wpa_supplicant_stop"
+status_cmd="wpa_supplicant_status"
+
+wpa_supplicant_start()
+{
+    # 1) Load the iwlwifi kernel module if not already present
+    if ! kldstat -n if_iwlwifi &gt; /dev/null 2&gt;&amp;1; then
+        kldload if_iwlwifi \
+            || err 1 "Unable to load if_iwlwifi kernel module"
+    fi
+
+    # 2) Create the wlan interface if missing
+    if ! ifconfig ${wpa_supplicant_iface} &gt; /dev/null 2&gt;&amp;1; then
+        ifconfig iwlwifi0 create wlandev iwlwifi0 \
+            || err 1 "Failed to create interface ${wpa_supplicant_iface}"
+    fi
+
+    # 3) Bring the wireless interface up
+    ifconfig ${wpa_supplicant_iface} up \
+        || err 1 "Could not bring up ${wpa_supplicant_iface}"
+
+    # 4) Launch wpa_supplicant in the background
+    ${command} ${command_args} \
+        || err 1 "wpa_supplicant failed to start"
+}
+
+wpa_supplicant_status()
+{
+    check_pidfile "${pidfile}" "${command}"
+}
+
+wpa_supplicant_stop()
+{
+    if [ -f "${pidfile}" ]; then
+        kill -TERM "$(cat ${pidfile})" &gt; /dev/null 2&gt;&amp;1 \
+            || err 1 "Failed to kill wpa_supplicant (PID: $(cat ${pidfile}))"
+        rm -f "${pidfile}"
+    else
+        err 1 "PID file not found, is wpa_supplicant running?"
+    fi
+}
+
+run_rc_command "$1"
+EOF
+
+# 3) Make service script executable
+chmod +x /etc/rc.d/wpa_supplicant
+
+# 4) Generate local rc.conf overrides
+cat &gt; /etc/rc.conf.local &lt;&lt; 'EOF'
+wpa_supplicant_enable="YES"
+wpa_supplicant_iface="iwlwifi0_wlan"
+wpa_supplicant_driver="bsd"
+wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+EOF
+
+echo "Configuration complete."
+```
+
+# References
+
+* wpa\_supplicant configuration file placement and options ([docs.freebsd.org][1])
+* Use of wpa\_supplicant(8) for WPA-PSK in FreeBSD ([freebsdhandbook.com][2])
+
+[1]: https://docs.freebsd.org/en/books/handbook/network/?utm_source=chatgpt.com "Chapter 7. Network"
+[2]: https://www.freebsdhandbook.com/advanced-networking?utm_source=chatgpt.com "Chapter 32. Advanced Networking - FreeBSD Handbook"</code></pre><p>Comparing the scripts in DiffChecker revealed some interesting changes, but most were in the following categories:</p><ul><li>Differences in comments - omissions or verbiage.</li><li>Different constructions of the same commands (<code><span class="diff-chunk_chunk__MRDHe undefined">cat</span></code><span class="diff-chunk_chunk__MRDHe diff-chunk_removed__oVJqp"><code>&lt;&lt; 'EOF' &gt; /etc/rc.d/wpa_supplicant</code> vs <code><span class="diff-chunk_chunk__MRDHe undefined">cat </span><span class="diff-chunk_chunk__MRDHe diff-chunk_inserted__dGN9u">&gt; /etc/rc.d/wpa_supplicant &lt;&lt; 'EOF'</span></code></span>).</li><li>Copilot having a function to ensure the script is running as root.</li><li>ChatGPT having a comment on how to use the script.</li><li>Copilot having better user feedback via process completion messages.</li></ul><p>After some quick Googling, it seems that the <code>cat &lt;&lt; 'EOF' &gt; /etc/rc.d/wpa_supplicant</code> construction is the more correct one, so it seems Copilot is more technically accurate. </p><h2 id="mcetoc_1j0p1tptp23d">The Next Steps</h2><p>What's next isn't particularly exciting:</p><ul><li>Combine best elements of ChatGPT script into Copilot script.</li><li>Save the file and place it on the flash drive I store the other files I add to OPNSense.</li><li>Wait for the OPNSense 25.7 finalized release to see if it completely obliterates various things I've added.</li></ul><p>For reference, here's the finalized version of the script I've come up with:</p><pre class="language-bash line-numbers"><code>#!/bin/sh
+#
+# setup_wpa.sh
+# Automates wpa_supplicant config, rc.d script, permissions, and rc.conf.local
+# Usage: sh setup_wpa.sh
+
+set -e
+
+# Ensure script is run as root
+if [ "$(id -u)" -ne 0 ]; then
+  echo "Error: This script must be run as root."
+  exit 1
+fi
+
+# 1) Create WPA supplicant config directory and file
+mkdir -p /var/etc
+
+cat &lt;&lt; 'EOF' &gt; /var/etc/wpa_supplicant_iwlwifi0_wlan0.conf
+ctrl_interface=/var/run/wpa_supplicant
+ctrl_interface_group=0
+ap_scan=1
+fast_reauth=1
+network={
+    ssid="Placeholder"
+    scan_ssid=1
+    priority=5
+    key_mgmt=WPA-PSK
+    psk="Placeholder"
+    pairwise=CCMP TKIP
+    group=CCMP TKIP
+}
+EOF
+
+echo "Created /var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+
+# 2) Install the rc.d startup script
+cat &lt;&lt; 'EOF' &gt; /etc/rc.d/wpa_supplicant
+#!/bin/sh
+#
+# PROVIDE: wpa_supplicant
+# REQUIRE: DAEMON NETWORKING if_iwlwifi
+# KEYWORD: shutdown
+#
+# Add the following to /etc/rc.conf to enable this service:
+#   wpa_supplicant_enable="YES"
+#   wpa_supplicant_iface="iwlwifi0_wlan0"
+#   wpa_supplicant_driver="bsd"
+#   wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+#
+
+. /etc/rc.subr          # import rc_* functions
+. /etc/network.subr     # import network helper functions
+
+name="wpa_supplicant"
+rcvar="wpa_supplicant_enable"
+
+# load overrides from rc.conf, set defaults
+load_rc_config $name
+
+: ${wpa_supplicant_enable:="YES"}           # YES to start at boot
+: ${wpa_supplicant_iface:="iwlwifi0_wlan0"} # logical WLAN interface
+: ${wpa_supplicant_driver:="bsd"}          # driver backend
+: ${wpa_supplicant_conf:="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"}
+
+# path to the wpa_supplicant binary
+command="/usr/sbin/wpa_supplicant"
+
+# pidfile lives under /var/run/&lt;name&gt;.&lt;iface&gt;.pid
+pidfile="/var/run/${name}.${wpa_supplicant_iface}.pid"
+
+# arguments to wpa_supplicant
+command_args="-B \
+    -i ${wpa_supplicant_iface} \
+    -D ${wpa_supplicant_driver} \
+    -c ${wpa_supplicant_conf} \
+    -P ${pidfile}"
+
+# override default actions
+start_cmd="wpa_supplicant_start"
+stop_cmd="wpa_supplicant_stop"
+status_cmd="wpa_supplicant_status"
+
+#
+# start: load driver, create interface, bring it up, then start daemon
+#
+wpa_supplicant_start()
+{
+    # 1) Load the iwlwifi kernel module if not already present
+    if ! kldstat -n if_iwlwifi &gt; /dev/null 2&gt;&amp;1; then
+        kldload if_iwlwifi \
+            || err 1 "Unable to load if_iwlwifi kernel module - /etc/rc.d/wpa_supplicant"
+    fi
+
+    # 2) Create the wlan interface if missing
+    if ! ifconfig ${wpa_supplicant_iface} &gt; /dev/null 2&gt;&amp;1; then
+        ifconfig iwlwifi0 create wlandev iwlwifi0 \
+            || err 1 "Failed to create interface ${wpa_supplicant_iface} - /etc/rc.d/wpa_supplicant"
+    fi
+
+    # 3) Bring the wireless interface up
+    ifconfig ${wpa_supplicant_iface} up \
+        || err 1 "Could not bring up ${wpa_supplicant_iface} - /etc/rc.d/wpa_supplicant"
+
+    # 4) Launch wpa_supplicant in the background
+    ${command} ${command_args} \
+        || err 1 "wpa_supplicant failed to start - /etc/rc.d/wpa_supplicant"
+}
+
+#
+# status: check the pidfile to see if wpa_supplicant is running
+#
+wpa_supplicant_status()
+{
+    check_pidfile "${pidfile}" "${command}"
+}
+
+#
+# stop: terminate the daemon and clean up the pidfile
+#
+wpa_supplicant_stop()
+{
+    if [ -f "${pidfile}" ]; then
+        kill -TERM "$(cat ${pidfile})" &gt; /dev/null 2&gt;&amp;1 \
+            || err 1 "Failed to kill wpa_supplicant (PID: $(cat ${pidfile}))"
+        rm -f "${pidfile}"
+    else
+        err 1 "PID file not found, is wpa_supplicant running? - /etc/rc.d/wpa_supplicant"
+    fi
+}
+
+run_rc_command "$1"
+EOF
+
+chmod +x /etc/rc.d/wpa_supplicant
+echo "Installed and made executable: /etc/rc.d/wpa_supplicant"
+
+# 3) Generate /etc/rc.conf.local
+cat &lt;&lt; 'EOF' &gt; /etc/rc.conf.local
+wpa_supplicant_enable="YES"
+wpa_supplicant_iface="iwlwifi0_wlan"
+wpa_supplicant_driver="bsd"
+wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+EOF
+
+echo "Created /etc/rc.conf.local"
+
+echo "Setup complete. You can now enable the service with:"
+echo "  service wpa_supplicant start"</code></pre></div><footer class="content__footer"><div class="content__tag-share"><div class="content__tag"><h3 class="content__tag__title">Posted in</h3><ul class="content__tag__list"><li><a href="https://korgano.github.io/tags/ai/">AI</a></li><li><a href="https://korgano.github.io/tags/pc/">PC</a></li><li><a href="https://korgano.github.io/tags/tech/">Tech</a></li><li><a href="https://korgano.github.io/tags/tech-projects/">Tech Projects</a></li></ul></div><div class="content__share"><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fkorgano.github.io%2Fcybersecurity-project-transparent-filtering-bridge-extras-91%2F" class="js-share linkedin" aria-label="Share with LinkedIn" rel="nofollow noopener noreferrer"><svg><use xlink:href="https://korgano.github.io/assets/svg/svg-map.svg#linkedin"/></svg></a></div></div></footer></div></article><div class="content__related"><h3 class="content__related__title">Related posts</h3><div class="l-grid l-grid--2"><article class="c-card"><div class="c-card__wrapper"><figure class="c-card__image is-img-loading"><img src="https://korgano.github.io/media/posts/10/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg" srcset="https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-xs.jpg 384w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-sm.jpg 600w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-md.jpg 768w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-lg.jpg 1200w" sizes="(min-width: 37.5em) 80vw, 50vw" loading="lazy" height="2712" width="4076" alt=""></figure><div class="c-card__content"><header><h2 class="c-card__title"><a href="https://korgano.github.io/cybersecurity-project-research-remote-access/" class="invert">Cybersecurity Project Research: Remote Access</a></h2></header><footer class="c-card__meta"><a href="https://korgano.github.io/tags/cybersecurity-projects/" class="c-card__tag">Cybersecurity Projects</a></footer></div></div></article><article class="c-card"><div class="c-card__wrapper"><figure class="c-card__image is-img-loading"><img src="https://korgano.github.io/media/posts/9/andres-urena-vXPXRp_wIg4-unsplash.jpg" srcset="https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-xs.jpg 384w, https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-sm.jpg 600w, https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-md.jpg 768w, https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-lg.jpg 1200w" sizes="(min-width: 37.5em) 80vw, 50vw" loading="lazy" height="1687" width="3000" alt=""></figure><div class="c-card__content"><header><h2 class="c-card__title"><a href="https://korgano.github.io/cybersecurity-headache-home-router-uxui/" class="invert">Cybersecurity Headache: Home Router UXUI</a></h2></header><footer class="c-card__meta"><a href="https://korgano.github.io/tags/quick-thoughts/" class="c-card__tag">Quick Thoughts</a></footer></div></div></article></div></div></main><footer class="footer"><div class="footer__left"><div class="footer__copy">Copyright Xavier Santana, 2023-2024. Powered by Publii.</div></div><button onclick="backToTopFunction()" id="backToTop" class="footer__bttop" aria-label="Back to top" title="Back to top"><svg><use xlink:href="https://korgano.github.io/assets/svg/svg-map.svg#toparrow"/></svg></button></footer></div><script>window.publiiThemeMenuConfig = { mobileMenuMode: 'sidebar', animationSpeed: 300, submenuWidth: 'auto', doubleClickTime: 500, mobileMenuExpandableSubmenus: true, relatedContainerForOverlayMenuSelector: '.navbar', };</script><script defer="defer" src="https://korgano.github.io/assets/js/scripts.min.js?v=9c5ab7a87221183f149a42b3cceb7956"></script><script>function publiiDetectLoadedImages () {
+         var images = document.querySelectorAll('img[loading]:not(.is-loaded)');
+         for (var i = 0; i < images.length; i++) {
+            if (images[i].complete) {
+               images[i].classList.add('is-loaded');
+               images[i].parentNode.classList.remove('is-img-loading');
+            } else {
+               images[i].addEventListener('load', function () {
+                  this.classList.add('is-loaded');
+                  this.parentNode.classList.remove('is-img-loading');
+               }, false);
+            }
+         }
+      }
+      publiiDetectLoadedImages();</script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-line-numbers.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/clipboard.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-copy-to-clipboard.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-inline-color.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-show-invisibles.min.js"></script><!-- Start main cookie container --><div class="pcb" data-behaviour="badge" data-behaviour-link="#cookie-settings" data-revision="1" data-config-ttl="90" data-debug-mode="false"><!-- Start Banner --><div role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pcb-title" aria-describedby="pcb-txt" class="pcb__banner"><div class="pcb__inner"><div id="pcb-title" role="heading" aria-level="2" class="pcb__title">This website uses cookies</div><div id="pcb-txt" class="pcb__txt">Select which cookies to opt-in to via the checkboxes below; our website uses cookies to examine site traffic and user activity while on our site, for marketing, and to provide social media functionality. <a href="https://korgano.github.io/privacy-policy/">More details...</a></div><div class="pcb__buttons"><button type="button" class="pcb__btn pcb__btn--solid pcb__btn--accept">Accept all</button></div></div></div><!-- End of Banner --><!-- Badge --> <button class="pcb__badge" aria-label="Cookie Policy" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="40" height="40" viewBox="0 0 23 23" fill="currentColor"><path d="M21.41 12.71c-.08-.01-.15 0-.22 0h-.03c-.03 0-.05 0-.08.01-.07 0-.13.01-.19.04-.52.21-1.44.19-2.02-.22-.44-.31-.65-.83-.62-1.53a.758.758 0 0 0-.27-.61.73.73 0 0 0-.65-.14c-1.98.51-3.49.23-4.26-.78-.82-1.08-.73-2.89.24-4.49.14-.23.14-.52 0-.75a.756.756 0 0 0-.67-.36c-.64.03-1.11-.1-1.31-.35-.19-.26-.13-.71-.01-1.29.04-.18.06-.38.03-.59-.05-.4-.4-.7-.81-.66C5.1 1.54 1 6.04 1 11.48 1 17.28 5.75 22 11.6 22c5.02 0 9.39-3.54 10.39-8.42.08-.4-.18-.78-.58-.87Zm-9.81 7.82c-5.03 0-9.12-4.06-9.12-9.06 0-4.34 3.05-8 7.25-8.86-.08.7.05 1.33.42 1.81.24.32.66.67 1.38.84-.76 1.86-.65 3.78.36 5.11.61.81 2.03 2 4.95 1.51.18.96.71 1.54 1.18 1.87.62.43 1.38.62 2.1.62.05 0 .09 0 .13-.01-1.23 3.64-4.7 6.18-8.64 6.18ZM13 17c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1Zm5.29-12.3a.99.99 0 0 1-.29-.71c0-.55.45-.99 1-.99a1 1 0 0 1 .71.3c.19.19.29.44.29.71 0 .55-.45.99-1 .99a1 1 0 0 1-.71-.3ZM9 13.5c0 .83-.67 1.5-1.5 1.5S6 14.33 6 13.5 6.67 12 7.5 12s1.5.67 1.5 1.5Zm3.25.81a.744.744 0 0 1-.06-1.05c.28-.32.75-.34 1.05-.06.31.28.33.75.05 1.06-.15.16-.35.25-.56.25-.18 0-.36-.06-.5-.19ZM8.68 7.26c.41.37.44 1 .07 1.41-.2.22-.47.33-.75.33a.96.96 0 0 1-.67-.26c-.41-.37-.44-1-.07-1.41.37-.42 1-.45 1.41-.08Zm11.48 1.88c.18-.19.52-.19.7 0 .05.04.09.1.11.16.03.06.04.12.04.19 0 .13-.05.26-.15.35-.09.1-.22.15-.35.15s-.26-.05-.35-.15a.355.355 0 0 1-.11-.16.433.433 0 0 1-.04-.19c0-.13.05-.26.15-.35Zm-4.93-1.86a.75.75 0 1 1 1.059-1.06.75.75 0 0 1-1.059 1.06Z"/></svg></button><!-- End of Badge --></div><!-- End of main cookie container --><script>(function(win) {
+    if (!document.querySelector('.pcb')) {
+        return;
+    }
+
+    var cbConfig = {
+        behaviour: document.querySelector('.pcb').getAttribute('data-behaviour'),
+        behaviourLink: document.querySelector('.pcb').getAttribute('data-behaviour-link'),
+        revision: document.querySelector('.pcb').getAttribute('data-revision'),
+        configTTL: parseInt(document.querySelector('.pcb').getAttribute('data-config-ttl'), 10),
+        debugMode: document.querySelector('.pcb').getAttribute('data-debug-mode') === 'true',
+        initialState: null,
+        initialLsState: null,
+        previouslyAccepted: []
+    };
+
+    var cbUI = {
+        wrapper: document.querySelector('.pcb'),
+        banner: {
+            element: null,
+            btnAccept: null,
+            btnReject: null,
+            btnConfigure: null
+        },
+        popup: {
+            element: null,
+            btnClose: null,
+            btnSave: null,
+            btnAccept: null,
+            btnReject: null,
+            checkboxes: null,
+        },
+        overlay: null,
+        badge: null,
+        blockedScripts: document.querySelectorAll('script[type^="gdpr-blocker/"]'),
+        triggerLinks: cbConfig.behaviourLink ? document.querySelectorAll('a[href*="' + cbConfig.behaviourLink + '"]') : null
+    };
+
+    function initUI () {
+        // setup banner elements
+        cbUI.banner.element = cbUI.wrapper.querySelector('.pcb__banner');
+        cbUI.banner.btnAccept = cbUI.banner.element.querySelector('.pcb__btn--accept');
+        cbUI.banner.btnReject = cbUI.banner.element.querySelector('.pcb__btn--reject');
+        cbUI.banner.btnConfigure = cbUI.banner.element.querySelector('.pcb__btn--configure');
+
+        // setup popup elements
+        if (cbUI.wrapper.querySelector('.pcb__popup')) {
+            cbUI.popup.element = cbUI.wrapper.querySelector('.pcb__popup');
+            cbUI.popup.btnClose = cbUI.wrapper.querySelector('.pcb__popup__close');
+            cbUI.popup.btnSave = cbUI.popup.element.querySelector('.pcb__btn--save');
+            cbUI.popup.btnAccept = cbUI.popup.element.querySelector('.pcb__btn--accept');
+            cbUI.popup.btnReject = cbUI.popup.element.querySelector('.pcb__btn--reject');
+            cbUI.popup.checkboxes = cbUI.popup.element.querySelector('input[type="checkbox"]');
+            // setup overlay
+            cbUI.overlay = cbUI.wrapper.querySelector('.pcb__overlay');
+        }
+
+        cbUI.badge = cbUI.wrapper.querySelector('.pcb__badge');
+
+        if (cbConfig.behaviour.indexOf('link') > -1) {
+            for (var i = 0; i < cbUI.triggerLinks.length; i++) {
+                cbUI.triggerLinks[i].addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showBannerOrPopup();
+                });
+            }
+        }
+    }
+
+    function initState () {
+        var lsKeyName = getConfigName();
+        var currentConfig = localStorage.getItem(lsKeyName);
+        var configIsFresh = checkIfConfigIsFresh();
+
+        if (!configIsFresh || currentConfig === null) {
+            if (cbConfig.debugMode) {
+                console.log('🍪 Config not found, or configuration expired');
+            }
+
+            if (window.publiiCBGCM) {
+                gtag('consent', 'default', {
+                    'ad_storage': window.publiiCBGCM.defaultState.ad_storage ? 'granted' : 'denied',
+                    'ad_personalization': window.publiiCBGCM.defaultState.ad_personalization ? 'granted' : 'denied',
+                    'ad_user_data': window.publiiCBGCM.defaultState.ad_user_data ? 'granted' : 'denied',
+                    'analytics_storage': window.publiiCBGCM.defaultState.analytics_storage ? 'granted' : 'denied',
+                    'personalization_storage': window.publiiCBGCM.defaultState.personalization_storage ? 'granted' : 'denied',
+                    'functionality_storage': window.publiiCBGCM.defaultState.functionality_storage ? 'granted' : 'denied',
+                    'security_storage': window.publiiCBGCM.defaultState.security_storage ? 'granted' : 'denied'
+                });  
+                
+                if (cbConfig.debugMode) {
+                    console.log('🍪 GCMv2 DEFAULT STATE: ' + JSON.stringify({
+                        'ad_storage': window.publiiCBGCM.defaultState.ad_storage ? 'granted' : 'denied',
+                        'ad_personalization': window.publiiCBGCM.defaultState.ad_personalization ? 'granted' : 'denied',
+                        'ad_user_data': window.publiiCBGCM.defaultState.ad_user_data ? 'granted' : 'denied',
+                        'analytics_storage': window.publiiCBGCM.defaultState.analytics_storage ? 'granted' : 'denied',
+                        'personalization_storage': window.publiiCBGCM.defaultState.personalization_storage ? 'granted' : 'denied',
+                        'functionality_storage': window.publiiCBGCM.defaultState.functionality_storage ? 'granted' : 'denied',
+                        'security_storage': window.publiiCBGCM.defaultState.security_storage ? 'granted' : 'denied'
+                    }));
+                }
+            }
+
+            showBanner();
+        } else if (typeof currentConfig === 'string') {
+            if (cbConfig.debugMode) {
+                console.log('🍪 Config founded');
+            }
+
+            cbConfig.initialLsState = currentConfig.split(',');
+
+            if (window.publiiCBGCM) {
+                gtag('consent', 'default', {
+                    'ad_storage': getDefaultConsentState(currentConfig, 'ad_storage'),
+                    'ad_personalization': getDefaultConsentState(currentConfig, 'ad_personalization'),
+                    'ad_user_data': getDefaultConsentState(currentConfig, 'ad_user_data'),
+                    'analytics_storage': getDefaultConsentState(currentConfig, 'analytics_storage'),
+                    'personalization_storage': getDefaultConsentState(currentConfig, 'personalization_storage'),
+                    'functionality_storage': getDefaultConsentState(currentConfig, 'functionality_storage'),
+                    'security_storage': getDefaultConsentState(currentConfig, 'security_storage')
+                });
+                
+                if (cbConfig.debugMode) {
+                    console.log('🍪 GCMv2 DEFAULT STATE: ' + JSON.stringify({
+                        'ad_storage': getDefaultConsentState(currentConfig, 'ad_storage'),
+                        'ad_personalization': getDefaultConsentState(currentConfig, 'ad_personalization'),
+                        'ad_user_data': getDefaultConsentState(currentConfig, 'ad_user_data'),
+                        'analytics_storage': getDefaultConsentState(currentConfig, 'analytics_storage'),
+                        'personalization_storage': getDefaultConsentState(currentConfig, 'personalization_storage'),
+                        'functionality_storage': getDefaultConsentState(currentConfig, 'functionality_storage'),
+                        'security_storage': getDefaultConsentState(currentConfig, 'security_storage')
+                    }));
+                }
+            }
+
+            showBadge();
+
+            if (cbUI.popup.element) {
+                var allowedGroups = currentConfig.split(',');
+                var checkedCheckboxes = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+
+                for (var j = 0; j < checkedCheckboxes.length; j++) {
+                    var name = checkedCheckboxes[j].getAttribute('data-group-name');
+
+                    if (name && name !== '-' && allowedGroups.indexOf(name) === -1) {
+                        checkedCheckboxes[j].checked = false;
+                    }
+                }
+
+                for (var i = 0; i < allowedGroups.length; i++) {
+                    var checkbox = cbUI.popup.element.querySelector('input[type="checkbox"][data-group-name="' + allowedGroups[i] + '"]');
+
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+
+                    allowCookieGroup(allowedGroups[i]);
+                }
+            }
+        }
+
+        setTimeout(function () {
+            cbConfig.initialState = getInitialStateOfConsents();
+        }, 0);
+    }
+
+    function checkIfConfigIsFresh () {
+        var lastConfigSave = localStorage.getItem('publii-gdpr-cookies-config-save-date');
+
+        if (lastConfigSave === null) {
+            return false;
+        }
+
+        lastConfigSave = parseInt(lastConfigSave, 10);
+
+        if (lastConfigSave === 0) {
+            return true;
+        }
+
+        if (+new Date() - lastConfigSave < cbConfig.configTTL * 24 * 60 * 60 * 1000) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function getDefaultConsentState (currentConfig, consentGroup) {
+        let configGroups = currentConfig.split(',');
+
+        for (let i = 0; i < configGroups.length; i++) {
+            let groupName = configGroups[i];
+            let group = window.publiiCBGCM.groups.find(group => group.cookieGroup === groupName);
+
+            if (group && group[consentGroup]) {
+                return 'granted';
+            }
+        }  
+        
+        if (window.publiiCBGCM.defaultState[consentGroup]) {
+            return 'granted'; 
+        }
+        
+        return 'denied';
+    }
+
+    function initBannerEvents () {
+        cbUI.banner.btnAccept.addEventListener('click', function (e) {
+            e.preventDefault();
+            acceptAllCookies('banner');
+            showBadge();
+        }, false);
+
+        if (cbUI.banner.btnReject) {
+            cbUI.banner.btnReject.addEventListener('click', function (e) {
+                e.preventDefault();
+                rejectAllCookies();
+                showBadge();
+            }, false);
+        }
+
+        if (cbUI.banner.btnConfigure) {
+            cbUI.banner.btnConfigure.addEventListener('click', function (e) {
+                e.preventDefault();
+                hideBanner();
+                showAdvancedPopup();
+                showBadge();
+            }, false);
+        }
+    }
+
+    function initPopupEvents () {
+        if (!cbUI.popup.element) {
+            return;
+        }
+
+        cbUI.overlay.addEventListener('click', function (e) {
+            hideAdvancedPopup();
+        }, false);
+
+        cbUI.popup.element.addEventListener('click', function (e) {
+            e.stopPropagation();
+        }, false);
+
+        cbUI.popup.btnAccept.addEventListener('click', function (e) {
+            e.preventDefault();
+            acceptAllCookies('popup');
+        }, false);
+
+        cbUI.popup.btnReject.addEventListener('click', function (e) {
+            e.preventDefault();
+            rejectAllCookies();
+        }, false);
+
+        cbUI.popup.btnSave.addEventListener('click', function (e) {
+            e.preventDefault();
+            saveConfiguration();
+        }, false);
+
+        cbUI.popup.btnClose.addEventListener('click', function (e) {
+            e.preventDefault();
+            hideAdvancedPopup();
+        }, false);
+    }
+
+    function initBadgeEvents () {
+        if (!cbUI.badge) {
+            return;
+        }
+
+        cbUI.badge.addEventListener('click', function (e) {
+            showBannerOrPopup();
+        }, false);
+    }
+
+    initUI();
+    initState();
+    initBannerEvents();
+    initPopupEvents();
+    initBadgeEvents();
+
+    /**
+     * API
+     */
+    function addScript (src, inline) {
+        var newScript = document.createElement('script');
+
+        if (src) {
+            newScript.setAttribute('src', src);
+        }
+
+        if (inline) {
+            newScript.text = inline;
+        }
+
+        document.body.appendChild(newScript);
+    }
+
+    function allowCookieGroup (allowedGroup) {
+        var scripts = document.querySelectorAll('script[type="gdpr-blocker/' + allowedGroup + '"]');
+        cbConfig.previouslyAccepted.push(allowedGroup);
+    
+        for (var j = 0; j < scripts.length; j++) {
+            addScript(scripts[j].src, scripts[j].text);
+        }
+
+        var groupEvent = new Event('publii-cookie-banner-unblock-' + allowedGroup);
+        document.body.dispatchEvent(groupEvent);
+        unlockEmbeds(allowedGroup);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Allowed group: ' + allowedGroup);
+        }
+
+        if (window.publiiCBGCM && (!cbConfig.initialLsState || cbConfig.initialLsState.indexOf(allowedGroup) === -1)) {
+            let consentResult = {};
+            let group = window.publiiCBGCM.groups.find(group => group.cookieGroup === allowedGroup);
+
+            if (group) {
+                let foundSomeConsents = false;
+
+                Object.keys(group).forEach(key => {
+                    if (key !== 'cookieGroup' && group[key] === true) {
+                        consentResult[key] = 'granted';
+                        foundSomeConsents = true;
+                    }
+                });
+
+                if (foundSomeConsents) {
+                    gtag('consent', 'update', consentResult);   
+
+                    if (cbConfig.debugMode) {
+                        console.log('🍪 GCMv2 UPDATE: ' + JSON.stringify(consentResult));
+                    }
+                }
+            }
+        }
+    }
+
+    function showBannerOrPopup () {
+        if (cbUI.popup.element) {
+            showAdvancedPopup();
+        } else {
+            showBanner();
+        }
+    }
+
+    function showAdvancedPopup () {
+        cbUI.popup.element.classList.add('is-visible');
+        cbUI.overlay.classList.add('is-visible');
+        cbUI.popup.element.setAttribute('aria-hidden', 'false');
+        cbUI.overlay.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideAdvancedPopup () {
+        cbUI.popup.element.classList.remove('is-visible');
+        cbUI.overlay.classList.remove('is-visible');
+        cbUI.popup.element.setAttribute('aria-hidden', 'true');
+        cbUI.overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    function showBanner () {
+        cbUI.banner.element.classList.add('is-visible');
+        cbUI.banner.element.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideBanner () {
+        cbUI.banner.element.classList.remove('is-visible');
+        cbUI.banner.element.setAttribute('aria-hidden', 'true');
+    }
+
+    function showBadge () {
+        if (!cbUI.badge) {
+            return;
+        }
+
+        cbUI.badge.classList.add('is-visible');
+        cbUI.badge.setAttribute('aria-hidden', 'false');
+    }
+
+    function getConfigName () {
+        var lsKeyName = 'publii-gdpr-allowed-cookies';
+
+        if (cbConfig.revision) {
+            lsKeyName = lsKeyName + '-v' + parseInt(cbConfig.revision, 10);
+        }
+
+        return lsKeyName;
+    }
+
+    function storeConfiguration (allowedGroups) {
+        var lsKeyName = getConfigName();
+        var dataToStore = allowedGroups.join(',');
+        localStorage.setItem(lsKeyName, dataToStore);
+
+        if (cbConfig.configTTL === 0) {
+            localStorage.setItem('publii-gdpr-cookies-config-save-date', 0);
+
+            if (cbConfig.debugMode) {
+                console.log('🍪 Store never expiring configuration');
+            }
+        } else {
+            localStorage.setItem('publii-gdpr-cookies-config-save-date', +new Date());
+        }
+    }
+
+    function getInitialStateOfConsents () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Initial state: ' + groups.join(', '));
+        }
+
+        return groups;
+    }
+
+    function getCurrentStateOfConsents () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 State to save: ' + groups.join(', '));
+        }
+
+        return groups;
+    }
+
+    function getAllGroups () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        return groups;
+    }
+
+    function acceptAllCookies (source) {
+        var groupsToAccept = getAllGroups();
+        storeConfiguration(groupsToAccept);
+
+        for (var i = 0; i < groupsToAccept.length; i++) {
+            var group = groupsToAccept[i];
+
+            if (cbConfig.initialState.indexOf(group) > -1 || cbConfig.previouslyAccepted.indexOf(group) > -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Skip previously activated group: ' + group);
+                }
+
+                continue;
+            }
+
+            allowCookieGroup(group);
+        }
+
+        if (cbUI.popup.element) {
+            var checkboxesToCheck = cbUI.popup.element.querySelectorAll('input[type="checkbox"]');
+
+            for (var j = 0; j < checkboxesToCheck.length; j++) {
+                checkboxesToCheck[j].checked = true;
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Accept all cookies: ', groupsToAccept.join(', '));
+        }
+
+        if (source === 'popup') {
+            hideAdvancedPopup();
+        } else if (source === 'banner') {
+            hideBanner();
+        }
+    }
+
+    function rejectAllCookies () {
+        if (cbConfig.debugMode) {
+            console.log('🍪 Reject all cookies');
+        }
+
+        storeConfiguration([]);
+        setTimeout(function () {
+            window.location.reload();
+        }, 100);
+    }
+
+    function saveConfiguration () {
+        var groupsToAccept = getCurrentStateOfConsents();
+        storeConfiguration(groupsToAccept);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Save new config: ', groupsToAccept.join(', '));
+        }
+
+        if (reloadIsNeeded(groupsToAccept)) {
+            setTimeout(function () {
+                window.location.reload();
+            }, 100);
+            return;
+        }
+
+        for (var i = 0; i < groupsToAccept.length; i++) {
+            var group = groupsToAccept[i];
+
+            if (cbConfig.initialState.indexOf(group) > -1 || cbConfig.previouslyAccepted.indexOf(group) > -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Skip previously activated group: ' + group);
+                }
+
+                continue;
+            }
+
+            allowCookieGroup(group);
+        }
+
+        hideAdvancedPopup();
+    }
+
+    function reloadIsNeeded (groupsToAccept) {
+        // check if user rejected consent for initial groups
+        var initialGroups = cbConfig.initialState;
+        var previouslyAcceptedGroups = cbConfig.previouslyAccepted;
+        var groupsToCheck = initialGroups.concat(previouslyAcceptedGroups);
+
+        for (var i = 0; i < groupsToCheck.length; i++) {
+            var groupToCheck = groupsToCheck[i];
+
+            if (groupToCheck !== '' && groupsToAccept.indexOf(groupToCheck) === -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Reload is needed due lack of: ', groupToCheck);
+                }
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    function unlockEmbeds (cookieGroup) {
+        var iframesToUnlock = document.querySelectorAll('.pec-wrapper[data-consent-group-id="' + cookieGroup + '"]');
+
+        for (var i = 0; i < iframesToUnlock.length; i++) {
+            var iframeWrapper = iframesToUnlock[i];
+            iframeWrapper.querySelector('.pec-overlay').classList.remove('is-active');
+            iframeWrapper.querySelector('.pec-overlay').setAttribute('aria-hidden', 'true');
+            var iframe = iframeWrapper.querySelector('iframe');
+            iframe.setAttribute('src', iframe.getAttribute('data-consent-src'));
+        }
+    }
+
+    win.publiiEmbedConsentGiven = function (cookieGroup) {
+        // it will unlock embeds
+        allowCookieGroup(cookieGroup);
+
+        var checkbox = cbUI.popup.element.querySelector('input[type="checkbox"][data-group-name="' + cookieGroup + '"]');
+
+        if (checkbox) {
+            checkbox.checked = true;
+        }
+
+        var groupsToAccept = getCurrentStateOfConsents();
+        storeConfiguration(groupsToAccept);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Save new config: ', groupsToAccept.join(', '));
+        }
+    }
+})(window);</script></body></html>
