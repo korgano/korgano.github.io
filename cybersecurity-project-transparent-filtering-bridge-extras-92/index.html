@@ -1,0 +1,696 @@
+<!DOCTYPE html><html lang="en-us"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.2 - XS Tech Thoughts</title><meta name="description" content="Xavier Santana experiments with AI to examine Transparent Filtering Bridge network traffic logs to identify suspicious traffic."><meta name="generator" content="Publii Open-Source CMS for Static Site"><!-- Global site tag (gtag.js) - Google Analytics --><script type="gdpr-blocker/Analytics" async src="https://www.googletagmanager.com/gtag/js?id=G-EHLH28GQMY"></script><script type="gdpr-blocker/Analytics">window.dataLayer = window.dataLayer || [];
+				  function gtag(){dataLayer.push(arguments);}
+				  gtag('js', new Date());
+				  gtag('config', 'G-EHLH28GQMY' , { 'anonymize_ip': true });
+				  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EHLH28GQMY"></script><script>window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EHLH28GQMY');</script><link rel="stylesheet" href="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-black.css"><link rel="stylesheet" href="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-inline-color.css"><link rel="canonical" href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-92/"><link rel="alternate" type="application/atom+xml" href="https://korgano.github.io/feed.xml" title="XS Tech Thoughts - RSS"><meta property="og:title" content="CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.2"><meta property="og:image" content="https://korgano.github.io/media/posts/44/cyber-proj-tfb22-2.png"><meta property="og:image:width" content="1920"><meta property="og:image:height" content="1033"><meta property="og:site_name" content="XS Tech Thoughts"><meta property="og:description" content="Xavier Santana experiments with AI to examine Transparent Filtering Bridge network traffic logs to identify suspicious traffic."><meta property="og:url" content="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-92/"><meta property="og:type" content="article"><link rel="preload" href="https://korgano.github.io/assets/dynamic/fonts/robotoflex/robotoflex.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="https://korgano.github.io/assets/dynamic/fonts/robotoslab/robotoslab.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="https://korgano.github.io/assets/css/style.css?v=253922ed3c1816ffff870ea807b853dd"><script type="application/ld+json">{"@context":"http://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-92/"},"headline":"CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.2","datePublished":"2025-07-22T10:13-04:00","dateModified":"2025-07-30T07:28-04:00","image":{"@type":"ImageObject","url":"https://korgano.github.io/media/posts/44/cyber-proj-tfb22-2.png","height":1033,"width":1920},"description":"Xavier Santana experiments with AI to examine Transparent Filtering Bridge network traffic logs to identify suspicious traffic.","author":{"@type":"Person","name":"Xavier Santana","url":"https://korgano.github.io/authors/xavier-santana/"},"publisher":{"@type":"Organization","name":"Xavier Santana"}}</script><noscript><style>img[loading] {
+                    opacity: 1;
+                }</style></noscript></head><body class="post-template lines"><div class="container lines lines--right"><header class="header"><a href="https://korgano.github.io/" class="logo">XS Tech Thoughts</a><nav class="navbar js-navbar"><button class="navbar__toggle js-toggle" aria-label="Menu">Menu</button><ul class="navbar__menu"><li><a href="https://korgano.github.io/" title="Home" target="_self">Home</a></li><li><a href="https://korgano.github.io/tags/uxui-case-study/" title="UX/UI Case Studies" target="_blank">UX/UI Case Studies</a></li><li><a href="https://korgano.github.io/tags/cybersecurity-projects/" title="Cybersecurity Projects" target="_blank">Cybersecurity Projects</a></li><li><a href="https://korgano.github.io/tags/quick-thoughts/" title="Quick Thoughts" target="_self">Quick Thoughts</a></li><li><a href="https://korgano.github.io/about-me/" title="About Me" target="_blank">About Me</a></li></ul></nav></header><main class="main post"><article class="content"><header class="content__inner content__header"><h1 class="content__title">CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.2</h1><div class="content__meta"><div class="content__meta__left"><a href="https://korgano.github.io/authors/xavier-santana/" class="invert content__author" rel="author" title="Xavier Santana">Xavier Santana</a></div><div class="content__meta__right"><time datetime="2025-07-22T10:13" class="content__date">July 22, 2025</time><div class="content__updated">Updated on <time datetime="2025-07-22T10:13" class="content__date">July 30, 2025</time></div></div></div></header><figure class="content__featured-image"><div class="content__featured-image__inner is-img-loading"><img src="https://korgano.github.io/media/posts/44/cyber-proj-tfb22-2.png" srcset="https://korgano.github.io/media/posts/44/responsive/cyber-proj-tfb22-2-xs.png 384w, https://korgano.github.io/media/posts/44/responsive/cyber-proj-tfb22-2-sm.png 600w, https://korgano.github.io/media/posts/44/responsive/cyber-proj-tfb22-2-md.png 768w, https://korgano.github.io/media/posts/44/responsive/cyber-proj-tfb22-2-lg.png 1200w, https://korgano.github.io/media/posts/44/responsive/cyber-proj-tfb22-2-xl.png 1600w" sizes="(min-width: 37.5em) 1600px, 80vw" loading="eager" height="1033" width="1920" alt="Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex loaded in LM Studio."></div></figure><div class="content__inner"><div class="content__entry"><p>In <a href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-90/" title="CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.0" target="_blank" rel="noopener noreferrer">article 9.0</a>, we got a log dump of ~1.5 weeks worth of blocked connections through the Transparent Filtering Bridge. Today, we're going to analyze that log with the help of ChatGPT, but first, we're going to do some more tests of Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex from <a href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-91/" title="CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.2" target="_blank" rel="noopener noreferrer">article 9.1</a>.</p><p> </p><div class="post__toc"><h3>Table of Contents</h3><ul><li><a href="#mcetoc_1j0p7pbij23f">Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex for PowerShell</a></li><li><a href="#mcetoc_1j0rt0igd30">Data Analysis Prompting</a></li><li><a href="#mcetoc_1j0rt0igd31">Examining the Findings</a></li></ul></div><h2 id="mcetoc_1j0p7pbij23f">Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex for PowerShell</h2><figure class="post__image"><img loading="lazy" src="https://korgano.github.io/media/posts/44/cyber-proj-tfb22.png" alt="Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex loaded in LM Studio." width="1920" height="1033" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/44/responsive/cyber-proj-tfb22-xs.png 384w, https://korgano.github.io/media/posts/44/responsive/cyber-proj-tfb22-sm.png 600w, https://korgano.github.io/media/posts/44/responsive/cyber-proj-tfb22-md.png 768w, https://korgano.github.io/media/posts/44/responsive/cyber-proj-tfb22-lg.png 1200w, https://korgano.github.io/media/posts/44/responsive/cyber-proj-tfb22-xl.png 1600w"></figure><p>In our previous test of this model, it proved absolutely incapable of generating code anywhere near ChatGPT or Copilot's level. At best, when tasked with updating a script, it doesn't do a great job of figuring how to improve the code.</p><p>But how does it do when it's just given an objective?</p><p>Well, I gave the model these prompts from article 9.0.</p><p>Prompt 1:</p><blockquote><p>Write me a powershell script that does the following:<br>-reads content of file `filter.log`<br>-reads lines of the following format `2025-06-25T11:06:30-04:00 Informational filterlog 68,,,ff197ebab7ec0da7fe008f0f6ffee42b,bridge0,match,block,out,4,0x0,,127,21852,0,DF,6,tcp,52,Home IP,1.1.1.1,21124,443,0,S,2052234833,,64240,,mss;nop;wscale;nop;nop;sackOK`<br>-counts unique and duplicate IPv4 addresses<br>-identifies unique IPv4 addresses<br>-outputs unique IPv4 address count, duplicate IPv4 address count, and all unique IPv4 addresses to new file `filter-cleaned.log`</p></blockquote><p>Prompt 2:</p><blockquote><p>Write me a powershell script that does the following:<br>-reads content of file `filter.log`<br>-reads lines of the following format `2025-06-25T11:06:30-04:00 Informational filterlog 68,,,ff197ebab7ec0da7fe008f0f6ffee42b,bridge0,match,block,out,4,0x0,,127,21852,0,DF,6,tcp,52,Home IP,1.1.1.1,21124,443,0,S,2052234833,,64240,,mss;nop;wscale;nop;nop;sackOK`<br>-counts the number of `in` and `out` entries<br>-generates a count of how many times unique IPv4 addresses appear in the log<br>-Generates a list of how many unique IPv4 addresses are associated with `in` or `out` entries, or both -outputs all data to new file `filter-statistics.log`</p></blockquote><p>So here's what it produced for prompt 1:</p><pre class="language-ini line-numbers"><code># Read the input file
+$InputFile = "filter.log"
+$Lines = Get-TextFile($InputFile)
+
+# Initialize data structures for unique IP addresses and frequency counts
+uniqueIPs = @()
+duplicateIPs = @()
+
+# Process each line to extract relevant information
+foreach ($Line in $Lines)
+{
+    # Split the line into fields using commas
+    $Fields = $Line.Split(",")
+
+    if ($Field.Count -eq 1) {
+        continue
+    }
+
+    # Extract the "mss" field and convert it to a string
+    $IPs = $Fields[2]
+
+    # Convert the IP address to a string for filtering
+    $IP = "$($IPs.ToString())"
+
+    # Add the unique IP address and frequency count
+    if ($uniqueIPs.ContainsKey($IP))
+        $duplicateIPs.Add((New-Entry -Key=$IP, Count=1)
+    else
+        $uniqueIPs[$IP] = 0
+
+    # Add the duplicate counts to a separate list
+    if (DuplicateIPs.ContainsKey($IP)) {
+        DuplicateIPs[$IP] += 1
+    } else
+        DuplicateIPs[$IP] = 1
+}
+
+# Write results to new file
+$NewFile = "filter-cleaned-qwen.log"
+Output-Text("Unique IP Addresses Count:", UniqueIPs.Count)
+Output-Text("Duplicate IP Count: ", DuplicateIPs.Keys.Count)
+Output-Text("Total Unique IPs: ", UniqueIPs.Keys.Count, " | Duplicates: ", DuplicateIPs.Keys.Count)
+Output-Text("Unique IPs: ", UniqueIPs.Keys, " with duplicates: ", DuplicateIPs.Keys, "\n")
+
+# Write the results to the new file
+foreach ($key in UniqueIPs.Keys)
+{
+    Output-Text("$key (Unique): Count: $DuplicateIPs[$key] | Total: $UniqueIPs[$key]\n")
+}</code></pre><p>Just looking at the code, one <strong>massive </strong>red flag is the fact that it isn't trying to pattern match the IPv4 structure. Instead, it seems to be trying to extract the content from the CSV part of the log entry, and I'm not sure it even picked the right portion.</p><p>Tossing it into DiffChecker with the code I generated from ChatGPT revealed something astounding - <strong>18 lines </strong>worth of extra code in this script. Most of it seems related to sorting and writing values, but it shows a great deal of inefficiency in the code.</p><p>I had no great expectations when I tried running the code, but it errored out and produced no output, so I can conclusively say that a sub-1B parameter model is likely to be absolute garbage when it comes to coding.</p><h2 id="mcetoc_1j0rt0igd30">Data Analysis Prompting</h2><p>As I have pointed out in <a href="https://korgano.github.io/quick-cyber-thoughts-ai-coding-security/" title="Quick Cyber Thoughts: AI Coding Security" target="_blank" rel="noopener noreferrer">previous articles</a>, anything related to AI is only as good as the system and user prompts. LLMs are very much Garbage In, Garbage Out machines, with the possibility of rapid iteration to get you from garbage to usable content.</p><p>To design this prompt, I will use the MOSCOW method, where I explicitly call out Must Have, Should Have, Could Have, and Won't Have features of this prompt:</p><table style="border-collapse: collapse; width: 100%;" border="1"><tbody><tr><td style="width: 24.9715%;">Must Have</td><td style="width: 24.9715%;">Should Have</td><td style="width: 24.9715%;">Could Have</td><td style="width: 24.9715%;">Won't Have</td></tr><tr><td style="width: 24.9715%;"><ul><li>Plain English explanations of the findings.</li><li>Command explicitly barring conclusions with no supporting facts in the data.</li><li>An easy to read/parse data format.</li></ul></td><td style="width: 24.9715%;"><ul><li>Some number of validation steps for all conclusions.</li><li>IP addresses, ports, protocols, times, and quantity data.</li><li>Highlighting patterns in the data.</li><li>Be written in Markdown.</li></ul></td><td style="width: 24.9715%;"><ul><li>Recommendations on IPs to examine further.</li></ul></td><td style="width: 24.9715%;"><ul><li>Conjecture.</li><li>LLM flattery.</li><li>Analysis based on outside data.</li></ul></td></tr></tbody></table><p>Here's the prompt I created:</p><pre class="language-markdown line-numbers"><code>Analyze the uploaded pfsense style log. Follow these directives in your analysis:
+
+- Run all analysis operations 3 times to validate findings.
+- Do NOT produce results that have not been validated.
+- Do NOT produce results based on data from outside the log.
+- Do NOT produce results that are not based on data in the log.
+- Ensure all results are written in plain English.
+- Associate IP addresses and Ports in the following format: [IP Address]:[Port]
+- Explain any and all recommendations for IPs to examine further.
+
+Highlight patterns in the data, including times and frequency of connections.</code></pre><p>Here's <a href="https://chatgpt.com/share/6880e805-e130-800f-a8ce-736696ef8a7b" title="ChatGPT Analysis of Transparent Filtering Bridge Blocking Log" target="_blank" rel="noopener noreferrer">the conversation with ChatGPT</a>, which shows some fascinating behavior as it iterates its way into coming up with a Python script to do the data analysis.</p><p>To validate that the data is <strong>not </strong>hallucinated, I opened the log file in VS Code and searched for the dates and IP addresses. I found that the quantities of log entries were correct, and that the IP addresses associated with the ports <strong>did </strong>exist... But the script mistakenly associated the port number in the column immediately after the destination IP with that IP.</p><p>It is somewhat curious that it decided that 5 was an appropriate number of entries for each list, but this is something that could be expanded on in a revision of the prompt.</p><h2 id="mcetoc_1j0rt0igd31">Examining the Findings</h2><p>The findings were as follows:</p><blockquote><ul><li data-start="245" data-end="533"><p data-start="247" data-end="310">The five busiest minutes (timestamp at minute precision) are:</p><ul data-start="313" data-end="533"><li data-start="313" data-end="347"><p data-start="315" data-end="347">2025‑07‑15 09:04 — 232 entries</p></li><li data-start="350" data-end="384"><p data-start="352" data-end="384">2025‑06‑17 09:59 — 189 entries</p></li><li data-start="387" data-end="421"><p data-start="389" data-end="421">2025‑07‑03 19:09 — 132 entries</p></li><li data-start="424" data-end="458"><p data-start="426" data-end="458">2025‑06‑17 09:58 — 125 entries</p></li><li data-start="461" data-end="533"><p data-start="463" data-end="533">2025‑06‑28 16:40 — 122 entries <button class="ms-1 flex h-[22px] items-center rounded-xl px-2 relative bottom-[-2px] bg-[#f4f4f4] text-token-text-secondary! hover:bg-token-bg-secondary dark:bg-token-main-surface-secondary dark:hover:bg-token-bg-secondary"><svg width="20" height="20" viewbox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" alt="File" class="h-[16px] w-[16px] object-contain"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.2598 2.25191C11.8396 2.25191 12.2381 2.24808 12.6201 2.33981L12.8594 2.40719C13.0957 2.48399 13.3228 2.5886 13.5352 2.71871L13.6582 2.79879C13.9416 2.99641 14.1998 3.25938 14.5586 3.61813L15.5488 4.60836L15.833 4.89449C16.0955 5.16136 16.2943 5.38072 16.4482 5.6318L16.5703 5.84957C16.6829 6.07074 16.7691 6.30495 16.8271 6.54684L16.8574 6.69137C16.918 7.0314 16.915 7.39998 16.915 7.90719V13.0839C16.915 13.7728 16.9157 14.3301 16.8789 14.7802C16.8461 15.1808 16.781 15.5417 16.6367 15.8779L16.5703 16.0205C16.3049 16.5413 15.9008 16.9772 15.4053 17.2812L15.1865 17.4033C14.8099 17.5951 14.4041 17.6745 13.9463 17.7119C13.4961 17.7487 12.9391 17.749 12.25 17.749H7.75C7.06092 17.749 6.50395 17.7487 6.05371 17.7119C5.65317 17.6791 5.29227 17.6148 4.95606 17.4707L4.81348 17.4033C4.29235 17.1378 3.85586 16.7341 3.55176 16.2382L3.42969 16.0205C3.23787 15.6439 3.15854 15.2379 3.12109 14.7802C3.08432 14.3301 3.08496 13.7728 3.08496 13.0839V6.91695C3.08496 6.228 3.08433 5.67086 3.12109 5.22066C3.1585 4.76296 3.23797 4.35698 3.42969 3.98043C3.73311 3.38494 4.218 2.90008 4.81348 2.59664C5.19009 2.40484 5.59593 2.32546 6.05371 2.28805C6.50395 2.25126 7.06091 2.25191 7.75 2.25191H11.2598ZM7.75 3.58199C7.03896 3.58199 6.54563 3.58288 6.16211 3.61422C5.78642 3.64492 5.575 3.70168 5.41699 3.78219C5.0718 3.95811 4.79114 4.23874 4.61524 4.58395C4.53479 4.74193 4.47795 4.95354 4.44727 5.32906C4.41595 5.71254 4.41504 6.20609 4.41504 6.91695V13.0839C4.41504 13.7947 4.41594 14.2884 4.44727 14.6718C4.47798 15.0472 4.53477 15.259 4.61524 15.417L4.68555 15.5429C4.86186 15.8304 5.11487 16.0648 5.41699 16.2187L5.54688 16.2744C5.69065 16.3258 5.88016 16.3636 6.16211 16.3867C6.54563 16.418 7.03898 16.4189 7.75 16.4189H12.25C12.961 16.4189 13.4544 16.418 13.8379 16.3867C14.2135 16.356 14.425 16.2992 14.583 16.2187L14.709 16.1474C14.9963 15.9712 15.2308 15.7189 15.3848 15.417L15.4414 15.2861C15.4927 15.1425 15.5297 14.953 15.5527 14.6718C15.5841 14.2884 15.585 13.7947 15.585 13.0839V8.55758L13.3506 8.30953C12.2572 8.18804 11.3976 7.31827 11.2881 6.22359L11.0234 3.58199H7.75ZM12.6113 6.09176C12.6584 6.56193 13.0275 6.93498 13.4971 6.98727L15.5762 7.21871C15.5727 7.13752 15.5686 7.07109 15.5615 7.01266L15.5342 6.85738C15.5005 6.7171 15.4501 6.58135 15.3848 6.45309L15.3145 6.32711C15.2625 6.24233 15.1995 6.16135 15.0928 6.04488L14.6084 5.54879L13.6182 4.55856C13.2769 4.21733 13.1049 4.04904 12.9688 3.94234L12.8398 3.8525C12.7167 3.77705 12.5853 3.71637 12.4482 3.67184L12.3672 3.6484L12.6113 6.09176Z"></path></svg></button></p></li></ul></li><li data-start="534" data-end="863"><p data-start="536" data-end="611">The top five most frequently seen IP:Port pairs (across all entries) are:</p><ul data-start="614" data-end="863"><li data-start="614" data-end="654"><p data-start="616" data-end="654"><a href="https://www.virustotal.com/gui/ip-address/13.107.253.41" title="VirusTotal result for 13.107.253.41" target="_blank" rel="noopener noreferrer">13.107.253.41</a>:55731 — 19 occurrences</p></li><li data-start="657" data-end="697"><p data-start="659" data-end="697"><a href="https://www.virustotal.com/gui/ip-address/34.107.243.93" title="VirusTotal result for 34.107.243.93" target="_blank" rel="noopener noreferrer">34.107.243.93</a>:60753 — 18 occurrences</p></li><li data-start="700" data-end="740"><p data-start="702" data-end="740"><a href="https://www.virustotal.com/gui/ip-address/54.84.219.196" title="VirusTotal result for 54.84.219.196" target="_blank" rel="noopener noreferrer">54.84.219.196</a>:52647 — 18 occurrences</p></li><li data-start="743" data-end="783"><p data-start="745" data-end="783"><a href="https://www.virustotal.com/gui/ip-address/3.218.230.195" title="VirusTotal result for 3.218.230.195" target="_blank" rel="noopener noreferrer">3.218.230.195</a>:57497 — 18 occurrences</p></li><li data-start="786" data-end="863"><p data-start="788" data-end="863"><a href="https://www.virustotal.com/gui/ip-address/44.215.87.86" title="VirusTotal result for 44.215.87.86" target="_blank" rel="noopener noreferrer">44.215.87.86</a>:59136 — 18 occurrences</p></li></ul></li></ul></blockquote><p>Of the five IP addresses it highlighted, 4 were considered to be benign by both VirusTotal vendor analysis and the community. <code>34.107.243.93</code> was considered benign by vendors, but members of the community flagged it as potentially malicious. It might also be associated with Mozilla Firefox and the <code>push.services.mozilla.com</code> domain.</p><p>Unfortunately, there's not much to glean from the rule that's blocking all these IPs:</p><figure class="post__image"><img loading="lazy" src="https://korgano.github.io/media/posts/44/cyber-proj-tfb16.png" alt="OPNSense rule list containing Rule 2." width="1920" height="921" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/44/responsive/cyber-proj-tfb16-xs.png 384w, https://korgano.github.io/media/posts/44/responsive/cyber-proj-tfb16-sm.png 600w, https://korgano.github.io/media/posts/44/responsive/cyber-proj-tfb16-md.png 768w, https://korgano.github.io/media/posts/44/responsive/cyber-proj-tfb16-lg.png 1200w, https://korgano.github.io/media/posts/44/responsive/cyber-proj-tfb16-xl.png 1600w"></figure><p>This is one of OPNsense's automatically generated rules rules, but there is no way for me to figure out which one it is, because I can't open the actual rules at the bridge interface GUI. I would have to dig around for log entries and <strong>maybe </strong>find enough information there to decipher which rule is being applied.</p><p>Unfortunately, it seems the same rule applied to the 2025‑07‑15 09:04 time window.</p><p>Checking the IP addresses, I started at the top - so chronologically last in that time window, with <a href="https://www.virustotal.com/gui/ip-address/67.195.176.151" title="VirusTotal result for 67.195.176.151." target="_blank" rel="noopener noreferrer">67.195.176.151</a>. Coming in at 63 of 232 entries, this is all traffic on port 993, secure IMAP, so it's related to e-mail. It is not particularly clear why I got so much mail traffic on that day, even looking at my e-mail inboxes.</p><p>Next up is <span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"><a href="https://www.virustotal.com/gui/ip-address/3.229.151.51/detection" title="VirusTotal details on 3.229.151.51." target="_blank" rel="noopener noreferrer">3.229.151.51</a>, which is an HTTPS connection to an Amazon IP address, which could be just about anything.</span></p><p><a href="https://www.virustotal.com/gui/ip-address/3.223.181.245/community" title="VirusTotal page on 3.223.181.245." target="_blank" rel="noopener noreferrer">3.223.181.245</a> is another Amazon IP address, but this might be an IP that does scans of people's systems.</p><p>Coming in at 46 entries, <span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"><a href="https://www.virustotal.com/gui/ip-address/38.34.185.21" title="VirusTotal result for 38.34.185.21." target="_blank" rel="noopener noreferrer">38.34.185.21</a> is somewhat interesting, since it is associated with a VPN, a Japanese IP range, and has at least one Suspicious analysis on VirusTotal. This could just be a VPN connection to get around a region lock though.</span></p><p><a href="https://www.virustotal.com/gui/ip-address/34.249.225.129" title="VirusTotal result for 34.249.225.129." target="_blank" rel="noopener noreferrer">34.249.225.129</a> is yet another Amazon IP, but this one is not only from Ireland, but has a MalwareURL analysis saying it is Malware. The last analysis was done 3 days ago, but with no indication of which analysis was done, it is hard to tell if this was a compromised IP in the past or is currently compromised.</p><p><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"><a href="https://www.virustotal.com/gui/ip-address/24.49.122.85" title="VirusTotal result for 24.49.122.85." target="_blank" rel="noopener noreferrer">24.49.122.85</a> is a mildly interesting, because it's an incredibly non-descript IP address. Even looking at the WHOIS information revealed very little. Google's own search AI Mode purports that it is a <strong>Google </strong>IP address:</span></p><blockquote><p>The IP address "24.49.122.85" belongs to the public IP address range. It is associated with Google LLC, located in Mountain View, California. More specifically, it is identified as a search engine spider or a component within Google's infrastructure.</p><p>-Google AI Mode:12:43 PM, 7/23/2025</p></blockquote><p>With 16 entries, <span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"><a href="https://www.virustotal.com/gui/ip-address/172.183.7.193" title="VirusTotal result for 172.183.7.193." target="_blank" rel="noopener noreferrer">172.183.7.193</a> is a Microsoft server of some sort. Bizarrely, despite this being the kind of thing that would logically be expected to be blocked by a tracking rule, it was caught by rule 2. Examining the <a href="https://www.whois.com/whois/172.183.7.193" title="WHOIS report on 172.183.7.193." target="_blank" rel="noopener noreferrer">WHOIS information on this IP</a> reveals that it is for "Microsoft Routing, Peering, and DNS".</span></p><p>Next up are a pair of solo Akamai IP addresses, <a href="https://www.virustotal.com/gui/ip-address/184.84.138.181" title="VirusTotal result for 184.84.138.181." target="_blank" rel="noopener noreferrer">184.84.138.181</a> and <a href="https://www.virustotal.com/gui/ip-address/184.84.136.40" title="VirusTotal result for 184.84.136.40." target="_blank" rel="noopener noreferrer">184.84.136.40</a>. WHOIS look up revealed nothing of real value, and neither address has any real analysis on VirusTotal, which is slightly suspicious. </p><p>At 11 entries, <a href="https://www.virustotal.com/gui/ip-address/23.50.112.217/detection" title="VirusTotal results for 23.50.112.217." target="_blank" rel="noopener noreferrer">23.50.112.217</a> is another Akamai IP, although from Akamai International.</p><p>With 3 entries each, <span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"><a href="https://www.virustotal.com/gui/ip-address/54.167.177.211" title="VirusTotal result for 54.167.177.211." target="_blank" rel="noopener noreferrer">54.167.177.211</a> and </span><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"><a href="https://www.virustotal.com/gui/ip-address/15.197.243.254" title="VirusTotal result for 15.197.243.254." target="_blank" rel="noopener noreferrer">15.197.243.254</a> are </span><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">another set of Amazon IPs.</span></p><p>At 10 entries, <a href="https://www.virustotal.com/gui/ip-address/71.74.45.223" title="VirusTotal result for 71.74.45.223." target="_blank" rel="noopener noreferrer">71.74.45.223</a> is an IP related to my ISP, which may or may not be related to steaming app use.</p><p>Coming in with 20 entries is <a href="https://www.virustotal.com/gui/ip-address/3.212.87.58" title="VirusTotal result for 3.212.87.58." target="_blank" rel="noopener noreferrer">3.212.87.58</a>, <a href="https://www.virustotal.com/gui/ip-address/98.82.158.136" title="VirusTotal result for 98.82.158.136." target="_blank" rel="noopener noreferrer">98.82.158.136</a> with 1 connection, <a href="https://www.virustotal.com/gui/ip-address/3.232.210.51" title="VirusTotal result for 3.232.210.51." target="_blank" rel="noopener noreferrer">3.232.210.51</a> with 13, <a href="https://www.virustotal.com/gui/ip-address/98.82.159.50" title="VirusTotal result for 98.82.159.50." target="_blank" rel="noopener noreferrer">98.82.159.50</a> with 17,  and was another Amazon IP. </p><p><a href="https://www.virustotal.com/gui/ip-address/109.176.239.70/detection" title="VirusTotal result for 109.176.239.70." target="_blank" rel="noopener noreferrer">109.176.239.70</a> is interesting, because it's a Hack the Box IP with 11 entries. With 42 entries, <a href="https://www.virustotal.com/gui/ip-address/140.82.113.25" title="VirusTotal result for 140.82.113.25." target="_blank" rel="noopener noreferrer">140.82.113.25 </a>is a Github IP address - I guess I was busy doing some uploads or repo management! <a href="https://www.virustotal.com/gui/ip-address/140.82.114.26" title="VirusTotal result for 140.82.114.26." target="_blank" rel="noopener noreferrer">140.82.114.26</a> is another Github IP, with 35 entries.</p><p>With 71 connections, <a href="https://www.virustotal.com/gui/ip-address/172.183.7.194/detection" title="VirusTotal result for 172.183.7.194." target="_blank" rel="noopener noreferrer">172.183.7.194</a> is a Microsoft IP of some sort.</p><p>At 6 entries, <a href="https://www.virustotal.com/gui/ip-address/165.22.185.144/detection" title="VirusTotal result for 165.22.185.144." target="_blank" rel="noopener noreferrer">165.22.185.144</a> is a DigitalOcean IP. DigitalOcean is a digital infrastructure company with a somewhat checkered reputation, so this is definitely an interesting finding.</p><p><a href="https://www.virustotal.com/gui/ip-address/45.79.197.58" title="VirusTotal result for 45.79.197.58." target="_blank" rel="noopener noreferrer">45.79.197.58</a> is another Akamai IP with 44 entries.</p><p><a href="https://www.virustotal.com/gui/ip-address/162.159.130.232" title="VirusTotal result for 162.159.130.232." target="_blank" rel="noopener noreferrer">162.159.130.232</a> has six entries; with three,<a href="https://www.virustotal.com/gui/ip-address/172.64.145.202" title="VirusTotal result for 172.64.145.202." target="_blank" rel="noopener noreferrer">172.64.145.202</a>. Both are Cloudflare IPs.</p><p>Overall, it's pretty clear that the Alias lists I have are insufficient in terms of filtering traffic. Since the default rules are lower in the execution order than the custom rules I have generated, they are a sign that not a lot of traffic is triggering the rules targeting the IPs from the various DNS blocklists.</p><h2>Next Steps</h2><p>The first obvious step is to get blocklists focused on IP addresses. This will help narrow down the blocked connections and better identify potential threat traffic.</p><p>Second is to refine the prompt for the log analysis. Since the first attempt was quite good at avoiding hallucinations, the next one is just an iterative improvement:</p><pre class="language-markdown line-numbers"><code>Analyze the uploaded pfsense style log. Follow these directives in your analysis:
+
+- pfsense log column values: Rule Number, Sub‑rule Number, Anchor, Tracker ID, Real Interface, Reason, Action, Direction, IP Version, TOS, TTL, IP ID, Fragment Offset, IP Flags, Protocol ID, Protocol Text, Packet Length, Source IP, Destination IP, Source Port, Destination Port, Data Length, TCP Flags, Sequence Number, Acknowledgment Number, Window Size, Urgent Pointer, TCP Options
+- Run all analysis operations 3 times to validate findings.
+- Do NOT produce results that have not been validated.
+- Do NOT produce results based on data from outside the log.
+- Do NOT produce results that are not based on data in the log.
+- Ensure all results are written in plain English.
+- Associate IP addresses and Ports in the following format: [IP Address]:[Port]
+- Explain any and all recommendations for IPs to examine further.
+- Generate results in groups of 10 entries.
+
+Highlight patterns in the data, including times, frequency of connections, protocol IDs, packet length.</code></pre><p>Third is to collect a stable set of data from after the OPNSense 25.7 update, which naturally caused a whole bunch of problems. Solving these problems required a number of reboots and service restarts, which pollute the data a fair bit. Therefore, new data will be collected, and then comparisons to the existing data can be made.</p></div><footer class="content__footer"><div class="content__tag-share"><div class="content__tag"><h3 class="content__tag__title">Posted in</h3><ul class="content__tag__list"><li><a href="https://korgano.github.io/tags/ai/">AI</a></li><li><a href="https://korgano.github.io/tags/tech/">Tech</a></li><li><a href="https://korgano.github.io/tags/tech-projects/">Tech Projects</a></li></ul></div><div class="content__share"><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fkorgano.github.io%2Fcybersecurity-project-transparent-filtering-bridge-extras-92%2F" class="js-share linkedin" aria-label="Share with LinkedIn" rel="nofollow noopener noreferrer"><svg><use xlink:href="https://korgano.github.io/assets/svg/svg-map.svg#linkedin"/></svg></a></div></div></footer></div></article><div class="content__related"><h3 class="content__related__title">Related posts</h3><div class="l-grid l-grid--2"><article class="c-card"><div class="c-card__wrapper"><figure class="c-card__image is-img-loading"><img src="https://korgano.github.io/media/posts/11/rivage-AIIC6wCqkQc-unsplash.jpg" srcset="https://korgano.github.io/media/posts/11/responsive/rivage-AIIC6wCqkQc-unsplash-xs.jpg 384w, https://korgano.github.io/media/posts/11/responsive/rivage-AIIC6wCqkQc-unsplash-sm.jpg 600w, https://korgano.github.io/media/posts/11/responsive/rivage-AIIC6wCqkQc-unsplash-md.jpg 768w, https://korgano.github.io/media/posts/11/responsive/rivage-AIIC6wCqkQc-unsplash-lg.jpg 1200w" sizes="(min-width: 37.5em) 80vw, 50vw" loading="lazy" height="3456" width="5184" alt=""></figure><div class="c-card__content"><header><h2 class="c-card__title"><a href="https://korgano.github.io/cybersecurity-project-virtual-machines-arent-always-the-solution/" class="invert">Cybersecurity Project: Virtual Machines Aren&#x27;t Always The Solution</a></h2></header><footer class="c-card__meta"><a href="https://korgano.github.io/tags/cybersecurity-projects/" class="c-card__tag">Cybersecurity Projects</a></footer></div></div></article><article class="c-card"><div class="c-card__wrapper"><figure class="c-card__image is-img-loading"><img src="https://korgano.github.io/media/posts/10/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg" srcset="https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-xs.jpg 384w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-sm.jpg 600w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-md.jpg 768w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-lg.jpg 1200w" sizes="(min-width: 37.5em) 80vw, 50vw" loading="lazy" height="2712" width="4076" alt=""></figure><div class="c-card__content"><header><h2 class="c-card__title"><a href="https://korgano.github.io/cybersecurity-project-research-remote-access/" class="invert">Cybersecurity Project Research: Remote Access</a></h2></header><footer class="c-card__meta"><a href="https://korgano.github.io/tags/cybersecurity-projects/" class="c-card__tag">Cybersecurity Projects</a></footer></div></div></article></div></div></main><footer class="footer"><div class="footer__left"><div class="footer__copy">Copyright Xavier Santana, 2023-2024. Powered by Publii.</div></div><button onclick="backToTopFunction()" id="backToTop" class="footer__bttop" aria-label="Back to top" title="Back to top"><svg><use xlink:href="https://korgano.github.io/assets/svg/svg-map.svg#toparrow"/></svg></button></footer></div><script>window.publiiThemeMenuConfig = { mobileMenuMode: 'sidebar', animationSpeed: 300, submenuWidth: 'auto', doubleClickTime: 500, mobileMenuExpandableSubmenus: true, relatedContainerForOverlayMenuSelector: '.navbar', };</script><script defer="defer" src="https://korgano.github.io/assets/js/scripts.min.js?v=9c5ab7a87221183f149a42b3cceb7956"></script><script>function publiiDetectLoadedImages () {
+         var images = document.querySelectorAll('img[loading]:not(.is-loaded)');
+         for (var i = 0; i < images.length; i++) {
+            if (images[i].complete) {
+               images[i].classList.add('is-loaded');
+               images[i].parentNode.classList.remove('is-img-loading');
+            } else {
+               images[i].addEventListener('load', function () {
+                  this.classList.add('is-loaded');
+                  this.parentNode.classList.remove('is-img-loading');
+               }, false);
+            }
+         }
+      }
+      publiiDetectLoadedImages();</script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-line-numbers.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/clipboard.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-copy-to-clipboard.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-inline-color.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-show-invisibles.min.js"></script><!-- Start main cookie container --><div class="pcb" data-behaviour="badge" data-behaviour-link="#cookie-settings" data-revision="1" data-config-ttl="90" data-debug-mode="false"><!-- Start Banner --><div role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pcb-title" aria-describedby="pcb-txt" class="pcb__banner"><div class="pcb__inner"><div id="pcb-title" role="heading" aria-level="2" class="pcb__title">This website uses cookies</div><div id="pcb-txt" class="pcb__txt">Select which cookies to opt-in to via the checkboxes below; our website uses cookies to examine site traffic and user activity while on our site, for marketing, and to provide social media functionality. <a href="https://korgano.github.io/privacy-policy/">More details...</a></div><div class="pcb__buttons"><button type="button" class="pcb__btn pcb__btn--solid pcb__btn--accept">Accept all</button></div></div></div><!-- End of Banner --><!-- Badge --> <button class="pcb__badge" aria-label="Cookie Policy" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="40" height="40" viewBox="0 0 23 23" fill="currentColor"><path d="M21.41 12.71c-.08-.01-.15 0-.22 0h-.03c-.03 0-.05 0-.08.01-.07 0-.13.01-.19.04-.52.21-1.44.19-2.02-.22-.44-.31-.65-.83-.62-1.53a.758.758 0 0 0-.27-.61.73.73 0 0 0-.65-.14c-1.98.51-3.49.23-4.26-.78-.82-1.08-.73-2.89.24-4.49.14-.23.14-.52 0-.75a.756.756 0 0 0-.67-.36c-.64.03-1.11-.1-1.31-.35-.19-.26-.13-.71-.01-1.29.04-.18.06-.38.03-.59-.05-.4-.4-.7-.81-.66C5.1 1.54 1 6.04 1 11.48 1 17.28 5.75 22 11.6 22c5.02 0 9.39-3.54 10.39-8.42.08-.4-.18-.78-.58-.87Zm-9.81 7.82c-5.03 0-9.12-4.06-9.12-9.06 0-4.34 3.05-8 7.25-8.86-.08.7.05 1.33.42 1.81.24.32.66.67 1.38.84-.76 1.86-.65 3.78.36 5.11.61.81 2.03 2 4.95 1.51.18.96.71 1.54 1.18 1.87.62.43 1.38.62 2.1.62.05 0 .09 0 .13-.01-1.23 3.64-4.7 6.18-8.64 6.18ZM13 17c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1Zm5.29-12.3a.99.99 0 0 1-.29-.71c0-.55.45-.99 1-.99a1 1 0 0 1 .71.3c.19.19.29.44.29.71 0 .55-.45.99-1 .99a1 1 0 0 1-.71-.3ZM9 13.5c0 .83-.67 1.5-1.5 1.5S6 14.33 6 13.5 6.67 12 7.5 12s1.5.67 1.5 1.5Zm3.25.81a.744.744 0 0 1-.06-1.05c.28-.32.75-.34 1.05-.06.31.28.33.75.05 1.06-.15.16-.35.25-.56.25-.18 0-.36-.06-.5-.19ZM8.68 7.26c.41.37.44 1 .07 1.41-.2.22-.47.33-.75.33a.96.96 0 0 1-.67-.26c-.41-.37-.44-1-.07-1.41.37-.42 1-.45 1.41-.08Zm11.48 1.88c.18-.19.52-.19.7 0 .05.04.09.1.11.16.03.06.04.12.04.19 0 .13-.05.26-.15.35-.09.1-.22.15-.35.15s-.26-.05-.35-.15a.355.355 0 0 1-.11-.16.433.433 0 0 1-.04-.19c0-.13.05-.26.15-.35Zm-4.93-1.86a.75.75 0 1 1 1.059-1.06.75.75 0 0 1-1.059 1.06Z"/></svg></button><!-- End of Badge --></div><!-- End of main cookie container --><script>(function(win) {
+    if (!document.querySelector('.pcb')) {
+        return;
+    }
+
+    var cbConfig = {
+        behaviour: document.querySelector('.pcb').getAttribute('data-behaviour'),
+        behaviourLink: document.querySelector('.pcb').getAttribute('data-behaviour-link'),
+        revision: document.querySelector('.pcb').getAttribute('data-revision'),
+        configTTL: parseInt(document.querySelector('.pcb').getAttribute('data-config-ttl'), 10),
+        debugMode: document.querySelector('.pcb').getAttribute('data-debug-mode') === 'true',
+        initialState: null,
+        initialLsState: null,
+        previouslyAccepted: []
+    };
+
+    var cbUI = {
+        wrapper: document.querySelector('.pcb'),
+        banner: {
+            element: null,
+            btnAccept: null,
+            btnReject: null,
+            btnConfigure: null
+        },
+        popup: {
+            element: null,
+            btnClose: null,
+            btnSave: null,
+            btnAccept: null,
+            btnReject: null,
+            checkboxes: null,
+        },
+        overlay: null,
+        badge: null,
+        blockedScripts: document.querySelectorAll('script[type^="gdpr-blocker/"]'),
+        triggerLinks: cbConfig.behaviourLink ? document.querySelectorAll('a[href*="' + cbConfig.behaviourLink + '"]') : null
+    };
+
+    function initUI () {
+        // setup banner elements
+        cbUI.banner.element = cbUI.wrapper.querySelector('.pcb__banner');
+        cbUI.banner.btnAccept = cbUI.banner.element.querySelector('.pcb__btn--accept');
+        cbUI.banner.btnReject = cbUI.banner.element.querySelector('.pcb__btn--reject');
+        cbUI.banner.btnConfigure = cbUI.banner.element.querySelector('.pcb__btn--configure');
+
+        // setup popup elements
+        if (cbUI.wrapper.querySelector('.pcb__popup')) {
+            cbUI.popup.element = cbUI.wrapper.querySelector('.pcb__popup');
+            cbUI.popup.btnClose = cbUI.wrapper.querySelector('.pcb__popup__close');
+            cbUI.popup.btnSave = cbUI.popup.element.querySelector('.pcb__btn--save');
+            cbUI.popup.btnAccept = cbUI.popup.element.querySelector('.pcb__btn--accept');
+            cbUI.popup.btnReject = cbUI.popup.element.querySelector('.pcb__btn--reject');
+            cbUI.popup.checkboxes = cbUI.popup.element.querySelector('input[type="checkbox"]');
+            // setup overlay
+            cbUI.overlay = cbUI.wrapper.querySelector('.pcb__overlay');
+        }
+
+        cbUI.badge = cbUI.wrapper.querySelector('.pcb__badge');
+
+        if (cbConfig.behaviour.indexOf('link') > -1) {
+            for (var i = 0; i < cbUI.triggerLinks.length; i++) {
+                cbUI.triggerLinks[i].addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showBannerOrPopup();
+                });
+            }
+        }
+    }
+
+    function initState () {
+        var lsKeyName = getConfigName();
+        var currentConfig = localStorage.getItem(lsKeyName);
+        var configIsFresh = checkIfConfigIsFresh();
+
+        if (!configIsFresh || currentConfig === null) {
+            if (cbConfig.debugMode) {
+                console.log('🍪 Config not found, or configuration expired');
+            }
+
+            if (window.publiiCBGCM) {
+                gtag('consent', 'default', {
+                    'ad_storage': window.publiiCBGCM.defaultState.ad_storage ? 'granted' : 'denied',
+                    'ad_personalization': window.publiiCBGCM.defaultState.ad_personalization ? 'granted' : 'denied',
+                    'ad_user_data': window.publiiCBGCM.defaultState.ad_user_data ? 'granted' : 'denied',
+                    'analytics_storage': window.publiiCBGCM.defaultState.analytics_storage ? 'granted' : 'denied',
+                    'personalization_storage': window.publiiCBGCM.defaultState.personalization_storage ? 'granted' : 'denied',
+                    'functionality_storage': window.publiiCBGCM.defaultState.functionality_storage ? 'granted' : 'denied',
+                    'security_storage': window.publiiCBGCM.defaultState.security_storage ? 'granted' : 'denied'
+                });  
+                
+                if (cbConfig.debugMode) {
+                    console.log('🍪 GCMv2 DEFAULT STATE: ' + JSON.stringify({
+                        'ad_storage': window.publiiCBGCM.defaultState.ad_storage ? 'granted' : 'denied',
+                        'ad_personalization': window.publiiCBGCM.defaultState.ad_personalization ? 'granted' : 'denied',
+                        'ad_user_data': window.publiiCBGCM.defaultState.ad_user_data ? 'granted' : 'denied',
+                        'analytics_storage': window.publiiCBGCM.defaultState.analytics_storage ? 'granted' : 'denied',
+                        'personalization_storage': window.publiiCBGCM.defaultState.personalization_storage ? 'granted' : 'denied',
+                        'functionality_storage': window.publiiCBGCM.defaultState.functionality_storage ? 'granted' : 'denied',
+                        'security_storage': window.publiiCBGCM.defaultState.security_storage ? 'granted' : 'denied'
+                    }));
+                }
+            }
+
+            showBanner();
+        } else if (typeof currentConfig === 'string') {
+            if (cbConfig.debugMode) {
+                console.log('🍪 Config founded');
+            }
+
+            cbConfig.initialLsState = currentConfig.split(',');
+
+            if (window.publiiCBGCM) {
+                gtag('consent', 'default', {
+                    'ad_storage': getDefaultConsentState(currentConfig, 'ad_storage'),
+                    'ad_personalization': getDefaultConsentState(currentConfig, 'ad_personalization'),
+                    'ad_user_data': getDefaultConsentState(currentConfig, 'ad_user_data'),
+                    'analytics_storage': getDefaultConsentState(currentConfig, 'analytics_storage'),
+                    'personalization_storage': getDefaultConsentState(currentConfig, 'personalization_storage'),
+                    'functionality_storage': getDefaultConsentState(currentConfig, 'functionality_storage'),
+                    'security_storage': getDefaultConsentState(currentConfig, 'security_storage')
+                });
+                
+                if (cbConfig.debugMode) {
+                    console.log('🍪 GCMv2 DEFAULT STATE: ' + JSON.stringify({
+                        'ad_storage': getDefaultConsentState(currentConfig, 'ad_storage'),
+                        'ad_personalization': getDefaultConsentState(currentConfig, 'ad_personalization'),
+                        'ad_user_data': getDefaultConsentState(currentConfig, 'ad_user_data'),
+                        'analytics_storage': getDefaultConsentState(currentConfig, 'analytics_storage'),
+                        'personalization_storage': getDefaultConsentState(currentConfig, 'personalization_storage'),
+                        'functionality_storage': getDefaultConsentState(currentConfig, 'functionality_storage'),
+                        'security_storage': getDefaultConsentState(currentConfig, 'security_storage')
+                    }));
+                }
+            }
+
+            showBadge();
+
+            if (cbUI.popup.element) {
+                var allowedGroups = currentConfig.split(',');
+                var checkedCheckboxes = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+
+                for (var j = 0; j < checkedCheckboxes.length; j++) {
+                    var name = checkedCheckboxes[j].getAttribute('data-group-name');
+
+                    if (name && name !== '-' && allowedGroups.indexOf(name) === -1) {
+                        checkedCheckboxes[j].checked = false;
+                    }
+                }
+
+                for (var i = 0; i < allowedGroups.length; i++) {
+                    var checkbox = cbUI.popup.element.querySelector('input[type="checkbox"][data-group-name="' + allowedGroups[i] + '"]');
+
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+
+                    allowCookieGroup(allowedGroups[i]);
+                }
+            }
+        }
+
+        setTimeout(function () {
+            cbConfig.initialState = getInitialStateOfConsents();
+        }, 0);
+    }
+
+    function checkIfConfigIsFresh () {
+        var lastConfigSave = localStorage.getItem('publii-gdpr-cookies-config-save-date');
+
+        if (lastConfigSave === null) {
+            return false;
+        }
+
+        lastConfigSave = parseInt(lastConfigSave, 10);
+
+        if (lastConfigSave === 0) {
+            return true;
+        }
+
+        if (+new Date() - lastConfigSave < cbConfig.configTTL * 24 * 60 * 60 * 1000) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function getDefaultConsentState (currentConfig, consentGroup) {
+        let configGroups = currentConfig.split(',');
+
+        for (let i = 0; i < configGroups.length; i++) {
+            let groupName = configGroups[i];
+            let group = window.publiiCBGCM.groups.find(group => group.cookieGroup === groupName);
+
+            if (group && group[consentGroup]) {
+                return 'granted';
+            }
+        }  
+        
+        if (window.publiiCBGCM.defaultState[consentGroup]) {
+            return 'granted'; 
+        }
+        
+        return 'denied';
+    }
+
+    function initBannerEvents () {
+        cbUI.banner.btnAccept.addEventListener('click', function (e) {
+            e.preventDefault();
+            acceptAllCookies('banner');
+            showBadge();
+        }, false);
+
+        if (cbUI.banner.btnReject) {
+            cbUI.banner.btnReject.addEventListener('click', function (e) {
+                e.preventDefault();
+                rejectAllCookies();
+                showBadge();
+            }, false);
+        }
+
+        if (cbUI.banner.btnConfigure) {
+            cbUI.banner.btnConfigure.addEventListener('click', function (e) {
+                e.preventDefault();
+                hideBanner();
+                showAdvancedPopup();
+                showBadge();
+            }, false);
+        }
+    }
+
+    function initPopupEvents () {
+        if (!cbUI.popup.element) {
+            return;
+        }
+
+        cbUI.overlay.addEventListener('click', function (e) {
+            hideAdvancedPopup();
+        }, false);
+
+        cbUI.popup.element.addEventListener('click', function (e) {
+            e.stopPropagation();
+        }, false);
+
+        cbUI.popup.btnAccept.addEventListener('click', function (e) {
+            e.preventDefault();
+            acceptAllCookies('popup');
+        }, false);
+
+        cbUI.popup.btnReject.addEventListener('click', function (e) {
+            e.preventDefault();
+            rejectAllCookies();
+        }, false);
+
+        cbUI.popup.btnSave.addEventListener('click', function (e) {
+            e.preventDefault();
+            saveConfiguration();
+        }, false);
+
+        cbUI.popup.btnClose.addEventListener('click', function (e) {
+            e.preventDefault();
+            hideAdvancedPopup();
+        }, false);
+    }
+
+    function initBadgeEvents () {
+        if (!cbUI.badge) {
+            return;
+        }
+
+        cbUI.badge.addEventListener('click', function (e) {
+            showBannerOrPopup();
+        }, false);
+    }
+
+    initUI();
+    initState();
+    initBannerEvents();
+    initPopupEvents();
+    initBadgeEvents();
+
+    /**
+     * API
+     */
+    function addScript (src, inline) {
+        var newScript = document.createElement('script');
+
+        if (src) {
+            newScript.setAttribute('src', src);
+        }
+
+        if (inline) {
+            newScript.text = inline;
+        }
+
+        document.body.appendChild(newScript);
+    }
+
+    function allowCookieGroup (allowedGroup) {
+        var scripts = document.querySelectorAll('script[type="gdpr-blocker/' + allowedGroup + '"]');
+        cbConfig.previouslyAccepted.push(allowedGroup);
+    
+        for (var j = 0; j < scripts.length; j++) {
+            addScript(scripts[j].src, scripts[j].text);
+        }
+
+        var groupEvent = new Event('publii-cookie-banner-unblock-' + allowedGroup);
+        document.body.dispatchEvent(groupEvent);
+        unlockEmbeds(allowedGroup);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Allowed group: ' + allowedGroup);
+        }
+
+        if (window.publiiCBGCM && (!cbConfig.initialLsState || cbConfig.initialLsState.indexOf(allowedGroup) === -1)) {
+            let consentResult = {};
+            let group = window.publiiCBGCM.groups.find(group => group.cookieGroup === allowedGroup);
+
+            if (group) {
+                let foundSomeConsents = false;
+
+                Object.keys(group).forEach(key => {
+                    if (key !== 'cookieGroup' && group[key] === true) {
+                        consentResult[key] = 'granted';
+                        foundSomeConsents = true;
+                    }
+                });
+
+                if (foundSomeConsents) {
+                    gtag('consent', 'update', consentResult);   
+
+                    if (cbConfig.debugMode) {
+                        console.log('🍪 GCMv2 UPDATE: ' + JSON.stringify(consentResult));
+                    }
+                }
+            }
+        }
+    }
+
+    function showBannerOrPopup () {
+        if (cbUI.popup.element) {
+            showAdvancedPopup();
+        } else {
+            showBanner();
+        }
+    }
+
+    function showAdvancedPopup () {
+        cbUI.popup.element.classList.add('is-visible');
+        cbUI.overlay.classList.add('is-visible');
+        cbUI.popup.element.setAttribute('aria-hidden', 'false');
+        cbUI.overlay.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideAdvancedPopup () {
+        cbUI.popup.element.classList.remove('is-visible');
+        cbUI.overlay.classList.remove('is-visible');
+        cbUI.popup.element.setAttribute('aria-hidden', 'true');
+        cbUI.overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    function showBanner () {
+        cbUI.banner.element.classList.add('is-visible');
+        cbUI.banner.element.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideBanner () {
+        cbUI.banner.element.classList.remove('is-visible');
+        cbUI.banner.element.setAttribute('aria-hidden', 'true');
+    }
+
+    function showBadge () {
+        if (!cbUI.badge) {
+            return;
+        }
+
+        cbUI.badge.classList.add('is-visible');
+        cbUI.badge.setAttribute('aria-hidden', 'false');
+    }
+
+    function getConfigName () {
+        var lsKeyName = 'publii-gdpr-allowed-cookies';
+
+        if (cbConfig.revision) {
+            lsKeyName = lsKeyName + '-v' + parseInt(cbConfig.revision, 10);
+        }
+
+        return lsKeyName;
+    }
+
+    function storeConfiguration (allowedGroups) {
+        var lsKeyName = getConfigName();
+        var dataToStore = allowedGroups.join(',');
+        localStorage.setItem(lsKeyName, dataToStore);
+
+        if (cbConfig.configTTL === 0) {
+            localStorage.setItem('publii-gdpr-cookies-config-save-date', 0);
+
+            if (cbConfig.debugMode) {
+                console.log('🍪 Store never expiring configuration');
+            }
+        } else {
+            localStorage.setItem('publii-gdpr-cookies-config-save-date', +new Date());
+        }
+    }
+
+    function getInitialStateOfConsents () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Initial state: ' + groups.join(', '));
+        }
+
+        return groups;
+    }
+
+    function getCurrentStateOfConsents () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 State to save: ' + groups.join(', '));
+        }
+
+        return groups;
+    }
+
+    function getAllGroups () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        return groups;
+    }
+
+    function acceptAllCookies (source) {
+        var groupsToAccept = getAllGroups();
+        storeConfiguration(groupsToAccept);
+
+        for (var i = 0; i < groupsToAccept.length; i++) {
+            var group = groupsToAccept[i];
+
+            if (cbConfig.initialState.indexOf(group) > -1 || cbConfig.previouslyAccepted.indexOf(group) > -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Skip previously activated group: ' + group);
+                }
+
+                continue;
+            }
+
+            allowCookieGroup(group);
+        }
+
+        if (cbUI.popup.element) {
+            var checkboxesToCheck = cbUI.popup.element.querySelectorAll('input[type="checkbox"]');
+
+            for (var j = 0; j < checkboxesToCheck.length; j++) {
+                checkboxesToCheck[j].checked = true;
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Accept all cookies: ', groupsToAccept.join(', '));
+        }
+
+        if (source === 'popup') {
+            hideAdvancedPopup();
+        } else if (source === 'banner') {
+            hideBanner();
+        }
+    }
+
+    function rejectAllCookies () {
+        if (cbConfig.debugMode) {
+            console.log('🍪 Reject all cookies');
+        }
+
+        storeConfiguration([]);
+        setTimeout(function () {
+            window.location.reload();
+        }, 100);
+    }
+
+    function saveConfiguration () {
+        var groupsToAccept = getCurrentStateOfConsents();
+        storeConfiguration(groupsToAccept);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Save new config: ', groupsToAccept.join(', '));
+        }
+
+        if (reloadIsNeeded(groupsToAccept)) {
+            setTimeout(function () {
+                window.location.reload();
+            }, 100);
+            return;
+        }
+
+        for (var i = 0; i < groupsToAccept.length; i++) {
+            var group = groupsToAccept[i];
+
+            if (cbConfig.initialState.indexOf(group) > -1 || cbConfig.previouslyAccepted.indexOf(group) > -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Skip previously activated group: ' + group);
+                }
+
+                continue;
+            }
+
+            allowCookieGroup(group);
+        }
+
+        hideAdvancedPopup();
+    }
+
+    function reloadIsNeeded (groupsToAccept) {
+        // check if user rejected consent for initial groups
+        var initialGroups = cbConfig.initialState;
+        var previouslyAcceptedGroups = cbConfig.previouslyAccepted;
+        var groupsToCheck = initialGroups.concat(previouslyAcceptedGroups);
+
+        for (var i = 0; i < groupsToCheck.length; i++) {
+            var groupToCheck = groupsToCheck[i];
+
+            if (groupToCheck !== '' && groupsToAccept.indexOf(groupToCheck) === -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Reload is needed due lack of: ', groupToCheck);
+                }
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    function unlockEmbeds (cookieGroup) {
+        var iframesToUnlock = document.querySelectorAll('.pec-wrapper[data-consent-group-id="' + cookieGroup + '"]');
+
+        for (var i = 0; i < iframesToUnlock.length; i++) {
+            var iframeWrapper = iframesToUnlock[i];
+            iframeWrapper.querySelector('.pec-overlay').classList.remove('is-active');
+            iframeWrapper.querySelector('.pec-overlay').setAttribute('aria-hidden', 'true');
+            var iframe = iframeWrapper.querySelector('iframe');
+            iframe.setAttribute('src', iframe.getAttribute('data-consent-src'));
+        }
+    }
+
+    win.publiiEmbedConsentGiven = function (cookieGroup) {
+        // it will unlock embeds
+        allowCookieGroup(cookieGroup);
+
+        var checkbox = cbUI.popup.element.querySelector('input[type="checkbox"][data-group-name="' + cookieGroup + '"]');
+
+        if (checkbox) {
+            checkbox.checked = true;
+        }
+
+        var groupsToAccept = getCurrentStateOfConsents();
+        storeConfiguration(groupsToAccept);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Save new config: ', groupsToAccept.join(', '));
+        }
+    }
+})(window);</script></body></html>
