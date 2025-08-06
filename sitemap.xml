@@ -273,6 +273,42 @@
 </image:image>
 </url>
 <url>
+<loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-100/</loc>
+<lastmod>2025-08-06T11:38:40-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/45/cyber-proj-tfb29-2.png</image:loc>
+<image:title><![CDATA[OPNSense log entries involving 195.3.223.82 on August 2, 2025.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/45/cyber-proj-tfb23.jpg</image:loc>
+<image:title><![CDATA[OPNSense shell showing loss of WiFi connectivity.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/45/cyber-proj-tfb24.jpg</image:loc>
+<image:title><![CDATA[Result of running initial wpa_supplicant setup script on OPNSense 25.7.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/45/cyber-proj-tfb25.jpg</image:loc>
+<image:title><![CDATA[Revised wpa_supplicant script reenabling the WiFi connection on the miniPC.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/45/cyber-proj-tfb26.png</image:loc>
+<image:title><![CDATA[Updated Alias selection for better malicious IP blocking.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/45/cyber-proj-tfb27.png</image:loc>
+<image:title><![CDATA[Updated OPNSense rule list for blocking incoming connections.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/45/cyber-proj-tfb28.png</image:loc>
+<image:title><![CDATA[Suricata detection of TFTP GET request for passwd files.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/45/cyber-proj-tfb29.png</image:loc>
+<image:title><![CDATA[OPNSense log entries involving 195.3.223.82 on August 2, 2025.]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-20/</loc>
 <lastmod>2024-09-06T07:43:48-04:00</lastmod>
 <image:image>

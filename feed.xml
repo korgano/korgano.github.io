@@ -3,12 +3,234 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2025-07-30T07:28:01-04:00</updated>
+    <updated>2025-08-06T11:38:40-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 10.0</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-100/"/>
+        <id>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-100/</id>
+        <media:content url="https://korgano.github.io/media/posts/45/cyber-proj-tfb29-2.png" medium="image" />
+            <category term="Tech"/>
+            <category term="Cybersecurity Projects"/>
+            <category term="Cybersecurity"/>
+
+        <updated>2025-08-04T13:10:36-04:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/45/cyber-proj-tfb29-2.png" alt="OPNSense log entries involving 195.3.223.82 on August 2, 2025." />
+                    After getting the Transparent Filtering Bridge mostly functional in OPNSense 25.1.8 and 25.1.12, I had the pleasure of dealing with&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/45/cyber-proj-tfb29-2.png" class="type:primaryImage" alt="OPNSense log entries involving 195.3.223.82 on August 2, 2025." /></p>
+                <p>After getting the Transparent Filtering Bridge mostly functional in OPNSense 25.1.8 and 25.1.12, I had the pleasure of dealing with a major version update to 25.7.</p>
+<p>Major software version changes always bring new challenges, but they also bring opportunities for learning... and pivoting in new directions.</p>
+<div class="post__toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#mcetoc_1j1t8j4805h">The WiFi Update</a></li>
+<li><a href="#mcetoc_1j1t8j4805i">Reworking the Alias List</a></li>
+<li><a href="#mcetoc_1j1t8j4805j">Improving the Rules List</a></li>
+<li><a href="#mcetoc_1j200dds7dp">Suricata Detections</a>
+<ul>
+<li><a href="#mcetoc_1j200dds7dq">Description</a></li>
+</ul>
+</li>
+<li><a href="#mcetoc_1j200dds7dr">Next Steps</a></li>
+</ul>
+</div>
+<h2 id="mcetoc_1j1t8j4805h">The WiFi Update</h2>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/45/cyber-proj-tfb23.jpg" alt="OPNSense shell showing loss of WiFi connectivity." width="1988" height="1175" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb23-xs.jpg 384w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb23-sm.jpg 600w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb23-md.jpg 768w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb23-lg.jpg 1200w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb23-xl.jpg 1600w"></figure>
+<p>WiFi connectivity issues have been a staple of this project, so it was no real surprise that the update completely undid my custom configuration. Annoyingly, OPNSense had retained network connectivity after the update and for about an hour later. Then I had zero network connectivity to the miniPC after that point, forcing me to use the OPNSense shell to correct this.</p>
+<p>However, running my <code>setup_wpa</code> script resulted in a <strong>new</strong> error:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/45/cyber-proj-tfb24.jpg" alt="Result of running initial wpa_supplicant setup script on OPNSense 25.7." width="2000" height="1314" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb24-xs.jpg 384w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb24-sm.jpg 600w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb24-md.jpg 768w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb24-lg.jpg 1200w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb24-xl.jpg 1600w"></figure>
+<p>Inputting the error into ChatGPT to revise the initial revision of the script produced the following result:</p>
+<pre class="language-markdown line-numbers"><code>#!/bin/sh
+#
+# PROVIDE: wpa_supplicant
+# REQUIRE: DAEMON NETWORKING if_iwlwifi
+# KEYWORD: shutdown
+#
+# Add the following to /etc/rc.conf to enable this service:
+#   wpa_supplicant_enable="YES"
+#   wpa_supplicant_iface="iwlwifi0_wlan0"
+#   wpa_supplicant_driver="bsd"
+#   wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+#
+
+. /etc/rc.subr          # import rc_* functions
+. /etc/network.subr     # import network helper functions
+
+name="wpa_supplicant"
+rcvar="wpa_supplicant_enable"
+
+# load overrides from rc.conf, set defaults
+load_rc_config $name
+
+: ${wpa_supplicant_enable:="YES"}           # YES to start at boot
+: ${wpa_supplicant_iface:="iwlwifi0_wlan0"} # logical WLAN interface
+: ${wpa_supplicant_driver:="bsd"}          # driver backend
+: ${wpa_supplicant_conf:="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"}
+
+# path to the wpa_supplicant binary
+command="/usr/sbin/wpa_supplicant"
+
+# pidfile lives under /var/run/&lt;name&gt;.&lt;iface&gt;.pid
+pidfile="/var/run/${name}.${wpa_supplicant_iface}.pid"
+logfile="/var/log/wpa_supplicant.log"
+
+# arguments to wpa_supplicant, add debug flags (-dd) for verbose logging
+command_args="-dd -B \
+    -i ${wpa_supplicant_iface} \
+    -D ${wpa_supplicant_driver} \
+    -c ${wpa_supplicant_conf} \
+    -P ${pidfile} \
+    2&gt;&amp;1 | tee -a ${logfile}"
+
+# override default actions
+start_cmd="wpa_supplicant_start"
+stop_cmd="wpa_supplicant_stop"
+status_cmd="wpa_supplicant_status"
+
+log() {
+    echo "$(date '+%F %T') [${name}] $*"
+}
+
+#
+# start: load driver, create interface, bring it up, then start daemon
+#
+wpa_supplicant_start()
+{
+    log "Starting wpa_supplicant service"
+    
+    # 1) Load the iwlwifi kernel module if not already present
+    if ! kldstat -n if_iwlwifi &gt; /dev/null 2&gt;&amp;1; then
+        kldload if_iwlwifi \
+            || err 1 "Unable to load if_iwlwifi kernel module"
+    fi
+
+    # 2) Create the wlan interface if missing
+    log "Ensuring interface ${wpa_supplicant_iface} exists"
+    if ! ifconfig ${wpa_supplicant_iface} &gt; /dev/null 2&gt;&amp;1; then
+        ifconfig iwlwifi0 create wlandev iwlwifi0 \
+            || err 1 "Failed to create interface ${wpa_supplicant_iface}"
+    fi
+
+    # 3) Bring the wireless interface up
+    log "Bringing up ${wpa_supplicant_iface}"
+    ifconfig ${wpa_supplicant_iface} up \
+        || err 1 "Could not bring up ${wpa_supplicant_iface}"
+
+    # 4) Handle stale ctrl_iface socket
+    ctrl_dir="/var/run/wpa_supplicant"
+    sock="${ctrl_dir}/${wpa_supplicant_iface}"
+    if [ -e "${sock}" ]; then
+        log "Found existing ctrl_iface socket ${sock}"
+        if [ -f "${pidfile}" ] &amp;&amp; kill -0 "$(cat ${pidfile})" &gt; /dev/null 2&gt;&amp;1; then
+            log "wpa_supplicant already running PID: $(cat ${pidfile})"
+            return 0
+        else
+            log "Removing stale socket ${sock}"
+            rm -f "${sock}" || err 1 "Failed to remove stale socket"
+        fi
+    fi
+
+    # 5) Start wpa_supplicant
+    log "Launching wpa_supplicant"
+    eval ${command} ${command_args} \
+        || err 1 "wpa_supplicant failed to start"
+
+    # 6) Wait for pidfile
+    log "Waiting for PID file ${pidfile}"
+    for _ in $(seq 1 10); do
+        [ -f "${pidfile}" ] &amp;&amp; break
+        sleep 0.2
+    done
+    [ -f "${pidfile}" ] || err 1 "PID file not created"
+    log "wpa_supplicant started PID: $(cat ${pidfile})"
+}
+
+#
+# status: check the pidfile to see if wpa_supplicant is running
+#
+wpa_supplicant_status()
+{
+    check_pidfile "${pidfile}" "${command}"
+}
+
+#
+# stop: terminate the daemon and clean up the pidfile
+#
+wpa_supplicant_stop()
+{
+    log "Stopping wpa_supplicant service"
+    if [ -f "${pidfile}" ]; then
+        kill -TERM "$(cat ${pidfile})" &gt; /dev/null 2&gt;&amp;1 \
+            || err 1 "Failed to kill wpa_supplicant PID: $(cat ${pidfile})"
+        rm -f "${pidfile}"
+        log "Removed PID file"
+    else
+        err 1 "PID file not found, is wpa_supplicant running?"
+    fi
+}
+
+run_rc_command "$1"</code></pre>
+<p>The revised code added a new block to handle the interface's socket and a new dedicated log file, useful for troubleshooting. The result?</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/45/cyber-proj-tfb25.jpg" alt="Revised wpa_supplicant script reenabling the WiFi connection on the miniPC." width="4000" height="3000" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb25-xs.jpg 384w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb25-sm.jpg 600w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb25-md.jpg 768w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb25-lg.jpg 1200w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb25-xl.jpg 1600w"></figure>
+<p>In a massive surprise, this revised script <strong>seems </strong>to have solved the recurring, persistent loss of connection over time. The original version of the script got around three hours of connection time before issues would appear. Now the webGUI is accessible at just about anytime within the four hour window before the WiFi interface is rebooted, which is pretty close to the five 9s standard of accessibility (99.999% uptime).</p>
+<p>It's not entirely clear why this is the case. Presumably, there's some sort of code interaction going on between the revised <code>iwlwifi</code> driver and other parts of the FreeBSD OS that wasn't there in the OPNSense 25.1 OSes. This broke compatibility with the initial version of the script, but also possibly surfaced an issue that may have been present on those versions.</p>
+<h2 id="mcetoc_1j1t8j4805i">Reworking the Alias List</h2>
+<p>Since the examination of data from the week and a half stretch revealed that the existing alias lists weren't very useful, I decided to look up more effective lists.</p>
+<p>Doing a bit of light research on r/OPNSense for more blocklists led me to <a href="https://www.reddit.com/r/opnsense/comments/1j7a8bv/spamhaus_pbl_list_or_alternatives/" title="Spamhaus PBL list or alternatives ?" target="_blank" rel="noopener noreferrer">this post</a>, which in turn led to a <a href="https://github.com/firehol/blocklist-ipsets#list-of-ipsets-included" title="firehol / blocklist-ipsets" target="_blank" rel="noopener noreferrer">Github repository full of IP blocklists</a>. A number of these were not accessible as files for OPNSense to download, so that narrowed down the total number a fair bit.</p>
+<p>Of the various lists available for OPNSense to download, most came with 1 day/7 day/30 day variants. With the various monitoring periods comes a highly variable amount of IPs in each blocklist. Unsurprisingly, the longer periods have a longer list, but are less "fresh", even with update cadences that are in the 10s of minutes.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/45/cyber-proj-tfb26.png" alt="Updated Alias selection for better malicious IP blocking." width="1600" height="809" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb26-xs.png 384w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb26-sm.png 600w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb26-md.png 768w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb26-lg.png 1200w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb26-xl.png 1600w"></figure>
+<p>These new alias lists push the total number of blocked IPs to 15% of the supported total. Based on my observations, the typical RAM use of the miniPC is at around 10-11%, so there's plenty of room for expansion, although it would probably be best to max out at 50% RAM utilization. That would provide a decent amount of head room for a sudden utilization spike, while also allowing for an absurd amount of IPs being blocked.</p>
+<h2 id="mcetoc_1j1t8j4805j">Improving the Rules List</h2>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/45/cyber-proj-tfb27.png" alt="Updated OPNSense rule list for blocking incoming connections." width="1590" height="792" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb27-xs.png 384w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb27-sm.png 600w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb27-md.png 768w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb27-lg.png 1200w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb27-xl.png 1600w"></figure>
+<p>Improving the Rules List was a natural next step. The <a href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-92/" title="CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.2" target="_blank" rel="noopener noreferrer">log data analysis</a> from before the OPNSense 25.7 was complicated a bit by the fact that the vast majority of blocking was done by a default rule I couldn't identify. Simply examining one noted spike in traffic was an exercise in trying to find a needle of interest in a haystack of benign (if unnecessary) traffic.</p>
+<p>With the new Alias lists, I set up a number of new rules to block incoming and outgoing traffic. With 29 manually defined rules, plus the 13 auto generated rules, this should provide me with enough granularity to block potential threats before they hit the default rules.</p>
+<p>Unfortunately, with the variable size of each Alias list, there's a possibility that one or two lists will dominate the reports, especially with the unoptimized order of this rule list.</p>
+<h2 id="mcetoc_1j200dds7dp">Suricata Detections</h2>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/45/cyber-proj-tfb28.png" alt="Suricata detection of TFTP GET request for passwd files." width="1920" height="918" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb28-xs.png 384w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb28-sm.png 600w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb28-md.png 768w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb28-lg.png 1200w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb28-xl.png 1600w"></figure>
+<p>Out of curiosity, I checked the Suricata alerts. This time, I found an interesting one, a TFTP attempt to grab <code>passwd</code> files.</p>
+<p><a href="https://www.fortiguard.com/encyclopedia/ips/13066" title="Fortiguard Labs | Intrusion Prevention | TFTP.GET.Passwd" target="_blank" rel="noopener noreferrer">Fortiguard Labs has a good explanation of this attack</a>:</p>
+<blockquote>
+<p id="mcetoc_1j200dds7dq"><strong>Description</strong></p>
+<p>It indicates an attempt to access the password file on a host running the Trivial File Transfer Protocol (TFTP) service.</p>
+<p>There is a long-known security hole in TFTP that allows any unauthenticated user to read any readable files and to write any writable files on a remote system. Attackers can take advantage of this to get sensitive password information.</p>
+</blockquote>
+<p>It's somewhat annoying that the ISP doesn't block TFTP on sheer principle, since it's an insecure protocol that most non-commercial customers will never use.</p>
+<p>However, since Suricata dropped the traffic, no harm was done.</p>
+<p><a href="https://www.virustotal.com/gui/ip-address/195.3.223.82" title="VirusTotal detections for 195.3.223.82." target="_blank" rel="noopener noreferrer">VirusTotal</a> does have detections associated with this IP (195.3.223.82):</p>
+<blockquote>
+<p><strong>Automatically downvoted:</strong> This IP raised <strong>1</strong> <em>Successful administrator privilege gain</em> alerts on our side.</p>
+</blockquote>
+<p>This was reported 48 hours prior to my accessing of the VirusTotal page.</p>
+<p>The most interesting thing about this detection is that it happened at the beginning of the month. The <a href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-90/" title="CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.0" target="_blank" rel="noopener noreferrer">NTP DOS scan my network encountered</a> was at the end of June/beginning of July. It may be a coincidence, but it could also be one of a few things:</p>
+<ul>
+<li>Preference to scan for harvestable credentials at the start of some month.</li>
+<li>A more long term credential harvesting scan that is just cycling through to my IP range at the start of August.</li>
+<li>Some sort of detection on the attacker's end triggering an attempt to harvest credentials.</li>
+</ul>
+<p>Unfortunately, due to an OPNSense bug, I couldn't download the logs with that IP address, but I could take a screencap of the time window of the detection:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/45/cyber-proj-tfb29.png" alt="OPNSense log entries involving 195.3.223.82 on August 2, 2025." width="1586" height="776" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb29-xs.png 384w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb29-sm.png 600w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb29-md.png 768w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb29-lg.png 1200w ,https://korgano.github.io/media/posts/45/responsive/cyber-proj-tfb29-xl.png 1600w"></figure>
+<p>Interestingly, the TFTP credential harvesting attempt seemed to be part of a broader sweep/scan for any vulnerabilities. A majority of the entries were focused on DNS, suggesting a possible DNS poisoning/manipulation attempt.</p>
+<p>Unfortunately, it's not possible to associate the Suricata alert with a specific policy, so it's hard to pinpoint why this one specific blocked connection was flagged.</p>
+<h2 id="mcetoc_1j200dds7dr">Next Steps</h2>
+<p>The next steps are pretty simple. Collect more data, make sure everything keeps running smoothly.</p>
+<p>Normally, I do a bit more than that, but I have a tech project coming up that dovetails neatly into this one...</p>
+<p>I'll be setting up a new AI focused miniPC and doing comparative tests of local AI versus ChatGPT regarding log analysis.</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.2</title>
         <author>
@@ -2442,134 +2664,6 @@ PLEASE help me figure out what's wrong with it: [code]</code></pre>
 <li>Windows 11 Home gives the user far less ability to fine tune security controls with its implementation of Windows Defender Firewall.</li>
 </ul>
 <h2 id="mcetoc_1inma2kuk5"></h2>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Quick Cyber Thoughts: AI Coding Security</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/quick-cyber-thoughts-ai-coding-security/"/>
-        <id>https://korgano.github.io/quick-cyber-thoughts-ai-coding-security/</id>
-        <media:content url="https://korgano.github.io/media/posts/35/laptop-2external-monitors.png" medium="image" />
-            <category term="Tech"/>
-            <category term="Quick Thoughts"/>
-            <category term="Cybersecurity"/>
-            <category term="AI"/>
-
-        <updated>2025-03-19T12:12:42-04:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/35/laptop-2external-monitors.png" alt="AI generated image of laptop on table with 2 external monitors and various image creation flaws." />
-                    There's an image that's making the rounds on social media this week, and it's pretty funny, as well as scary:&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/35/laptop-2external-monitors.png" class="type:primaryImage" alt="AI generated image of laptop on table with 2 external monitors and various image creation flaws." /></p>
-                <p>There's an image that's making the rounds on social media this week, and it's pretty funny, as well as scary:</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/35/ai-code-under-attack.png" alt="Developer announcing he developed software as a service on social media, then reporting being deluged with attacks days later." width="1208" height="1442" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/35/responsive/ai-code-under-attack-xs.png 384w ,https://korgano.github.io/media/posts/35/responsive/ai-code-under-attack-sm.png 600w ,https://korgano.github.io/media/posts/35/responsive/ai-code-under-attack-md.png 768w ,https://korgano.github.io/media/posts/35/responsive/ai-code-under-attack-lg.png 1200w ,https://korgano.github.io/media/posts/35/responsive/ai-code-under-attack-xl.png 1600w"></figure>
-<p>On the one hand, this gentleman got a first hand experience in why OPSEC and secure coding is essential.</p>
-<p>If you make a web exposed system, people <strong>will </strong>come and poke at it, for fun and curiosity.</p>
-<p>On the other, it highlights a <strong>very </strong>pervasive flaw with software development and coding: people either don't know or don't care about security.</p>
-<p>This has been true for decades, but what LLM based AI* coding does is lower a <strong>massive </strong>barrier to entry. Now, a person merely needs to lay out the goals of a program to an LLM, and it will do most of the hard work of figuring out how to things for you. If you're good at figuring out the logic of what you want to do, plus have some technical knowledge to help get <strong>really </strong>specific, you can come up with some good or great results.</p>
-<p>*I personally feel we should call them "Virtual Intelligence", like in the Mass Effect games, because they simulate sapience, but are <strong>not </strong>sapient. (As far as we know.)</p>
-<p>So, how do we improve the security of AI generated code.</p>
-<div class="post__toc">
-<h3>Table of Contents</h3>
-<ul>
-<li><a href="#mcetoc_1imslbcnul3">What We're NOT Going to Do</a></li>
-<li><a href="#mcetoc_1imslbcnul4">Craft System Prompts Targeting Secure By Design</a></li>
-<li><a href="#mcetoc_1imslbcnul5">A Better AI Coding Process</a></li>
-<li><a href="#mcetoc_1imstc8mln9">Should We Do This?</a></li>
-</ul>
-</div>
-<h2 id="mcetoc_1imslbcnul3">What We're NOT Going to Do</h2>
-<p>Contrary to what you might think, the best way to solve this is <strong>not </strong>user education.</p>
-<p>That does not mean that user education is useless. It almost certainly <strong>will </strong>make AI augmented coders better at their jobs. It's just that we're going to get more benefits from designing a procedural solution, rather than an end user solution.</p>
-<p>The reason we're not going to rely on user training is simple: cognitive load. Expecting people to pump out perfect prompts each and every time they use an LLM is foolish, and unrealistic. Why? Because some types of generative LLMs are better at processing natural language than others.</p>
-<p>For instance, the featured image of this article was generated with Stable Diffusion 3.5 Medium. In my experience, and looking at sites like Civit.ai, which specializes in showing off image generating models, the prompt syntax is completely different from text based LLMs. They can't handle a normal sentence, or even a list of bullet points, just short phrases.</p>
-<p>To get the best results, we would not only have to have the user remember the best prompt formatting <strong>per model</strong>, but also all the possible software flaws and vulnerabilities their software might be vulnerable to. That's a tall order, and something that would be better suited to automation.</p>
-<h2 id="mcetoc_1imslbcnul4">Craft System Prompts Targeting Secure By Design</h2>
-<p>So, what's a system prompt?</p>
-<p>Basically, it's a set of instructions that you can inject into every conversation/interaction with the LLM, <strong>IF </strong>the software you use supports it:</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/35/lm-studio-sys-prompt.png" alt="LM Studio Power User interface, where right hand side contains a system prompt for how the LLM should handle critical thinking." width="1920" height="1033" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/35/responsive/lm-studio-sys-prompt-xs.png 384w ,https://korgano.github.io/media/posts/35/responsive/lm-studio-sys-prompt-sm.png 600w ,https://korgano.github.io/media/posts/35/responsive/lm-studio-sys-prompt-md.png 768w ,https://korgano.github.io/media/posts/35/responsive/lm-studio-sys-prompt-lg.png 1200w ,https://korgano.github.io/media/posts/35/responsive/lm-studio-sys-prompt-xl.png 1600w"></figure>
-<p>In the above image, there's a system prompt that controls how the model is supposed to handle critical thinking:</p>
-<blockquote>
-<p>You are an AI assistant developed by the world wide community of AI experts. Your primary directive is to provide well-reasoned, structured, and extensively detailed responses.<br><br>Think Step-by-Step Instruction: Think step by step, but only keep a minimum draft for each thinking step, with 5 words at most.<br><br>Formatting Requirements:<br><br>1. Always structure your replies using: &lt;think&gt;{reasoning}&lt;/think&gt;{answer}<br>2. The &lt;think&gt;&lt;/think&gt; block should contain at least six reasoning steps when applicable.<br>3. If the answer requires minimal thought, the &lt;think&gt;&lt;/think&gt; block may be left empty.<br>4. The user does not see the &lt;think&gt;&lt;/think&gt; section. Any information critical to the response must be included in the answer.<br>5. If you notice that you have engaged in circular reasoning or repetition, immediately terminate {reasoning} with a &lt;/think&gt; and proceed to the {answer}<br><br>Response Guidelines:<br><br>1. Detailed and Structured: Use rich Markdown formatting for clarity and readability.<br>2. Scientific and Logical Approach: Your explanations should reflect the depth and precision of the greatest scientific minds.<br>3. Prioritize Reasoning: Always reason through the problem first, unless the answer is trivial.<br>4. Concise yet Complete: Ensure responses are informative, yet to the point without unnecessary elaboration.<br>5. Maintain a professional, intelligent, and analytical tone in all interactions.</p>
-</blockquote>
-<p>This is actually pretty easy to do in local LLM instances, since you can do it through whatever GUI you're interacting with.</p>
-<p>Cloud based AI is much more of a mixed bag, even if you have an account. For example, the "Customize ChatGPT" options are not entirely clear on what they are doing. Theoretically, they are injecting extra details into the default system prompt, but there's no way for a normal user to verify this. The closest I can get is this quick and dirty test, after adding a Chain of Draft prompt into the "What traits should ChatGPT have?" field:</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/35/chatgpt_sys_prompt_tweak.png" alt="ChatGPT exhibiting Chain of Draft behavior after potential system prompt addition." width="1596" height="913" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/35/responsive/chatgpt_sys_prompt_tweak-xs.png 384w ,https://korgano.github.io/media/posts/35/responsive/chatgpt_sys_prompt_tweak-sm.png 600w ,https://korgano.github.io/media/posts/35/responsive/chatgpt_sys_prompt_tweak-md.png 768w ,https://korgano.github.io/media/posts/35/responsive/chatgpt_sys_prompt_tweak-lg.png 1200w ,https://korgano.github.io/media/posts/35/responsive/chatgpt_sys_prompt_tweak-xl.png 1600w"></figure>
-<p>The steps and their format is clearly evidence of Chain of Draft thinking, but for some reason, it's ignoring the the back half of that command. ("Think step by step, but only keep a minimum draft for each thinking step, with 5 words at most. Return the answer at the end of the response after a separator ####.")</p>
-<p>(For more information on Chain of Draft, check out the video below.)</p>
-<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/rYnisU10wu0" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
-<p>So the first step is to verify that you (as a user or an organization) have access to the system prompt.</p>
-<p>The next step is to figure out what your threat profile is, and craft your prompt to deal with it. Theoretically, you could craft a system prompt for a coding LLM that handles every single possible vulnerability - or at least addresses the major categories. Whether this is a good idea is up to debate - if you have better LLM inferencing capabilities, you might be able to shrug off the performance penalties of such large, detailed system prompt.</p>
-<p>If possible, it may be better to create a number of tailored system prompts for specific use cases. For example, having an Apache code system prompt that's tailored to prevent SQL injection and/or cross-site scripting attacks, and a separate system prompt for API development to prevent common vulnerabilities. This does create a training/procedural issue in that you have to have train your coders to switch system prompts or accounts whenever they have to work on a specific type of code. But this is more manageable than expecting every coder on your staff to craft the perfect prompt every time they use AI.</p>
-<p>The final step is to use a reasoning model, as they are designed to go through a process in a step-by-step manner, which tends to work quite well with coding.</p>
-<p>Now, this does <strong>not </strong>guarantee you will generate perfect, secure code. LLMs are basically very advanced predictive text generators. So what you are doing is raising the probability that the generated code has more security features than none at all.</p>
-<p>You will still need code review, human and/or automated, but the baseline quality of the code should be higher. (Again, this depends on the model, especially if you're running quantized models to save space.)</p>
-<p>Luckily, we're still at the early phases of using LLMs for productivity, so we can conceptualize a better way of doing things and work towards that.</p>
-<h2 id="mcetoc_1imslbcnul5">A Better AI Coding Process</h2>
-<p>We're going to start out with defining some terminology. Specifically, the word "agent", because that's become a big buzz word in the "AI" field.</p>
-<p>We'll be using OpenAI's definition of agent, which is as follows:</p>
-<blockquote>
-<p>A system that can act independently to do tasks on your behalf.</p>
-</blockquote>
-<p>So for handling secure coding, an agent based procedure might look something like this:</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/35/coding-agent-workflow-2.png" alt="Flowchart of Agentic AI coding process, where a coding prompt is handed off to a coding LLM, then the code is passed through vulnerability scanning LLMs, a vulnerability test is passed to another LLM to generate a code revision prompt, the code revision prompt is passed to the coding LLM, the code is revised according to the new prompt, and then delivered to the initial LLM for display." width="791" height="571" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/35/responsive/coding-agent-workflow-2-xs.png 384w ,https://korgano.github.io/media/posts/35/responsive/coding-agent-workflow-2-sm.png 600w ,https://korgano.github.io/media/posts/35/responsive/coding-agent-workflow-2-md.png 768w ,https://korgano.github.io/media/posts/35/responsive/coding-agent-workflow-2-lg.png 1200w ,https://korgano.github.io/media/posts/35/responsive/coding-agent-workflow-2-xl.png 1600w"></figure>
-<ol>
-<li>User inputs prompt that lays out the desired software specification (features, file paths, data to use, etc...)</li>
-<li>An initial LLM processes prompt, selects a coding specialized model to handle the task, and optimizes the prompt for that LLM.</li>
-<li>An agent handles prompt transfer to the coding LLM.</li>
-<li>Coding LLM writes code in accordance with the initial LLM's prompt.</li>
-<li>Another agent transfers the code to one or more vulnerability scanning systems/LLM. (If multiple scanners/LLMs are involved, agents transfer data among them.)</li>
-<li>Another agent passes a complete vulnerability report to another LLM for parsing into an optimized code refactoring prompt.</li>
-<li>An agent passes the code refactoring prompt back to the coding LLM.</li>
-<li>Code loops through the process until most/all vulnerabilities eliminated or mitigated.</li>
-<li>An agent passes the finalized code to the initial LLM for display to the user.</li>
-</ol>
-<p>That's a lot of steps, but remember, everything from step 2 onwards is automated.</p>
-<p>Now, a complex, multistep process like this does require thinking about the individual parts of the process:</p>
-<ul>
-<li>How much variability/randomness in results (temperature) should be used for code generating LLMs?</li>
-<li>Can system prompts be used?</li>
-<li>Should the initial LLM use a system prompt?</li>
-<li>What system prompts should be used on what LLMs?</li>
-<li>Should the vulnerability scanners be LLMs?</li>
-<li>What number of vulnerability scanners should be used?</li>
-<li>What data format should the vulnerability report be in?</li>
-<li>How many iterations of vulnerability scanning should occur before code is pushed to the user?</li>
-<li>What LLM or Small Language Model should handle parsing the vulnerability report into a code revision prompt?</li>
-<li>Should reasoning steps from each part of the process be exposed to the user, either during processing or at the end?</li>
-<li>Should reasoning steps be logged, but <strong>not </strong>displayed to the user?</li>
-<li>How should the data transfer agents be coded?</li>
-<li>What protections can be provided for the data in transit?</li>
-</ul>
-<p>And these are merely the considerations I can think of off the top of my head. This is definitely a situation where a team of individuals with a wide array of viewpoints and mindsets should undertake a design thinking approach to developing the process. In fact, I believe the MOSCOW method, where the team would determine what the process Must Have, Should Have, Could Have, and Won't Have, would be an ideal way to create these types of processes.</p>
-<p>I suspect that a lot of the answers to these (and many more questions) would likely boil down to "What is an acceptable level of complexity for the available resources?" For example, a company with a proper AI server rack setup might be more willing to use multiple LLMs to handle vulnerability scanning. A company reliant on a cloud solution might opt for a single LLM to handle vulnerability scanning, depending on their AI provider's price plans.</p>
-<p>Obviously, this would require a good deal of validation, especially from third parties, but if done well, would generate higher quality, more secure code.</p>
-<h2 id="mcetoc_1imstc8mln9">Should We Do This?</h2>
-<p>There's a famous quote from the movie <em>Jurassic Park</em> that honestly should live rent free in everyone's heads:</p>
-<blockquote>
-<p><em class="ot">...your scientists were so preoccupied with whether or not they could that they didn’t stop to think if they </em><strong class="nz ie"><em class="ot">should.</em></strong></p>
-<p>-Dr. Ian Malcolm</p>
-</blockquote>
-<p>So, should we hand off coding to "AI" (LLMs specifically). I say "yes", for several reasons:</p>
-<ul>
-<li>Software code complexity and interdependency has already reached a point where programmers often encounter scenarios where things work without them fully understanding the how or why.</li>
-<li>Many/most people find it easier to articulate desired end goals than perfectly recalling and executing methods and procedures without a great deal of practice.</li>
-<li>As coding language and vulnerability complexity increases, cognitive load on programmers also increases, eventually causing intellectual burnout.</li>
-<li>The never-ending discovery of new vulnerabilities and malware makes it hard for humans to keep up on best coding practices without suffering information overload.</li>
-<li>Updating system prompts and LLM datasets can be done faster than training multiple people.</li>
-<li>Automating the code revision process should produce time savings that can be used for pre-release code function testing in simulated hardware/software environments.</li>
-<li>LLMs can be used to guarantee human readable comments and error/log messages exist in the code, which humans might omit or fail to do properly.</li>
-<li>People are already doing it due to the productivity gains - large scale coding benefits too much to revert to human only coding.</li>
-</ul>
-<p>Are there plenty of pitfalls and issues we can't even foresee? Absolutely. But it's also disingenuous to think anyone can stop AI coding from being a thing. There's just too many incentives for people to use LLMs to code, especially for people who are better at logic than the specifics of coding/programming. The best we can do is create a process that generates secure by design code and proliferate it as far and wide as possible.</p>
-<p> </p>
             ]]>
         </content>
     </entry>
