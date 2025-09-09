@@ -817,6 +817,98 @@
 </image:image>
 </url>
 <url>
+<loc>https://korgano.github.io/tech-project-ai-minipc-minisforum-x1-pro-20/</loc>
+<lastmod>2025-08-20T07:38:25-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/minipc-031-2.png</image:loc>
+<image:title><![CDATA[POML novella scene generation prompt v3 - embedded POML at the end of the prompt]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/minipc-011.png</image:loc>
+<image:title><![CDATA[Lemonade Server v8.1 model management GUI.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/minipc-012.png</image:loc>
+<image:title><![CDATA[Lemonade Server v8.1 chat GUI.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/minipc-012a-2.png</image:loc>
+<image:title><![CDATA[Improved Lemonade Server GUI mockup, with model selector and inputs on separate rows.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/gallery/minipc-013-thumbnail.png</image:loc>
+<image:title><![CDATA[Lemonade Server v8.1.3 chat GUI in Brave.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/gallery/minipc-014-thumbnail.png</image:loc>
+<image:title><![CDATA[Lemonade Server v8.1.3 model management GUI in Brave.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/minipc-015.png</image:loc>
+<image:title><![CDATA[Lemonade Server v8.1.3 chat GUI with server online indicator.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/minipc-016.png</image:loc>
+<image:title><![CDATA[Lemonade Server v8.1.3 model settings page.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/minipc-017.png</image:loc>
+<image:title><![CDATA[Lemonade Server v8.1.3 model management UI.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/minipc-018.png</image:loc>
+<image:title><![CDATA[Initial POML prompt for wpa_supplicant script.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/minipc-019.png</image:loc>
+<image:title><![CDATA[Second iteration of the wpa_supplicant POML script with POML engine error.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/minipc-020.png</image:loc>
+<image:title><![CDATA[Completed run of POML wpa_supplicant script prompt.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/gallery/minipc-021-thumbnail.png</image:loc>
+<image:title><![CDATA[Second iteration of the wpa_supplicant POML script.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/gallery/minipc-022-thumbnail.png</image:loc>
+<image:title><![CDATA[Results of running second iteration wpa_supplicant POML script.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/minipc-023.png</image:loc>
+<image:title><![CDATA[An online steganography site that embeds messages using invisible unicode characters.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/gallery/minipc-024-thumbnail.png</image:loc>
+<image:title><![CDATA[wpa_supplicant POML prompt before injecting invisible unicode characters: 279 total tokens.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/gallery/minipc-025-thumbnail.png</image:loc>
+<image:title><![CDATA[wpa_supplicant POML prompt after injecting invisible unicode characters: 286 total tokens.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/minipc-026.png</image:loc>
+<image:title><![CDATA[First iteration of Unicode characters in prompt, around opening task tag.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/minipc-027-2.png</image:loc>
+<image:title><![CDATA[Second iteration of wpa_supplicant prompt with Unicode characters, with unicode inside task tags.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/minipc-028.png</image:loc>
+<image:title><![CDATA[POML novella scene generation prompt v1.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/minipc-029.png</image:loc>
+<image:title><![CDATA[POML novella scene generation prompt v2.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/47/minipc-031.png</image:loc>
+<image:title><![CDATA[POML novella scene generation prompt v3 - embedded POML at the end of the prompt]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/tech-project-truenas-scale-server-10/</loc>
 <lastmod>2024-12-11T11:23:39-05:00</lastmod>
 <image:image>
