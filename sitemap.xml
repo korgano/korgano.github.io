@@ -653,6 +653,9 @@
 <loc>https://korgano.github.io/page/5/</loc>
 </url>
 <url>
+<loc>https://korgano.github.io/page/6/</loc>
+</url>
+<url>
 <loc>https://korgano.github.io/privacy-policy/</loc>
 <lastmod>2023-09-14T11:00:07-04:00</lastmod>
 </url>
@@ -906,6 +909,30 @@
 <image:image>
 <image:loc>https://korgano.github.io/media/posts/47/minipc-031.png</image:loc>
 <image:title><![CDATA[POML novella scene generation prompt v3 - embedded POML at the end of the prompt]]></image:title>
+</image:image>
+</url>
+<url>
+<loc>https://korgano.github.io/tech-project-ai-minipc-minisforum-x1-pro-30/</loc>
+<lastmod>2025-09-17T15:51:35-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/48/minipc-034-2.png</image:loc>
+<image:title><![CDATA[Mid-NPU only inferencing run, showing sudden drops in NPU utilization.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/48/minipc-032.png</image:loc>
+<image:title><![CDATA[Start up of load on NPU during prompt execution.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/48/minipc-033.png</image:loc>
+<image:title><![CDATA[AnythingLLM during DeepSeek R1 hybrid NPU/GPU test.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/48/minipc-034.png</image:loc>
+<image:title><![CDATA[Mid-NPU only inferencing run, showing sudden drops in NPU utilization.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/48/minipc-035.png</image:loc>
+<image:title><![CDATA[NPU and GPU usage at start of prompt response in hybrid mode.]]></image:title>
 </image:image>
 </url>
 <url>

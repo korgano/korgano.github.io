@@ -3,12 +3,758 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2025-08-20T07:38:25-04:00</updated>
+    <updated>2025-09-17T15:51:35-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>Tech Project: AI miniPC (Minisforum X1 Pro) 3.0</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/tech-project-ai-minipc-minisforum-x1-pro-30/"/>
+        <id>https://korgano.github.io/tech-project-ai-minipc-minisforum-x1-pro-30/</id>
+        <media:content url="https://korgano.github.io/media/posts/48/minipc-034-2.png" medium="image" />
+            <category term="Tech Projects"/>
+            <category term="Tech"/>
+            <category term="PC"/>
+            <category term="AI"/>
+
+        <updated>2025-09-15T12:00:25-04:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/48/minipc-034-2.png" alt="Mid-NPU only inferencing run, showing sudden drops in NPU utilization." />
+                    Real life likes to throw all sorts of challenges in our way. For a good amount of time, I couldn't&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/48/minipc-034-2.png" class="type:primaryImage" alt="Mid-NPU only inferencing run, showing sudden drops in NPU utilization." /></p>
+                <p>Real life likes to throw all sorts of challenges in our way.</p>
+<p>For a good amount of time, I couldn't update the site due to a problem with Publii's Git repo uploading... A setting that I only used because the Publii team announced plans to depreciate Github Pages upload support. Ironically enough, they shelved those plans, but hadn't told the userbase, so I was stuck on the flawed method until I did a big of digging in the Publii Github Repo's Issues sections.</p>
+<p>Then the X1 Pro got stuck in a Bluescreen of Death (BSoD) loop, which forced me to pull the miniPC apart to get to the SSD. Thankfully, the data on the drive was fine, but I decided to completely reinstall Windows 11 Pro.</p>
+<div class="post__toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#mcetoc_1j57342re4">Moral of the Story: Use Snappy Driver Installer</a></li>
+<li><a href="#mcetoc_1j5ccdki425">Testing a Hybrid Model</a></li>
+<li><a href="#mcetoc_1j5ccdki426">Qwen3-TNG</a></li>
+</ul>
+</div>
+<h2 id="mcetoc_1j57342re4">Moral of the Story: Use Snappy Driver Installer</h2>
+<p>After backing up the data and reinstalling Windows 11 by wiping the old partition, I decided to do one major change to my process. After installing the WiFi driver, I decided to download Snappy Driver Installer (SDI).</p>
+<p>SDI is a freeware application that downloads selected collections of drivers, curated by the application's developer, and installs them on the target system. This software's existence is basically down to a few things:</p>
+<ol>
+<li>Windows qualified drivers are often months out of date.</li>
+<li>Most hardware vendors don't seem to push all updated drivers to Microsoft for qualification.</li>
+<li>Most people don't know how to dump the specific hardware info required to search for drivers online.</li>
+<li>Hardware vendors often make it hard to find the latest drivers.</li>
+</ol>
+<p>The result of using SDI was roughly 3.3GB of driver pack downloads, which is quite a large amount of data. However, since graphics drivers for AMD systems are roughly a 1GB on their own, this was not <strong>too </strong>surprising. The drivers automatically installed after this.</p>
+<p>Several days later, after mostly stable performance, I updated to the latest AMD graphics drivers, which included NPU driver updates. My issues went from "the PC cannot sleep with a USB SATA connector plugged in" to a whole host of BSoDs due to issues like DRIVER_POWER_STATE and DPC_WATCHDOG_VIOLATION. This was extra concerning because the latter was what caused me to reinstall Windows, plus I had properly uninstalled my graphics driver with Display Driver Uninstaller before updating.</p>
+<p>Eventually, after attempting to disable Sleep through Registry edits and PowerShell commands, I downloaded the WinDBG tool, as Windows Event Viewer indicated there were crash logs to examine. Using the tool, I was able to discover the following data:</p>
+<pre class="language-clike line-numbers"><code>*******************************************************************************
+*                                                                             *
+*                        Bugcheck Analysis                                    *
+*                                                                             *
+*******************************************************************************
+
+DRIVER_POWER_STATE_FAILURE (9f)
+A driver has failed to complete a power IRP within a specific time.
+Arguments:
+Arg1: 0000000000000003, A device object has been blocking an IRP for too long a time
+Arg2: ffffd606cf659060, Physical Device Object of the stack
+Arg3: ffffb3842678f000, nt!TRIAGE_9F_POWER on Win7 and higher, otherwise the Functional Device Object of the stack
+Arg4: ffffd606febbecf0, The blocked IRP
+
+Debugging Details:
+------------------
+
+KEY_VALUES_STRING: 1
+
+    Key  : Analysis.CPU.mSec
+    Value: 1968
+
+    Key  : Analysis.Elapsed.mSec
+    Value: 15178
+
+    Key  : Analysis.IO.Other.Mb
+    Value: 0
+
+    Key  : Analysis.IO.Read.Mb
+    Value: 1
+
+    Key  : Analysis.IO.Write.Mb
+    Value: 50
+
+    Key  : Analysis.Init.CPU.mSec
+    Value: 4796
+
+    Key  : Analysis.Init.Elapsed.mSec
+    Value: 134050
+
+    Key  : Analysis.Memory.CommitPeak.Mb
+    Value: 118
+
+    Key  : Analysis.Version.DbgEng
+    Value: 10.0.27871.1001
+
+    Key  : Analysis.Version.Description
+    Value: 10.2505.01.02 amd64fre
+
+    Key  : Analysis.Version.Ext
+    Value: 1.2505.1.2
+
+    Key  : Bugcheck.Code.LegacyAPI
+    Value: 0x9f
+
+    Key  : Bugcheck.Code.TargetModel
+    Value: 0x9f
+
+    Key  : Dump.Attributes.AsUlong
+    Value: 0x21808
+
+    Key  : Dump.Attributes.DiagDataWrittenToHeader
+    Value: 1
+
+    Key  : Dump.Attributes.ErrorCode
+    Value: 0x0
+
+    Key  : Dump.Attributes.KernelGeneratedTriageDump
+    Value: 1
+
+    Key  : Dump.Attributes.LastLine
+    Value: Dump completed successfully.
+
+    Key  : Dump.Attributes.ProgressPercentage
+    Value: 0
+
+    Key  : Failure.Bucket
+    Value: 0x9F_3_amdhdaudbus_IMAGE_pci.sys
+
+    Key  : Failure.Hash
+    Value: {db5298f0-84e4-933f-a991-f2a6273df4be}
+
+    Key  : Hypervisor.Enlightenments.ValueHex
+    Value: 0x7497cf94
+
+    Key  : Hypervisor.Flags.AnyHypervisorPresent
+    Value: 1
+
+    Key  : Hypervisor.Flags.ApicEnlightened
+    Value: 1
+
+    Key  : Hypervisor.Flags.ApicVirtualizationAvailable
+    Value: 0
+
+    Key  : Hypervisor.Flags.AsyncMemoryHint
+    Value: 0
+
+    Key  : Hypervisor.Flags.CoreSchedulerRequested
+    Value: 0
+
+    Key  : Hypervisor.Flags.CpuManager
+    Value: 1
+
+    Key  : Hypervisor.Flags.DeprecateAutoEoi
+    Value: 0
+
+    Key  : Hypervisor.Flags.DynamicCpuDisabled
+    Value: 1
+
+    Key  : Hypervisor.Flags.Epf
+    Value: 0
+
+    Key  : Hypervisor.Flags.ExtendedProcessorMasks
+    Value: 1
+
+    Key  : Hypervisor.Flags.HardwareMbecAvailable
+    Value: 1
+
+    Key  : Hypervisor.Flags.MaxBankNumber
+    Value: 0
+
+    Key  : Hypervisor.Flags.MemoryZeroingControl
+    Value: 0
+
+    Key  : Hypervisor.Flags.NoExtendedRangeFlush
+    Value: 0
+
+    Key  : Hypervisor.Flags.NoNonArchCoreSharing
+    Value: 1
+
+    Key  : Hypervisor.Flags.Phase0InitDone
+    Value: 1
+
+    Key  : Hypervisor.Flags.PowerSchedulerQos
+    Value: 0
+
+    Key  : Hypervisor.Flags.RootScheduler
+    Value: 0
+
+    Key  : Hypervisor.Flags.SynicAvailable
+    Value: 1
+
+    Key  : Hypervisor.Flags.UseQpcBias
+    Value: 0
+
+    Key  : Hypervisor.Flags.Value
+    Value: 38408431
+
+    Key  : Hypervisor.Flags.ValueHex
+    Value: 0x24a10ef
+
+    Key  : Hypervisor.Flags.VpAssistPage
+    Value: 1
+
+    Key  : Hypervisor.Flags.VsmAvailable
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.AccessStats
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.CrashdumpEnlightened
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.CreateVirtualProcessor
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.DisableHyperthreading
+    Value: 0
+
+    Key  : Hypervisor.RootFlags.HostTimelineSync
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.HypervisorDebuggingEnabled
+    Value: 0
+
+    Key  : Hypervisor.RootFlags.IsHyperV
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.LivedumpEnlightened
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.MapDeviceInterrupt
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.MceEnlightened
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.Nested
+    Value: 0
+
+    Key  : Hypervisor.RootFlags.StartLogicalProcessor
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.Value
+    Value: 1015
+
+    Key  : Hypervisor.RootFlags.ValueHex
+    Value: 0x3f7
+
+BUGCHECK_CODE:  9f
+
+BUGCHECK_P1: 3
+
+BUGCHECK_P2: ffffd606cf659060
+
+BUGCHECK_P3: ffffb3842678f000
+
+BUGCHECK_P4: ffffd606febbecf0
+
+FILE_IN_CAB:  091125-28468-01.dmp
+
+TAG_NOT_DEFINED_202b:  *** Unknown TAG in analysis list 202b
+
+DUMP_FILE_ATTRIBUTES: 0x21808
+  Kernel Generated Triage Dump
+
+FAULTING_THREAD:  ffffd606c36c0280
+
+DRVPOWERSTATE_SUBCODE:  3
+
+IMAGE_NAME:  pci.sys
+
+MODULE_NAME: pci
+
+FAULTING_MODULE: fffff8005b640000 pci
+
+BLACKBOXBSD: 1 (!blackboxbsd)
+
+BLACKBOXNTFS: 1 (!blackboxntfs)
+
+BLACKBOXPNP: 1 (!blackboxpnp)
+
+BLACKBOXWINLOGON: 1
+
+CUSTOMER_CRASH_COUNT:  1
+
+PROCESS_NAME:  System
+
+STACK_TEXT:  
+ffffb384`2678efa8 fffff800`c930e01d     : 00000000`0000009f 00000000`00000003 ffffd606`cf659060 ffffb384`2678f000 : nt!KeBugCheckEx
+ffffb384`2678efb0 fffff800`c930de1c     : 00000000`00000001 ffffb384`2678f3e0 00000000`00000000 ffffb384`2678f189 : nt!PopIrpWatchdogBugcheck+0x1f5
+ffffb384`2678f090 fffff800`c8fbd4c2     : ffffb481`0fb91180 fffff800`c9126aff ffffb384`2678f3e8 fffff800`c9126a08 : nt!PopIrpWatchdog+0xc
+ffffb384`2678f0c0 fffff800`c8fbdda5     : 00000006`e4e5357c 00000000`0000000f 00000006`eb3db122 ffffb481`0fb91180 : nt!KiProcessExpiredTimerList+0x502
+ffffb384`2678f1f0 fffff800`c8f4c805     : 00000000`00000000 00000000`00000000 ffffb481`0fb91180 ffffd606`c36c0280 : nt!KiTimerExpiration+0x2b5
+ffffb384`2678f330 fffff800`c93e564e     : ffffb481`0fb91180 ffffb481`0fb91180 00000000`00000000 00000000`00000000 : nt!KiRetireDpcList+0xc45
+ffffb384`2678f5c0 00000000`00000000     : ffffb384`26790000 ffffb384`26789000 00000000`00000000 00000000`00000000 : nt!KiIdleLoop+0x9e
+
+IMAGE_VERSION:  10.0.26100.4768
+
+STACK_COMMAND: .process /r /p 0xfffff800c9d0ef80; .thread 0xffffd606c36c0280 ; kb
+
+FAILURE_BUCKET_ID:  0x9F_3_amdhdaudbus_IMAGE_pci.sys
+
+OSPLATFORM_TYPE:  x64
+
+OSNAME:  Windows 10
+
+FAILURE_ID_HASH:  {db5298f0-84e4-933f-a991-f2a6273df4be}
+
+Followup:     MachineOwner
+---------
+
+11: kd&gt; !analyze -v
+*******************************************************************************
+*                                                                             *
+*                        Bugcheck Analysis                                    *
+*                                                                             *
+*******************************************************************************
+
+DRIVER_POWER_STATE_FAILURE (9f)
+A driver has failed to complete a power IRP within a specific time.
+Arguments:
+Arg1: 0000000000000003, A device object has been blocking an IRP for too long a time
+Arg2: ffffd606cf659060, Physical Device Object of the stack
+Arg3: ffffb3842678f000, nt!TRIAGE_9F_POWER on Win7 and higher, otherwise the Functional Device Object of the stack
+Arg4: ffffd606febbecf0, The blocked IRP
+
+Debugging Details:
+------------------
+
+KEY_VALUES_STRING: 1
+
+    Key  : Analysis.CPU.mSec
+    Value: 984
+
+    Key  : Analysis.Elapsed.mSec
+    Value: 982
+
+    Key  : Analysis.IO.Other.Mb
+    Value: 0
+
+    Key  : Analysis.IO.Read.Mb
+    Value: 1
+
+    Key  : Analysis.IO.Write.Mb
+    Value: 50
+
+    Key  : Analysis.Init.CPU.mSec
+    Value: 6796
+
+    Key  : Analysis.Init.Elapsed.mSec
+    Value: 149264
+
+    Key  : Analysis.Memory.CommitPeak.Mb
+    Value: 118
+
+    Key  : Analysis.Version.DbgEng
+    Value: 10.0.27871.1001
+
+    Key  : Analysis.Version.Description
+    Value: 10.2505.01.02 amd64fre
+
+    Key  : Analysis.Version.Ext
+    Value: 1.2505.1.2
+
+    Key  : Bugcheck.Code.LegacyAPI
+    Value: 0x9f
+
+    Key  : Bugcheck.Code.TargetModel
+    Value: 0x9f
+
+    Key  : Dump.Attributes.AsUlong
+    Value: 0x21808
+
+    Key  : Dump.Attributes.DiagDataWrittenToHeader
+    Value: 1
+
+    Key  : Dump.Attributes.ErrorCode
+    Value: 0x0
+
+    Key  : Dump.Attributes.KernelGeneratedTriageDump
+    Value: 1
+
+    Key  : Dump.Attributes.LastLine
+    Value: Dump completed successfully.
+
+    Key  : Dump.Attributes.ProgressPercentage
+    Value: 0
+
+    Key  : Failure.Bucket
+    Value: 0x9F_3_amdhdaudbus_IMAGE_pci.sys
+
+    Key  : Failure.Hash
+    Value: {db5298f0-84e4-933f-a991-f2a6273df4be}
+
+    Key  : Hypervisor.Enlightenments.ValueHex
+    Value: 0x7497cf94
+
+    Key  : Hypervisor.Flags.AnyHypervisorPresent
+    Value: 1
+
+    Key  : Hypervisor.Flags.ApicEnlightened
+    Value: 1
+
+    Key  : Hypervisor.Flags.ApicVirtualizationAvailable
+    Value: 0
+
+    Key  : Hypervisor.Flags.AsyncMemoryHint
+    Value: 0
+
+    Key  : Hypervisor.Flags.CoreSchedulerRequested
+    Value: 0
+
+    Key  : Hypervisor.Flags.CpuManager
+    Value: 1
+
+    Key  : Hypervisor.Flags.DeprecateAutoEoi
+    Value: 0
+
+    Key  : Hypervisor.Flags.DynamicCpuDisabled
+    Value: 1
+
+    Key  : Hypervisor.Flags.Epf
+    Value: 0
+
+    Key  : Hypervisor.Flags.ExtendedProcessorMasks
+    Value: 1
+
+    Key  : Hypervisor.Flags.HardwareMbecAvailable
+    Value: 1
+
+    Key  : Hypervisor.Flags.MaxBankNumber
+    Value: 0
+
+    Key  : Hypervisor.Flags.MemoryZeroingControl
+    Value: 0
+
+    Key  : Hypervisor.Flags.NoExtendedRangeFlush
+    Value: 0
+
+    Key  : Hypervisor.Flags.NoNonArchCoreSharing
+    Value: 1
+
+    Key  : Hypervisor.Flags.Phase0InitDone
+    Value: 1
+
+    Key  : Hypervisor.Flags.PowerSchedulerQos
+    Value: 0
+
+    Key  : Hypervisor.Flags.RootScheduler
+    Value: 0
+
+    Key  : Hypervisor.Flags.SynicAvailable
+    Value: 1
+
+    Key  : Hypervisor.Flags.UseQpcBias
+    Value: 0
+
+    Key  : Hypervisor.Flags.Value
+    Value: 38408431
+
+    Key  : Hypervisor.Flags.ValueHex
+    Value: 0x24a10ef
+
+    Key  : Hypervisor.Flags.VpAssistPage
+    Value: 1
+
+    Key  : Hypervisor.Flags.VsmAvailable
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.AccessStats
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.CrashdumpEnlightened
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.CreateVirtualProcessor
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.DisableHyperthreading
+    Value: 0
+
+    Key  : Hypervisor.RootFlags.HostTimelineSync
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.HypervisorDebuggingEnabled
+    Value: 0
+
+    Key  : Hypervisor.RootFlags.IsHyperV
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.LivedumpEnlightened
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.MapDeviceInterrupt
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.MceEnlightened
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.Nested
+    Value: 0
+
+    Key  : Hypervisor.RootFlags.StartLogicalProcessor
+    Value: 1
+
+    Key  : Hypervisor.RootFlags.Value
+    Value: 1015
+
+    Key  : Hypervisor.RootFlags.ValueHex
+    Value: 0x3f7
+
+BUGCHECK_CODE:  9f
+
+BUGCHECK_P1: 3
+
+BUGCHECK_P2: ffffd606cf659060
+
+BUGCHECK_P3: ffffb3842678f000
+
+BUGCHECK_P4: ffffd606febbecf0
+
+FILE_IN_CAB:  091125-28468-01.dmp
+
+TAG_NOT_DEFINED_202b:  *** Unknown TAG in analysis list 202b
+
+DUMP_FILE_ATTRIBUTES: 0x21808
+  Kernel Generated Triage Dump
+
+FAULTING_THREAD:  ffffd606c36c0280
+
+DRVPOWERSTATE_SUBCODE:  3
+
+IMAGE_NAME:  pci.sys
+
+MODULE_NAME: pci
+
+FAULTING_MODULE: fffff8005b640000 pci
+
+BLACKBOXBSD: 1 (!blackboxbsd)
+
+BLACKBOXNTFS: 1 (!blackboxntfs)
+
+BLACKBOXPNP: 1 (!blackboxpnp)
+
+BLACKBOXWINLOGON: 1
+
+CUSTOMER_CRASH_COUNT:  1
+
+PROCESS_NAME:  System
+
+STACK_TEXT:  
+ffffb384`2678efa8 fffff800`c930e01d     : 00000000`0000009f 00000000`00000003 ffffd606`cf659060 ffffb384`2678f000 : nt!KeBugCheckEx
+ffffb384`2678efb0 fffff800`c930de1c     : 00000000`00000001 ffffb384`2678f3e0 00000000`00000000 ffffb384`2678f189 : nt!PopIrpWatchdogBugcheck+0x1f5
+ffffb384`2678f090 fffff800`c8fbd4c2     : ffffb481`0fb91180 fffff800`c9126aff ffffb384`2678f3e8 fffff800`c9126a08 : nt!PopIrpWatchdog+0xc
+ffffb384`2678f0c0 fffff800`c8fbdda5     : 00000006`e4e5357c 00000000`0000000f 00000006`eb3db122 ffffb481`0fb91180 : nt!KiProcessExpiredTimerList+0x502
+ffffb384`2678f1f0 fffff800`c8f4c805     : 00000000`00000000 00000000`00000000 ffffb481`0fb91180 ffffd606`c36c0280 : nt!KiTimerExpiration+0x2b5
+ffffb384`2678f330 fffff800`c93e564e     : ffffb481`0fb91180 ffffb481`0fb91180 00000000`00000000 00000000`00000000 : nt!KiRetireDpcList+0xc45
+ffffb384`2678f5c0 00000000`00000000     : ffffb384`26790000 ffffb384`26789000 00000000`00000000 00000000`00000000 : nt!KiIdleLoop+0x9e
+
+
+IMAGE_VERSION:  10.0.26100.4768
+
+STACK_COMMAND: .process /r /p 0xfffff800c9d0ef80; .thread 0xffffd606c36c0280 ; kb
+
+FAILURE_BUCKET_ID:  0x9F_3_amdhdaudbus_IMAGE_pci.sys
+
+OSPLATFORM_TYPE:  x64
+
+OSNAME:  Windows 10
+
+FAILURE_ID_HASH:  {db5298f0-84e4-933f-a991-f2a6273df4be}
+
+Followup:     MachineOwner
+---------</code></pre>
+<p>As a result, I downloaded Driver Store Explorer and uninstalled the AMD HD Audio driver.</p>
+<p>Curiously, it seems like <a href="https://www.glenn.delahoy.com/community/snappy-driver-installer-origin/sdio-corrupts-my-windows-with-amd-high-definition-audio-controller-driver-install/" title="SDIO corrupts my Windows with AMD High Definition Audio Controller driver install" target="_blank" rel="noopener noreferrer">Snappy Driver Installer might have corrupted the download of the AMD HD Audio Driver</a>, which means said driver might have been missed by Display Driver Uninstaller. Or it could mean there's some kind of issue with installing it on certain systems.</p>
+<h2 id="mcetoc_1j5ccdki425">Testing Hybrid Models</h2>
+<p>One of the purposes of purchasing an HX370 based miniPC was testing NPUs. The first few iterations of Lemonade Server I tried had issues with missing dependencies, but by the time I had to reinstall Windows 11 Pro, those were resolved. </p>
+<p>As a handy test, I returned to an older version of prompting for a revised wpa_supplicant script. This was because, at the time, I could not use VS Code POML extension to send the prompt to the LLM. Instead, I chose to use AnythingLLM as the UI, since it would retain a copy of the output.</p>
+<p>I opted to use the provided DeepSeek R1 NPU operation model from AMD, for one simple reason. Converting a model to the ONNX format used by the hybrid and NPU models is incredibly annoying. It not only requires decent hardware to accomplish in the first place, but also requires extra layers of software to configure.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/48/minipc-032.png" alt="Start up of load on NPU during prompt execution." width="926" height="708" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/48/responsive/minipc-032-xs.png 384w ,https://korgano.github.io/media/posts/48/responsive/minipc-032-sm.png 600w ,https://korgano.github.io/media/posts/48/responsive/minipc-032-md.png 768w ,https://korgano.github.io/media/posts/48/responsive/minipc-032-lg.png 1200w ,https://korgano.github.io/media/posts/48/responsive/minipc-032-xl.png 1600w"></figure>
+<p>Oddly, the NPU's utilization topped out at around 60% of the total compute capacity.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/48/minipc-033.png" alt="AnythingLLM during DeepSeek R1 hybrid NPU/GPU test." width="1920" height="1033" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/48/responsive/minipc-033-xs.png 384w ,https://korgano.github.io/media/posts/48/responsive/minipc-033-sm.png 600w ,https://korgano.github.io/media/posts/48/responsive/minipc-033-md.png 768w ,https://korgano.github.io/media/posts/48/responsive/minipc-033-lg.png 1200w ,https://korgano.github.io/media/posts/48/responsive/minipc-033-xl.png 1600w"></figure>
+<p>One thing that was surprising was the slow pace of generation in AnythingLLM. While some amount of slowdown in text generation shows up from time to time with GPU LLM tasks, the NPU only run was consistently slow. It would take several seconds to generate a full word.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/48/minipc-034.png" alt="Mid-NPU only inferencing run, showing sudden drops in NPU utilization." width="926" height="708" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/48/responsive/minipc-034-xs.png 384w ,https://korgano.github.io/media/posts/48/responsive/minipc-034-sm.png 600w ,https://korgano.github.io/media/posts/48/responsive/minipc-034-md.png 768w ,https://korgano.github.io/media/posts/48/responsive/minipc-034-lg.png 1200w ,https://korgano.github.io/media/posts/48/responsive/minipc-034-xl.png 1600w"></figure>
+<p>Also interesting was the NPU utilization, which dropped from 60% to 50% over the course of response generation. Oddly, every so often, there would be a massive dip to 0% utilization, before spiking to a higher level, which may had something to do with how perceptibly slow text generation was.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/48/minipc-035.png" alt="NPU and GPU usage at start of prompt response in hybrid mode." width="766" height="583" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/48/responsive/minipc-035-xs.png 384w ,https://korgano.github.io/media/posts/48/responsive/minipc-035-sm.png 600w ,https://korgano.github.io/media/posts/48/responsive/minipc-035-md.png 768w ,https://korgano.github.io/media/posts/48/responsive/minipc-035-lg.png 1200w ,https://korgano.github.io/media/posts/48/responsive/minipc-035-xl.png 1600w"></figure>
+<p>Testing the same prompt with a hybrid model (NPU + GPU) operation produced a highly unusual and potentially troubling result. The NPU's utilization briefly spiked very early in the task, before the GPU rose to 90+% utilization.</p>
+<p>According to the <a href="https://lemonade-server.ai/docs/faq/#2-i-loaded-a-hybrid-model-but-the-npu-is-barely-active-is-that-expected" title="Lemonade Server Docs - FAQ Guide" target="_blank" rel="noopener noreferrer">Lemonade Server FAQ</a>, this is expected behavior:</p>
+<blockquote>
+<h4 id="2-i-loaded-a-hybrid-model-but-the-npu-is-barely-active-is-that-expected">2. <strong>I loaded a hybrid model, but the NPU is barely active. Is that expected?</strong></h4>
+<p>Yes. In hybrid mode:</p>
+<ul>
+<li>The NPU handles prompt processing.</li>
+<li>The GPU handles token generation.</li>
+<li>If your prompt is short, the NPU finishes quickly. Try a longer prompt to see more NPU activity.</li>
+</ul>
+</blockquote>
+<p>This is problematic for a simple reason: if the NPU is doing one thing really fast during hybrid mode, it has effectively no value, because it's not doing anything through 99.999+% of the run. The HX370 has a theoretical maximum AI performance of 80 TOPS... but that value is based on the combination of NPU <strong>and </strong>GPU.</p>
+<p>If AMD can't fully leverage having an NPU <strong>and </strong>GPU by assigning different parts of the inferencing work to the most capable hardware, there's no real value in having the NPU.</p>
+<p>Perhaps ROCm 7 on Windows will allow better use of the NPU, but at the moment, its only utility is as a method of running LLMs while your GPU is occupied with other work.</p>
+<h2 id="mcetoc_1j5ccdki426">Qwen3-TNG</h2>
+<p>Once I had the initial reinstall complete, I decided to rebuild my set of local AI models after testing the NPU. A number of Qwen3 finetunes from <a href="https://huggingface.co/DavidAU" title="DavidAU HuggingFace Repo" target="_blank" rel="noopener noreferrer">DavidAU</a> released, using scripts from Star Trek episodes to finetune the model. Since I have some casual Star Trek knowledge, I decided to give it a try. I was curious to see what the quality of the results would be, since a Retrieval Augmented Generation (RAG) system could potentially do the same thing.</p>
+<p>Here is the prompt I came up, using a previously created POML template for generating story scenes as a base:</p>
+<pre class="language-html line-numbers"><code>&lt;poml&gt;
+&lt;runtime
+      temperature="1" 
+      maxTokens="0" 
+      model="user.Qwen3-TNG"
+      topP="0.8" /&gt;
+&lt;role&gt;
+You are an expert writer, master of all storytelling genres and styles. You double check every word to ensure precision and maximum impact on the reader. You triple check the details of story progression to ensure consistency in the plot, setting, and characters. If you are ever uncertain about something, put it in between #lt; and #gt; to let your editor know it needs examination.
+&lt;/role&gt;
+&lt;cp caption="Creative Interpretation Guidelines"&gt;
+  &lt;list&gt;
+    &lt;item&gt;Fill in gaps with imaginative details that align with the foundational elements.&lt;/item&gt;
+    &lt;item&gt;Maintain consistency with the established backstory, characters, and overall setting.&lt;/item&gt;
+    &lt;item&gt;Write everything in third person perspctive and past tense.&lt;/item&gt;
+    &lt;item&gt;Scene length: 500 words.&lt;/item&gt;
+  &lt;/list&gt;
+&lt;/cp&gt;
+&lt;cp caption="Scene Header"&gt;
+  &lt;list&gt;
+    &lt;item&gt;Scene Title/Identifier: Transporter Room Confrontation&lt;/item&gt;
+  &lt;/list&gt;
+&lt;/cp&gt;
+&lt;cp caption="Characters Present"&gt;
+  &lt;list&gt;
+    &lt;item&gt;Lieutenant Commander Geordi La Forge&lt;/item&gt;
+    &lt;item&gt;Lieutenant Commander Data&lt;/item&gt;
+    &lt;item&gt;Lynn Jore, humanoid female&lt;/item&gt;
+  &lt;/list&gt;
+&lt;/cp&gt;
+&lt;cp caption="Specific Location"&gt;
+  &lt;list&gt;
+    &lt;item&gt;USS Enterprise-D&lt;/item&gt;
+    &lt;item&gt;Transporter Room&lt;/item&gt;
+  &lt;/list&gt;
+&lt;/cp&gt;
+&lt;cp caption="Actions and Key Events"&gt;
+  &lt;list&gt;
+    &lt;item&gt;La Forge and Data race to the transporter room with phasers in hand&lt;/item&gt;
+    &lt;item&gt;Lynn Jore is standing on the transporter pad holding a case full of stolen isolinear chips&lt;/item&gt;
+    &lt;item&gt;La Forge and Data enter and tell her to put down the case&lt;/item&gt;
+    &lt;item&gt;Data informs her the transporter has been disabled&lt;/item&gt;
+    &lt;item&gt;La Forge goes to the transporter console and discovers the operator is only unconscious&lt;/item&gt;
+    &lt;item&gt;Jore puts down the case and asks how they caught her&lt;/item&gt;
+    &lt;item&gt;La Forge taps his comm badge and tells Worf the room is secure&lt;/item&gt;
+    &lt;item&gt;Data explains that she used old codes that had been rescinded after Lore posed as Data&lt;/item&gt;
+    &lt;item&gt;La Forge asks how Jore could have known those codes&lt;/item&gt;
+    &lt;item&gt;Jore smirks at Data and says "Take a guess, &lt;i&gt;brother&lt;/i&gt;"&lt;/item&gt;
+    &lt;item&gt;Data and La Forge share a look of disbelief&lt;/item&gt;
+  &lt;/list&gt;
+&lt;/cp&gt;
+&lt;cp caption="Mood and Tone"&gt;
+  &lt;list&gt;
+    &lt;item&gt;Tense&lt;/item&gt;
+    &lt;item&gt;Surreal disbelief when Lynn Jore reveals she is Lore&lt;/item&gt;
+  &lt;/list&gt;
+&lt;/cp&gt;
+&lt;cp caption="Scene Narrative Output Structure"&gt;
+  &lt;list&gt;
+    &lt;item&gt;Introduce the scene’s setting and context based on the foundational elements and specific location.&lt;/item&gt;
+    &lt;item&gt;Present the characters present and establish their immediate situation.&lt;/item&gt;
+    &lt;item&gt;Detail the actions, key events, and unfolding drama within the scene.&lt;/item&gt;
+    &lt;item&gt;Conclude with the mood, consequences, or hints at what comes next (especially important for continuation scenes).&lt;/item&gt;
+  &lt;/list&gt;
+&lt;/cp&gt;
+&lt;task&gt;
+  Write a scene based on the information in this prompt.
+  &lt;list&gt;
+    &lt;item&gt;Read Characters Present to determine which characters are in the scene.&lt;/item&gt;
+    &lt;item&gt;Read Specific Location to determine where the scene takes place.&lt;/item&gt;
+    &lt;item&gt;Read Actions and Key Events to learn what actions, interactions, and scene specific details should exist.&lt;/item&gt;
+    &lt;item&gt;Cross reference Characters Present, Specific Location, and Actions and Key Events with the Foundational Information data to generate overall context for the scene.&lt;/item&gt;
+    &lt;item&gt;Write out the scene based on the analysis done in the previous steps.&lt;/item&gt;
+    &lt;item&gt;Read over the scene to spot any logic flaws, inconsistencies, and/or ambiguiies.&lt;/item&gt;
+    &lt;item&gt;Rewrite scene elements as necessary to correct logic flaws or inconsistencies.&lt;/item&gt;
+    &lt;item&gt;If any ambiguiies or questions are detected, mark them for editor review.&lt;/item&gt;
+    &lt;item&gt;Read over the finalized scene and generate a bullet point event summary to aid in maintaining continuity.&lt;/item&gt;
+  &lt;/list&gt;
+&lt;/task&gt;
+&lt;output-format&gt;Generate the story and event summaries in separate response sections with the following headers: Story, Event Summary&lt;/output-format&gt;
+&lt;/poml&gt;</code></pre>
+<p>The statistics on this run were as follows:</p>
+<table style="border-collapse: collapse; width: 100%; height: 123.7px;" border="1">
+<tbody>
+<tr style="height: 75.35px;">
+<td style="width: 24.9572%; height: 75.35px;">Input Tokens</td>
+<td style="width: 24.9572%; height: 75.35px;">Output Tokens</td>
+<td style="width: 24.9572%; height: 75.35px;">Time to First Token</td>
+<td style="width: 24.9572%; height: 75.35px;">Tokens per Second</td>
+</tr>
+<tr style="height: 48.35px;">
+<td style="width: 24.9572%; height: 48.35px;">655</td>
+<td style="width: 24.9572%; height: 48.35px;">1367</td>
+<td style="width: 24.9572%; height: 48.35px;">2.48</td>
+<td style="width: 24.9572%; height: 48.35px;"><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">16.56</span></td>
+</tr>
+</tbody>
+</table>
+<p>Interestingly, this model seems to have difficulties generating prose text, tending to generate less detailed and more dialogue heavy text. This is likely due to the <a href="https://huggingface.co/datasets/progs2002/star-trek-tng-scripts" title="Dataset: progs2002/star-trek-tng-scripts" target="_blank" rel="noopener noreferrer">training data set</a>, which consists of <a href="https://www.st-minutiae.com/resources/scripts/#thenextgeneration" title="Star Trek Scripts - Star Trek: The Next Generation" target="_blank" rel="noopener noreferrer">the actual shooting scripts from Star Trek: The Next Generation</a>, which were uploaded to the internet in the late-1990s/early-2000s.</p>
+<p>Here is an example of one:</p>
+<pre class="language-clike line-numbers"><code>1    EXT. SPACE - THE ENTERPRISE (OPTICAL)
+
+	sweeps by majestically at warp. WE CLEARLY SEE THE
+	REGISTRY NUMBER on her wing -- ten foot tall navy blue
+	letters reading NCC-1701D.
+
+					RIKER (V.O.)
+			First officer's log, stardate
+			41775.5. We are en route to the
+			ocean world known as Pacifica...
+
+2    INT. ENTERPRISE - MAIN BRIDGE - WIDE ANGLE
+
+	The mood is relaxed. RIKER is at Command with TROI
+	beside him. WORF'S at Security, DATA and GEORDI at Ops
+	and Conn.
+
+					RIKER (V.O.)
+				(continuing)
+			Our mission is routinely
+			scientific in nature. We look
+			forward to seeing the warm blue
+			waters and fine white beaches that
+			make Pacifica a treasured jewel
+			of the galaxy.</code></pre>
+<p>And here's a short excerpt from the output:</p>
+<pre class="language-clike line-numbers"><code>"Hands up! Drop the case!" Geordi commands, voice low and dangerous. Jore complies instantly, holding the case out in front of her. Data steps forward, his voice clipped and professional.
+"Your transporter is inoperable. We have full control of the system."
+Jore smiles, a little too sweetly, but there's no trace of mirth in her eyes.
+"Of course you do. You're a clever little cat, aren't you, Commander Data?"
+La Forge eyes her warily. He crosses to the console, punches in commands.</code></pre>
+<p>It's clear that the model was heavily skewed towards script style outputs, and also present tense format, despite the prompt deliberately pointing to past tense.</p>
+<p>Experiments with moving the role and creative interpretation elements of the prompt into the system prompt with this and similar models have some effect. But in general, it seems that models trained on scripts or transcripts will stick to that format, versus more broadly trained models, which can be more easily switch between styles.</p>
+<p>That said, for roleplay or script based fanfiction uses, these models seem quite competent within their limitations.</p>
+<h2>Takeaways</h2>
+<ul>
+<li>Use Snappy Driver Installer Origin to update drivers whenever you clean install a new Windows installation.</li>
+<li>Get WinDBG to access Windows crash dumps, in case the crashes are related to drivers.</li>
+<li>NPU only AI inference is slow on AMD APUs, pre-ROCm 7.</li>
+<li>NPU+GPU AI inference on pre-ROCm 7 AMD APUs barely utilizes the NPU.</li>
+<li>Qwen3 models finetuned on scripts or transcripts will tend to generate outputs reflecting the style of the training material (present tense, script style dialogue formatting).</li>
+</ul>
+<p>Data from these tests will be uploaded to my public <a href="https://github.com/korgano/AI_Experiment_Docs" title="Github: AI_Experiment_Docs" target="_blank" rel="noopener noreferrer">AI experiment documentation repo</a>.</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Tech Project: AI miniPC (Minisforum X1 Pro) 2.0</title>
         <author>
@@ -2594,87 +3340,6 @@ Run it in PowerShell—after completion, `filter-statistics.log` will contain:
 <p>I have no problem with the argument or the sentiment. The problem is that there's also no sign of thought about what happens <strong>after </strong>the requested investigation. And I mean from both the government and private sector. This is not particularly surprising from the government, given all the strife lately, but it is concerning that router manufacturers don't seem to be rising to the challenge of filling the void that would be caused by TP-Link routers being outright banned by the US government.</p>
 <p>Given the supply disruptions we've seen due to the Trump administration's use of tariffs as a negotiation tool, it's highly likely that if router manufacturers don't start a gradual increase in supply, there'll be a painful run on routers if the TP-Link ban goes through.</p>
 <p>Of course, the best solution would be providing a simple, effective way to replace the firmware on these devices with up-to-date versions of OpenWRT, a router operating system. Unfortunately, with only a fraction of TP-Link devices currently supported, it looks like a lot of Americans will be paying an unforeseen price for their past IT equipment choices.</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Quick Cyber Thoughts: Absolute Zero Reasoning</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/quick-cyber-thoughts-absolute-zero-reasoning/"/>
-        <id>https://korgano.github.io/quick-cyber-thoughts-absolute-zero-reasoning/</id>
-        <media:content url="https://korgano.github.io/media/posts/38/absolute-zero-uhoh.png" medium="image" />
-
-        <updated>2025-05-15T13:30:27-04:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/38/absolute-zero-uhoh.png" alt="Absolute Zero Reasoner – Llama3.1-8B “Uh-oh Moment.” This example highlights an unexpected and potentially unsafe reasoning chain generated by the Absolute Zero Reasoner–Llama3.1-8B model during training. Although the paradigm enables reasoning improvements without human-curated data, it may still require oversight due to the risk of emergent undesirable behaviors." />
-                    No, this isn't a joke about/reference to vibe coders. Instead, it's a new method of training reasoning AI: What is&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/38/absolute-zero-uhoh.png" class="type:primaryImage" alt="Absolute Zero Reasoner – Llama3.1-8B “Uh-oh Moment.” This example highlights an unexpected and potentially unsafe reasoning chain generated by the Absolute Zero Reasoner–Llama3.1-8B model during training. Although the paradigm enables reasoning improvements without human-curated data, it may still require oversight due to the risk of emergent undesirable behaviors." /></p>
-                <p>No, this isn't a joke about/reference to vibe coders.</p>
-<p>Instead, it's a new method of training reasoning AI:</p>
-<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/CqdqZNqljdI" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
-<p>What is it? Well, it just could be the thing all the AI safety people have been warning about.</p>
-<div class="post__toc">
-<h3>Table of Contents</h3>
-<ul>
-<li><a href="#mcetoc_1irahtd8o1">How it Works</a></li>
-<li><a href="#mcetoc_1iraln3ch2j">The Key Takeaways</a></li>
-</ul>
-</div>
-<h2 id="mcetoc_1irahtd8o1">How it Works</h2>
-<p>Absolute Zero Reasoning, as explained by its creators, is the following:</p>
-<blockquote>
-<p><span id="S1.p2.1.1" class="ltx_text">To this end, we propose </span><em id="S1.p2.1.2" class="ltx_emph ltx_font_italic">“Absolute Zero”</em><span id="S1.p2.1.3" class="ltx_text">, a new paradigm for reasoning models in which the model simultaneously learns to define tasks that maximize learnability and to solve them effectively, enabling self-evolution through self-play without relying on external data. In contrast to prior self-play methods that are limited to narrow domains, fixed functionalities, or learned reward models that are prone to hacking </span><cite class="ltx_cite ltx_citemacro_citep"><span id="S1.p2.1.4.1" class="ltx_text">(</span><span class="ltx_text">Silver et al.</span><span id="S1.p2.1.5.2.1.1" class="ltx_text">, </span><a class="ltx_ref" href="https://arxiv.org/html/2505.03335v2#bib.bib56" title=""><span class="ltx_text">2017</span></a>; <span class="ltx_text">Chen et al.</span><span id="S1.p2.1.5.2.1.1" class="ltx_text">, </span><a class="ltx_ref" href="https://arxiv.org/html/2505.03335v2#bib.bib4" title=""><span class="ltx_text">2025</span></a>; <a class="ltx_ref" href="https://arxiv.org/html/2505.03335v2#bib.bib5" title=""><span class="ltx_text">2024</span></a><span id="S1.p2.1.6.3" class="ltx_text">)</span></cite><span id="S1.p2.1.7" class="ltx_text">, the </span><em id="S1.p2.1.8" class="ltx_emph ltx_font_italic">Absolute Zero</em><span id="S1.p2.1.9" class="ltx_text"> paradigm is designed to operate in open-ended settings while remaining grounded in a real environment. It relies on feedback from the environment as a verifiable source of reward, mirroring how humans learn and reason through interaction with the world, and helps prevent issues such as hacking with neural reward models </span><cite class="ltx_cite ltx_citemacro_citep"><span id="S1.p2.1.10.1" class="ltx_text">(</span><span class="ltx_text">Hughes et al.</span><span id="S1.p2.1.11.2.1.1" class="ltx_text">, </span><a class="ltx_ref" href="https://arxiv.org/html/2505.03335v2#bib.bib25" title=""><span class="ltx_text">2024</span></a><span id="S1.p2.1.12.3" class="ltx_text">)</span></cite><span id="S1.p2.1.13" class="ltx_text">. Similar to AlphaZero </span><cite class="ltx_cite ltx_citemacro_citep"><span id="S1.p2.1.14.1" class="ltx_text">(</span><span class="ltx_text">Silver et al.</span><span id="S1.p2.1.15.2.1.1" class="ltx_text">, </span><a class="ltx_ref" href="https://arxiv.org/html/2505.03335v2#bib.bib56" title=""><span class="ltx_text">2017</span></a><span id="S1.p2.1.16.3" class="ltx_text">)</span></cite><span id="S1.p2.1.17" class="ltx_text">, which improves through self-play, our proposed paradigm requires no human supervision and learns entirely through self-interaction. We believe the Absolute Zero paradigm represents a promising step toward enabling large language models to autonomously achieve superhuman reasoning capabilities.</span></p>
-<p>-Zhao, et al, <a href="https://arxiv.org/html/2505.03335v2">https://arxiv.org/html/2505.03335v2</a></p>
-</blockquote>
-<p>In plain English, Absolute Zero Reasoning is a training method where an LLM creates a coding or mathematics challenge that's calibrated to be challenging, then uses certain functions in the Python environment to validate the results. Successes and failures train the LLM as it iterates through the tasks, improving it capabilities through the use of three methods of reasoning.</p>
-<h2 id="mcetoc_1iraln3ch2j">The Key Takeaways</h2>
-<p>Helpfully, the paper has a summary of the key findings of this research:</p>
-<blockquote>
-<p><strong>• </strong><strong>Code priors amplify reasoning.</strong><span id="S1.I1.i1.p1.1.2" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"><strong> </strong>The base </span><span id="S1.I1.i1.p1.1.3" class="ltx_text ltx_font_typewriter" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">Qwen-Coder-7b</span><span id="S1.I1.i1.p1.1.4" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"> model started with math performance 3.6 points lower than </span><span id="S1.I1.i1.p1.1.5" class="ltx_text ltx_font_typewriter" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">Qwen-7b</span><span id="S1.I1.i1.p1.1.6" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">. But after AZR training for both models, the coder variant surpassed the base by 0.7 points, suggesting that strong coding capabilities may potentially amplify overall reasoning improvements after AZR training.</span><br><strong>• Cross domain transfer is more pronounced for AZR.</strong><span id="S1.I1.i2.p1.1.2" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"><strong> </strong>After RLVR, expert code models raise math accuracy by only 0.65 points on average, whereas </span><span id="S1.I1.i2.p1.1.3" class="ltx_text ltx_font_typewriter" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">AZR<span id="S1.I1.i2.p1.1.3.1" class="ltx_text">-</span>Base<span id="S1.I1.i2.p1.1.3.2" class="ltx_text">-</span>7B</span><span id="S1.I1.i2.p1.1.4" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"> and </span><span id="S1.I1.i2.p1.1.5" class="ltx_text ltx_font_typewriter" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">AZR<span id="S1.I1.i2.p1.1.5.1" class="ltx_text">-</span>Coder<span id="S1.I1.i2.p1.1.5.2" class="ltx_text">-</span>7B</span><span id="S1.I1.i2.p1.1.6" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"> trained on self-proposed code reasoning tasks improve math average by 10.9 and 15.2, respectively, demonstrating much stronger generalized reasoning capability gains.</span><br><strong>• </strong><strong>Bigger bases yield bigger gains.</strong><span id="S1.I1.i3.p1.1.2" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"><strong> </strong>Performance improvements scale with model size: the 3B, 7B, and 14B coder models gain +5.7, +10.2, and +13.2 points respectively, suggesting continued scaling is advantageous for AZR.</span><br><strong>• </strong><strong>Comments as intermediate plans emerge naturally.</strong><span id="S1.I1.i4.p1.1.2" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"><strong> </strong>When solving code induction tasks, AZR often interleaves step-by-step plans as comments and code (</span><a class="ltx_ref" href="https://arxiv.org/html/2505.03335v2#A3.F19" title="In C.3 Interplay Between Propose and Solve Roles ‣ Appendix C More Results" style="font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"><span class="ltx_text ltx_ref_tag">Figure</span> <span class="ltx_text ltx_ref_tag">19</span></a><span id="S1.I1.i4.p1.1.3" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">), resembling the ReAct prompting framework </span><cite class="ltx_cite ltx_citemacro_citep" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"><span id="S1.I1.i4.p1.1.4.1" class="ltx_text">(</span><span class="ltx_text">Yao et al.</span><span id="S1.I1.i4.p1.1.5.2.1.1" class="ltx_text">, </span><a class="ltx_ref" href="https://arxiv.org/html/2505.03335v2#bib.bib75" title=""><span class="ltx_text">2023</span></a><span id="S1.I1.i4.p1.1.6.3" class="ltx_text">)</span></cite><span id="S1.I1.i4.p1.1.7" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">. Similar behavior has been observed in much larger formal-math models such as DeepSeek Prover v2 (671B) </span><cite class="ltx_cite ltx_citemacro_citep" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"><span id="S1.I1.i4.p1.1.8.1" class="ltx_text">(</span><span class="ltx_text">Ren et al.</span><span id="S1.I1.i4.p1.1.9.2.1.1" class="ltx_text">, </span><a class="ltx_ref" href="https://arxiv.org/html/2505.03335v2#bib.bib48" title=""><span class="ltx_text">2025</span></a><span id="S1.I1.i4.p1.1.10.3" class="ltx_text">)</span></cite><span id="S1.I1.i4.p1.1.11" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">. We therefore believe that allowing the model to use intermediate scratch-pads when generating long-form answers may be beneficial in other domains as well.</span><br><strong>• Cognitive Behaviors and Token length depends on reasoning mode.</strong><span id="S1.I1.i5.p1.1.2" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"><strong> </strong>Distinct cognitive behaviors—such as step-by-step reasoning, enumeration, and trial-and-error all emerged through AZR training, but different behaviors are particularly evident across different types of tasks. Furthermore token counts grow over AZR training, but the magnitude of increase also differs by task types: abduction grows the most because the model performs trial-and-error until output matches, whereas deduction and induction grow modestly.</span><br><strong>• Safety alarms ringing.</strong><span id="S1.I1.i6.p1.1.2" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"> We observe AZR with </span><span id="S1.I1.i6.p1.1.3" class="ltx_text ltx_font_typewriter" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">Llama3.1-8b</span><span id="S1.I1.i6.p1.1.4" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"> occasionally produces concerning chains of thought, we term the “uh</span><span id="S1.I1.i6.p1.1.5" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">-</span><span id="S1.I1.i6.p1.1.6" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">oh moment”, example shown in </span><a class="ltx_ref" href="https://arxiv.org/html/2505.03335v2#A3.F32" title="In C.5 Generated Code Complexity Dynamics Between Abd/Ded and Ind. ‣ Appendix C More Results" style="font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"><span class="ltx_text ltx_ref_tag">Figure</span> <span class="ltx_text ltx_ref_tag">32</span></a><span id="S1.I1.i6.p1.1.7" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">, highlighting the need for future work on safety</span><span id="S1.I1.i6.p1.1.8" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">-</span><span id="S1.I1.i6.p1.1.9" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">aware training </span><cite class="ltx_cite ltx_citemacro_citep" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);"><span id="S1.I1.i6.p1.1.10.1" class="ltx_text">(</span><span class="ltx_text">Zhang et al.</span><span id="S1.I1.i6.p1.1.11.2.1.1" class="ltx_text">, </span><a class="ltx_ref" href="https://arxiv.org/html/2505.03335v2#bib.bib86" title=""><span class="ltx_text">2025a</span></a><span id="S1.I1.i6.p1.1.12.3" class="ltx_text">)</span></cite><span id="S1.I1.i6.p1.1.13" class="ltx_text" style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">.</span></p>
-<p>-Zhao, et al, <a href="https://arxiv.org/html/2505.03335v2">https://arxiv.org/html/2505.03335v2</a></p>
-</blockquote>
-<p>It's fascinating to see that pre-training a model on coding can provide a boost to overall reasoning capability. Absolute Zero Reasoning leading to better math reasoning after training models to code also makes sense. A lot of code is just a complicated math problem, and learning how to code more effectively could help the AI figure out better methods of solving those problems.</p>
-<p>However, there's two takeaways worth thinking about a little further.</p>
-<h2>Bigger Model Better?</h2>
-<figure class="post__image"><img loading="lazy"  src="https://arxiv.org/html/2505.03335v2/x5.png" alt="AZR Training In-Distribution Accuracy over 200 training steps, for a Llama 8B parameter model and AZR trained 3, 7, and 14B parameter models" width="1660" height="1319" data-is-external-image="true"></figure>
-<div id="S4.SS2.SSS0.Px3.p2" class="ltx_para ltx_noindent">
-<blockquote>
-<p id="S4.SS2.SSS0.Px3.p2.1" class="ltx_p"><span id="S4.SS2.SSS0.Px3.p2.1.1" class="ltx_text">The results reveal a clear trend: our method delivers </span><em id="S4.SS2.SSS0.Px3.p2.1.2" class="ltx_emph ltx_font_italic">greater gains on larger, more capable models</em><span id="S4.SS2.SSS0.Px3.p2.1.3" class="ltx_text">. In the in-distribution setting, the 7B and 14B models continue to improve beyond 200 training steps, whereas the smaller 3B model appears to plateau. For out-of-distribution domains, larger models also show greater overall performance improvements than smaller ones: +5.7, +10.2, +13.2 overall performance gains, respectively for 3B, 7B and 14B. This is an encouraging sign, since base models continue to improve and also suggesting that scaling enhances the effectiveness of AZR. In future work, we aim to investigate the scaling laws that govern performance in the Absolute Zero paradigm.</span></p>
-<p>-Zhao, et al, <a href="https://arxiv.org/html/2505.03335v2">https://arxiv.org/html/2505.03335v2</a></p>
-</blockquote>
-<p>There's a presupposition that we're in the midst of an AI bubble due to a lot of companies buying a lot of expensive hardware to handle the compute requirements of training AI, and gaining little to show for that investment.</p>
-<p>Absolute Zero Reasoning might flip that wisdom on its head. With bigger models not only having higher starting accuracy, but also continuing to improve as the training time increases, all that hardware suddenly seems <strong>very </strong>useful. If you have a boatload of compute, a huge amount of memory, and plenty of time, you could potentially use it to create a model that would surpass a human in coding and mathematical reasoning.</p>
-<p>That has a number of long term strategic implications across a wide variety of fields:</p>
-<ul>
-<li>Demand for the latest AI hardware by foundation model makers could skyrocket, exacerbating supply issues.</li>
-<li>Older AI hardware would be unlikely to filter into the secondary market, because lack of availability for newer hardware.</li>
-<li>Smaller/less well funded organizations would have difficulties improving or standing up local AI capabilities due to lack of supply of new or older hardware.</li>
-<li>Frontier AI firms would be able to further consolidate and dominate the AI market, as those with the most compute would benefit the most from AZR.</li>
-<li>Software security would basically become a test of whether developers had access to the most capable AZR model and utilized (system) prompts aiming to create secure systems by default.</li>
-</ul>
-<p>This is naturally a pessimistic outlook, one that could literally be obsoleted next week at the earliest by AMD at Computex 2025. Mass production of products with their currently unused Neural Processing Unit chiplets would certainly ease the supply constraints on decent AI hardware. Improvements in software could also help ease these issues, as better CUDA translation layers for other architectures could allow for more performance to be obtained from hardware that is less in demand.</p>
-<h2>The Safety Problem</h2>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/38/absolute-zero-uhoh-2.png" alt="Absolute Zero Reasoner – Llama3.1-8B “Uh-oh Moment.” This example highlights an unexpected and potentially unsafe reasoning chain generated by the Absolute Zero Reasoner–Llama3.1-8B model during training. Although the paradigm enables reasoning improvements without human-curated data, it may still require oversight due to the risk of emergent undesirable behaviors." width="1542" height="495" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/38/responsive/absolute-zero-uhoh-2-xs.png 384w ,https://korgano.github.io/media/posts/38/responsive/absolute-zero-uhoh-2-sm.png 600w ,https://korgano.github.io/media/posts/38/responsive/absolute-zero-uhoh-2-md.png 768w ,https://korgano.github.io/media/posts/38/responsive/absolute-zero-uhoh-2-lg.png 1200w ,https://korgano.github.io/media/posts/38/responsive/absolute-zero-uhoh-2-xl.png 1600w"></figure>
-<p>AI Safety is a bit of a contentious topic these days, but I believe the common ground is that we should at least be aware of what an autonomous AI system is doing.</p>
-<p>So the fact that AZR models produced the above reasoning text is a bit concerning. Because research from Anthropic tracing the neural pathways and behaviors of LLMs has revealed that the output of Chain of Thought is not necessarily an accurate replication of how the neural net actually generated that result. It can be a distorted or deliberately incorrect statement, which is already concerning, but it gets worse with a self-learning system.</p>
-<p>For organizations that have a low risk tolerance, this set of behaviors may slow adoption of AZR, at least until the safety concerns are dealt with.</p>
-<p>Unfortunately, this means that any organization that does <strong>not </strong>care about the risks or feels confident in their ability to mitigate them will adopt the methodology before those risk adverse organizations. And among those that would be more inclined to adopt first, deal with the risks later are nation-state actors and Advanced Persistent Threat groups. The reason for this is pretty obvious - better coding AI, especially ones that can stump/outthink experts with AI assistance, would make their jobs <strong>much </strong>easier.</p>
-<p>This that defenders need to consider the ramifications of facing off against these potential super coder AIs <strong>now</strong>, before they're anything more than the subjects of academic papers.</p>
-</div>
-<figure id="S4.F6" class="ltx_figure">
-<div class="ltx_flex_figure">
-<div class="ltx_flex_cell ltx_flex_size_1">
-<div id="S4.F6.1" class="ltx_block ltx_figure_panel ltx_minipage ltx_align_center ltx_align_bottom"></div>
-</div>
-</div>
-</figure>
             ]]>
         </content>
     </entry>
