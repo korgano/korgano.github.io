@@ -724,6 +724,46 @@
 </image:image>
 </url>
 <url>
+<loc>https://korgano.github.io/quick-cyber-thoughts-poml/</loc>
+<lastmod>2025-09-22T11:27:02-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/49/minipc-028-2.png</image:loc>
+<image:title><![CDATA[POML story scene generation template prompt, with generic values in all item tags.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/49/minipc-019.png</image:loc>
+<image:title><![CDATA[POML VS Code Extension in use, showing prompt preview.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/49/minipc-027.png</image:loc>
+<image:title><![CDATA[VS Code POML extension revealing invisitext unicode characters that were intended to inject malicious command into model.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/49/minipc-024.png</image:loc>
+<image:title><![CDATA[POML prompt showing the modularity of the format.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/49/minipc-028.png</image:loc>
+<image:title><![CDATA[POML story scene generation template prompt, with generic values in all item tags.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/49/minipc-036.png</image:loc>
+<image:title><![CDATA[POML documentation Github page for the Runtime tag.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/49/minipc-037.png</image:loc>
+<image:title><![CDATA[POML documentation on Document embedding.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/49/minipc-038.png</image:loc>
+<image:title><![CDATA[Mandatory settings in POML extension are highlighted by a yellow bar to the left of their name.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/49/minipc-039.png</image:loc>
+<image:title><![CDATA[POML's documentation does not tell you that Speaker parameters last until the next instance of the parameter is detected.]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/quick-cyber-thoughts-things-i-hope-to-see-at-ces-2025/</loc>
 <lastmod>2025-01-02T09:35:16-05:00</lastmod>
 <image:image>
