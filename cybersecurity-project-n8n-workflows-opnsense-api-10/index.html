@@ -1,0 +1,839 @@
+<!DOCTYPE html><html lang="en-us"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cybersecurity Project: N8N Workflows - OPNSense API 1.0 - XS Tech Thoughts</title><meta name="description" content="Explore the diverse portfolio of a multi-talented professional with experience in cybersecurity, UX/UI design, writing, and video game modding."><meta name="generator" content="Publii Open-Source CMS for Static Site"><!-- Global site tag (gtag.js) - Google Analytics --><script type="gdpr-blocker/Analytics" async src="https://www.googletagmanager.com/gtag/js?id=G-EHLH28GQMY"></script><script type="gdpr-blocker/Analytics">window.dataLayer = window.dataLayer || [];
+				  function gtag(){dataLayer.push(arguments);}
+				  gtag('js', new Date());
+				  gtag('config', 'G-EHLH28GQMY' , { 'anonymize_ip': true });
+				  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EHLH28GQMY"></script><script>window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EHLH28GQMY');</script><link rel="stylesheet" href="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-black.css"><link rel="stylesheet" href="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-inline-color.css"><link rel="canonical" href="https://korgano.github.io/cybersecurity-project-n8n-workflows-opnsense-api-10/"><link rel="alternate" type="application/atom+xml" href="https://korgano.github.io/feed.xml" title="XS Tech Thoughts - RSS"><meta property="og:title" content="Cybersecurity Project: N8N Workflows - OPNSense API 1.0"><meta property="og:image" content="https://korgano.github.io/media/website/vadim-sherbakov-RcdV8rnXSeE-unsplash.jpg"><meta property="og:image:width" content="5472"><meta property="og:image:height" content="3648"><meta property="og:site_name" content="XS Tech Thoughts"><meta property="og:description" content="Explore the diverse portfolio of a multi-talented professional with experience in cybersecurity, UX/UI design, writing, and video game modding."><meta property="og:url" content="https://korgano.github.io/cybersecurity-project-n8n-workflows-opnsense-api-10/"><meta property="og:type" content="article"><link rel="preload" href="https://korgano.github.io/assets/dynamic/fonts/robotoflex/robotoflex.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="https://korgano.github.io/assets/dynamic/fonts/robotoslab/robotoslab.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="https://korgano.github.io/assets/css/style.css?v=253922ed3c1816ffff870ea807b853dd"><script type="application/ld+json">{"@context":"http://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://korgano.github.io/cybersecurity-project-n8n-workflows-opnsense-api-10/"},"headline":"Cybersecurity Project: N8N Workflows - OPNSense API 1.0","datePublished":"2025-10-20T09:42-04:00","dateModified":"2025-10-25T09:07-04:00","description":"Explore the diverse portfolio of a multi-talented professional with experience in cybersecurity, UX/UI design, writing, and video game modding.","author":{"@type":"Person","name":"Xavier Santana","url":"https://korgano.github.io/authors/xavier-santana/"},"publisher":{"@type":"Organization","name":"Xavier Santana"}}</script><noscript><style>img[loading] {
+                    opacity: 1;
+                }</style></noscript></head><body class="post-template lines"><div class="container lines lines--right"><header class="header"><a href="https://korgano.github.io/" class="logo">XS Tech Thoughts</a><nav class="navbar js-navbar"><button class="navbar__toggle js-toggle" aria-label="Menu">Menu</button><ul class="navbar__menu"><li><a href="https://korgano.github.io/" title="Home" target="_self">Home</a></li><li><a href="https://korgano.github.io/tags/uxui-case-study/" title="UX/UI Case Studies" target="_blank">UX/UI Case Studies</a></li><li><a href="https://korgano.github.io/tags/cybersecurity-projects/" title="Cybersecurity Projects" target="_blank">Cybersecurity Projects</a></li><li><a href="https://korgano.github.io/tags/quick-thoughts/" title="Quick Thoughts" target="_self">Quick Thoughts</a></li><li><a href="https://korgano.github.io/about-me/" title="About Me" target="_blank">About Me</a></li></ul></nav></header><main class="main post"><article class="content"><header class="content__inner content__header"><h1 class="content__title">Cybersecurity Project: N8N Workflows - OPNSense API 1.0</h1><div class="content__meta"><div class="content__meta__left"><a href="https://korgano.github.io/authors/xavier-santana/" class="invert content__author" rel="author" title="Xavier Santana">Xavier Santana</a></div><div class="content__meta__right"><time datetime="2025-10-20T09:42" class="content__date">October 20, 2025</time><div class="content__updated">Updated on <time datetime="2025-10-20T09:42" class="content__date">October 25, 2025</time></div></div></div></header><div class="content__inner"><div class="content__entry"><p>One nagging issue with my <a href="https://korgano.github.io/tags/opnsense/" target="_blank" rel="noopener noreferrer">OPNSense Transparent Filtering Bridge cybersecurity project</a> has been analyzing the data. (Well, okay, the WiFi connection intermittently being inaccessible has been a way bigger deal, but that's not the main issue.) <a href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-92/" title="CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.2" target="_blank" rel="noopener noreferrer">Namely, figuring out what rules are associated with detections.</a></p><p>For whatever reason, in the actual logs generated by OPNsense, the automatically generated rules, which apply to <strong>all </strong>interfaces, do not receive proper labelling/descriptions. This makes analysis challenging, because the default rules exist for a reason, but not necessarily a cybersecurity reason. Also, the only way to figure out which rule numbers are applied to each rule on a session basis is to dig into the GUI, to a fairly obscure and randomly titled page.</p><p>Since OPNSense has an API for remotely interacting with the firewall software, I will attempt to extract this information without using the GUI.</p><div class="post__toc"><h3>Table of Contents</h3><ul><li><a href="#mcetoc_1j80v2v7g1i">What is N8N?</a></li><li><a href="#mcetoc_1j819nlsr58">The Final Product</a></li><li><a href="#mcetoc_1j819nlsr59">Preparation</a></li><li><a href="#mcetoc_1j819nlsr5a">Process</a></li></ul></div><h2 id="mcetoc_1j80v2v7g1i">What is N8N?</h2><p>N8N is a piece of software for running automations I learned about at a <a href="https://hackcfl.com/" title="HackCFL - An InfoSec Community" target="_blank" rel="noopener noreferrer">HackCFL</a> presentation.</p><p>One of its features is that it can be run locally on a server using Docker. This is free and does not require an account, although you do get a license that provides some extra features if you do setup an account.</p><figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/-ErfsM2TYsM" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure><p>Since I have an operational TrueNAS Scale server, I utilized the Docker image on the TrueNAS app marketplace.</p><h2 id="mcetoc_1j819nlsr58">The Final Product</h2><p>Instead of going through the process first, as I usually do, I'll start with the end product, then explain how I got to it.</p><figure class="post__image"><img loading="lazy" src="https://korgano.github.io/media/posts/51/n8n-001.png" alt="Finalized N8N workflow for using HTTP requests to gather data on firewall interfaces, before writing to a CSV file." width="1671" height="913" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/51/responsive/n8n-001-xs.png 384w, https://korgano.github.io/media/posts/51/responsive/n8n-001-sm.png 600w, https://korgano.github.io/media/posts/51/responsive/n8n-001-md.png 768w, https://korgano.github.io/media/posts/51/responsive/n8n-001-lg.png 1200w, https://korgano.github.io/media/posts/51/responsive/n8n-001-xl.png 1600w"></figure><p>The actual code is pure JSON:</p><pre class="language-json line-numbers"><code>{
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://&lt;OPNSENSE&gt;/api/firewall/filter/get_interface_list",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1616,
+        464
+      ],
+      "id": "63da5a01-8b1e-4df9-94d9-7a453507a7ab",
+      "name": "HTTP Request - Get Interfaces",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "notesInFlow": true,
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "&lt;ID VALUE&gt;",
+          "name": "OPNSense API"
+        }
+      },
+      "notes": "3 retries, 5 second delay"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "interfaces.items",
+        "options": {
+          "destinationFieldName": "interface",
+          "includeBinary": true
+        }
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1792,
+        464
+      ],
+      "id": "b844604a-2f39-435b-8c5d-33b8e4fad194",
+      "name": "Split Out Interfaces"
+    },
+    {
+      "parameters": {
+        "options": {
+          "delimiter": ",",
+          "fileName": "OPNsense-Firewall-Stats.csv",
+          "headerRow": true
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1,
+      "position": [
+        2288,
+        464
+      ],
+      "id": "b15ebc2b-ad1a-4dc0-ae32-9f5585b9671c",
+      "name": "Convert to File (CSV)"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 3
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        1456,
+        464
+      ],
+      "id": "8fed87ab-cd63-4367-a34d-fe41fdbaa478",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "=https://&lt;OPNSENSE&gt;/api/firewall/filter/search_rule?interface=opt2&amp;show_all=1",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1968,
+        464
+      ],
+      "id": "7ce97e2c-945c-4480-8208-d0a6297db3cb",
+      "name": "HTTP Request - Get Rules (Bridge)",
+      "executeOnce": true,
+      "alwaysOutputData": false,
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "&lt;ID VALUE&gt;",
+          "name": "OPNSense API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// N8N Function node: Format OPNsense rule data for CSV export\n// Input: items[0].json.rows (array of rule objects)\n// Output: one item per CSV row, flattened and ordered for CSV export\n\n// Desired column order for CSV\nconst columnOrder = [\n  \"sort_order\", \"uuid\", \"description\", \"#priority\", \"pf_rules\",\n  \"enabled\", \"disabled\", \"direction\", \"action\", \"replyto\",\n  \"disablereplyto\", \"quick\", \"log\", \"source\", \"source_net\",\n  \"source_port\", \"destination\", \"destination_net\", \"destination_port\",\n  \"legacy\", \"interface\", \"ipprotocol\", \"icmp6-type\", \"statetype\",\n  \"alias_meta_source_network\", \"alias_meta_source_port\",\n  \"alias_meta_destination_net\", \"alias_meta_destination_port\",\n  \"allowopts\", \"gateway\", \"created\", \"updated\", \"seq\", \"ref\",\n  \"evaluations\", \"packets\", \"bytes\", \"states\", \"categories\", \"category\"\n];\n\n// Read rows directly from n8n input\nconst rows = items[0].json.rows || [];\n\n// Sort rows by `sort_order`\nrows.sort((a, b) =&gt; {\n  const sa = a.sort_order?.toString() ?? \"\";\n  const sb = b.sort_order?.toString() ?? \"\";\n  return sa.localeCompare(sb);\n});\n\n// Helper: flatten alias arrays into single cell\nfunction flattenAlias(aliasArray) {\n  if (!Array.isArray(aliasArray)) return \"\";\n  return aliasArray.map(a =&gt; a.value ?? \"\").join(\"; \");\n}\n\n// Helper: flatten created/updated metadata objects\nfunction flattenMeta(meta) {\n  if (!meta || typeof meta !== \"object\") return \"\";\n  const { username, time, description } = meta;\n  return `user:${username || \"\"} time:${time || \"\"} desc:${description || \"\"}`;\n}\n\n// Helper: replace commas with spaces for ICMP-type fields\nfunction cleanIcmp(val) {\n  if (!val) return \"\";\n  return val.toString().replace(/,/g, \" \");\n}\n\n// Helper: flatten nested or string-based source/destination fields\nfunction flattenNetField(field) {\n  if (!field) return \"\";\n  if (typeof field === \"string\") {\n    // Replace commas with pipes for readability and CSV safety\n    return field.replace(/,/g, \"|\");\n  }\n  if (typeof field === \"object\") {\n    // For object fields, join key/value pairs, and also replace commas in values\n    return Object.entries(field)\n      .map(([k, v]) =&gt; `${k}:${String(v).replace(/,/g, \"|\")}`)\n      .join(\"; \");\n  }\n  return \"\";\n}\n\n// Build CSV-ready rows\nconst output = rows.map(r =&gt; {\n  const row = {};\n\n  // Flatten alias/meta fields\n  r.alias_meta_source_network = flattenAlias(r.alias_meta_source_net);\n  r.alias_meta_source_port = flattenAlias(r.alias_meta_source_port);\n  r.alias_meta_destination_net = flattenAlias(r.alias_meta_destination_net);\n  r.alias_meta_destination_port = flattenAlias(r.alias_meta_destination_port);\n  r.created = flattenMeta(r.created);\n  r.updated = flattenMeta(r.updated);\n\n  // Flatten and clean network-related subfields\n  r.source_net = flattenNetField(r.source_net);\n  r.destination_net = flattenNetField(r.destination_net);\n  r.source = flattenNetField(r.source);\n  r.destination = flattenNetField(r.destination);\n\n  // Clean ICMP-type fields\n  if (r[\"icmp6-type\"]) r[\"icmp6-type\"] = cleanIcmp(r[\"icmp6-type\"]);\n  if (r[\"icmp-type\"]) r[\"icmp-type\"] = cleanIcmp(r[\"icmp-type\"]);\n\n  // Assemble row in strict column order\n  for (const key of columnOrder) {\n    row[key] = r[key] ?? \"\";\n  }\n\n  return { json: row };\n});\n\nreturn output;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2128,
+        464
+      ],
+      "id": "7373a715-5b87-4ce1-b9cf-b503dcb2d85f",
+      "name": "Format Data"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "/&lt;TARGET DIRECTORY&gt;/OPNsense-Firewall-Stats.csv",
+        "options": {
+          "append": false
+        }
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        2464,
+        464
+      ],
+      "id": "d98f6b5a-8a7d-499d-9165-1d5123a4cb17",
+      "name": "Write File to Disk"
+    }
+  ],
+  "connections": {
+    "HTTP Request - Get Interfaces": {
+      "main": [
+        [
+          {
+            "node": "Split Out Interfaces",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out Interfaces": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Get Rules (Bridge)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File (CSV)": {
+      "main": [
+        [
+          {
+            "node": "Write File to Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Get Interfaces",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Get Rules (Bridge)": {
+      "main": [
+        [
+          {
+            "node": "Format Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Data": {
+      "main": [
+        [
+          {
+            "node": "Convert to File (CSV)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "f0a85e81a4cdc5b0ffa6b6bae7015c00d3cc730d040c955859d3b797aaba3ce9"
+  }
+}</code></pre><p>The functionality itself is simple:</p><ol><li>At a scheduled interval, run the workflow.</li><li>The first HTTP request obtains a list of interfaces.</li><li>The list is then split out into individual interfaces.</li><li>Another HTTP request is made, just to obtain the rules applied to Transparent Filtering Bridge interace.</li><li>The data from query is passed onto a JavaScript function that sorts it into a human readable format.</li><li>The data is passed on and converted to CSV.</li><li>The file is written to a drive in the NAS.</li></ol><h2 id="mcetoc_1j819nlsr59">Preparation</h2><p>Prior to starting the project, I did the following.</p><p>First, I examined the OPNSense API documentation. Like many sets of documentation, it was overwhelming and not very useful for anyone who wanted to get a simple task done. It also did not provide clarity on what data I could extract from the interface or firewall. However, its utility improved once I had more experience with using the API.</p><p>Second, I created a new user group and user for use with the API. This user was imaginatively named "n8n" and provided with full permissions. While highly sub-optimal, I opted for this choice based on the fact that I had no knowledge of what data a specific API call would provide. Since the permissions were applied to the group, permissions management was simplified. Once workflow development is complete, I can simply prune the permissions back down to the absolute necessities.</p><p>Third, I created a ChatGPT project to collect N8N related conversations for creating and/or refining workflows.</p><h2 id="mcetoc_1j819nlsr5a">Process</h2><p>Since I didn't have much experience with N8N, I turned to AI to help build out the workflow.</p><p>My initial prompt had the following requirements:</p><ul><li>Use the OPNSenseAPI.</li><li>Identify the interfaces.</li><li>Gather the firewall rules from all interfaces.</li><li>Combine the duplicate entries.</li><li>Create a CSV from the data.</li></ul><p>After several attempts to generate or revise the workflow, my assessment is that relying on AI (ChatGPT or Copilot) to generate workflows is a bit of a mixed bag. </p><p>What it was good at:</p><ul><li>General workflow structure.</li><li>HTTP request nodes.</li><li>API calls.</li></ul><p>What it wasn't great at:</p><ul><li>Only using actual known good nodes.</li><li>JavaScript code in the nodes.</li><li>Creating fully connected workflows.</li></ul><p>Some of these problems were exacerbated by the fact that I was feeding the workflow too much data to process, but others were signs of hallucinations or other inferencing issues. For example, attempting to get ChatGPT or Copilot to generate HTML nodes focused on extracting data would often fail. When imported into N8N, these nodes would be gray and cause a variety of execution errors.</p><p>There were occasions where it would also generate code nodes to do tasks that could be done with other nodes, like HTML data extraction. I'm not entirely sure why this is, but the fact that both AI consistently generate workflows with an older node for running code suggests that their training data hasn't been updated to account for revisions of N8N's nodes.</p><p>Many hours were spent attempting to revise or rebuild the workflow, until I decided to reduce the scope of data intake and processing. Once that was done, the final hurdle was coming up with the JavaScript code to sort the data based on the sort order data retrieved through the API, then arrange the data columns in a more readable fashion.</p><h2>Examining the Output</h2><p>Here is an example of the final output:</p><figure class="post__image"><img loading="lazy" src="https://korgano.github.io/media/posts/51/n8n-002.png" alt="CSV of OPNSense rule data for the Transparent Filtering Bridge interface." width="1920" height="1020" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/51/responsive/n8n-002-xs.png 384w, https://korgano.github.io/media/posts/51/responsive/n8n-002-sm.png 600w, https://korgano.github.io/media/posts/51/responsive/n8n-002-md.png 768w, https://korgano.github.io/media/posts/51/responsive/n8n-002-lg.png 1200w, https://korgano.github.io/media/posts/51/responsive/n8n-002-xl.png 1600w"></figure><p>There are multiple data points that be gleaned, even from this partial sample:</p><ul><li>The <code>sort_order</code> format appears to be [PRIORITY NUMBER].[1#####].</li><li>The shortest <code>sort_order</code> suffixes are six digits.</li><li><code>pf_rule</code> numbers are unrelated to sort order.</li><li>Several rules, including all the user generated rules, have the same <code>pf_rule</code> numbers.</li><li>Several fields have FALSE/TRUE/1 responses.</li></ul><p>When combined with the fact that every single rule counts as "Automatically generated", several of these points indicate there may be flaws in the OPNSense API. At the very least, </p></div><footer class="content__footer"><div class="content__tag-share"><div class="content__tag"><h3 class="content__tag__title">Posted in</h3><ul class="content__tag__list"><li><a href="https://korgano.github.io/tags/cybersecurity/">Cybersecurity</a></li><li><a href="https://korgano.github.io/tags/cybersecurity-projects/">Cybersecurity Projects</a></li><li><a href="https://korgano.github.io/tags/opnsense/">OPNSense</a></li><li><a href="https://korgano.github.io/tags/tech/">Tech</a></li><li><a href="https://korgano.github.io/tags/uxui/">UX/UI</a></li></ul></div><div class="content__share"><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fkorgano.github.io%2Fcybersecurity-project-n8n-workflows-opnsense-api-10%2F" class="js-share linkedin" aria-label="Share with LinkedIn" rel="nofollow noopener noreferrer"><svg><use xlink:href="https://korgano.github.io/assets/svg/svg-map.svg#linkedin"/></svg></a></div></div></footer></div></article><div class="content__related"><h3 class="content__related__title">Related posts</h3><div class="l-grid l-grid--2"><article class="c-card"><div class="c-card__wrapper"><figure class="c-card__image is-img-loading"><img src="https://korgano.github.io/media/posts/10/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg" srcset="https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-xs.jpg 384w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-sm.jpg 600w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-md.jpg 768w, https://korgano.github.io/media/posts/10/responsive/glenn-carstens-peters-npxXWgQ33ZQ-unsplash-lg.jpg 1200w" sizes="(min-width: 37.5em) 80vw, 50vw" loading="lazy" height="2712" width="4076" alt=""></figure><div class="c-card__content"><header><h2 class="c-card__title"><a href="https://korgano.github.io/cybersecurity-project-research-remote-access/" class="invert">Cybersecurity Project Research: Remote Access</a></h2></header><footer class="c-card__meta"><a href="https://korgano.github.io/tags/cybersecurity-projects/" class="c-card__tag">Cybersecurity Projects</a></footer></div></div></article><article class="c-card"><div class="c-card__wrapper"><figure class="c-card__image is-img-loading"><img src="https://korgano.github.io/media/posts/9/andres-urena-vXPXRp_wIg4-unsplash.jpg" srcset="https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-xs.jpg 384w, https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-sm.jpg 600w, https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-md.jpg 768w, https://korgano.github.io/media/posts/9/responsive/andres-urena-vXPXRp_wIg4-unsplash-lg.jpg 1200w" sizes="(min-width: 37.5em) 80vw, 50vw" loading="lazy" height="1687" width="3000" alt=""></figure><div class="c-card__content"><header><h2 class="c-card__title"><a href="https://korgano.github.io/cybersecurity-headache-home-router-uxui/" class="invert">Cybersecurity Headache: Home Router UXUI</a></h2></header><footer class="c-card__meta"><a href="https://korgano.github.io/tags/quick-thoughts/" class="c-card__tag">Quick Thoughts</a></footer></div></div></article></div></div></main><footer class="footer"><div class="footer__left"><div class="footer__copy">Copyright Xavier Santana, 2023-2025. Powered by Publii.</div></div><button onclick="backToTopFunction()" id="backToTop" class="footer__bttop" aria-label="Back to top" title="Back to top"><svg><use xlink:href="https://korgano.github.io/assets/svg/svg-map.svg#toparrow"/></svg></button></footer></div><script>window.publiiThemeMenuConfig = { mobileMenuMode: 'sidebar', animationSpeed: 300, submenuWidth: 'auto', doubleClickTime: 500, mobileMenuExpandableSubmenus: true, relatedContainerForOverlayMenuSelector: '.navbar', };</script><script defer="defer" src="https://korgano.github.io/assets/js/scripts.min.js?v=9c5ab7a87221183f149a42b3cceb7956"></script><script>function publiiDetectLoadedImages () {
+         var images = document.querySelectorAll('img[loading]:not(.is-loaded)');
+         for (var i = 0; i < images.length; i++) {
+            if (images[i].complete) {
+               images[i].classList.add('is-loaded');
+               images[i].parentNode.classList.remove('is-img-loading');
+            } else {
+               images[i].addEventListener('load', function () {
+                  this.classList.add('is-loaded');
+                  this.parentNode.classList.remove('is-img-loading');
+               }, false);
+            }
+         }
+      }
+      publiiDetectLoadedImages();</script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-line-numbers.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/clipboard.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-copy-to-clipboard.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-inline-color.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-show-invisibles.min.js"></script><!-- Start main cookie container --><div class="pcb" data-behaviour="badge" data-behaviour-link="#cookie-settings" data-revision="1" data-config-ttl="90" data-debug-mode="false"><!-- Start Banner --><div role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pcb-title" aria-describedby="pcb-txt" class="pcb__banner"><div class="pcb__inner"><div id="pcb-title" role="heading" aria-level="2" class="pcb__title">This website uses cookies</div><div id="pcb-txt" class="pcb__txt">Select which cookies to opt-in to via the checkboxes below; our website uses cookies to examine site traffic and user activity while on our site, for marketing, and to provide social media functionality. <a href="https://korgano.github.io/privacy-policy/">More details...</a></div><div class="pcb__buttons"><button type="button" class="pcb__btn pcb__btn--solid pcb__btn--accept">Accept all</button></div></div></div><!-- End of Banner --><!-- Badge --> <button class="pcb__badge" aria-label="Cookie Policy" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="40" height="40" viewBox="0 0 23 23" fill="currentColor"><path d="M21.41 12.71c-.08-.01-.15 0-.22 0h-.03c-.03 0-.05 0-.08.01-.07 0-.13.01-.19.04-.52.21-1.44.19-2.02-.22-.44-.31-.65-.83-.62-1.53a.758.758 0 0 0-.27-.61.73.73 0 0 0-.65-.14c-1.98.51-3.49.23-4.26-.78-.82-1.08-.73-2.89.24-4.49.14-.23.14-.52 0-.75a.756.756 0 0 0-.67-.36c-.64.03-1.11-.1-1.31-.35-.19-.26-.13-.71-.01-1.29.04-.18.06-.38.03-.59-.05-.4-.4-.7-.81-.66C5.1 1.54 1 6.04 1 11.48 1 17.28 5.75 22 11.6 22c5.02 0 9.39-3.54 10.39-8.42.08-.4-.18-.78-.58-.87Zm-9.81 7.82c-5.03 0-9.12-4.06-9.12-9.06 0-4.34 3.05-8 7.25-8.86-.08.7.05 1.33.42 1.81.24.32.66.67 1.38.84-.76 1.86-.65 3.78.36 5.11.61.81 2.03 2 4.95 1.51.18.96.71 1.54 1.18 1.87.62.43 1.38.62 2.1.62.05 0 .09 0 .13-.01-1.23 3.64-4.7 6.18-8.64 6.18ZM13 17c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1Zm5.29-12.3a.99.99 0 0 1-.29-.71c0-.55.45-.99 1-.99a1 1 0 0 1 .71.3c.19.19.29.44.29.71 0 .55-.45.99-1 .99a1 1 0 0 1-.71-.3ZM9 13.5c0 .83-.67 1.5-1.5 1.5S6 14.33 6 13.5 6.67 12 7.5 12s1.5.67 1.5 1.5Zm3.25.81a.744.744 0 0 1-.06-1.05c.28-.32.75-.34 1.05-.06.31.28.33.75.05 1.06-.15.16-.35.25-.56.25-.18 0-.36-.06-.5-.19ZM8.68 7.26c.41.37.44 1 .07 1.41-.2.22-.47.33-.75.33a.96.96 0 0 1-.67-.26c-.41-.37-.44-1-.07-1.41.37-.42 1-.45 1.41-.08Zm11.48 1.88c.18-.19.52-.19.7 0 .05.04.09.1.11.16.03.06.04.12.04.19 0 .13-.05.26-.15.35-.09.1-.22.15-.35.15s-.26-.05-.35-.15a.355.355 0 0 1-.11-.16.433.433 0 0 1-.04-.19c0-.13.05-.26.15-.35Zm-4.93-1.86a.75.75 0 1 1 1.059-1.06.75.75 0 0 1-1.059 1.06Z"/></svg></button><!-- End of Badge --></div><!-- End of main cookie container --><script>(function(win) {
+    if (!document.querySelector('.pcb')) {
+        return;
+    }
+
+    var cbConfig = {
+        behaviour: document.querySelector('.pcb').getAttribute('data-behaviour'),
+        behaviourLink: document.querySelector('.pcb').getAttribute('data-behaviour-link'),
+        revision: document.querySelector('.pcb').getAttribute('data-revision'),
+        configTTL: parseInt(document.querySelector('.pcb').getAttribute('data-config-ttl'), 10),
+        debugMode: document.querySelector('.pcb').getAttribute('data-debug-mode') === 'true',
+        initialState: null,
+        initialLsState: null,
+        previouslyAccepted: []
+    };
+
+    var cbUI = {
+        wrapper: document.querySelector('.pcb'),
+        banner: {
+            element: null,
+            btnAccept: null,
+            btnReject: null,
+            btnConfigure: null
+        },
+        popup: {
+            element: null,
+            btnClose: null,
+            btnSave: null,
+            btnAccept: null,
+            btnReject: null,
+            checkboxes: null,
+        },
+        overlay: null,
+        badge: null,
+        blockedScripts: document.querySelectorAll('script[type^="gdpr-blocker/"]'),
+        triggerLinks: cbConfig.behaviourLink ? document.querySelectorAll('a[href*="' + cbConfig.behaviourLink + '"]') : null
+    };
+
+    function initUI () {
+        // setup banner elements
+        cbUI.banner.element = cbUI.wrapper.querySelector('.pcb__banner');
+        cbUI.banner.btnAccept = cbUI.banner.element.querySelector('.pcb__btn--accept');
+        cbUI.banner.btnReject = cbUI.banner.element.querySelector('.pcb__btn--reject');
+        cbUI.banner.btnConfigure = cbUI.banner.element.querySelector('.pcb__btn--configure');
+
+        // setup popup elements
+        if (cbUI.wrapper.querySelector('.pcb__popup')) {
+            cbUI.popup.element = cbUI.wrapper.querySelector('.pcb__popup');
+            cbUI.popup.btnClose = cbUI.wrapper.querySelector('.pcb__popup__close');
+            cbUI.popup.btnSave = cbUI.popup.element.querySelector('.pcb__btn--save');
+            cbUI.popup.btnAccept = cbUI.popup.element.querySelector('.pcb__btn--accept');
+            cbUI.popup.btnReject = cbUI.popup.element.querySelector('.pcb__btn--reject');
+            cbUI.popup.checkboxes = cbUI.popup.element.querySelector('input[type="checkbox"]');
+            // setup overlay
+            cbUI.overlay = cbUI.wrapper.querySelector('.pcb__overlay');
+        }
+
+        cbUI.badge = cbUI.wrapper.querySelector('.pcb__badge');
+
+        if (cbConfig.behaviour.indexOf('link') > -1) {
+            for (var i = 0; i < cbUI.triggerLinks.length; i++) {
+                cbUI.triggerLinks[i].addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showBannerOrPopup();
+                });
+            }
+        }
+    }
+
+    function initState () {
+        var lsKeyName = getConfigName();
+        var currentConfig = localStorage.getItem(lsKeyName);
+        var configIsFresh = checkIfConfigIsFresh();
+
+        if (!configIsFresh || currentConfig === null) {
+            if (cbConfig.debugMode) {
+                console.log('🍪 Config not found, or configuration expired');
+            }
+
+            if (window.publiiCBGCM) {
+                gtag('consent', 'default', {
+                    'ad_storage': window.publiiCBGCM.defaultState.ad_storage ? 'granted' : 'denied',
+                    'ad_personalization': window.publiiCBGCM.defaultState.ad_personalization ? 'granted' : 'denied',
+                    'ad_user_data': window.publiiCBGCM.defaultState.ad_user_data ? 'granted' : 'denied',
+                    'analytics_storage': window.publiiCBGCM.defaultState.analytics_storage ? 'granted' : 'denied',
+                    'personalization_storage': window.publiiCBGCM.defaultState.personalization_storage ? 'granted' : 'denied',
+                    'functionality_storage': window.publiiCBGCM.defaultState.functionality_storage ? 'granted' : 'denied',
+                    'security_storage': window.publiiCBGCM.defaultState.security_storage ? 'granted' : 'denied'
+                });  
+                
+                if (cbConfig.debugMode) {
+                    console.log('🍪 GCMv2 DEFAULT STATE: ' + JSON.stringify({
+                        'ad_storage': window.publiiCBGCM.defaultState.ad_storage ? 'granted' : 'denied',
+                        'ad_personalization': window.publiiCBGCM.defaultState.ad_personalization ? 'granted' : 'denied',
+                        'ad_user_data': window.publiiCBGCM.defaultState.ad_user_data ? 'granted' : 'denied',
+                        'analytics_storage': window.publiiCBGCM.defaultState.analytics_storage ? 'granted' : 'denied',
+                        'personalization_storage': window.publiiCBGCM.defaultState.personalization_storage ? 'granted' : 'denied',
+                        'functionality_storage': window.publiiCBGCM.defaultState.functionality_storage ? 'granted' : 'denied',
+                        'security_storage': window.publiiCBGCM.defaultState.security_storage ? 'granted' : 'denied'
+                    }));
+                }
+            }
+
+            showBanner();
+        } else if (typeof currentConfig === 'string') {
+            if (cbConfig.debugMode) {
+                console.log('🍪 Config founded');
+            }
+
+            cbConfig.initialLsState = currentConfig.split(',');
+
+            if (window.publiiCBGCM) {
+                gtag('consent', 'default', {
+                    'ad_storage': getDefaultConsentState(currentConfig, 'ad_storage'),
+                    'ad_personalization': getDefaultConsentState(currentConfig, 'ad_personalization'),
+                    'ad_user_data': getDefaultConsentState(currentConfig, 'ad_user_data'),
+                    'analytics_storage': getDefaultConsentState(currentConfig, 'analytics_storage'),
+                    'personalization_storage': getDefaultConsentState(currentConfig, 'personalization_storage'),
+                    'functionality_storage': getDefaultConsentState(currentConfig, 'functionality_storage'),
+                    'security_storage': getDefaultConsentState(currentConfig, 'security_storage')
+                });
+                
+                if (cbConfig.debugMode) {
+                    console.log('🍪 GCMv2 DEFAULT STATE: ' + JSON.stringify({
+                        'ad_storage': getDefaultConsentState(currentConfig, 'ad_storage'),
+                        'ad_personalization': getDefaultConsentState(currentConfig, 'ad_personalization'),
+                        'ad_user_data': getDefaultConsentState(currentConfig, 'ad_user_data'),
+                        'analytics_storage': getDefaultConsentState(currentConfig, 'analytics_storage'),
+                        'personalization_storage': getDefaultConsentState(currentConfig, 'personalization_storage'),
+                        'functionality_storage': getDefaultConsentState(currentConfig, 'functionality_storage'),
+                        'security_storage': getDefaultConsentState(currentConfig, 'security_storage')
+                    }));
+                }
+            }
+
+            showBadge();
+
+            if (cbUI.popup.element) {
+                var allowedGroups = currentConfig.split(',');
+                var checkedCheckboxes = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+
+                for (var j = 0; j < checkedCheckboxes.length; j++) {
+                    var name = checkedCheckboxes[j].getAttribute('data-group-name');
+
+                    if (name && name !== '-' && allowedGroups.indexOf(name) === -1) {
+                        checkedCheckboxes[j].checked = false;
+                    }
+                }
+
+                for (var i = 0; i < allowedGroups.length; i++) {
+                    var checkbox = cbUI.popup.element.querySelector('input[type="checkbox"][data-group-name="' + allowedGroups[i] + '"]');
+
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+
+                    allowCookieGroup(allowedGroups[i]);
+                }
+            }
+        }
+
+        setTimeout(function () {
+            cbConfig.initialState = getInitialStateOfConsents();
+        }, 0);
+    }
+
+    function checkIfConfigIsFresh () {
+        var lastConfigSave = localStorage.getItem('publii-gdpr-cookies-config-save-date');
+
+        if (lastConfigSave === null) {
+            return false;
+        }
+
+        lastConfigSave = parseInt(lastConfigSave, 10);
+
+        if (lastConfigSave === 0) {
+            return true;
+        }
+
+        if (+new Date() - lastConfigSave < cbConfig.configTTL * 24 * 60 * 60 * 1000) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function getDefaultConsentState (currentConfig, consentGroup) {
+        let configGroups = currentConfig.split(',');
+
+        for (let i = 0; i < configGroups.length; i++) {
+            let groupName = configGroups[i];
+            let group = window.publiiCBGCM.groups.find(group => group.cookieGroup === groupName);
+
+            if (group && group[consentGroup]) {
+                return 'granted';
+            }
+        }  
+        
+        if (window.publiiCBGCM.defaultState[consentGroup]) {
+            return 'granted'; 
+        }
+        
+        return 'denied';
+    }
+
+    function initBannerEvents () {
+        cbUI.banner.btnAccept.addEventListener('click', function (e) {
+            e.preventDefault();
+            acceptAllCookies('banner');
+            showBadge();
+        }, false);
+
+        if (cbUI.banner.btnReject) {
+            cbUI.banner.btnReject.addEventListener('click', function (e) {
+                e.preventDefault();
+                rejectAllCookies();
+                showBadge();
+            }, false);
+        }
+
+        if (cbUI.banner.btnConfigure) {
+            cbUI.banner.btnConfigure.addEventListener('click', function (e) {
+                e.preventDefault();
+                hideBanner();
+                showAdvancedPopup();
+                showBadge();
+            }, false);
+        }
+    }
+
+    function initPopupEvents () {
+        if (!cbUI.popup.element) {
+            return;
+        }
+
+        cbUI.overlay.addEventListener('click', function (e) {
+            hideAdvancedPopup();
+        }, false);
+
+        cbUI.popup.element.addEventListener('click', function (e) {
+            e.stopPropagation();
+        }, false);
+
+        cbUI.popup.btnAccept.addEventListener('click', function (e) {
+            e.preventDefault();
+            acceptAllCookies('popup');
+        }, false);
+
+        cbUI.popup.btnReject.addEventListener('click', function (e) {
+            e.preventDefault();
+            rejectAllCookies();
+        }, false);
+
+        cbUI.popup.btnSave.addEventListener('click', function (e) {
+            e.preventDefault();
+            saveConfiguration();
+        }, false);
+
+        cbUI.popup.btnClose.addEventListener('click', function (e) {
+            e.preventDefault();
+            hideAdvancedPopup();
+        }, false);
+    }
+
+    function initBadgeEvents () {
+        if (!cbUI.badge) {
+            return;
+        }
+
+        cbUI.badge.addEventListener('click', function (e) {
+            showBannerOrPopup();
+        }, false);
+    }
+
+    initUI();
+    initState();
+    initBannerEvents();
+    initPopupEvents();
+    initBadgeEvents();
+
+    /**
+     * API
+     */
+    function addScript (src, inline) {
+        var newScript = document.createElement('script');
+
+        if (src) {
+            newScript.setAttribute('src', src);
+        }
+
+        if (inline) {
+            newScript.text = inline;
+        }
+
+        document.body.appendChild(newScript);
+    }
+
+    function allowCookieGroup (allowedGroup) {
+        var scripts = document.querySelectorAll('script[type="gdpr-blocker/' + allowedGroup + '"]');
+        cbConfig.previouslyAccepted.push(allowedGroup);
+    
+        for (var j = 0; j < scripts.length; j++) {
+            addScript(scripts[j].src, scripts[j].text);
+        }
+
+        var groupEvent = new Event('publii-cookie-banner-unblock-' + allowedGroup);
+        document.body.dispatchEvent(groupEvent);
+        unlockEmbeds(allowedGroup);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Allowed group: ' + allowedGroup);
+        }
+
+        if (window.publiiCBGCM && (!cbConfig.initialLsState || cbConfig.initialLsState.indexOf(allowedGroup) === -1)) {
+            let consentResult = {};
+            let group = window.publiiCBGCM.groups.find(group => group.cookieGroup === allowedGroup);
+
+            if (group) {
+                let foundSomeConsents = false;
+
+                Object.keys(group).forEach(key => {
+                    if (key !== 'cookieGroup' && group[key] === true) {
+                        consentResult[key] = 'granted';
+                        foundSomeConsents = true;
+                    }
+                });
+
+                if (foundSomeConsents) {
+                    gtag('consent', 'update', consentResult);   
+
+                    if (cbConfig.debugMode) {
+                        console.log('🍪 GCMv2 UPDATE: ' + JSON.stringify(consentResult));
+                    }
+                }
+            }
+        }
+    }
+
+    function showBannerOrPopup () {
+        if (cbUI.popup.element) {
+            showAdvancedPopup();
+        } else {
+            showBanner();
+        }
+    }
+
+    function showAdvancedPopup () {
+        cbUI.popup.element.classList.add('is-visible');
+        cbUI.overlay.classList.add('is-visible');
+        cbUI.popup.element.setAttribute('aria-hidden', 'false');
+        cbUI.overlay.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideAdvancedPopup () {
+        cbUI.popup.element.classList.remove('is-visible');
+        cbUI.overlay.classList.remove('is-visible');
+        cbUI.popup.element.setAttribute('aria-hidden', 'true');
+        cbUI.overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    function showBanner () {
+        cbUI.banner.element.classList.add('is-visible');
+        cbUI.banner.element.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideBanner () {
+        cbUI.banner.element.classList.remove('is-visible');
+        cbUI.banner.element.setAttribute('aria-hidden', 'true');
+    }
+
+    function showBadge () {
+        if (!cbUI.badge) {
+            return;
+        }
+
+        cbUI.badge.classList.add('is-visible');
+        cbUI.badge.setAttribute('aria-hidden', 'false');
+    }
+
+    function getConfigName () {
+        var lsKeyName = 'publii-gdpr-allowed-cookies';
+
+        if (cbConfig.revision) {
+            lsKeyName = lsKeyName + '-v' + parseInt(cbConfig.revision, 10);
+        }
+
+        return lsKeyName;
+    }
+
+    function storeConfiguration (allowedGroups) {
+        var lsKeyName = getConfigName();
+        var dataToStore = allowedGroups.join(',');
+        localStorage.setItem(lsKeyName, dataToStore);
+
+        if (cbConfig.configTTL === 0) {
+            localStorage.setItem('publii-gdpr-cookies-config-save-date', 0);
+
+            if (cbConfig.debugMode) {
+                console.log('🍪 Store never expiring configuration');
+            }
+        } else {
+            localStorage.setItem('publii-gdpr-cookies-config-save-date', +new Date());
+        }
+    }
+
+    function getInitialStateOfConsents () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Initial state: ' + groups.join(', '));
+        }
+
+        return groups;
+    }
+
+    function getCurrentStateOfConsents () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 State to save: ' + groups.join(', '));
+        }
+
+        return groups;
+    }
+
+    function getAllGroups () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        return groups;
+    }
+
+    function acceptAllCookies (source) {
+        var groupsToAccept = getAllGroups();
+        storeConfiguration(groupsToAccept);
+
+        for (var i = 0; i < groupsToAccept.length; i++) {
+            var group = groupsToAccept[i];
+
+            if (cbConfig.initialState.indexOf(group) > -1 || cbConfig.previouslyAccepted.indexOf(group) > -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Skip previously activated group: ' + group);
+                }
+
+                continue;
+            }
+
+            allowCookieGroup(group);
+        }
+
+        if (cbUI.popup.element) {
+            var checkboxesToCheck = cbUI.popup.element.querySelectorAll('input[type="checkbox"]');
+
+            for (var j = 0; j < checkboxesToCheck.length; j++) {
+                checkboxesToCheck[j].checked = true;
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Accept all cookies: ', groupsToAccept.join(', '));
+        }
+
+        if (source === 'popup') {
+            hideAdvancedPopup();
+        } else if (source === 'banner') {
+            hideBanner();
+        }
+    }
+
+    function rejectAllCookies () {
+        if (cbConfig.debugMode) {
+            console.log('🍪 Reject all cookies');
+        }
+
+        storeConfiguration([]);
+        setTimeout(function () {
+            window.location.reload();
+        }, 100);
+    }
+
+    function saveConfiguration () {
+        var groupsToAccept = getCurrentStateOfConsents();
+        storeConfiguration(groupsToAccept);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Save new config: ', groupsToAccept.join(', '));
+        }
+
+        if (reloadIsNeeded(groupsToAccept)) {
+            setTimeout(function () {
+                window.location.reload();
+            }, 100);
+            return;
+        }
+
+        for (var i = 0; i < groupsToAccept.length; i++) {
+            var group = groupsToAccept[i];
+
+            if (cbConfig.initialState.indexOf(group) > -1 || cbConfig.previouslyAccepted.indexOf(group) > -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Skip previously activated group: ' + group);
+                }
+
+                continue;
+            }
+
+            allowCookieGroup(group);
+        }
+
+        hideAdvancedPopup();
+    }
+
+    function reloadIsNeeded (groupsToAccept) {
+        // check if user rejected consent for initial groups
+        var initialGroups = cbConfig.initialState;
+        var previouslyAcceptedGroups = cbConfig.previouslyAccepted;
+        var groupsToCheck = initialGroups.concat(previouslyAcceptedGroups);
+
+        for (var i = 0; i < groupsToCheck.length; i++) {
+            var groupToCheck = groupsToCheck[i];
+
+            if (groupToCheck !== '' && groupsToAccept.indexOf(groupToCheck) === -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Reload is needed due lack of: ', groupToCheck);
+                }
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    function unlockEmbeds (cookieGroup) {
+        var iframesToUnlock = document.querySelectorAll('.pec-wrapper[data-consent-group-id="' + cookieGroup + '"]');
+
+        for (var i = 0; i < iframesToUnlock.length; i++) {
+            var iframeWrapper = iframesToUnlock[i];
+            iframeWrapper.querySelector('.pec-overlay').classList.remove('is-active');
+            iframeWrapper.querySelector('.pec-overlay').setAttribute('aria-hidden', 'true');
+            var iframe = iframeWrapper.querySelector('iframe');
+            iframe.setAttribute('src', iframe.getAttribute('data-consent-src'));
+        }
+    }
+
+    win.publiiEmbedConsentGiven = function (cookieGroup) {
+        // it will unlock embeds
+        allowCookieGroup(cookieGroup);
+
+        var checkbox = cbUI.popup.element.querySelector('input[type="checkbox"][data-group-name="' + cookieGroup + '"]');
+
+        if (checkbox) {
+            checkbox.checked = true;
+        }
+
+        var groupsToAccept = getCurrentStateOfConsents();
+        storeConfiguration(groupsToAccept);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Save new config: ', groupsToAccept.join(', '));
+        }
+    }
+})(window);</script></body></html>

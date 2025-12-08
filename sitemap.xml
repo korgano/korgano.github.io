@@ -177,6 +177,18 @@
 </image:image>
 </url>
 <url>
+<loc>https://korgano.github.io/cybersecurity-project-n8n-workflows-opnsense-api-10/</loc>
+<lastmod>2025-10-25T09:07:23-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/51/n8n-001.png</image:loc>
+<image:title><![CDATA[Finalized N8N workflow for using HTTP requests to gather data on firewall interfaces, before writing to a CSV file.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/51/n8n-002.png</image:loc>
+<image:title><![CDATA[CSV of OPNSense rule data for the Transparent Filtering Bridge interface.]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/cybersecurity-project-nmap-780-vs-797/</loc>
 <lastmod>2025-06-11T10:20:30-04:00</lastmod>
 <image:image>
@@ -274,7 +286,7 @@
 </url>
 <url>
 <loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-100/</loc>
-<lastmod>2025-08-06T11:38:40-04:00</lastmod>
+<lastmod>2025-10-20T09:43:03-04:00</lastmod>
 <image:image>
 <image:loc>https://korgano.github.io/media/posts/45/cyber-proj-tfb29-2.png</image:loc>
 <image:title><![CDATA[OPNSense log entries involving 195.3.223.82 on August 2, 2025.]]></image:title>
@@ -354,7 +366,7 @@
 </url>
 <url>
 <loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-50/</loc>
-<lastmod>2024-10-30T11:27:31-04:00</lastmod>
+<lastmod>2025-10-20T09:45:17-04:00</lastmod>
 <image:image>
 <image:loc>https://korgano.github.io/media/posts/26/opnsense-03-2.png</image:loc>
 <image:title><![CDATA[Default OPNsense firewall rules on the OPT1 interface, starting with an IPv4 deny all traffic in rule.]]></image:title>
@@ -386,7 +398,7 @@
 </url>
 <url>
 <loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-60/</loc>
-<lastmod>2024-11-18T08:02:05-05:00</lastmod>
+<lastmod>2025-10-20T09:45:07-04:00</lastmod>
 <image:image>
 <image:loc>https://korgano.github.io/media/posts/28/pi-hole-blocklists-07-2.jpg</image:loc>
 <image:title><![CDATA[Pi-Hole DNS Block List with IP address entries.]]></image:title>
@@ -406,7 +418,7 @@
 </url>
 <url>
 <loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-70/</loc>
-<lastmod>2024-11-26T12:52:55-05:00</lastmod>
+<lastmod>2025-10-20T09:44:54-04:00</lastmod>
 <image:image>
 <image:loc>https://korgano.github.io/media/posts/29/opnsense-aliases_02-2.JPG</image:loc>
 <image:title><![CDATA[Confirmation that the full list of IP addresses was added to one of the Aliases.]]></image:title>
@@ -430,7 +442,7 @@
 </url>
 <url>
 <loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-80/</loc>
-<lastmod>2025-07-02T07:45:57-04:00</lastmod>
+<lastmod>2025-10-20T09:44:39-04:00</lastmod>
 <image:image>
 <image:loc>https://korgano.github.io/media/posts/41/cyber-proj-tfb11-2.png</image:loc>
 <image:title><![CDATA[OPNSense traffic reporting graphs showing incoming and outgoing traffic on the bridge and WiFi connections.]]></image:title>
@@ -478,7 +490,7 @@
 </url>
 <url>
 <loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-90/</loc>
-<lastmod>2025-07-16T07:45:23-04:00</lastmod>
+<lastmod>2025-10-20T09:44:30-04:00</lastmod>
 <image:image>
 <image:loc>https://korgano.github.io/media/posts/42/cyber-proj-tfb15.png</image:loc>
 <image:title><![CDATA[OPNSense NTP Denial of Service Scan Detection]]></image:title>
@@ -510,7 +522,7 @@
 </url>
 <url>
 <loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-91/</loc>
-<lastmod>2025-07-22T08:35:14-04:00</lastmod>
+<lastmod>2025-10-20T09:44:13-04:00</lastmod>
 <image:image>
 <image:loc>https://korgano.github.io/media/posts/43/cyber-proj-tfb20-2.jpg</image:loc>
 <image:title><![CDATA[Transparent Filtering Bridge miniPC wpa_supplicant file.]]></image:title>
@@ -530,7 +542,7 @@
 </url>
 <url>
 <loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-92/</loc>
-<lastmod>2025-07-30T07:28:01-04:00</lastmod>
+<lastmod>2025-10-20T09:43:48-04:00</lastmod>
 <image:image>
 <image:loc>https://korgano.github.io/media/posts/44/cyber-proj-tfb22-2.png</image:loc>
 <image:title><![CDATA[Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex loaded in LM Studio.]]></image:title>
@@ -973,6 +985,46 @@
 <image:image>
 <image:loc>https://korgano.github.io/media/posts/48/minipc-035.png</image:loc>
 <image:title><![CDATA[NPU and GPU usage at start of prompt response in hybrid mode.]]></image:title>
+</image:image>
+</url>
+<url>
+<loc>https://korgano.github.io/tech-project-ai-minipc-minisforum-x1-pro-40/</loc>
+<lastmod>2025-10-06T14:42:16-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/50/minipc-041-2.png</image:loc>
+<image:title><![CDATA[Lemonade Server acting as a router for various LLM backends.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/50/minipc-040.png</image:loc>
+<image:title><![CDATA[Lemonade Server Context Window Size options revealed when right clicking the icon.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/50/minipc-041.png</image:loc>
+<image:title><![CDATA[Lemonade Server acting as a router for various LLM backends.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/50/minipc-042.png</image:loc>
+<image:title><![CDATA[POML vision model test prompt with embedded image of Unreal Engine 4.27 interface.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/50/minipc-043.png</image:loc>
+<image:title><![CDATA[FastFlowLM server log interface.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/50/minipc-044.png</image:loc>
+<image:title><![CDATA[NPU use at the start of the image prompt test.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/50/minipc-045.png</image:loc>
+<image:title><![CDATA[NPU utilization at end of image prompt processing.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/50/minipc-046.png</image:loc>
+<image:title><![CDATA[NPU utilization at the start of the coding prompt test.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/50/minipc-047.png</image:loc>
+<image:title><![CDATA[NPU utilization at the end of the coding prompt test.]]></image:title>
 </image:image>
 </url>
 <url>
