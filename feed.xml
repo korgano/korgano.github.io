@@ -3,12 +3,198 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2025-10-25T09:07:23-04:00</updated>
+    <updated>2026-05-11T15:48:13-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>Quick Thoughts: OpenCode</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/quick-thoughts-opencode/"/>
+        <id>https://korgano.github.io/quick-thoughts-opencode/</id>
+        <media:content url="https://korgano.github.io/media/posts/53/opencode-0001-2.png" medium="image" />
+            <category term="Tech"/>
+            <category term="Quick Thoughts"/>
+            <category term="PC"/>
+            <category term="AI"/>
+
+        <updated>2026-05-06T07:02:23-04:00</updated>
+            <summary type="html">
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/53/opencode-0001-2.png" alt="OpenCode UI - left side column is project conversation/session menu, center is chat interface, right side column is multifunction section currently displaying Git changes to files." />
+                    After several long months, Publii finally fixed the issue preventing me from uploading new content to my Github page. And to&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/53/opencode-0001-2.png" class="type:primaryImage" alt="OpenCode UI - left side column is project conversation/session menu, center is chat interface, right side column is multifunction section currently displaying Git changes to files." /></p>
+                <p>After several long months, Publii <strong>finally </strong>fixed the issue preventing me from uploading new content to my Github page.</p>
+<p>And to celebrate, here's a quick look at some stuff I've been working on in that time.</p>
+<div class="post__toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#mcetoc_1jnufakt42">What is OpenCode?</a></li>
+<li><a href="#mcetoc_1jnuhjhtlv">Basic UXUI</a></li>
+<li><a href="#mcetoc_1jnuhjhtl10">Basic Workflow</a></li>
+<li><a href="#mcetoc_1jnv5usdr44">What I Don't Like About OpenCode</a></li>
+<li><a href="#mcetoc_1jnv5usdr45">What I Like About OpenCode</a></li>
+<li><a href="#mcetoc_1joc6gp3n2j">Outcomes</a></li>
+</ul>
+</div>
+<h2 id="mcetoc_1jnufakt42">What is OpenCode?</h2>
+<p><a href="https://opencode.ai/" title="OpenCode" target="_blank" rel="noopener noreferrer">The website</a> explains it quite well:</p>
+<div data-slot="section-title">
+<blockquote>
+<p>OpenCode is an open source agent that helps you write code in your terminal, IDE, or desktop.</p>
+</blockquote>
+</div>
+<blockquote>
+<ul>
+<li>
+<div><strong>LSP enabled</strong> Automatically loads the right LSPs for the LLM</div>
+</li>
+<li>
+<div><strong>Multi-session</strong> Start multiple agents in parallel on the same project</div>
+</li>
+<li>
+<div><strong>Share links</strong> Share a link to any session for reference or to debug</div>
+</li>
+<li>
+<div><strong>GitHub Copilot</strong> Log in with GitHub to use your Copilot account</div>
+</li>
+<li>
+<div><strong>ChatGPT Plus/Pro</strong> Log in with OpenAI to use your ChatGPT Plus or Pro account</div>
+</li>
+<li>
+<div><strong>Any model</strong> 75+ LLM providers through Models.dev, including local models</div>
+</li>
+<li>
+<div><strong>Any editor</strong> Available as a terminal interface, desktop app, and IDE extension</div>
+</li>
+</ul>
+</blockquote>
+<p>The desktop app is the newest part of the stack, and is currently a beta. I have been using the desktop app for the past three weeks, so that's what I'll discuss.</p>
+<h2 id="mcetoc_1jnuhjhtlv">Basic UXUI</h2>
+<p>The UI is a basic three section UI. Going from left to right:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/53/opencode-0001.png" alt="OpenCode UI - left side column is project conversation/session menu, center is chat interface, right side column is multifunction section currently displaying Git changes to files." width="1920" height="1032" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/53/responsive/opencode-0001-xs.png 384w ,https://korgano.github.io/media/posts/53/responsive/opencode-0001-sm.png 600w ,https://korgano.github.io/media/posts/53/responsive/opencode-0001-md.png 768w ,https://korgano.github.io/media/posts/53/responsive/opencode-0001-lg.png 1200w ,https://korgano.github.io/media/posts/53/responsive/opencode-0001-xl.png 1600w"></figure>
+<ul>
+<li>Navigation - Project selection and session/conversation selection.</li>
+<li>Session - User interaction with the AI agent.</li>
+<li>Multifunction - Deeper project information, such as tracking changes, tracking session statistics, etc...</li>
+</ul>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/53/opencode-0002.png" alt="OpenCode chat with code changes - changes are stored within accordions, allowing the user to inspect the changes without loading the full diff." width="1920" height="1032" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/53/responsive/opencode-0002-xs.png 384w ,https://korgano.github.io/media/posts/53/responsive/opencode-0002-sm.png 600w ,https://korgano.github.io/media/posts/53/responsive/opencode-0002-md.png 768w ,https://korgano.github.io/media/posts/53/responsive/opencode-0002-lg.png 1200w ,https://korgano.github.io/media/posts/53/responsive/opencode-0002-xl.png 1600w"></figure>
+<p>One quality of life feature is the integration of changes into the session display. They will all default to a closed accordion section, which keeps things nice and compact. Opening the accordion will display the specific changes made to a file.</p>
+<p>Most of the user's time and attention will be spent interacting with the Session section, providing instruction to the AI. Pressing <code>/</code> will bring up a list of available agents, which can be used to accomplish the goals for the project.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/53/opencode-0004.png" alt="OpenCode agent list - use / to open list - many agents in this image are from OpenCode Power Pack." width="1920" height="1032" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/53/responsive/opencode-0004-xs.png 384w ,https://korgano.github.io/media/posts/53/responsive/opencode-0004-sm.png 600w ,https://korgano.github.io/media/posts/53/responsive/opencode-0004-md.png 768w ,https://korgano.github.io/media/posts/53/responsive/opencode-0004-lg.png 1200w ,https://korgano.github.io/media/posts/53/responsive/opencode-0004-xl.png 1600w"></figure>
+<h2 id="mcetoc_1jnuhjhtl10">Basic Workflow</h2>
+<p>After installing the OpenCode application, the process to start using OpenCode is very simple:</p>
+<ol>
+<li>Press the <code>+</code> button on the left to <code>Open Project</code>.</li>
+<li>Navigate to the project folder.</li>
+<li>Press <code>Open</code>.</li>
+<li>Allow OpenCode to import the project.</li>
+<li>Once import is complete, go down to the bottom to select mode and model.</li>
+<li>Use <code>/init</code> to create an <code>Agents.md</code> file for your project.</li>
+</ol>
+<p>While you <strong>can </strong>work without an <code>Agents.md</code> file or supplementary files in a <code>/rules</code> folder, I would not recommend this out of the box.</p>
+<p>After that, it's basically like any other AI chat interface, using <code>/</code> commands to bring up a list of agents for specific tasks. You set the goal/provide the LLM information to analyze, and it gets to work.</p>
+<p>By default, there's an audio cue and a notification for when a task completes, and once that's done, you provide more input.</p>
+<p>There are two modes OpenCode operates in:</p>
+<ol>
+<li><strong>Plan:</strong> This mode prevents the AI from actually using tools to make code changes. Like the name says, you are encouraged to use it to plan out what you want to do.</li>
+<li><strong>Build: </strong>The AI can use tools to implement changes.</li>
+</ol>
+<p>OpenCode provides a selection of free to use LLMs, as well as the ability to connect to multiple cloud or local providers.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/53/opencode-0005.png" alt="OpenCode Multifunction Column set to Context - stats about model use fill the top, while messages to and from the model can be examined on the bottom." width="1920" height="1032" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/53/responsive/opencode-0005-xs.png 384w ,https://korgano.github.io/media/posts/53/responsive/opencode-0005-sm.png 600w ,https://korgano.github.io/media/posts/53/responsive/opencode-0005-md.png 768w ,https://korgano.github.io/media/posts/53/responsive/opencode-0005-lg.png 1200w ,https://korgano.github.io/media/posts/53/responsive/opencode-0005-xl.png 1600w"></figure>
+<p>Clicking on the little circle in the session title bar provides access to the Context tab in the Multifunction area. The top half of that tab is full of statistics related how your specific session has used its token budget. Under that is a set of accordions full of each prompt to and response from the LLM.</p>
+<h2 id="mcetoc_1jnv5usdr44">What I Don't Like About OpenCode</h2>
+<p>I'll start here, because a lot of the out of the box experience is not great.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/53/opencode-0003.png" alt="OpenCode - User prompt displays as plain text Markdown format." width="1920" height="1032" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/53/responsive/opencode-0003-xs.png 384w ,https://korgano.github.io/media/posts/53/responsive/opencode-0003-sm.png 600w ,https://korgano.github.io/media/posts/53/responsive/opencode-0003-md.png 768w ,https://korgano.github.io/media/posts/53/responsive/opencode-0003-lg.png 1200w ,https://korgano.github.io/media/posts/53/responsive/opencode-0003-xl.png 1600w"></figure>
+<p><strong>User prompt styling: </strong>Or rather, the absolute lack of styling (see above image). User prompts remain raw text format, which is not so much an issue with short inputs like <code>Implement the fix</code>. However, for longer inputs, like a code/error log dump, or even just the agent prompts, it quickly becomes unwieldy and hard to navigate when trying to examine past inputs.</p>
+<p><strong>Barebones agent selection: </strong>This is probably less of an issue for anyone who's tracking the cutting edge subreddits, repos, and communities on a day-to-day basis, but for everyone else, it's pretty awful. Yes, you can make your own agents with other LLMs, but the starting agent selection is barely enough to do anything with, especially for a novice.</p>
+<p><strong>Project Load Issues:</strong> This is a recurring issue with OpenCode, especially when adding a new project. What will typically happen is that the multifunction section of the UI will fail to populate with all the files in the project, at least until the user restarts OpenCode. Work can be done on the project, as the files can be read, but the user doesn't have any confirmation that the files are even loaded until the session starts responding.</p>
+<p><strong>Conversation Issues: </strong>Somewhat similar to the project load issues, and possibly related. When starting a session, there's a non-zero chance that the conversation section will fail to update until the user selects another session, then returns to the first session.</p>
+<p><strong>UI Lag Causing Duplicate Sessions:</strong> Sometimes the UI lags, creating the impression that a session failed to initiate, leading to a user creating more sessions. When the final session is made, the other, older sessions are visible and active, hammering the model being used with duplicate queries.</p>
+<p><strong>Review Tab Issues:</strong> The Review tab is the default view on the multifunction section of the UI. This seems to default to using Git to track changes, which is not an issue. However, what <strong>is </strong>an issue is that every time you add a project, it lists files as adding <strong>and </strong>deleting lines, making tracking which files have actually had changes made borderline impossible.</p>
+<p><strong>Local Model Provider Limitations:</strong> If your local AI server is <strong>not </strong>Ollama or LM Studio, life will be <strong>rough</strong>. Why? Because even if your local server is OpenAI API compatible, there's no guarantee that OpenCode will be able to fully detect all your models. This is especially an issue in <a href="https://github.com/lemonade-sdk/lemonade" title="Lemonade Github Repo" target="_blank" rel="noopener noreferrer">Lemonade</a>, which has added support for external folders for storing LLMs. Any models in that folder will <strong>not </strong>be loaded, even if you call them properly.</p>
+<p>In addition, adding custom local providers only has two methods of adding/changing models:</p>
+<ol>
+<li>Add them through the GUI, which requires completely removing the old server entry and making a new entry.</li>
+<li>Editing the <code>opencode.json</code> file in <code>.config</code>.</li>
+</ol>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/53/opencode-0007.png" alt="opencode.jsonc file, which is one of two places where local AI models can be configured." width="1920" height="482" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/53/responsive/opencode-0007-xs.png 384w ,https://korgano.github.io/media/posts/53/responsive/opencode-0007-sm.png 600w ,https://korgano.github.io/media/posts/53/responsive/opencode-0007-md.png 768w ,https://korgano.github.io/media/posts/53/responsive/opencode-0007-lg.png 1200w ,https://korgano.github.io/media/posts/53/responsive/opencode-0007-xl.png 1600w"></figure>
+<p>This is obviously suboptimal and not something a novice would think to do.</p>
+<p><strong>No Plugin Installation in the Desktop App: </strong>Somewhat understandable, as the desktop app is explicitly stated to be a beta. But having a method of installing plugins through the app would solve a lot of problems. Many plugins have the typically unwieldly/non-user friendly installation instructions that make people swear off of open-source software.</p>
+<p>Speaking of plugins, let's start talking about what I <strong>do </strong>like about OpenCode.</p>
+<h2 id="mcetoc_1jnv5usdr45">What I Like About OpenCode</h2>
+<p><strong>Plugin Ecosystem:</strong> One of the benefits of not being a bleeding edge adopter is that there's plenty of OpenCode plugins, with accompanying tutorials, available. These plugins provide agents and skills, allowing you to customize OpenCode to make it fit your desired uses. You can even expand OpenCode's uses outside of just coding and into creative tasks as well.</p>
+<p><strong><a href="https://github.com/waybarrios/opencode-power-pack" title="OpenCode Power Pack Github Repo" target="_blank" rel="noopener noreferrer">OpenCode Power Pack:</a></strong> I would classify this plugin as <strong>ESSENTIAL </strong>to making OpenCode actually usable for a novice user. It's a port of 11 Claude Code agents to OpenCode, all related to improving your <code>Agents.md</code> file, helping you design and implement features, review and secure code, or create MCP servers. These are all the basic agents you'll need to work effectively with code.</p>
+<p><strong>NOTE: </strong>The installation is a bit involved, especially on Windows. If your username has spaces, replace them with <code>%20</code> when pasting your filepath to the cloned Github folder.</p>
+<p><strong>MiniMax M2.5 Free:</strong> This is one of the free models that OpenCode allows you to use, and it's the most consistent performer, in my experience. With a context limit of 204,800 tokens and reasoning capabilities, it's got more context than the default "Big Pickle" model, while also actually being a model that you do research on. It's not perfect, but if I select the right agent and give it a decent enough prompt, it can usually get the job done.</p>
+<p><strong>Support: </strong>Since I've started using OpenCode's desktop app, I have seen a <strong>minimum </strong>of one update a day. This can be validated by checking <a href="https://github.com/anomalyco/opencode/releases" title="OpenCode Github Releases" target="_blank" rel="noopener noreferrer">the releases on their Github page</a>. This level of support is a good sign that it won't be abandoned anytime soon, which is more than can be said for similar, smaller open-source projects.</p>
+<p><strong>Native Local AI Support: </strong>Believe it or not, but the Open Source software market is genuinely pretty terrible for local AI support. The single dev AI projects tend to be Ollama only, assuming they have <strong>any </strong>local AI support at all. The ones with the best local support tend to be company backed efforts, where supporting at minimum OpenAI API for local servers is a baseline requirement. </p>
+<p>The fact that it natively supports LM Studio <strong>and </strong>Ollama, the two most common local AI servers, as well as the OpenAI API, means that just about any local AI provider can be used. This doesn't guarantee full feature compatibility (see above), but it makes it easier than ever to go full local AI for your coding tasks.</p>
+<p><strong>Reliability: </strong>Despite my gripes about the UI, the actual application has been rock solid, and I haven't had any agents go wild. While there are times when the model gets things wrong, I've never had it outright delete data or any other disaster AI scenarios. Based on my experiences so far, I feel confident leaving it alone for an hour or so, because it'll wait for human input once the assigned task is complete.</p>
+<h2 id="mcetoc_1joc6gp3n2j">Outcomes</h2>
+<p>Assessing a coding tool is pretty useless without actually doing some coding. So what have I been working on?</p>
+<p>There are three main OpenCode projects I've been working on.</p>
+<ul>
+<li><strong>Sarna Maps</strong> - an open source, TypeScript based SVG map generator.</li>
+<li><strong><a href="https://korgano.github.io/quick-cyber-thoughts-poml/">POML</a> </strong>- a Microsoft Visual Studio Code extension.</li>
+<li><strong>JsonAsAsset</strong> - an open source, Unreal Engine plugin for importing assets into uProjects.</li>
+</ul>
+<p>None of these were my creations - they are all open source tools that I have used and encountered some issue with:</p>
+<ul>
+<li><strong>Sarna Maps </strong>- no support for data sourcing specified in map config file, inability to handle factions with numbers and letters in the identifier. (Example: WZ3A)</li>
+<li><strong>POML</strong> - plugin suddenly stopped being able to handle self-closing tags. (Example: <code>&lt;Document="" /&gt;</code>)</li>
+<li><strong>JsonAsAsset</strong> - Crashing when trying to import/clone Blueprint based files.</li>
+</ul>
+<p>I experienced varying levels of success with trying to resolve these issues.</p>
+<p><strong>Sarna Maps </strong>- allowing data source files to be specified in the map config files was quite easy. Reworking the rest of the system to improve how it handled faction identifiers took several rounds of iteration, as well as adding extensive logging throughout the render and computation pipelines. This eventually <strong>did </strong>solve the problems... but only for older versions of the data source files.</p>
+<p>New versions of the source files have some major changes, causing <strong>massive </strong>map generation issues, as seen below:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/53/opencode-0008.png" alt="Sarna Maps - map generation output issues with no systems being displayed and pockets of factions being spread all over the map." width="1920" height="1009" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/53/responsive/opencode-0008-xs.png 384w ,https://korgano.github.io/media/posts/53/responsive/opencode-0008-sm.png 600w ,https://korgano.github.io/media/posts/53/responsive/opencode-0008-md.png 768w ,https://korgano.github.io/media/posts/53/responsive/opencode-0008-lg.png 1200w ,https://korgano.github.io/media/posts/53/responsive/opencode-0008-xl.png 1600w"></figure>
+<p>Unfortunately, my logging is insufficient to diagnose the issue, so I have make external scripts to help gather data to resolve this issue.</p>
+<p><strong>POML </strong>- I attempted to build POML, but ran into a major build error. This then led me to use OpenCode to update the dependencies and replace its sourcing for a highly vulnerable package. By using the <code>/code-reviewer</code> agent and my bug report, OpenCode was able to solve the issue in a single session. I now need to see if I can build the plugin and test it.</p>
+<p><strong>JsonAsAsset </strong>- This one surprised me, both in the outcomes and how inconsistent it could be. In one case, I attempted to improve importation of a specific type of Blueprint file that serves to store some data. This failed, but by importing several Unreal Engine crash reports and supplying JSON of the Blueprint code, I managed to successfully import some highly complicated Blueprints for characters. Other imports caused errors and some progress was made on resolving those, but sometimes imports would fail without an obvious error.</p>
+<p>In general, the problems tend to appear when there's a lack of knowledge about the tasks the LLM is supposed to tackle. This is typically a result of the user not being able to articulate a problem, a lack of log data to help pin down the issue, or both. </p>
+<p>However, with the OpenCode Power Pack, adding logging or creating external test scripts in other languages (like Python), is fairly easy. Whether or not they produce the right data is always an issue, but that can be iterated on.</p>
+<h2>Takeaways</h2>
+<p><strong>Core Functionality &amp; Features</strong></p>
+<ul>
+<li><strong>Definition:</strong> An open source AI agent designed to assist developers directly within a terminal, IDE, or desktop environment.</li>
+<li><strong>Extensibility/Ecosystem: </strong>Highly modular and extensible via a plugin system; supports various LLM providers (including local ones like Ollama) through Models.dev.</li>
+<li><strong>Multi-Agent Support: </strong>Allows running multiple agents in parallel on the same project for complex tasks.</li>
+<li><strong>Context Management:</strong> Maintains session history, allowing users to reference previous interactions and debug issues within a single conversation thread.</li>
+</ul>
+<p><strong>Pros (What I Like)</strong></p>
+<ul>
+<li><strong>Strong Community/Support: </strong>The rapid development cycle indicates active maintenance by developers who are committed to keeping the tool viable.</li>
+<li><strong>Local LLM Support:</strong> Native support for popular local AI servers like Ollama and LM Studio, making it easy to run models entirely offline.</li>
+<li><strong>Extensive Plugin Ecosystem (Power Pack): </strong>A large collection of available pre-built agents/skills that significantly expand its utility beyond basic coding tasks (e.g., code review, project planning).</li>
+<li><strong>Reliability: </strong>The core application has been stable and hasn’t experienced major failures or data loss during testing periods.</li>
+</ul>
+<p><strong>Cons &amp; Issues to Note</strong></p>
+<ul>
+<li><strong>UX/UI Design Foibles: </strong>User input remains raw text format which becomes unwieldy for long interactions (e.g., code excerpts, logs).</li>
+<li><strong>Incomplete Feature Set: </strong>The desktop app is still in beta and lacks crucial features like plugin installation via the UI, making it difficult to use advanced agents/plugins without manual configuration of config files (opencode.json).</li>
+<li><strong>Project Loading Issues:</strong> Can frequently fail to display all project contents until manually restarted by the user.</li>
+<li><strong>Session Persistence Bugs: </strong>Occasionally fails to update existing sessions or create new ones correctly, leading to duplicate and active old sessions running in the background (a resource drain).</li>
+</ul>
+<p><strong>Workflow &amp; Use Cases</strong></p>
+<ul>
+<li><strong>Two Modes of Operation: </strong>Operates in Plan mode (no code changes) for initial design/strategy, and Build mode (with tools enabled) for implementation.</li>
+<li><strong>Workflow Simplicity: </strong>The basic process is straightforward: import a project -&gt; define goals via <code>/init</code> agents file -&gt; interact with the AI using specific commands (<code>/</code>).</li>
+<li><strong>Debugging &amp; Iteration Focus:</strong> Most effective when paired with external logging or testing scripts to provide necessary context back to the LLM.</li>
+</ul>
+<p><strong>Overall Assessment (Summary)</strong></p>
+<p>OpenCode is a powerful, open-source tool that provides deep integration into existing developer workflows and supports local AI models effectively. However, it suffers from significant usability issues in its current state — particularly around default agent selection, plugin management, and project loading reliability — which prevent novice users from adopting it easily.</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Cybersecurity Project: N8N Workflows - OPNSense API 1.0</title>
         <author>
@@ -16,6 +202,7 @@
         </author>
         <link href="https://korgano.github.io/cybersecurity-project-n8n-workflows-opnsense-api-10/"/>
         <id>https://korgano.github.io/cybersecurity-project-n8n-workflows-opnsense-api-10/</id>
+        <media:content url="https://korgano.github.io/media/posts/51/n8n-001-2.png" medium="image" />
             <category term="UX/UI"/>
             <category term="Tech"/>
             <category term="OPNSense"/>
@@ -25,11 +212,13 @@
         <updated>2025-10-20T09:42:22-04:00</updated>
             <summary type="html">
                 <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/51/n8n-001-2.png" alt="Finalized N8N workflow for using HTTP requests to gather data on firewall interfaces, before writing to a CSV file." />
                     One nagging issue with my OPNSense Transparent Filtering Bridge cybersecurity project has been analyzing the data. (Well, okay, the WiFi&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/51/n8n-001-2.png" class="type:primaryImage" alt="Finalized N8N workflow for using HTTP requests to gather data on firewall interfaces, before writing to a CSV file." /></p>
                 <p>One nagging issue with my <a href="https://korgano.github.io/tags/opnsense/" target="_blank" rel="noopener noreferrer">OPNSense Transparent Filtering Bridge cybersecurity project</a> has been analyzing the data. (Well, okay, the WiFi connection intermittently being inaccessible has been a way bigger deal, but that's not the main issue.) <a href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-92/" title="CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.2" target="_blank" rel="noopener noreferrer">Namely, figuring out what rules are associated with detections.</a></p>
 <p>For whatever reason, in the actual logs generated by OPNsense, the automatically generated rules, which apply to <strong>all </strong>interfaces, do not receive proper labelling/descriptions. This makes analysis challenging, because the default rules exist for a reason, but not necessarily a cybersecurity reason. Also, the only way to figure out which rule numbers are applied to each rule on a session basis is to dig into the GUI, to a fairly obscure and randomly titled page.</p>
 <p>Since OPNSense has an API for remotely interacting with the firewall software, I will attempt to extract this information without using the GUI.</p>
@@ -3279,371 +3468,6 @@ echo "Created /etc/rc.conf.local"
 
 echo "Setup complete. You can now enable the service with:"
 echo "  service wpa_supplicant start"</code></pre>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.0</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-90/"/>
-        <id>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-90/</id>
-        <media:content url="https://korgano.github.io/media/posts/42/cyber-proj-tfb15.png" medium="image" />
-            <category term="Tech Projects"/>
-            <category term="Tech"/>
-            <category term="OPNSense"/>
-            <category term="Cybersecurity Projects"/>
-            <category term="Cybersecurity"/>
-
-        <updated>2025-07-15T10:03:54-04:00</updated>
-            <summary type="html">
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/42/cyber-proj-tfb15.png" alt="OPNSense NTP Denial of Service Scan Detection" />
-                    It's been a bit over two weeks, so it's time to check in on the Transparent Filtering Bridge. Having gotten&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/42/cyber-proj-tfb15.png" class="type:primaryImage" alt="OPNSense NTP Denial of Service Scan Detection" /></p>
-                <p>It's been a bit over two weeks, so it's time to check in on the Transparent Filtering Bridge. Having gotten the hardware to <strong>finally </strong>have a functioning management connection, I left the device to do its job, filtering traffic as it passed between the modem and primary router of my mesh network. With a mixture of firewall and Suricata rules in place, what I'm primarily looking for is what, if any, rules have been triggered.</p>
-<div class="post__toc">
-<h3>Table of Contents</h3>
-<ul>
-<li><a href="#mcetoc_1j078l7n11a">For Some Reason, Config Changes</a></li>
-<li><a href="#mcetoc_1j0842akm15q">Tweaking the Cron Job Timer</a></li>
-<li><a href="#mcetoc_1j0842akm15r">Checking the Firewall Logs</a></li>
-<li><a href="#mcetoc_1j0842akm15s">Filtering Out the Noise</a></li>
-<li><a href="#mcetoc_1j0842akm15t">Checking Up On Suricata</a></li>
-<li><a href="#mcetoc_1j0842akm15u">What To Do Next</a></li>
-<li><a href="#mcetoc_1j0842akm15v">Takeaways</a></li>
-</ul>
-</div>
-<h2 id="mcetoc_1j078l7n11a">For Some Reason, Config Changes</h2>
-<p>One thing that happened between the last entry and now was an automatic Windows update, which closed out my browser, where I had the OPNSense webGUI tab open. This seemed to be helping maintain the connection to device, which would sometimes intermittently fail. I also had a cron job set to reset the interface every 6 hours to address the issue.</p>
-<p>However, when I tried accessing OPNSense webGUI to start this article, I got connection errors.</p>
-<p>So I connected a keyboard and mouse to the miniPC, turned on the monitor, and saw that there was no IP address on the console. Attempting to reset the services wound up freezing on the OPT1 interface (the WiFi), so I cancelled out of that. Then I restarted the miniPC, which brought the IP address back to the interface, but no actual web connectivity.</p>
-<p>This meant it was time to dig into the <code>/usr/local/etc/rc.d/wpa_supplicant</code> file again, which is where I made an interesting discovery. At some point, for some reason, changes had been made to the file. My best guess was that this occurred after the installation of the WiFi firmware, but it's unclear why that would change some comment lines and strip the <code>rcvar</code> value.</p>
-<p>Since the <code>rcvar</code> was what told the machine to enable the WiFi authentication, this explained the WiFi connection issues.</p>
-<p>After making minimal changes to the file (returning the comment values to their original values and fixing the missing <code>rcvar</code> value), I reset the WiFi service and regained connectivity.</p>
-<h2 id="mcetoc_1j0842akm15q">Tweaking the Cron Job Timer</h2>
-<p>Due to the unusual nature of the <code>wpa_supplicant</code> file changes, I decided to reduce the time gap between WiFi interface resets from 6 hours to 4. This would give me more opportunities to retain or regain WiFi access should connection issues continue.</p>
-<p>Not even an hour after I got access back, the WiFi connection went down, which proved this was a smart decision.</p>
-<p>In a major irritation, the WiFi connection seemed to be failing silently a few minutes after being reset, making it hard to interact with the webGUI. In a bizarre situation, I managed to access a specific page of the webGUI, despite not being able to reach the webGUI in general. Even more annoying was the fact that I managed to randomly get access by refreshing the tabs for the webGUI.</p>
-<p>More experimentation (and possibly FreeBSD kernel updates) is clearly needed to resolve this issue.</p>
-<h2 id="mcetoc_1j0842akm15r">Checking the Firewall Logs</h2>
-<p>After updating the cron job configuration, the first thing I did was check the firewall logs.</p>
-<p>One of the more irritating aspects of OPNSense is that <strong>all </strong>firewall logs seem to be seem priority level - Informational. This means that any rule that passes or blocks traffic generates a log in that same level, meaning it is <strong>very </strong>easy to get lost in all the data. Luckily, the provided search option is quite effective - it was easy to get just the logs of blocked connections on the bridge interface.</p>
-<p>(Incidentally, it seems logical to me that someone running a firewall would put logging of blocked traffic at a higher log level.)</p>
-<p>Since these logs were all in a machine readable format that I had no experience with, I decided to download a 50 entry log for analysis with ChatGPT and other tools. The first thing I did was sanitize any of my personal IP addresses.</p>
-<p>Here is an example of a block coming in:</p>
-<p><code>2025-06-17T09:58:31-04:00    Informational    filterlog     2,,,02f4bab031b57d1e30553ce08e0ec131,bridge0,match,block,in,4,0x0,,238,27873,0,DF,6,tcp,71,3.77.205.84,Home IP,443,52742,31,PA,4127654128:4127654159,2661296198,118,,</code></p>
-<p>For contrast, a block going out:</p>
-<p><code>2025-06-25T11:06:30-04:00    Informational    filterlog     68,,,ff197ebab7ec0da7fe008f0f6ffee42b,bridge0,match,block,out,4,0x0,,127,21852,0,DF,6,tcp,52,Home IP,1.1.1.1,21124,443,0,S,2052234833,,64240,,mss;nop;wscale;nop;nop;sackOK</code></p>
-<p>The bits and pieces that I can read without assistance is mostly the interface information, the fact that the rule matched, the action taken, direction of the traffic, protocol, port, and IP addresses.</p>
-<p>Annoyingly, there's no way to get a simplified view that includes the rule name/description, which would make identifying what is going on much easier.</p>
-<p>To figure out what the logs are truly saying, I provided ChatGPT with the above entries and the following query:</p>
-<blockquote>
-<p>In plain english, explain the OPNSense firewall log format based on these two example entries:</p>
-</blockquote>
-<p>ChatGPT's response was as follows, omitting the Timestamp, Severity, and Process information:</p>
-<blockquote>
-<p data-start="251" data-end="387">Following that, the comma‑separated values represent fields defined by pf’s raw filter log format <span class="" data-state="closed"><span class="ms-1 inline-flex max-w-full items-center relative top-[-0.094rem] animate-[show_150ms_ease-in]"><a href="https://docs.netgate.com/pfsense/en/latest/monitoring/logs/raw-filter-format.html" target="_blank" rel="noopener" alt="https://docs.netgate.com/pfsense/en/latest/monitoring/logs/raw-filter-format.html" class="flex h-4.5 overflow-hidden rounded-xl px-2 text-[9px] font-medium text-token-text-secondary! bg-[#F4F4F4]! dark:bg-[#303030]! transition-colors duration-150 ease-in-out"><span class="relative start-0 bottom-0 flex h-full w-full items-center"><span class="flex h-4 w-full items-center justify-between overflow-hidden"><span class="max-w-full grow truncate overflow-hidden text-center">Netgate Documentation</span></span></span></a></span></span>:</p>
-<ol data-start="389" data-end="2502">
-<li data-start="389" data-end="468">
-<p data-start="392" data-end="468"><strong data-start="392" data-end="407">Rule Number</strong> (<code data-start="409" data-end="412">2</code> / <code data-start="415" data-end="419">68</code>): The index of the firewall rule that matched.</p>
-</li>
-<li data-start="469" data-end="546">
-<p data-start="472" data-end="546"><strong data-start="472" data-end="491">Sub‑rule Number</strong> (blank): Secondary rule index if using nested rules.</p>
-</li>
-<li data-start="547" data-end="622">
-<p data-start="550" data-end="622"><strong data-start="550" data-end="560">Anchor</strong> (blank): Name of the anchor (rule set) containing the rule.</p>
-</li>
-<li data-start="623" data-end="700">
-<p data-start="626" data-end="700"><strong data-start="626" data-end="640">Tracker ID</strong> (<code data-start="642" data-end="651">02f4ba…</code> / <code data-start="654" data-end="663">ff197e…</code>): Unique flow‑tracking identifier.</p>
-</li>
-<li data-start="701" data-end="788">
-<p data-start="704" data-end="788"><strong data-start="704" data-end="722">Real Interface</strong> (<code data-start="724" data-end="733">bridge0</code>): The actual network interface the packet traversed.</p>
-</li>
-<li data-start="789" data-end="854">
-<p data-start="792" data-end="854"><strong data-start="792" data-end="802">Reason</strong> (<code data-start="804" data-end="811">match</code>): Why it was logged (typically <code data-start="843" data-end="850">match</code>).</p>
-</li>
-<li data-start="855" data-end="924">
-<p data-start="858" data-end="924"><strong data-start="858" data-end="868">Action</strong> (<code data-start="870" data-end="877">block</code>): What the firewall did (<code data-start="903" data-end="909">pass</code> or <code data-start="913" data-end="920">block</code>).</p>
-</li>
-<li data-start="925" data-end="1004">
-<p data-start="928" data-end="1004"><strong data-start="928" data-end="941">Direction</strong> (<code data-start="943" data-end="947">in</code> / <code data-start="950" data-end="955">out</code>): Traffic direction relative to the interface.</p>
-</li>
-<li data-start="1005" data-end="1071">
-<p data-start="1008" data-end="1071"><strong data-start="1008" data-end="1022">IP Version</strong> (<code data-start="1024" data-end="1027">4</code>): Internet Protocol version (<code data-start="1057" data-end="1060">4</code> or <code data-start="1064" data-end="1067">6</code>).</p>
-</li>
-<li data-start="1072" data-end="1135">
-<p data-start="1076" data-end="1135"><strong data-start="1076" data-end="1083">TOS</strong> (<code data-start="1085" data-end="1090">0x0</code>): Type‑of‑Service byte from the IP header.</p>
-</li>
-<li data-start="1136" data-end="1197">
-<p data-start="1140" data-end="1197"><strong data-start="1140" data-end="1147">ECN</strong> (blank): Explicit Congestion Notification bits.</p>
-</li>
-<li data-start="1198" data-end="1269">
-<p data-start="1202" data-end="1269"><strong data-start="1202" data-end="1209">TTL</strong> (<code data-start="1211" data-end="1216">238</code> / <code data-start="1219" data-end="1224">127</code>): Time‑to‑Live (IPv4) or Hop Limit (IPv6).</p>
-</li>
-<li data-start="1270" data-end="1336">
-<p data-start="1274" data-end="1336"><strong data-start="1274" data-end="1283">IP ID</strong> (<code data-start="1285" data-end="1292">27873</code> / <code data-start="1295" data-end="1302">21852</code>): Packet identification number.</p>
-</li>
-<li data-start="1337" data-end="1404">
-<p data-start="1341" data-end="1404"><strong data-start="1341" data-end="1360">Fragment Offset</strong> (<code data-start="1362" data-end="1365">0</code>): Position within fragmented packet.</p>
-</li>
-<li data-start="1405" data-end="1479">
-<p data-start="1409" data-end="1479"><strong data-start="1409" data-end="1421">IP Flags</strong> (<code data-start="1423" data-end="1427">DF</code>): IP fragmentation flags (<code data-start="1454" data-end="1458">DF</code>, <code data-start="1460" data-end="1464">MF</code>, or <code data-start="1469" data-end="1475">none</code>).</p>
-</li>
-<li data-start="1480" data-end="1563">
-<p data-start="1484" data-end="1563"><strong data-start="1484" data-end="1499">Protocol ID</strong> (<code data-start="1501" data-end="1504">6</code>): Numeric protocol identifier (e.g., <code data-start="1542" data-end="1545">6</code>=TCP, <code data-start="1551" data-end="1555">17</code>=UDP).</p>
-</li>
-<li data-start="1564" data-end="1626">
-<p data-start="1568" data-end="1626"><strong data-start="1568" data-end="1585">Protocol Text</strong> (<code data-start="1587" data-end="1592">tcp</code>): Human‑readable protocol name.</p>
-</li>
-<li data-start="1627" data-end="1694">
-<p data-start="1631" data-end="1694"><strong data-start="1631" data-end="1648">Packet Length</strong> (<code data-start="1650" data-end="1654">71</code> / <code data-start="1657" data-end="1661">52</code>): Total size of the IP packet.</p>
-</li>
-<li data-start="1695" data-end="1767">
-<p data-start="1699" data-end="1767"><strong data-start="1699" data-end="1712">Source IP</strong> (<code data-start="1714" data-end="1727">3.77.205.84</code> / <code data-start="1730" data-end="1739">Home IP</code>): Originating IP address.</p>
-</li>
-<li data-start="1768" data-end="1836">
-<p data-start="1772" data-end="1836"><strong data-start="1772" data-end="1790">Destination IP</strong> (<code data-start="1792" data-end="1801">Home IP</code> / <code data-start="1804" data-end="1813">1.1.1.1</code>): Target IP address.</p>
-</li>
-<li data-start="1837" data-end="1909">
-<p data-start="1841" data-end="1909"><strong data-start="1841" data-end="1856">Source Port</strong> (<code data-start="1858" data-end="1863">443</code> / <code data-start="1866" data-end="1873">21124</code>): Originating port (for TCP/UDP).</p>
-</li>
-<li data-start="1910" data-end="1982">
-<p data-start="1914" data-end="1982"><strong data-start="1914" data-end="1934">Destination Port</strong> (<code data-start="1936" data-end="1943">52742</code> / <code data-start="1946" data-end="1951">443</code>): Target port (for TCP/UDP).</p>
-</li>
-<li data-start="1983" data-end="2052">
-<p data-start="1987" data-end="2052"><strong data-start="1987" data-end="2002">Data Length</strong> (<code data-start="2004" data-end="2008">31</code> / <code data-start="2011" data-end="2014">0</code>): Payload size (excluding headers).</p>
-</li>
-<li data-start="2053" data-end="2128">
-<p data-start="2057" data-end="2128"><strong data-start="2057" data-end="2070">TCP Flags</strong> (<code data-start="2072" data-end="2076">PA</code> / <code data-start="2079" data-end="2082">S</code>): TCP control flags (e.g., <code data-start="2110" data-end="2113">S</code>, <code data-start="2115" data-end="2119">PA</code>, <code data-start="2121" data-end="2124" data-is-only-node="">F</code>).</p>
-</li>
-<li data-start="2129" data-end="2199">
-<p data-start="2133" data-end="2199"><strong data-start="2133" data-end="2152">Sequence Number</strong> (<code data-start="2154" data-end="2166">4127654128</code> / <code data-start="2169" data-end="2181">2052234833</code>): TCP sequence.</p>
-</li>
-<li data-start="2200" data-end="2275">
-<p data-start="2204" data-end="2275"><strong data-start="2204" data-end="2229">Acknowledgment Number</strong> (<code data-start="2231" data-end="2243">4127654159</code> / blank): TCP acknowledgment.</p>
-</li>
-<li data-start="2276" data-end="2343">
-<p data-start="2280" data-end="2343"><strong data-start="2280" data-end="2295">Window Size</strong> (<code data-start="2297" data-end="2309">2661296198</code> / <code data-start="2312" data-end="2319">64240</code>): TCP receive window.</p>
-</li>
-<li data-start="2344" data-end="2413">
-<p data-start="2348" data-end="2413"><strong data-start="2348" data-end="2366">Urgent Pointer</strong> (<code data-start="2368" data-end="2373">118</code> / blank): Urgent data pointer if set.</p>
-</li>
-<li data-start="2414" data-end="2502">
-<p data-start="2418" data-end="2502"><strong data-start="2418" data-end="2433">TCP Options</strong> (blank / <code data-start="2443" data-end="2474">mss;nop;wscale;nop;nop;sackOK</code>): Negotiated TCP options.</p>
-</li>
-</ol>
-<p data-start="2504" data-end="2621">These fields allow you to reconstruct packet details, rule decisions, and flow context directly from the log entries.</p>
-</blockquote>
-<p data-start="2504" data-end="2621">In another showcase of poor UXUI decisions, <a href="https://github.com/opnsense/core/issues/6590#issuecomment-1572679573" title="How to find firewall rule numbers in OPNSense" target="_blank" rel="noopener noreferrer">the way to correlate rules and the rule numbers in webGUI is to access an obscure page</a>, one most users will never think to look at. This is somewhat forgivable due to the numbers themselves being non-permanent assignments, based on the last time the system was rebooted/reloaded. But it is suboptimal UX.</p>
-<div class="gallery-wrapper"><div class="gallery"  data-is-empty="false" data-translation="Add images" data-columns="2">
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb16-2.png" data-size="1920x921"><img loading="lazy" src="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb16-2-thumbnail.png" alt="OPNSense Rules part 1" width="768" height="368"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb17.png" data-size="1920x921"><img loading="lazy" src="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb17-thumbnail.png" alt="OPNSense Rules part 2" width="768" height="368"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb18.png" data-size="1920x921"><img loading="lazy" src="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb18-thumbnail.png" alt="OPNSense Rules part 3" width="768" height="368"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb19.png" data-size="1920x921"><img loading="lazy" src="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb19-thumbnail.png" alt="OPNSense Rules part 4" width="768" height="368"></a></figure>
-</div></div>
-<p data-start="2504" data-end="2621">Unfortunately, rule 2 was fairly incomprehensible, likely due to being a default rule: <code>@2 block drop in log inet all label "02f4bab031b57d1e30553ce08e0ec131"</code></p>
-<p data-start="2504" data-end="2621">Rule 68, on the other hand, was <strong>much </strong>more understandable: <code>@68 block drop out log quick on bridge0 inet from any to &lt;Ads_Tracking:843&gt; label "ff197ebab7ec0da7fe008f0f6ffee42b"</code></p>
-<p data-start="2504" data-end="2621">So that outbound connection was a (perceived) attempt to connect to an ad/tracking server, successfully showing that my Aliases and rules do work.</p>
-<h2 id="mcetoc_1j0842akm15s" data-start="2504" data-end="2621">Filtering Out the Noise</h2>
-<p data-start="2504" data-end="2621">Since I wanted to do some amount of inspection of these suspicious IPs, I then needed a way to filter my log for unique IPs. In addition, I would get data on the quantity of those uniques, as well as how many were duplicated.</p>
-<p data-start="2504" data-end="2621">To do this, I would use Microsoft Copilot to generate a PowerShell script to filter the data for me. The prompt was as follows:</p>
-<blockquote>
-<p data-start="2504" data-end="2621">Write me a powershell script that does the following:<br>-reads content of file `filter.log`<br>-reads lines of the following format `2025-06-25T11:06:30-04:00 Informational filterlog 68,,,ff197ebab7ec0da7fe008f0f6ffee42b,bridge0,match,block,out,4,0x0,,127,21852,0,DF,6,tcp,52,Home IP,1.1.1.1,21124,443,0,S,2052234833,,64240,,mss;nop;wscale;nop;nop;sackOK` <br>-counts unique and duplicate IPv4 addresses <br>-identifies unique IPv4 addresses <br>-outputs unique IPv4 address count, duplicate IPv4 address count, and all unique IPv4 addresses to new file `filter-cleaned.log`</p>
-</blockquote>
-<p data-start="2504" data-end="2621">This was the following output:</p>
-<pre class="language-markdown line-numbers"><code># PowerShell Script to Extract and Count IPv4 Addresses
-
-```powershell
-# Define input and output files
-$inputFile  = 'filter.log'
-$outputFile = 'filter-cleaned.log'
-
-# IPv4 regex (0–255 range)
-$ipv4Pattern = '\b(?:(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\b'
-
-# Read all lines, extract every IPv4 match
-$allIps = Get-Content $inputFile |
-    ForEach-Object {
-        [regex]::Matches($_, $ipv4Pattern) |
-        ForEach-Object { $_.Value }
-    }
-
-# Compute counts
-$uniqueIps      = $allIps | Sort-Object | Get-Unique
-$uniqueCount    = $uniqueIps.Count
-$duplicateCount = $allIps.Count - $uniqueCount
-
-# Prepare header lines
-$header = @(
-    "Unique IPv4 address count: $uniqueCount"
-    "Duplicate IPv4 address count: $duplicateCount"
-    ""
-    "Unique IPv4 addresses:"
-)
-
-# Write header and unique IPs to the output file
-$header | Set-Content  $outputFile
-$uniqueIps | Add-Content $outputFile
-```
-
----
-
-## How This Works
-
-- The script reads every line from `filter.log` and applies a strict IPv4 regex to find address patterns.  
-- All matches are collected into `$allIps`, preserving duplicates.  
-- Unique addresses are extracted via `Sort-Object | Get-Unique`.  
-- Duplicate count is derived by subtracting the number of unique addresses from total matches.  
-- Results (counts + list of unique IPs) are written to `filter-cleaned.log`.
-
----
-
-## Further Enhancements You Might Consider
-
-- If you need the list of IPs that appear more than once, group `$allIps` with `Group-Object` and filter where `.Count -gt 1`.  
-- For very large logs, use `Select-String -Pattern $ipv4Pattern -AllMatches` to stream matches rather than loading the entire file at once.  
-- Extend the script to handle IPv6 by adding a second regex and interleaving results.  
-- Export the results in CSV or JSON for integration with monitoring tools or dashboards.  </code></pre>
-<p>I ran the script and got this confusing result:</p>
-<p><code>Unique IPv4 address count: 877</code><br><code>Duplicate IPv4 address count: 11597</code></p>
-<p>Believing myself to have only gotten a sample size of 50, I began randomly searching the original log file for random IP on the unique list, only to keep finding them. The mystery was answered when I opened the log file in VS Code, revealing that I had dumped the <strong>entire </strong>list of log entries matching the <code>blocked bridge</code> query. I was, in fact, analyzing the full two or so weeks worth of log entries, not just the 50 entries on display in the webGUI.</p>
-<p>To gain more higher level insights, I returned to Copilot and asked it for a new script:</p>
-<blockquote>
-<p>Write me a powershell script that does the following: <br>-reads content of file `filter.log` <br>-reads lines of the following format `2025-06-25T11:06:30-04:00 Informational filterlog 68,,,ff197ebab7ec0da7fe008f0f6ffee42b,bridge0,match,block,out,4,0x0,,127,21852,0,DF,6,tcp,52,Home IP,1.1.1.1,21124,443,0,S,2052234833,,64240,,mss;nop;wscale;nop;nop;sackOK` <br>-counts the number of `in` and `out` entries <br>-generates a count of how many times unique IPv4 addresses appear in the log <br>-Generates a list of how many unique IPv4 addresses are associated with `in` or `out` entries, or both -outputs all data to new file `filter-statistics.log`</p>
-</blockquote>
-<p>Here's what Copilot gave me:</p>
-<pre class="language-markdown line-numbers"><code>```powershell
-# PowerShell Script: filter-statistics.ps1
-# Reads filter.log, parses “in”/“out” entries and IPv4s, produces filter-statistics.log
-
-# Set input/output paths
-$inputFile   = 'filter.log'
-$outputFile  = 'filter-statistics.log'
-
-# Initialize counters &amp; storage
-$inCount     = 0
-$outCount    = 0
-$ipStats     = @{}
-
-# Strict IPv4 regex
-$ipv4Pattern = '\b(?:(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\b'
-
-# Process each line
-Get-Content $inputFile | ForEach-Object {
-    $line = $_.Trim()
-    if ([string]::IsNullOrWhiteSpace($line)) { return }
-
-    # Split on commas
-    $fields = $line -split ','
-
-    # Skip malformed or too-short lines
-    if ($fields.Count -lt 20) { return }
-
-    # Extract direction and IP
-    $direction = $fields[7].ToLower()
-    $ip        = $fields[19].Trim()
-
-    # Validate IPv4 format
-    if (-not [regex]::IsMatch($ip, $ipv4Pattern)) { return }
-
-    # Tally global in/out counts
-    switch ($direction) {
-        'in'  { $inCount++ }
-        'out' { $outCount++ }
-    }
-
-    # Initialize per-IP record if needed
-    if (-not $ipStats.ContainsKey($ip)) {
-        $ipStats[$ip] = [PSCustomObject]@{
-            Total = 0
-            In    = 0
-            Out   = 0
-        }
-    }
-
-    # Update per-IP stats
-    $ipStats[$ip].Total++
-    if ($direction -eq 'in')  { $ipStats[$ip].In++ }
-    if ($direction -eq 'out') { $ipStats[$ip].Out++ }
-}
-
-# Compute summary numbers
-$uniqueIpCount  = $ipStats.Keys.Count
-$onlyInCount    = ($ipStats.GetEnumerator() |
-                    Where-Object { $_.Value.In  -gt 0 -and $_.Value.Out -eq 0 }).Count
-$onlyOutCount   = ($ipStats.GetEnumerator() |
-                    Where-Object { $_.Value.Out -gt 0 -and $_.Value.In  -eq 0 }).Count
-$bothCount      = ($ipStats.GetEnumerator() |
-                    Where-Object { $_.Value.In  -gt 0 -and $_.Value.Out -gt 0 }).Count
-
-# Build output lines
-$output = @()
-$output += "Total IN entries: $inCount"
-$output += "Total OUT entries: $outCount"
-$output += "Unique IPv4 addresses: $uniqueIpCount"
-$output += "Unique IPv4 addresses only IN: $onlyInCount"
-$output += "Unique IPv4 addresses only OUT: $onlyOutCount"
-$output += "Unique IPv4 addresses both IN and OUT: $bothCount"
-$output += ''
-$output += "IPv4 address frequencies (desc):"
-
-# Append per-IP frequencies
-$ipStats.GetEnumerator() |
-  Sort-Object { $_.Value.Total } -Descending |
-  ForEach-Object { $output += ("{0}: {1}" -f $_.Key, $_.Value.Total) }
-
-# Write everything to the output file
-$output | Set-Content $outputFile
-```
-
-Save this as `filter-statistics.ps1` in the same folder as your `filter.log` file.  
-Run it in PowerShell—after completion, `filter-statistics.log` will contain:
-
-- Total counts of “in” and “out” entries  
-- Number of unique IPv4 addresses  
-- How many unique addresses appear only in, only out, or in both directions  
-- A breakdown of each IPv4 address and how many times it occurs</code></pre>
-<p>The results were mindboggling:</p>
-<p><code>Total IN entries: 10301</code><br><code>Total OUT entries: 108</code><br><code>Unique IPv4 addresses: 643</code><br><code>Unique IPv4 addresses only IN: 641</code><br><code>Unique IPv4 addresses only OUT: 2</code><br><code>Unique IPv4 addresses both IN and OUT: 0</code><br><br><code>IPv4 address frequencies (desc):</code><br><code>216.21.13.15: 840</code><br><code>216.21.13.14: 840</code><br><code>34.107.243.93: 314</code><br><code>52.18.33.33: 242</code><br><code>54.246.231.114: 213</code><br><code>23.197.209.185: 194</code><br><code>23.197.210.93: 167</code><br><code>15.197.177.151: 109</code><br><code>3.33.169.122: 109</code><br><code>67.195.176.151: 108</code><br><code>1.1.1.1: 106</code></p>
-<p>First of all, the 840 entries <strong>each </strong>from <code>216.21.13.15</code> and <code>216.21.13.14</code> were quite alarming. The VirusTotal pages for each IP (<a href="https://www.virustotal.com/gui/ip-address/216.21.13.15/detection" title="216.21.13.15 (216.21.12.0/23) Detection Details" target="_blank" rel="noopener noreferrer">216.21.13.15</a>, <a href="https://www.virustotal.com/gui/ip-address/216.21.13.14" title="216.21.13.14 (216.21.12.0/23) Detection Details" target="_blank" rel="noopener noreferrer">216.21.13.14</a>) made it pretty clear that they were associated with malware. I immediately examined the logs, and saw these connections were blocked on the way in. In fact, the only outbound connections that were blocked were to <code>1.1.1.1</code> and a local network address.</p>
-<p>It's unclear if there's actual malicious traffic coming from Cloudflare (<code>1.1.1.1</code>), or just malware sometimes routing through Cloudflare. Something similar might be happening with <code>34.107.243.93</code>, which is <a href="https://www.virustotal.com/gui/ip-address/34.107.243.93/community" title="Community Commentary on 34.107.243.93 (34.104.0.0/13)" target="_blank" rel="noopener noreferrer">an IP address that seems to be associated with Firefox</a>, but might be used for any number of malicious activities.</p>
-<p>The other addresses are just Amazon or Akami cloud IPs, which means they could be used by anyone for anything at any moment.</p>
-<p>Something that's a bit concerning about these two scripts is the fact that the numbers don't line up, despite them taking in the same log, which was not edited between runs. Despite using the same LLM and same conversation, there was randomness in how it interpreted the results to generate a calculation that was slightly different.</p>
-<h2 id="mcetoc_1j0842akm15t">Checking Up On Suricata</h2>
-<p>After obtaining the log data for the standard firewall, I then proceeded to check the Suricata logs. I didn't expect much from this, because as an IPS, it would really only activate if there was an active threat.</p>
-<p>As it turned out, I was right and wrong. I was correct to assume little would be revealed, but I was wrong in that I <strong>did </strong>have two detections.</p>
-<div class="gallery-wrapper"><div class="gallery"  data-is-empty="false" data-translation="Add images" data-columns="2">
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb14-2.png" data-size="1920x921"><img loading="lazy" src="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb14-2-thumbnail.png" alt="OPNSense NTP Denial of Service Scan Detection 1" width="768" height="368"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb15-2.png" data-size="1920x921"><img loading="lazy" src="https://korgano.github.io/media/posts/42/gallery/cyber-proj-tfb15-2-thumbnail.png" alt="OPNSense NTP Denial of Service Scan Detection 2" width="768" height="368"></a></figure>
-</div></div>
-<p>Curiously, they were both Network Time Protocol DOS scans, which were annoying allowed by Suricata.</p>
-<p><a href="https://www.virustotal.com/gui/ip-address/122.228.23.224/community" title="122.228.23.224 (122.228.0.0/19) Community Assessment" target="_blank" rel="noopener noreferrer">Doing a VirusTotal check revealed that this was an actor from the People's Republic of China</a>, which has done this type of thing for at least a year. Interestingly, one member of the VirusTotal community posted about escalating numbers of scans over a period of months, while I had basically two in a two week span.</p>
-<p>What this really proved was the value of a multi-layered detection setup. The blocking firewall rules clearly did not include this IP address, but if I hadn't had Suricata, I wouldn't have known this even happened. It would be a total false negative, and if for some reason I got hit with a DDoS attack, I would have no warning or idea what was happening.</p>
-<h2 id="mcetoc_1j0842akm15u">What To Do Next</h2>
-<p>Normally, there would be a clear path forward, but there's a few factors that complicate things:</p>
-<ul>
-<li>The inconsistent connectivity makes it hard to update and iterate things in a timely manner.</li>
-<li>Figuring out how to revise the <code>wpa_supplicant</code> file to fix the connectivity issues could take a great deal of time.</li>
-<li>There's a major OPNSense version update scheduled for the end of the month, which may require me to do a <strong>lot </strong>of reconfiguration if I can't simply do an in-place update.</li>
-</ul>
-<p>These all provide incentives to <strong>not </strong>engage in another round of data collection and analysis with the Transparent Filtering Bridge.</p>
-<p>However, due to the fact that I <strong>do </strong>have the log for the period between these latest two posts, I can experiment with various methods for cleaning and analyzing the data while addressing the other issues.</p>
-<h2 id="mcetoc_1j0842akm15v">Takeaways</h2>
-<ul>
-<li>There are FreeBSD/OPNSense processes that can alter the key files and behaviors required for me to maintain a wireless management connection.</li>
-<li>Testing firewall blocking rules aimed at malicious/tracking traffic is more effective over a longer period of time (24+ hours).</li>
-<li>In a Small Office/Home Office environment, Suricata IPS detections may be low/nonexistent, even over a prolonged period of time, depending on your configuration.</li>
-<li>The pfSense firewall log format is quite complex and hard to analyze for humans, but is incredibly information dense and ideal for machine analysis.</li>
-<li>At minimum, in a little over a week and a half, I blocked hundreds of malicious or tracking connection attempts coming into my network, and only two going out.</li>
-<li>In the same time span, I received two NTP scans that might be precursors to DOS attacks from actors in the PRC.</li>
-<li>The NTP scans were not detected by the standard firewall, proving that multi-layer defenses are key to maintaining good cyber hygiene.</li>
-</ul>
             ]]>
         </content>
     </entry>

@@ -178,7 +178,11 @@
 </url>
 <url>
 <loc>https://korgano.github.io/cybersecurity-project-n8n-workflows-opnsense-api-10/</loc>
-<lastmod>2025-10-25T09:07:23-04:00</lastmod>
+<lastmod>2025-12-09T10:36:22-05:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/51/n8n-001-2.png</image:loc>
+<image:title><![CDATA[Finalized N8N workflow for using HTTP requests to gather data on firewall interfaces, before writing to a CSV file.]]></image:title>
+</image:image>
 <image:image>
 <image:loc>https://korgano.github.io/media/posts/51/n8n-001.png</image:loc>
 <image:title><![CDATA[Finalized N8N workflow for using HTTP requests to gather data on firewall interfaces, before writing to a CSV file.]]></image:title>
@@ -817,6 +821,42 @@
 <image:image>
 <image:loc>https://korgano.github.io/media/posts/37/unknown_2025.04.29-16.37.png</image:loc>
 <image:title><![CDATA[LM Studio with a model set to use the MOSCOW System Prompt.]]></image:title>
+</image:image>
+</url>
+<url>
+<loc>https://korgano.github.io/quick-thoughts-opencode/</loc>
+<lastmod>2026-05-11T15:48:13-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/53/opencode-0001-2.png</image:loc>
+<image:title><![CDATA[OpenCode UI - left side column is project conversation/session menu, center is chat interface, right side column is multifunction section currently displaying Git changes to files.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/53/opencode-0001.png</image:loc>
+<image:title><![CDATA[OpenCode UI - left side column is project conversation/session menu, center is chat interface, right side column is multifunction section currently displaying Git changes to files.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/53/opencode-0002.png</image:loc>
+<image:title><![CDATA[OpenCode chat with code changes - changes are stored within accordions, allowing the user to inspect the changes without loading the full diff.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/53/opencode-0004.png</image:loc>
+<image:title><![CDATA[OpenCode agent list - use / to open list - many agents in this image are from OpenCode Power Pack.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/53/opencode-0005.png</image:loc>
+<image:title><![CDATA[OpenCode Multifunction Column set to Context - stats about model use fill the top, while messages to and from the model can be examined on the bottom.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/53/opencode-0003.png</image:loc>
+<image:title><![CDATA[OpenCode - User prompt displays as plain text Markdown format.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/53/opencode-0007.png</image:loc>
+<image:title><![CDATA[opencode.jsonc file, which is one of two places where local AI models can be configured.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/53/opencode-0008.png</image:loc>
+<image:title><![CDATA[Sarna Maps - map generation output issues with no systems being displayed and pockets of factions being spread all over the map.]]></image:title>
 </image:image>
 </url>
 <url>
