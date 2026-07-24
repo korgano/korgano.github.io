@@ -325,6 +325,42 @@
 </image:image>
 </url>
 <url>
+<loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-100-2/</loc>
+<lastmod>2026-07-24T15:40:30-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/54/cyber-proj-tfb31-2.png</image:loc>
+<image:title><![CDATA[OPNSense 27.6 in the midst of a crash.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/54/cyber-proj-tfb31.png</image:loc>
+<image:title><![CDATA[OPNSense 26.7 in the midst of a crash.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/54/cyber-proj-tfb32.png</image:loc>
+<image:title><![CDATA[OpenCode UI showing all conversations related to updating setup_wpa repo.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/54/cyber-proj-tfb33.png</image:loc>
+<image:title><![CDATA[Side by side comparison of the two OPNSense configuration files, showing different layouts.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/54/cyber-proj-tfb33b.png</image:loc>
+<image:title><![CDATA[Blank rules after attempting to import them via config XML editing.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/54/cyber-proj-tfb34.png</image:loc>
+<image:title><![CDATA[Updated Alias list, prior to full update of online lists]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/54/gallery/cyber-proj-tfb33c-thumbnail.png</image:loc>
+<image:title><![CDATA[List of VirusTotal community graphs containing 0.0.0.0]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/54/gallery/cyber-proj-tfb33d-thumbnail.png</image:loc>
+<image:title><![CDATA[Comments explaining malicious behaviors associated with 0.0.0.0]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-20/</loc>
 <lastmod>2024-09-06T07:43:48-04:00</lastmod>
 <image:image>

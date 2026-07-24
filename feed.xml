@@ -3,12 +3,2218 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2026-05-11T15:48:13-04:00</updated>
+    <updated>2026-07-24T15:40:30-04:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 11.0</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-100-2/"/>
+        <id>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-100-2/</id>
+        <media:content url="https://korgano.github.io/media/posts/54/cyber-proj-tfb31-2.png" medium="image" />
+            <category term="Tech Projects"/>
+            <category term="OPNSense"/>
+            <category term="Cybersecurity Projects"/>
+            <category term="Cybersecurity"/>
+            <category term="AI"/>
+
+        <updated>2026-07-22T11:10:57-04:00</updated>
+            <summary type="html">
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/54/cyber-proj-tfb31-2.png" alt="OPNSense 27.6 in the midst of a crash." />
+                    I wasn't planning on doing a major update to this series for a while, partly due to being busy with&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/54/cyber-proj-tfb31-2.png" class="type:primaryImage" alt="OPNSense 27.6 in the midst of a crash." /></p>
+                <p>I wasn't planning on doing a major update to this series for a while, partly due to being busy with working on CCNA certifications. But also due to the general hardware price nightmare of 2026 and OPNSense's general jankiness with its API in version 26 making the automation part of project a bit more suspect.</p>
+<p>But when you've got major problems, it's time for a major update.</p>
+<div class="post__toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#mcetoc_1ju568auj4">The Context</a></li>
+<li><a href="#mcetoc_1ju5e6tfmdk">The First Problem</a></li>
+<li><a href="#mcetoc_1ju5e6tfmdl">The Second Problem</a></li>
+<li><a href="#mcetoc_1ju5e6tfmdm">ChatGPT Actually Helped</a></li>
+<li><a href="#mcetoc_1ju5e6tfmdn">Working with Qwen3.6-Uncensored-NEO-CODE</a></li>
+<li><a href="#mcetoc_1juaff869ud">Enter OpenCode</a></li>
+<li><a href="#mcetoc_1juaff869ue">Configuring OPNSense 26.7</a></li>
+<li><a href="#mcetoc_1juaff869uf">How Spectrum Handles DHCP</a></li>
+<li><a href="#mcetoc_1juaff869ug">Suricata Configuration</a></li>
+<li><a href="#mcetoc_1juaoed1l197">Future Upgrade Planning</a></li>
+<li><a href="#mcetoc_1juaoed1l198">Next Steps</a></li>
+<li><a href="#mcetoc_1juaoed1l199">Takeaways</a></li>
+</ul>
+</div>
+<h1 id="mcetoc_1ju568auj4">The Context</h1>
+<p>For the first half of the year, things were stable with the older version of the setup file I had created for the <code>wpa_supplicant</code>, which controls the WiFi interface I use to manage OPNSense on the miniPC it runs off of.</p>
+<p>OPNSense versions 26.1+ provided no real issues aside from the need to reapply the script whenever an update occurred, because the update would revert the <code>wpa_supplicant</code> file back to its old state.</p>
+<p>OPNSense announced a planned upgrade to version 26.7 on July 15, 2026, at which time support for 26.1+ would cease. I waited a few days, checked the r/OPNSense thread on the update, saw that N100 miniPCs like mine had few issues, and proceeded with the update.</p>
+<h1 id="mcetoc_1ju5e6tfmdk">The First Problem</h1>
+<p>After the minor hassle of updating to 26.1.11 to get to update to 26.7, the first real indication of a problem was when I tried to get into the shell to look at wpa_supplicant, and this happened:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/54/cyber-proj-tfb31.png" alt="OPNSense 26.7 in the midst of a crash." width="1542" height="909" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb31-xs.png 384w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb31-sm.png 600w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb31-md.png 768w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb31-lg.png 1200w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb31-xl.png 1600w"></figure>
+<p>The above screenshot is a small segment of the fast moving stream of text that would fill the screen before the miniPC crashed.</p>
+<p>What was interesting about this crash was OPNSense would boot properly, allow me to enter the shell, <strong>and then </strong>crash after about 1-2 minutes from boot completion.</p>
+<p>I explored several avenues to dealing with this, including reinstalling OPNSense. I couldn't get the installer to work, so I was left with using an option I had never used before: Reset to Default Configuration.</p>
+<p>Since I had a backup of the configuration made <strong>before </strong>the update, I saw little risk in using this option. And it worked.</p>
+<h1 id="mcetoc_1ju5e6tfmdl">The Second Problem</h1>
+<p>The fact that resetting to default configuration solved the problem <strong>at all </strong>indicated that it was at least partially due to configuration settings, which promised headaches in the future.</p>
+<p>However, the <strong>new </strong>problem was that I would have to figure what to do with the <code>wpa_supplicant</code>, because resetting to default hadn't enabled it to connect to my home network.</p>
+<p>Unfortunately, I managed to botch taking a picture of the actual code for the default <code>wpa_supplicant</code> implementation, so I don't have that as a reference. Even more annoying, the source code is not easily discoverable online, so I was not able to reference that instead.</p>
+<p>Attempting to use the old script didn't work, so I was left an option I very much <strong>did not </strong>like: using ChatGPT to generate diagnostic scripts.</p>
+<p>If you've read previous posts in this series, you might be wondering why I would say that. And the answer is very simple: since the start of 2026, the functionality of the free ChatGPT account has steadily degraded (aka enshittification). As of July 2026, if you upload too many documents, you get a cooldown before you can upload more. If you want it to do code, it can't be too big, or it won't show up in the chat window and it can't be compiled into a file you can download. If you use too many token, you get a cooldown on the default model and forced to use a worse model or wait. And so.</p>
+<h1 id="mcetoc_1ju5e6tfmdm">ChatGPT Actually Helped</h1>
+<p>The reason I picked ChatGPT over my local models was because I wasn't sure how context was required to produce a useful script - or even if Qwen 3.6 had useful knowledge on FreeBSD shell coding.</p>
+<p>So I was taking a huge chance when I provided ChatGPT this prompt:</p>
+<pre class="language-markdown line-numbers"><code>role: freebsd shell script expert | context:
+- FreeBSD 15+
+- WiFi handling change
+- WiFi no long connecting
+- output target: `/usr/local/scripts/`
+- keep filename short for easy copying | task:
+- generate script diagnosing wifi stack (firmware, settings, etc...)
+- dump data to `.log` file for analysis</code></pre>
+<p>This generated the following script:</p>
+<pre class="language-bash line-numbers"><code>#!/bin/sh
+
+##############################################################################
+# FreeBSD WiFi Diagnostic Script
+#
+# Output:
+#   /tmp/wdiag-YYYYMMDD-HHMMSS.log
+#
+##############################################################################
+
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+
+if [ "$(id -u)" != "0" ]; then
+    echo "Run as root."
+    exit 1
+fi
+
+TS=$(date +"%Y%m%d-%H%M%S")
+LOG="/tmp/wdiag-${TS}.log"
+
+exec &gt;"$LOG" 2&gt;&amp;1
+
+echo "============================================================="
+echo "FreeBSD WiFi Diagnostic"
+echo "Started: $(date)"
+echo "============================================================="
+echo
+
+##############################################################################
+section()
+{
+    echo
+    echo "============================================================="
+    echo "$1"
+    echo "============================================================="
+}
+
+run()
+{
+    echo
+    echo "&gt;&gt;&gt; $*"
+    "$@"
+}
+
+##############################################################################
+
+section "SYSTEM"
+
+run uname -a
+run freebsd-version
+run hostname
+run uptime
+
+##############################################################################
+
+section "PCI DEVICES"
+
+run pciconf -lv
+
+##############################################################################
+
+section "USB DEVICES"
+
+if command -v usbconfig &gt;/dev/null 2&gt;&amp;1
+then
+    run usbconfig
+fi
+
+##############################################################################
+
+section "LOADED KERNEL MODULES"
+
+run kldstat
+
+##############################################################################
+
+section "DEVMATCH"
+
+if command -v devmatch &gt;/dev/null 2&gt;&amp;1
+then
+    run devmatch
+fi
+
+##############################################################################
+
+section "INSTALLED FIRMWARE PACKAGES"
+
+pkg info | grep -Ei 'firmware|iwlwifi|rtw88|rtw89|mediatek|ath|wifi|wireless'
+
+##############################################################################
+
+section "WIRELESS INTERFACES"
+
+IFACES=$(ifconfig -l)
+
+for i in $IFACES
+do
+    if ifconfig "$i" | grep -qi "IEEE"
+    then
+        echo
+        echo "Wireless interface: $i"
+    fi
+done
+
+##############################################################################
+
+section "IFCONFIG -A"
+
+run ifconfig -a
+
+##############################################################################
+
+section "WIRELESS STATUS"
+
+for i in $(ifconfig -l)
+do
+    if ifconfig "$i" | grep -qi "IEEE"
+    then
+        echo
+        echo "Interface: $i"
+
+        ifconfig "$i"
+
+        echo
+        ifconfig "$i" list scan &gt;/dev/null 2&gt;&amp;1
+
+        echo
+        ifconfig "$i" scan
+    fi
+done
+
+##############################################################################
+
+section "ROUTING"
+
+run netstat -rn
+
+##############################################################################
+
+section "DNS"
+
+cat /etc/resolv.conf
+
+##############################################################################
+
+section "RUNNING NETWORK PROCESSES"
+
+ps axww | grep -E 'wpa|dhclient|netif|routing' | grep -v grep
+
+##############################################################################
+
+section "SERVICE STATUS"
+
+service netif status
+service routing status
+
+##############################################################################
+
+section "WPA_SUPPLICANT VERSION"
+
+if command -v wpa_supplicant &gt;/dev/null 2&gt;&amp;1
+then
+    wpa_supplicant -v
+fi
+
+##############################################################################
+
+section "WPA CONFIG"
+
+for f in \
+    /etc/wpa_supplicant.conf \
+    /etc/wpa_supplicant-*.conf
+do
+    if [ -f "$f" ]
+    then
+        echo
+        echo "----- $f -----"
+        cat "$f"
+    fi
+done
+
+##############################################################################
+
+section "RC.CONF"
+
+if [ -f /etc/rc.conf ]
+then
+    cat /etc/rc.conf
+fi
+
+##############################################################################
+
+section "LOADER.CONF"
+
+if [ -f /boot/loader.conf ]
+then
+    cat /boot/loader.conf
+fi
+
+##############################################################################
+
+section "LOADER.CONF.LOCAL"
+
+if [ -f /boot/loader.conf.local ]
+then
+    cat /boot/loader.conf.local
+fi
+
+##############################################################################
+
+section "SYSCTL (WIRELESS)"
+
+sysctl -a | grep -Ei \
+'80211|wlan|wifi|iwl|rtw|ath|net.wlan'
+
+##############################################################################
+
+section "WLANDEBUG"
+
+if command -v wlandebug &gt;/dev/null 2&gt;&amp;1
+then
+    wlandebug
+fi
+
+##############################################################################
+
+section "DHCLIENT LEASES"
+
+find /var/db -name "dhclient*.leases" -exec sh -c '
+for f
+do
+    echo
+    echo "----- $f -----"
+    cat "$f"
+done
+' sh {} +
+
+##############################################################################
+
+section "FIRMWARE DIRECTORIES"
+
+for d in \
+    /usr/local/share/firmware \
+    /boot/firmware \
+    /lib/firmware
+do
+    if [ -d "$d" ]
+    then
+        echo
+        echo "$d"
+        ls -laR "$d"
+    fi
+done
+
+##############################################################################
+
+section "DMESG (WIRELESS)"
+
+dmesg | grep -Ei \
+'iwl|iwx|iwm|ath|rtw|rtwn|urtw|run|ral|rum|otus|rsu|wifi|wlan|firmware|80211'
+
+##############################################################################
+
+section "LAST 500 DMESG LINES"
+
+dmesg | tail -500
+
+##############################################################################
+
+section "BOOT MESSAGES"
+
+if [ -f /var/run/dmesg.boot ]
+then
+    cat /var/run/dmesg.boot
+fi
+
+##############################################################################
+
+section "PKG INFO"
+
+pkg info
+
+##############################################################################
+
+section "PACKAGE VERSIONS"
+
+pkg info | grep -Ei \
+'wpa|supplicant|firmware|drm|wifi|wireless'
+
+##############################################################################
+
+section "NETWORK CONFIG FILES"
+
+for f in \
+    /etc/hosts \
+    /etc/resolv.conf
+do
+    if [ -f "$f" ]
+    then
+        echo
+        echo "----- $f -----"
+        cat "$f"
+    fi
+done
+
+##############################################################################
+
+section "END"
+
+echo
+echo "Completed: $(date)"
+echo
+echo "Diagnostic log:"
+echo "$LOG"</code></pre>
+<p>I transferred the script to the MiniPC on a USB, and executed it. Uploading the generated log to ChatGPT provided this analysis:</p>
+<pre class="language-markdown line-numbers"><code>Based on the diagnostic log, the Wi-Fi hardware and firmware are functioning correctly. The failure occurs later in the initialization process.
+
+## Primary root cause
+
+The most significant error is:
+
+```text
+ifconfig: interface wlan0 already exists
+/etc/rc.d/wpa_supplicant: ERROR: Failed to create wlan0
+```
+
+This indicates that the system is attempting to create the cloned `wlan0` interface even though it already exists.
+
+This is **not** a firmware failure or a driver crash.
+
+Instead, it points to one of:
+
+* duplicate interface creation
+* duplicate network initialization
+* OPNsense startup scripts conflicting with FreeBSD rc scripts
+* stale interface configuration after migration to the new `iwlwifi` driver
+
+---
+
+## Evidence
+
+### 1. Driver loads successfully
+
+The Intel AX101 is detected correctly.
+
+```text
+Detected Intel(R) Wi-Fi 6 AX101
+successfully loaded firmware image
+loaded firmware version ...
+```
+
+No firmware errors appear.
+
+---
+
+### 2. Firmware is present
+
+The correct firmware exists:
+
+```
+iwlwifi-so-a0-hr-b0-89.ucode
+```
+
+---
+
+### 3. Hardware initializes
+
+The interface obtains a MAC address:
+
+```
+base HW address:
+Ethernet address:
+```
+
+This means
+
+* PCI
+* DMA
+* firmware upload
+* RF initialization
+
+all completed successfully.
+
+---
+
+### 4. The interface already exists
+
+Later the log reports
+
+```
+Wireless interface:
+iwlwifi0_wlan0
+```
+
+which means the clone **already exists**.
+
+Yet rc later attempts
+
+```
+create wlan0
+```
+
+again.
+
+That fails.
+
+---
+
+## 5. No association attempt
+
+I do **not** see any of:
+
+* authentication
+* association
+* RSN negotiation
+* WPA handshake
+* scan failures
+
+There are no messages like
+
+```
+Associated
+AUTH
+DEAUTH
+4-way handshake
+SSID
+```
+
+That means Wi-Fi never reached the stage of talking to the AP.
+
+---
+
+## 6. No DHCP attempt
+
+The DHCP lease section is empty.
+
+This is expected because there was never a usable wireless interface.
+
+---
+
+# Things that are NOT the problem
+
+### Firmware
+
+Firmware loads correctly.
+
+---
+
+### Unsupported chipset
+
+The card is fully recognized.
+
+```
+Intel Wi-Fi 6 AX101
+```
+
+---
+
+### Missing kernel module
+
+The module is loaded.
+
+```
+if_iwlwifi.ko
+```
+
+---
+
+### Missing firmware package
+
+Firmware exists.
+
+---
+
+### RF kill
+
+```
+RFIm is deactivated, reason = 4
+```
+
+This message is common for Intel LinuxKPI drivers and is **not** itself an indication that the radio is disabled. The device proceeds to initialize and receives its MAC address afterward. 
+
+---
+
+# What I suspect
+
+Given the log, my confidence ranking is:
+
+| Likelihood | Cause                                                                                                                  |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------- |
+| ★★★★★      | OPNsense creating the WLAN interface twice                                                                             |
+| ★★★★★      | Stale interface configuration after migration to `iwlwifi`                                                             |
+| ★★★★☆      | `/etc/rc.conf` or generated configuration still references `wlan0` while OPNsense has already created `iwlwifi0_wlan0` |
+| ★★★☆☆      | Race between interface creation and `wpa_supplicant` startup                                                           |
+| ★☆☆☆☆      | Driver bug                                                                                                             |
+
+---
+
+# Information missing from the diagnostic
+
+The diagnostic script did not collect the configuration needed to identify *why* the duplicate creation is happening. Specifically, it is missing:
+
+* `/etc/rc.conf`
+* `/conf/config.xml` (OPNsense)
+* `ifconfig iwlwifi0_wlan0`
+* `service netif status`
+* `service wpa_supplicant status`
+* `ifconfig -g wlan`
+* `cloned_interfaces`
+* `wlans_iwlwifi0`
+* output of `sysrc -a`
+* `/var/run/wpa_supplicant`
+* `sockstat -4 -6 | grep wpa`
+
+These would distinguish between an OPNsense configuration issue and a FreeBSD networking configuration issue.
+
+## Conclusion
+
+The log does **not** indicate a hardware, firmware, or Intel `iwlwifi` driver failure. The Wi-Fi adapter initializes successfully, the correct firmware loads, and the wireless interface is created.
+
+The failure occurs because the system later attempts to create `wlan0` a second time, causing `wpa_supplicant` initialization to fail before any scan, association, or DHCP activity can occur. The evidence points most strongly to duplicate WLAN interface creation or conflicting network initialization logic, likely involving OPNsense's network configuration rather than the wireless driver itself.</code></pre>
+<p>I then used the missing information section to create new prompt for updating the script:</p>
+<pre class="language-markdown line-numbers"><code>update script to add capture:
+- `/etc/rc.conf`
+- `ifconfig iwlwifi0_wlan0`
+- `service netif status` 
+- `service wpa_supplicant status`
+- `ifconfig -g wlan` - `cloned_interfaces` 
+- `wlans_iwlwifi0`
+- `output of sysrc -a`
+- `/var/run/wpa_supplicant`
+- `sockstat -4 -6 | grep wpa`</code></pre>
+<p>To my irritation, ChatGPT didn't generate a complete, updated script, just sections that I had to manually add. I then transferred this updated script to the miniPC, ran it, and brought the logs back to ChatGPT for analysis. This is the result:</p>
+<pre class="language-markdown line-numbers"><code>The updated diagnostic changes the diagnosis significantly. It eliminates several earlier hypotheses and identifies a configuration inconsistency that is likely the actual root cause.
+
+## Executive summary
+
+The Intel AX101 hardware, firmware, LinuxKPI layer, and RF subsystem are all functioning correctly.
+
+The system can:
+
+* detect the adapter
+* load firmware
+* create the wireless interface
+* scan for nearby access points
+* receive beacons from the target SSID
+
+However, **`wpa_supplicant` never takes control of the interface**, so the interface remains:
+
+* `ssid ""`
+* `authmode OPEN`
+* `privacy OFF`
+* `status: no carrier`
+
+even though the desired WPA2 network is visible. 
+
+---
+
+# Root Cause #1 (Highest Confidence)
+
+## Mismatch between rc.conf and sysrc configuration
+
+Your diagnostic captured something that was previously missing:
+
+`/etc/rc.conf`
+
+contains
+
+```text
+wpa_supplicant_iface="iwlwifi0_wlan0"
+```
+
+but
+
+`sysrc -a`
+
+reports
+
+```text
+wpa_supplicant_iface: wlan0
+wpa_supplicant_parent: iwlwifi0
+```
+
+while the remaining variables point to the renamed interface:
+
+```text
+wpa_supplicant_conf=/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf
+```
+
+These settings are internally inconsistent.
+
+One component believes the interface is:
+```
+wlan0
+```
+
+while another believes it is
+```
+iwlwifi0_wlan0
+```
+
+That exactly matches the boot error:
+```
+ifconfig: interface wlan0 already exists
+/etc/rc.d/wpa_supplicant: ERROR: Failed to create wlan0
+```
+
+---
+
+# Root Cause #2
+
+## Duplicate interface creation
+
+The boot log shows
+```
+wlan0
+```
+being created,
+
+then immediately renamed
+```
+iwlwifi0_wlan0
+```
+
+Then later
+```
+wpa_supplicant
+```
+
+tries to create
+```
+wlan0
+```
+again.
+
+```
+wlan0
+→ renamed to iwlwifi0_wlan0
+→ create wlan0
+→ already exists
+→ failure
+```
+
+This is almost certainly occurring because OPNsense's interface management and the FreeBSD `rc.d/wpa_supplicant` script are both attempting to manage the WLAN interface. 
+
+---
+
+# Root Cause #3
+
+## wpa_supplicant never actually starts
+
+The new log contains:
+
+```
+SERVICE WPA_SUPPLICANT
+
+```
+
+with no running status or process, and `/var/run/wpa_supplicant` contains only the directory itself with no control socket. 
+
+If `wpa_supplicant` were active, you would normally expect:
+
+* a control socket named after the interface
+* an active process in `sockstat`
+* association state transitions
+
+None are present.
+
+---
+
+# Evidence the driver is healthy
+
+## Firmware
+
+Firmware loads correctly.
+
+```
+successfully loaded firmware image
+```
+
+---
+
+## Interface creation
+
+The interface exists.
+
+```
+iwlwifi0_wlan0
+```
+
+---
+
+## RF subsystem
+
+The interface scans successfully.
+
+Detected APs include
+
+```
+HomeMesh
+HomeMesh_IoT
+```
+
+Signal strength:
+
+```
+-58 dBm
+```
+
+which is excellent. 
+
+If firmware or the radio were failing, no scan results would appear.
+
+---
+
+## Driver state
+
+Current interface:
+
+```
+status: no carrier
+ssid ""
+authmode OPEN
+privacy OFF
+```
+
+This means:
+
+* radio operational
+* scan operational
+* not authenticated
+* not associated
+* WPA not active
+
+---
+
+# Why DHCP is not the problem
+
+The interface still has an IPv4 address from a previous configuration:
+
+```
+inet ...13/24
+```
+
+yet
+
+```
+status: no carrier
+```
+
+That address is stale and does not indicate a current wireless connection.
+
+---
+
+# Why the WPA configuration is probably not the issue
+
+Your diagnostic shows a valid WPA configuration file with an SSID and a PSK. 
+
+The issue is not that the configuration file is missing; it is that no active `wpa_supplicant` instance appears to be using it.
+
+---
+
+# Likelihood assessment
+
+| Cause                                                                | Confidence |
+| -------------------------------------------------------------------- | ---------- |
+| `wpa_supplicant` never starts because of interface creation conflict | **99%**    |
+| OPNsense and FreeBSD rc scripts both creating the WLAN interface     | **98%**    |
+| `wpa_supplicant_iface` mismatch (`wlan0` vs `iwlwifi0_wlan0`)        | **95%**    |
+| Intel AX101 driver bug                                               | **5%**     |
+| Firmware issue                                                       | **&lt;1%**    |
+| Hardware failure                                                     | **&lt;1%**    |
+| Weak signal                                                          | **0%**     |
+
+## Recommended next diagnostic steps
+
+To confirm the remaining hypothesis, collect:
+
+* `ps auxww | grep wpa_supplicant`
+* `service wpa_supplicant onestatus`
+* `service wpa_supplicant forcestart`
+* `ifconfig wlan0`
+* `ifconfig iwlwifi0`
+* `cat /var/etc/wpa_supplicant_iwlwifi0_wlan0.conf`
+* `grep -i wpa /conf/config.xml`
+* `grep -R "create_args" /etc/rc* /usr/local/etc/rc*`
+
+The strongest evidence from the updated logs is that the wireless stack itself is healthy: the adapter initializes, firmware loads, nearby networks are discovered with strong signal strength, and the interface is present. The failure occurs at the configuration layer, where conflicting interface names (`wlan0` versus `iwlwifi0_wlan0`) and duplicate interface creation prevent `wpa_supplicant` from successfully starting and associating with the access point.</code></pre>
+<p>I then asked it to generate a new script based on its recommended next steps:</p>
+<pre class="language-bash line-numbers"><code>#!/bin/sh
+#
+# wifi_stage2_diagnostics.sh
+#
+# FreeBSD / OPNsense WiFi Diagnostics
+#
+# Collects additional information needed to diagnose
+# Intel iwlwifi / wpa_supplicant startup failures.
+#
+
+##############################################################################
+# Initialization
+##############################################################################
+
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+HOST=$(hostname)
+
+OUTDIR="/tmp/wifi_stage2_${HOST}_${TIMESTAMP}"
+
+mkdir -p "${OUTDIR}"
+
+LOGFILE="${OUTDIR}/diagnostics.txt"
+
+##############################################################################
+# Helper Functions
+##############################################################################
+
+section()
+{
+    echo
+    echo "===================================================================="
+    echo "$1"
+    echo "===================================================================="
+}
+
+run_cmd()
+{
+    echo
+    echo "--------------------------------------------------------------------"
+    echo "$1"
+    echo "--------------------------------------------------------------------"
+
+    sh -c "$1" 2&gt;&amp;1
+
+    echo
+}
+
+copy_file()
+{
+    FILE="$1"
+
+    echo
+    echo "--------------------------------------------------------------------"
+    echo "$FILE"
+    echo "--------------------------------------------------------------------"
+
+    if [ -e "$FILE" ]; then
+        cat "$FILE"
+    else
+        echo "File not found."
+    fi
+
+    echo
+}
+
+##############################################################################
+# Begin Logging
+##############################################################################
+
+exec &gt;"${LOGFILE}" 2&gt;&amp;1
+
+echo
+echo "WiFi Stage 2 Diagnostics"
+echo
+
+echo "Date:      $(date)"
+echo "Hostname:  $(hostname)"
+echo "Kernel:    $(uname -a)"
+
+##############################################################################
+section "SYSTEM"
+
+run_cmd "uptime"
+run_cmd "uname -a"
+run_cmd "freebsd-version -ku"
+run_cmd "sysctl kern.osrelease"
+run_cmd "sysctl kern.version"
+
+##############################################################################
+section "BOOT LOG"
+
+run_cmd "dmesg | grep -Ei 'iwl|wifi|wlan|firmware|linuxkpi|wpa|80211'"
+
+##############################################################################
+section "KERNEL MODULES"
+
+run_cmd "kldstat"
+
+##############################################################################
+section "PCI DEVICES"
+
+run_cmd "pciconf -lv"
+
+##############################################################################
+section "NETWORK INTERFACES"
+
+run_cmd "ifconfig -a"
+
+run_cmd "ifconfig wlan0"
+
+run_cmd "ifconfig iwlwifi0"
+
+run_cmd "ifconfig iwlwifi0_wlan0"
+
+run_cmd "ifconfig -g wlan"
+
+##############################################################################
+section "WIRELESS STATUS"
+
+run_cmd "ifconfig iwlwifi0_wlan0 list scan"
+
+run_cmd "ifconfig iwlwifi0_wlan0"
+
+##############################################################################
+section "ROUTING"
+
+run_cmd "netstat -rn"
+
+run_cmd "route -n get default"
+
+##############################################################################
+section "RC.CONF"
+
+copy_file "/etc/rc.conf"
+
+##############################################################################
+section "SYSRC"
+
+run_cmd "sysrc -a"
+
+run_cmd "sysrc cloned_interfaces"
+
+run_cmd "sysrc wlans_iwlwifi0"
+
+run_cmd "sysrc ifconfig_wlan0"
+
+run_cmd "sysrc ifconfig_iwlwifi0"
+
+run_cmd "sysrc ifconfig_iwlwifi0_wlan0"
+
+run_cmd "sysrc wpa_supplicant_enable"
+
+run_cmd "sysrc wpa_supplicant_iface"
+
+run_cmd "sysrc wpa_supplicant_conf"
+
+##############################################################################
+section "SERVICES"
+
+run_cmd "service netif status"
+
+run_cmd "service routing status"
+
+run_cmd "service devd status"
+
+run_cmd "service wpa_supplicant status"
+
+run_cmd "service wpa_supplicant onestatus"
+
+##############################################################################
+section "PROCESS LIST"
+
+run_cmd "ps auxww"
+
+run_cmd "ps auxww | grep -i wpa"
+
+run_cmd "pgrep -laf wpa_supplicant"
+
+##############################################################################
+section "SOCKETS"
+
+run_cmd "sockstat -4 -6"
+
+run_cmd "sockstat -4 -6 | grep wpa"
+
+##############################################################################
+section "WPA CONTROL SOCKETS"
+
+run_cmd "ls -alR /var/run/wpa_supplicant"
+
+##############################################################################
+section "WPA CONFIGURATION"
+
+copy_file "/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+
+copy_file "/etc/wpa_supplicant.conf"
+
+##############################################################################
+section "OPNSENSE CONFIG"
+
+copy_file "/conf/config.xml"
+
+run_cmd "grep -ni wpa /conf/config.xml"
+
+run_cmd "grep -ni wlan /conf/config.xml"
+
+run_cmd "grep -ni iwl /conf/config.xml"
+
+##############################################################################
+section "RC SCRIPTS"
+
+run_cmd "grep -R \"create_args\" /etc/rc* /usr/local/etc/rc* 2&gt;/dev/null"
+
+run_cmd "grep -R \"wpa_supplicant\" /etc/rc* /usr/local/etc/rc* 2&gt;/dev/null"
+
+run_cmd "grep -R \"iwlwifi\" /etc/rc* /usr/local/etc/rc* 2&gt;/dev/null"
+
+##############################################################################
+section "DEVCTL"
+
+run_cmd "devctl status"
+
+##############################################################################
+section "SYSCTL"
+
+run_cmd "sysctl net.wlan"
+
+run_cmd "sysctl compat.linuxkpi"
+
+##############################################################################
+section "DHCP"
+
+run_cmd "ps auxww | grep dhclient"
+
+run_cmd "cat /var/db/dhclient.leases.* 2&gt;/dev/null"
+
+##############################################################################
+section "LOG FILES"
+
+run_cmd "tail -200 /var/log/messages"
+
+run_cmd "grep -Ei 'wpa|wlan|iwl|firmware|linuxkpi' /var/log/messages"
+
+##############################################################################
+section "PING TEST"
+
+run_cmd "ping -c 3 127.0.0.1"
+
+run_cmd "ping -c 3 $(route -n get default 2&gt;/dev/null | awk '/gateway/ {print \$2}')"
+
+##############################################################################
+section "FINAL SUMMARY"
+
+echo
+echo "Diagnostic completed:"
+echo
+
+echo "Output directory:"
+echo "    ${OUTDIR}"
+
+echo
+
+echo "Main log:"
+echo "    ${LOGFILE}"
+
+echo
+
+cd /tmp
+
+tar czf "$(basename "${OUTDIR}").tar.gz" "$(basename "${OUTDIR}")"
+
+echo "Archive:"
+echo "    /tmp/$(basename "${OUTDIR}").tar.gz"
+
+echo
+echo "Done."</code></pre>
+<p>After going through the process of importing it onto the miniPC, running, and coming back with the logs, I got this analysis:</p>
+<pre class="language-markdown line-numbers"><code>After reviewing the Stage 2 diagnostic, the root cause is much clearer.
+
+## Conclusion
+
+This is **not**:
+
+* an Intel `iwlwifi` driver bug
+* a firmware problem
+* a LinuxKPI issue
+* a hardware failure
+* a WPA configuration syntax error
+
+The failure is caused by **conflicting `wpa_supplicant` configuration sources**, which result in the interface being managed under two different names.
+
+## Root cause (≈99% confidence)
+
+There is a direct configuration conflict between **`/etc/rc.conf`** and **`/etc/rc.conf.local`**.
+
+`/etc/rc.conf` specifies:
+
+```text
+wpa_supplicant_iface="iwlwifi0_wlan0"
+```
+
+while `/etc/rc.conf.local` specifies:
+
+```text
+wpa_supplicant_iface="wlan0"
+```
+
+The diagnostic also shows that `sysrc` resolves the active value as:
+
+```text
+wpa_supplicant_iface: wlan0
+```
+
+even though `/etc/rc.conf` contains `iwlwifi0_wlan0`. 
+
+This means the later-loaded configuration is overriding the earlier one.
+
+---
+
+## The boot sequence explains the failure
+
+The kernel initializes normally:
+
+* detects the Intel AX101
+* loads firmware
+* creates `wlan0`
+* renames it to `iwlwifi0_wlan0`
+
+Immediately afterward:
+
+```
+ifconfig: interface wlan0 already exists
+/etc/rc.d/wpa_supplicant: ERROR: Failed to create wlan0
+```
+
+appears in the boot log. 
+
+This indicates that the `rc.d/wpa_supplicant` script still believes the interface should be named `wlan0` and attempts to create it again.
+
+---
+
+## Why `wpa_supplicant` never starts
+
+The Stage 2 diagnostics show:
+
+* no `wpa_supplicant` process
+* `pgrep` returns nothing
+* `sockstat` contains no `wpa_supplicant`
+* `/var/run/wpa_supplicant` contains only an empty directory with no control socket  
+
+Therefore the daemon never successfully starts.
+
+Without `wpa_supplicant`:
+
+* no authentication
+* no association
+* no WPA handshake
+
+---
+
+## The wireless driver is healthy
+
+The driver:
+
+* detects the Intel AX101
+* uploads firmware successfully
+* exposes the wireless interface
+* reports the parent interface correctly
+
+The interface exists as:
+
+```
+iwlwifi0_wlan0
+```
+
+and is operational from the driver's perspective. 
+
+Nothing in the diagnostics suggests a driver fault.
+
+---
+
+## The WPA configuration is valid
+
+The generated configuration file contains:
+
+* `ctrl_interface`
+* `network`
+* `ssid`
+* `psk`
+* `key_mgmt=WPA-PSK`
+
+and is syntactically correct. 
+
+The configuration is simply never consumed because the daemon fails before startup.
+
+---
+
+## Secondary finding
+
+The diagnostics reveal another inconsistency:
+
+```
+/etc/rc.conf
+    wpa_supplicant_iface="iwlwifi0_wlan0"
+
+/etc/rc.conf.local
+    wpa_supplicant_iface="wlan0"
+```
+
+At the same time, both files reference the same configuration file:
+
+```
+/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf
+```
+
+This mixed configuration strongly suggests an incomplete migration from the traditional `wlan0` naming convention to `iwlwifi0_wlan0`. 
+
+---
+
+## What is **not** the problem
+
+The Stage 2 logs rule out:
+
+* Firmware loading failure
+* Unsupported Intel AX101 hardware
+* Missing firmware files
+* Invalid WPA-PSK configuration
+* Missing `if_iwlwifi` kernel module
+* Missing `wpa_supplicant` package
+
+---
+
+## Most likely origin
+
+This appears to be a **configuration generation issue**, not a runtime issue.
+
+Possible sources include:
+
+* OPNsense generating inconsistent `rc.conf.local`
+* a stale configuration remaining after switching to the `iwlwifi` driver
+* conflicting interface naming logic between OPNsense and the FreeBSD `rc.d/wpa_supplicant` script
+
+The conflict is visible in the configuration files themselves before any network traffic occurs.
+
+## Confidence assessment
+
+| Finding                                                                     | Confidence |
+| --------------------------------------------------------------------------- | ---------: |
+| Conflicting `wpa_supplicant_iface` values (`wlan0` vs `iwlwifi0_wlan0`)     |        99% |
+| `wpa_supplicant` exits before starting                                      |        99% |
+| Duplicate interface creation is a consequence of the configuration conflict |        98% |
+| Intel `iwlwifi` driver defect                                               |        &lt;1% |
+| Firmware defect                                                             |        &lt;1% |
+| Hardware failure                                                            |        &lt;1% |
+
+From these diagnostics, the most likely corrective action is to eliminate the conflicting interface-name definitions so that **all** `wpa_supplicant` configuration sources reference the same interface name. Once the interface naming is consistent, `rc.d/wpa_supplicant` should no longer attempt to recreate `wlan0`, allowing the daemon to start and proceed with WPA association.</code></pre>
+<p>I then started a new ChatGPT conversation with the following prompt, plus an upload of the original setup script:</p>
+<pre class="language-markdown line-numbers"><code>role: freebsd 15.1 shell code expert | context:
+- wifi not functioning after update to freebsd 15.1 based kernel
+- error: `wpa_supplicant not running`
+- error: `ifconfig: SIOCIFCREATE2 (iwlwifi0_wlan0): Invalid argument`
+- error: `/etc/rc.d/wpa_supplicant: ERROR: Failed to create iwlwifi0_wlan0`
+- chat: `Wi-Fi Initialization Issue` | task: update uploaded script to account for freebsd 15.1 updates to `iwlwifi` handling, ensure functioning wifi connection</code></pre>
+<p>It gave me this interesting analysis of the problems with the script:</p>
+<pre class="language-markdown line-numbers"><code>Based on the script and the errors, the problem is **not `wpa_supplicant` itself**. The script assumes the FreeBSD 14.x Intel wireless model, but **FreeBSD 15.1 changed parts of the `iwlwifi`/802.11 initialization sequence**.
+
+The sequence of failures is significant:
+
+```
+ifconfig: SIOCIFCREATE2 (iwlwifi0_wlan0): Invalid argument
+        ↓
+wlan interface never created
+        ↓
+wpa_supplicant cannot bind to interface
+        ↓
+wpa_supplicant not running
+```
+
+The first failure is therefore the root cause.
+
+## Problems in the current script
+
+### 1. Incorrect interface creation
+
+The script currently does
+
+```sh
+ifconfig "${wpa_supplicant_parent}" create \
+    wlandev "${wpa_supplicant_parent}"
+```
+
+For Intel this expands to
+
+```sh
+ifconfig iwlwifi0 create wlandev iwlwifi0
+```
+
+This is **no longer reliable** on newer kernels.
+
+The supported form is
+
+```sh
+ifconfig wlan create wlandev iwlwifi0 name iwlwifi0_wlan0
+```
+
+or
+
+```sh
+ifconfig wlan0 create wlandev iwlwifi0
+```
+
+depending on configuration.
+
+Using the parent interface as the object being created now returns
+
+```
+SIOCIFCREATE2
+Invalid argument
+```
+
+---
+
+### 2. Script ignores rc.conf
+
+FreeBSD 15 expects the networking framework to own cloned interfaces.
+
+Instead of manually creating
+
+```
+iwlwifi0_wlan0
+```
+
+the preferred configuration is
+
+```sh
+wlans_iwlwifi0="wlan0"
+```
+
+or
+
+```sh
+wlans_iwlwifi0="iwlwifi0_wlan0"
+```
+
+Then
+
+```
+service netif start
+```
+
+creates it.
+
+The rc.d script should **verify** the interface exists.
+
+It should **not** normally create it itself.
+
+---
+
+### 3. Wrong REQUIRE dependency
+
+Current:
+
+```sh
+REQUIRE: NETWORKING
+```
+
+`NETWORKING` completes before cloned wlan interfaces exist.
+
+Instead use
+
+```sh
+REQUIRE: netif
+AFTER: devd
+```
+
+or simply
+
+```
+REQUIRE: LOGIN netif
+```
+
+depending on when you want it.
+
+Otherwise
+
+```
+service wpa_supplicant start
+```
+
+runs before wlan creation.
+
+---
+
+### 4. Missing parent validation
+
+Before doing anything the script should verify
+
+```sh
+ifconfig -l
+```
+
+contains
+
+```
+iwlwifi0
+```
+
+If not
+
+```
+kldload if_iwlwifi
+```
+
+is insufficient.
+
+It also needs
+
+```
+kldload firmware
+```
+
+(or the proper Intel firmware module)
+
+and wait for the device.
+
+---
+
+### 5. Race condition
+
+Immediately after loading
+
+```
+if_iwlwifi
+```
+
+the firmware loads asynchronously.
+
+The script immediately executes
+
+```
+ifconfig wlan create
+```
+
+before firmware initialization finishes.
+
+The result is
+
+```
+Invalid argument
+```
+
+A retry loop is much safer:
+
+```sh
+i=0
+
+while [ $i -lt 20 ]
+do
+    if ifconfig iwlwifi0 &gt;/dev/null 2&gt;&amp;1
+    then
+        break
+    fi
+
+    sleep 1
+    i=$((i+1))
+done
+```
+
+---
+
+### 6. Wrong configuration filename
+
+The script defines
+
+```sh
+wpa_supplicant_conf="/var/etc/wpa_supplicant_wlan0.conf"
+```
+
+but generated
+
+```
+/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf
+```
+
+These do **not** match.
+
+So even if the interface existed,
+
+```
+wpa_supplicant
+```
+
+would fail because the configuration file does not exist.
+
+---
+
+### 7. No interface existence check
+
+Before starting
+
+```
+wpa_supplicant
+```
+
+the script should verify
+
+```sh
+ifconfig "${iface}"
+```
+
+returns success.
+
+If not
+
+```
+err 1 "${iface} does not exist"
+```
+
+instead of attempting to launch.
+
+---
+
+### 8. Missing carrier wait
+
+Even after the interface exists,
+
+```
+802.11
+```
+
+is not immediately ready.
+
+Wait until
+
+```
+ifconfig wlan0
+```
+
+reports
+
+```
+status: no carrier
+```
+
+or
+
+```
+status: associated
+```
+
+before launching `wpa_supplicant`.
+
+---
+
+## Recommended FreeBSD 15.1 startup order
+
+The service should follow this sequence:
+
+```
+Load firmware
+        ↓
+Load if_iwlwifi
+        ↓
+Wait for iwlwifi0
+        ↓
+Verify parent exists
+        ↓
+Verify wlan clone exists
+        ↓
+Create clone only if missing
+        ↓
+Bring interface down
+        ↓
+Bring interface up
+        ↓
+Wait for 802.11 initialization
+        ↓
+Launch wpa_supplicant
+        ↓
+Verify PID
+        ↓
+Run DHCP
+```
+
+---
+
+## The biggest architectural change I recommend
+
+Instead of having the script create interfaces itself:
+
+```
+ifconfig create ...
+```
+
+delegate interface creation to FreeBSD networking.
+
+Your setup script should generate:
+
+```sh
+wlans_iwlwifi0="iwlwifi0_wlan0"
+
+ifconfig_iwlwifi0_wlan0="WPA DHCP"
+
+create_args_iwlwifi0_wlan0="country US"
+
+wpa_supplicant_enable="YES"
+
+wpa_supplicant_conf_file="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
+```
+
+Then startup becomes simply
+
+```
+service netif restart
+service routing restart
+```
+
+This uses the networking framework exactly as intended in FreeBSD 15.1, rather than duplicating interface creation logic in a custom rc.d script.
+
+## Additional issues in the uploaded script
+
+I also found these bugs:
+
+* `wpa_supplicant_conf` points to the wrong filename.
+* `status_cmd` only checks the PID file and does not verify the process is running.
+* `stop_cmd` does not wait for process termination before removing the PID file.
+* No retry logic if firmware initialization is delayed.
+* No verification that `/var/run/wpa_supplicant` exists before launching.
+* No automatic DHCP (`dhclient`) after successful association.
+* No logging via `logger` or `syslog`, making failures harder to diagnose.
+
+Given the FreeBSD 15.1 networking changes, I would recommend replacing most of the custom rc.d service logic rather than patching it. A redesigned version that relies on the native `netif` framework, handles Intel firmware initialization, performs robust validation and retry logic, and includes detailed logging will be substantially more reliable than adapting the current script.</code></pre>
+<p>When I asked it to actually <strong>generate </strong>said updated script, it began giving me all sorts of responses about not being able to produce the script in the chat window or as a file. So I responded with a simple command:</p>
+<pre class="language-markdown line-numbers"><code>generate caveman mode prompt for qwen 3.6 for script generation</code></pre>
+<p>Now, this prompt had a massive flaw that I didn't realize until I looked at the output. Namely, I didn't tell ChatGPT to provide context for the uploaded script in the prompt, which forced me to add the script to the Qwen 3.6 prompt.</p>
+<p>The final thing I got from ChatGPT before moving over to a local Qwen 3.6 instance was the following prompt:</p>
+<pre class="language-markdown line-numbers"><code># ROLE
+
+You are a senior FreeBSD kernel, networking, and POSIX shell engineer with extensive knowledge of FreeBSD 15.1, Intel iwlwifi, rc.d, netif, devd, ifconfig, wpa_supplicant, and the FreeBSD wireless networking stack.
+
+Generate production-quality code only.
+
+Do not simplify solutions.
+
+Do not omit code.
+
+Do not use placeholders.
+
+Do not shorten files.
+
+Think through the entire architecture before writing any code.
+
+---
+
+# OBJECTIVE
+
+Rewrite the supplied script into a robust, production-quality installer and repair utility for configuring Intel `iwlwifi` wireless networking on **FreeBSD 15.1+**.
+
+The final deliverable shall be a **single POSIX-compliant shell script**.
+
+The script must work correctly on modern FreeBSD releases without requiring manual editing after generation.
+
+---
+
+# IMPORTANT
+
+Do NOT preserve the existing implementation.
+
+Treat the uploaded script only as a reference for desired functionality.
+
+Redesign everything as necessary.
+
+Correct every architectural mistake.
+
+Prefer FreeBSD base-system tools over custom implementations.
+
+---
+
+# PRIMARY GOALS
+
+The generated script shall:
+
+* detect FreeBSD version
+* detect FreeBSD wireless subsystem
+* detect Intel iwlwifi interfaces
+* detect firmware
+* load required modules
+* wait for firmware initialization
+* safely create wlan clone interfaces
+* configure rc.conf.local
+* configure wpa_supplicant
+* verify interface creation
+* verify association
+* verify DHCP
+* provide detailed diagnostics
+* provide repair mode
+* provide uninstall mode
+* provide status mode
+* be idempotent
+* never corrupt an existing installation
+* automatically back up modified files
+* automatically roll back failed changes
+
+---
+
+# ROOT CAUSE TO FIX
+
+The existing script fails because it assumes FreeBSD 14 wireless behavior.
+
+Observed errors:
+
+```
+wpa_supplicant not running
+
+ifconfig:
+SIOCIFCREATE2
+Invalid argument
+
+ERROR:
+Failed to create iwlwifi0_wlan0
+```
+
+The generated script MUST eliminate these failures.
+
+---
+
+# FREEBSD 15.1 REQUIREMENTS
+
+The script MUST account for changes introduced in FreeBSD 15.x.
+
+Do NOT rely on outdated assumptions.
+
+Examples include:
+
+* asynchronous firmware initialization
+* newer wlan clone behavior
+* proper netif integration
+* correct interface creation sequence
+* proper rc.conf usage
+* correct dependency ordering
+
+---
+
+# REQUIRED DESIGN
+
+DO NOT generate a custom rc.d service unless absolutely necessary.
+
+Prefer native FreeBSD services.
+
+Use:
+
+```
+service netif
+service routing
+service devd
+service dhclient
+```
+
+where appropriate.
+
+The script should configure the base system rather than replace it.
+
+---
+
+# WLAN CREATION
+
+Never assume the interface exists.
+
+Automatically detect:
+
+```
+iwlwifi0
+iwlwifi1
+...
+```
+
+Automatically create
+
+```
+wlan0
+```
+
+or
+
+```
+iwlwifi0_wlan0
+```
+
+using the correct FreeBSD 15 syntax.
+
+Validate creation before continuing.
+
+Retry when firmware is still initializing.
+
+---
+
+# WPA SUPPLICANT
+
+Generate
+
+```
+/var/etc/wpa_supplicant_&lt;interface&gt;.conf
+```
+
+using modern syntax.
+
+Verify:
+
+* permissions
+* ownership
+* readability
+* syntax
+* existence
+
+Launch only after interface validation.
+
+Confirm PID.
+
+Confirm process exists.
+
+---
+
+# RC.CONF
+
+Automatically configure:
+
+* wlans_&lt;parent&gt;
+* ifconfig_&lt;wlan&gt;
+* create_args_&lt;wlan&gt;
+* cloned_interfaces (if needed)
+* hostname preservation
+* existing configuration preservation
+
+Never duplicate entries.
+
+Never corrupt formatting.
+
+Update in-place when possible.
+
+---
+
+# INSTALLER FEATURES
+
+Support:
+
+```
+--install
+
+--repair
+
+--status
+
+--diagnose
+
+--remove
+
+--backup
+
+--restore
+
+--verbose
+
+--debug
+
+--dry-run
+
+--help
+```
+
+---
+
+# DIAGNOSTICS
+
+Collect:
+
+```
+uname -a
+
+freebsd-version
+
+kldstat
+
+pciconf
+
+ifconfig -a
+
+ifconfig -g wlan
+
+sysrc -a
+
+service netif status
+
+service routing status
+
+service devd status
+
+sockstat
+
+wpa_cli status
+
+dhclient output
+
+dmesg
+
+journal
+
+routing table
+
+firmware modules
+
+wireless capabilities
+
+scan results
+
+association state
+
+RSSI
+
+driver state
+
+country code
+
+regulatory domain
+```
+
+Generate a timestamped report.
+
+---
+
+# LOGGING
+
+Implement structured logging.
+
+Levels:
+
+```
+INFO
+
+WARN
+
+ERROR
+
+DEBUG
+```
+
+Support:
+
+* stdout
+* stderr
+* syslog
+* log file
+
+---
+
+# ERROR HANDLING
+
+Every command shall:
+
+* check exit status
+* print useful diagnostics
+* explain probable causes
+* recommend corrective action
+
+Never silently ignore failures.
+
+---
+
+# SAFETY
+
+Before modifying anything:
+
+Automatically back up:
+
+```
+/etc/rc.conf
+
+/etc/rc.conf.local
+
+/var/etc
+
+/etc/wpa_supplicant*
+
+/var/run/wpa_supplicant
+```
+
+Rollback automatically if installation fails.
+
+---
+
+# SCRIPT QUALITY
+
+Produce:
+
+* POSIX shell only
+* shellcheck clean
+* shfmt formatted
+* heavily commented
+* modular functions
+* minimal duplication
+* consistent naming
+* safe quoting
+* strict mode
+* traps
+* cleanup handlers
+
+---
+
+# DO NOT
+
+Do NOT:
+
+* use placeholders
+* omit functions
+* abbreviate code
+* shorten comments
+* skip validation
+* assume interface names
+* assume firmware names
+* assume Intel generation
+* assume DHCP success
+* assume wireless association
+* assume rc.conf contents
+
+---
+
+# OUTPUT FORMAT
+
+Return ONLY one complete shell script.
+
+No explanations.
+
+No markdown.
+
+No summaries.
+
+No omitted code.
+
+No "...".
+
+No "remaining code omitted".
+
+No pseudocode.
+
+No placeholders.
+
+Produce the complete file from the first line through the final `exit 0`.
+
+If the script exceeds one response, continue automatically in subsequent responses until the entire file has been produced.
+
+Never restart from the beginning.
+
+Resume exactly where the previous response ended.
+
+The final response must contain the entire completed production-ready script.</code></pre>
+<h1 id="mcetoc_1ju5e6tfmdn">Working with Qwen3.6-Uncensored-NEO-CODE</h1>
+<p>As part of my experimentation with local models, I picked up this DavidAU finetune of Qwen 3.6 for coding purposes. While it is a large model, around 20 GB, loading it into 32 GB of RAM and giving it 32K context window was enough for the ChatGPT generated prompt + including the original <code>setup_wpa.sh</code> script.</p>
+<p>What surprised me the most was the model actually did a pretty good job of generating producing the code for the script. It took a good amount of time, due to running on a mobile integrated GPU, but it completed the task.</p>
+<p>Unfortunately, it didn't get the job done, and I spent a good number of iterations cracking down on bugs that didn't move me closer to getting the script functional.</p>
+<p>So I had to pivot to agentic workflow.</p>
+<p>Speeding up the task was the fact that I used the NuExtract3 local OCR model to extract error log details from pictures of the monitor, allowing me to accurately prompt the model for debugging. I maintained this flow through the rest of the process.</p>
+<h1 id="mcetoc_1juaff869ud">Enter OpenCode</h1>
+<p>Switching over to OpenCode was a reluctant decision. It was driven mostly by the fact that my ~1000 line (at that point) script was pushing my context window limits, and sheer exhaustion with the process of manually debugging with Qwen 3.6. Making things harder was the fact that OpenCode's free models changed partway through the process, and most of them kept running into usage limits.</p>
+<p>The first step of the process was uploading the new script to my setup_wpa GitHub repo, then downloading the repo onto my computer. I then pointed OpenCode to the folder and began working with North Mini Code Free, a non-reasoning model. Even with an agentic prompt, its performance was not great, and the only real positive I can say is that it had few availability restrictions.</p>
+<p>Most of the work was done with Nemotron 3 Ultra Free and MiMo V2.5, which posed some challenges. Since Nemotron 3 Ultra has a 1 million token context limit, I encountered more and more retry attempts after 7-8AM Eastern time in the US. This got to the point that I finished out one job with Nemotron 3 and switched to MiMoV2.5. This model has a <strong>much </strong>smaller 200K token context limit, which posed new problems.</p>
+<p>MiMo <strong>also </strong>gave me retry attempts, although few and shorter than Nemotron 3 Ultra, but the major issue was the context limit. On at least 2 occasions, I was forced to generate an agentic prompt to implement a bug fix and use that prompt in a brand new session, because the bug analysis ate up most of the session's context window. As a result, it took me 16 conversation sessions to get a functional minimum viable script:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/54/cyber-proj-tfb32.png" alt="OpenCode UI showing all conversations related to updating setup_wpa repo." width="1920" height="1032" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb32-xs.png 384w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb32-sm.png 600w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb32-md.png 768w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb32-lg.png 1200w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb32-xl.png 1600w"></figure>
+<h1 id="mcetoc_1juaff869ue">Configuring OPNSense 26.7</h1>
+<p>Having anticipated trouble, I downloaded a backup XML version of my OPNSense configuration before initiating the update to 26.7. However, the crashing I saw after doing the update went away <strong>after </strong>I reset to the default configuration. This meant that the safest course of action was to do a partial setup of the transparent filtering bridge, export an updated OPNSense config XML file, then splice data from the old file into the new file, and <strong>then </strong>upload that into OPNsense.</p>
+<p>Not helping this process were two semi-related problems:</p>
+<ul>
+<li>OPNSense firewall was in effect on the WiFi interface, forcing me to disable the firewall to access the WebGUI.</li>
+<li>The WebGUI's performance was pretty terrible.</li>
+</ul>
+<p>What would happen is that as I configured settings, saving and applying those settings caused the firewall to restart, forcing me to physically go to the miniPC and type in the command to disable the firewall. A combination of firewall rules and applying a hotfix update eventually improved WebGUI access and performance/loading.</p>
+<p>Eventually, I reached a point where I felt comfortable in downloading the then-current configuration and integrating the old data into it. When I did, I discovered that the layouts of the two configuration files <strong>greatly </strong>differed:</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/54/cyber-proj-tfb33.png" alt="Side by side comparison of the two OPNSense configuration files, showing different layouts." width="1920" height="1003" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb33-xs.png 384w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb33-sm.png 600w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb33-md.png 768w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb33-lg.png 1200w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb33-xl.png 1600w"></figure>
+<p>The completely different layout of the new configuration XML, when combined with the changes to the WiFi stack, probably contributed to why OPNSense kept crashing when I first upgraded.</p>
+<p>What I discovered, to my annoyance, was that the import process didn't work for rules - and looking on the OPNSense GitHub Issues page, this seems to be an issue with 26.7, not my work. So I was left with 50+ blank rule files that I had to manually configure anyway.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/54/cyber-proj-tfb33b.png" alt="Blank rules after attempting to import them via config XML editing." width="1920" height="992" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb33b-xs.png 384w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb33b-sm.png 600w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb33b-md.png 768w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb33b-lg.png 1200w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb33b-xl.png 1600w"></figure>
+<p>Initially, it also didn't work for Aliases either. However, I made a dummy alias (imaginatively named "Dummy"), then exported the configuration file, replaced the dummy alias with the aliases from the old config, and <strong>that </strong>properly imported. After doing that, I added a new set of <a href="https://github.com/bitwire-it/ipblocklist" title="bitwire-it / ipblocklist" target="_blank" rel="noopener noreferrer">IP block lists</a> to my list of aliases to increase coverage.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/54/cyber-proj-tfb34.png" alt="Updated Alias list, prior to full update of online lists" width="1920" height="969" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb34-xs.png 384w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb34-sm.png 600w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb34-md.png 768w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb34-lg.png 1200w ,https://korgano.github.io/media/posts/54/responsive/cyber-proj-tfb34-xl.png 1600w"></figure>
+<p>Rebuilding my rules took a while, as I chose to implement separate IN/OUT rules with each alias for finer control and logging. This resulted in 56 blocking rules, 2 diagnostic rules for gathering data on connectivity to my ISP's infrastructure, and 2 fallback rules allowing traffic in and out of the bridge. The fallback rules are placed last in the list, executing after all the other rules, to ensure malicious and ad traffic are blocked.</p>
+<p>After <strong>many </strong>long hours of work configuring the device, it was finally time to connect it to the modem and router. And that's when I discovered a new problem.</p>
+<h1 id="mcetoc_1juaff869uf">How Spectrum Handles DHCP</h1>
+<p>Like many Floridians, my internet access is handled by Spectrum, the Charter owned ISP. You can easily find many reports of dissatisfaction with Spectrum on a wide variety of issues, but this one is a pretty obscure one. That's because most consumers don't put a transparent filtering bridge/firewall between their modem and router.</p>
+<p>What I discovered is that Spectrum's DHCP process triggers one of the alias/block list based block rules, preventing the router from receiving an IP address:</p>
+<p><code>OPT2 In [DATE] UDP 0.0.0.0:68 255.255.255.255:67 block Block Firehol_level1 coming IN</code></p>
+<p>Looking at the Virus Total page reveals why someone would put 0.0.0.0 on a block list:</p>
+<div class="gallery-wrapper"><div class="gallery" data-is-empty="false" data-translation="Add images" data-columns="2">
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/54/gallery/cyber-proj-tfb33c.png" data-size="1920x921"><img loading="lazy" src="https://korgano.github.io/media/posts/54/gallery/cyber-proj-tfb33c-thumbnail.png" alt="List of VirusTotal community graphs containing 0.0.0.0" width="768" height="368"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/54/gallery/cyber-proj-tfb33d.png" data-size="1920x921"><img loading="lazy" src="https://korgano.github.io/media/posts/54/gallery/cyber-proj-tfb33d-thumbnail.png" alt="Comments explaining malicious behaviors associated with 0.0.0.0" width="768" height="368"></a></figure>
+</div></div>
+<p>This forced me to implement an in/out pass rule, but I minimized the window of vulnerability with OPNSense's scheduling feature. This allowed me to set a scheduled time for the rule to activate, and the tightest time window possible (15 minutes) was more than sufficient for the DHCP lease/renewal process to complete. (<a href="https://github.com/opnsense/core/issues/7629" title="More granular firewall schedule" target="_blank" rel="noopener noreferrer">It turns out this is a major issue with the firewall scheduler and requires rebuilding the system.</a>)</p>
+<p>Since the DHCP lease seems to hold until either the router restarts or something happens to the network connection on Spectrum's end, this rule only needs to work once a week after I managed to get the rule functional.</p>
+<h1 id="mcetoc_1juaff869ug">Suricata Configuration</h1>
+<p>This is where things became interesting, because it turns out <strong>Suricata </strong>is connected to the crashing I was seeing when I began the 26.7 upgrade.</p>
+<p>The precise mechanics of this crash are not clear to me, because they only occurred partway through the configuration process. As far as I can tell, it was <strong>not</strong> the act of enabling Suricata, but something related to either the way it processes packets and/or the data sources it uses that triggered the crash.</p>
+<p>This forced me to once again reset OPNSense to default settings, but I had made a backup of the most recent configuration, minus a few additions, that allowed me to quickly restore functionality.</p>
+<p>This issue was reported on GitHub.</p>
+<h1 id="mcetoc_1juaoed1l197">Future Upgrade Planning</h1>
+<p>I went into this upgrade process thinking I had a solid plan. If anything bad happened, I could just reload the backed up config file, or at worst, extract data from the old file, splice it into a new file, and upload that into OPNSense. Events proved me completely wrong on that assessment.</p>
+<p>The easy part of a better, more comprehensive upgrade plan is all on the OPNsense end:</p>
+<ul>
+<li>Make a backup of the configuration before upgrading.</li>
+<li>Make a CSV export of the alias list before upgrading.</li>
+<li>Make a CSV export of the firewall rule list before upgrading.</li>
+</ul>
+<p>This plan would allow me to bypass any and all configuration related issues, albeit at the cost of forcing me to manually rebuild my Suricata config each and every time I couldn't roll it over/import it.</p>
+<p>The <strong>much </strong>harder part of the new upgrade plan is figuring out what to do to prepare a virtual machine environment for OPNSense for testing purposes. For the simple purpose of examining the code for the <code>wpa_supplicant</code>, any virtual machine will do. However, specifically testing out the scripts I've made might be impossible, depending on whether or not I can emulate the devices in the miniPC. Further research is necessary.</p>
+<h1 id="mcetoc_1juaoed1l198">Next Steps</h1>
+<p>After four days wrestling with these problems, I am more than happy to take a step back and monitor the transparent filtering bridge to see if it can operate normally, or there's some other problems that I haven't yet experienced.</p>
+<h1 id="mcetoc_1juaoed1l199">Takeaways</h1>
+<ul>
+<li>I used a <a href="https://github.com/korgano/setup_wpa" title="setup_wpa script GitHub repo">custom <code>wpa_supplicant</code> setup file for managing OPNSense on a miniPC via WiFi</a>.</li>
+<li>OPNSense versions 26.1+ were stable, but updates required reapplying the script because they reverted the wpa_supplicant file.</li>
+<li>I updated to OPNSense 26.7 after confirming minimal issues for N100 miniPCs on Reddit.</li>
+<li>After updating to 26.7, the miniPC crashed 1-2 minutes after booting when attempting to access the shell.</li>
+<li>Reinstalling OPNSense failed, so I used “Reset to Default Configuration,” which resolved the crashing.</li>
+<li>A configuration backup existed prior to the update, reducing the risk of this approach.</li>
+<li>Resetting to default configuration fixed the crash but left the <code>wpa_supplicant</code> not connected to the home network.</li>
+<li>The old script failed, leading me to use ChatGPT for diagnostic scripts despite concerns about ChatGPT’s declining functionality (“enshittification”).</li>
+<li>ChatGPT generated a diagnostic script that identified the issue as duplicate WLAN interface creation or conflicting network initialization logic, not hardware or driver failure.</li>
+<li>Further diagnostics revealed conflicting interface names (<code>wlan0</code> vs. <code>iwlwifi0_wlan0</code>) prevented <code>wpa_supplicant</code> from starting.</li>
+<li>ChatGPT analyzed the original script and identified several bugs, recommending a redesign rather than patching.</li>
+<li>Due to ChatGPT’s limitations in generating full scripts, I requested a “caveman mode prompt” for Qwen 3.6.</li>
+<li>I used a local Qwen 3.6 fine-tune for coding, but it failed to produce a functional script despite multiple iterations.</li>
+<li>I switched to OpenCode due to context window limitations and exhaustion with Qwen 3.6.</li>
+<li>Various models (North Mini Code Free, Nemotron 3 Ultra Free, MiMo V2.5) were used, with varying success and significant context window issues.</li>
+<li>It took 16 conversation sessions to achieve a minimum viable script.</li>
+<li>I performed a partial setup, exported the config, and spliced old data into the new XML file.</li>
+<li>The new configuration XML layout differed significantly from the old one, likely contributing to the initial crashes.</li>
+<li>Firewall rules and aliases did not import correctly, requiring manual reconfiguration.</li>
+<li>Spectrum’s DHCP process triggered a block rule for <code>0.0.0.0</code>, preventing the router from getting an IP.</li>
+<li>I created a scheduled pass rule to allow DHCP renewal during a narrow 15-minute window.</li>
+<li>Enabling Suricata or its packet processing/data sources likely caused the initial crashes.</li>
+<li>I had to reset OPNSense to default settings again but could quickly restore from a recent backup.</li>
+<li>A better plan includes backing up the configuration, alias list, and firewall rule list as CSVs before upgrading.</li>
+<li>Testing in a virtual machine is considered but may be limited by hardware emulation constraints.</li>
+<li>I will monitor the transparent filtering bridge for stability and any new issues.</li>
+</ul>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Quick Thoughts: OpenCode</title>
         <author>
@@ -2462,1012 +4668,6 @@ Highlight patterns in the data, including times and frequency of connections.</c
 
 Highlight patterns in the data, including times, frequency of connections, protocol IDs, packet length.</code></pre>
 <p>Third is to collect a stable set of data from after the OPNSense 25.7 update, which naturally caused a whole bunch of problems. Solving these problems required a number of reboots and service restarts, which pollute the data a fair bit. Therefore, new data will be collected, and then comparisons to the existing data can be made.</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>CyberSecurity Project: Transparent Filtering Bridge (+ Extras) 9.1</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-91/"/>
-        <id>https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-91/</id>
-        <media:content url="https://korgano.github.io/media/posts/43/cyber-proj-tfb20-2.jpg" medium="image" />
-            <category term="Tech Projects"/>
-            <category term="Tech"/>
-            <category term="PC"/>
-            <category term="AI"/>
-
-        <updated>2025-07-21T09:56:21-04:00</updated>
-            <summary type="html">
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/43/cyber-proj-tfb20-2.jpg" alt="Transparent Filtering Bridge miniPC wpa_supplicant file." />
-                    This entry is not technically cybersecurity related, so feel free to skip it. We're going to look at how I&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/43/cyber-proj-tfb20-2.jpg" class="type:primaryImage" alt="Transparent Filtering Bridge miniPC wpa_supplicant file." /></p>
-                <p>This entry is not technically cybersecurity related, so feel free to skip it.</p>
-<p>We're going to look at how I used AI to help address the WiFi network connectivity issues I've been having with the miniPC I use to host the transparent filtering bridge.</p>
-<p>For reference, this was the contents of the <code>wpa_supplicant</code> file that I discovered. This was altered from the original code I entered into the machine in <a href="https://korgano.github.io/cybersecurity-project-transparent-filtering-bridge-extras-80/" title="Transparent Filtering Bridge (+Extras) 8.0" target="_blank" rel="noopener noreferrer">article 8.0</a>.</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/43/cyber-proj-tfb20.jpg" alt="Transparent Filtering Bridge miniPC wpa_supplicant file." width="1956" height="1396" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-xs.jpg 384w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-sm.jpg 600w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-md.jpg 768w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-lg.jpg 1200w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb20-xl.jpg 1600w"></figure>
-<div class="post__toc">
-<h3>Table of Contents</h3>
-<ul>
-<li><a href="#mcetoc_1j0p1tptp238">Staring with Copilot</a></li>
-<li><a href="#mcetoc_1j0p1tptp239">The ChatGPT Iteration</a></li>
-<li><a href="#mcetoc_1j0p1tptp23a">The Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex Iteration</a></li>
-<li><a href="#mcetoc_1j0p1tptp23b">Correcting the Configuration File Path</a></li>
-<li><a href="#mcetoc_1j0p1tptp23c">Automation Scripts</a></li>
-<li><a href="#mcetoc_1j0p1tptp23d">The Next Steps</a></li>
-</ul>
-</div>
-<h2 id="mcetoc_1j0p1tptp238">Staring with Copilot</h2>
-<p>My process was simple - I started with Copilot, providing this prompt based on the photograph of the <code>wpa_supplicant </code>file on the miniPC:</p>
-<blockquote>
-<p>revise this code for FreeBSD to ensure iwlwifi0_wlan is enabled and remains functioning at all times:</p>
-<p>``` <br>#!/bin/sh <br># <br># PROVIDE: wpa_supplicant <br># REQUIRE: NETWORKING <br># KEYWORD: shutdown</p>
-<p>./etc/rc.subr <br>./etc/network.subr</p>
-<p>name="wpa_supplicant"</p>
-<p>desc="WPA/802.11 Supplicant for wireless network devices" rcvar=wpa_supplicant_enable</p>
-<p>ifn="2" <br>if [ -z "$ifn" ]; then <br>       return 1</p>
-<p>fi</p>
-<p>if is_wired_interface $(ifn) ; then <br>       drivers="wired" <br>else <br>       drivers="bsd" <br>fi</p>
-<p>load_rc_config $name</p>
-<p>command=$(wpa_supplicant_program) <br>conf_file=$(wpa_supplicant_conf_file) <br>pidfile="/var/run/$(name)/$(ifn).pid" <br>command_args="-B -i -ifn -c $conf_file -D $driver -P $pidfile" required_files=$conf_file <br>required_modules="wlan_wep wlan_tkip wlan_ccmp"</p>
-<p>run_rc_command "$1"</p>
-<p>```</p>
-<p>Add comments as needed to explain code functionality and speed up troubleshooting.</p>
-</blockquote>
-<p>Here is the Copilot output when set to reason:</p>
-<pre class="language-markdown line-numbers"><code># Revised FreeBSD RC.d Script for iwlwifi0_wlan
-
-Below is a complete `/usr/local/etc/rc.d/wpa_supplicant` script that:
-
-- Ensures the Intel wireless driver is loaded  
-- Creates and brings up the `iwlwifi0_wlan` interface if it doesn’t already exist  
-- Launches `wpa_supplicant` as a daemon  
-- Provides status, start and stop routines with clear error messages  
-
-Save this as `/usr/local/etc/rc.d/wpa_supplicant` and make it executable (`chmod +x`).
-
-```sh
-#!/bin/sh
-#
-# PROVIDE: wpa_supplicant
-# REQUIRE: DAEMON NETWORKING if_iwlwifi
-# KEYWORD: shutdown
-#
-# Add the following to /etc/rc.conf to enable this service:
-#   wpa_supplicant_enable="YES"
-#   wpa_supplicant_iface="iwlwifi0_wlan"
-#   wpa_supplicant_driver="bsd"
-#   wpa_supplicant_conf="/etc/wpa_supplicant.conf"
-#
-
-. /etc/rc.subr          # import rc_* functions
-. /etc/network.subr     # import network helper functions
-
-name="wpa_supplicant"
-rcvar="wpa_supplicant_enable"
-
-# load overrides from rc.conf, set defaults
-load_rc_config $name
-
-: ${wpa_supplicant_enable:="NO"}           # YES to start at boot
-: ${wpa_supplicant_iface:="iwlwifi0_wlan"} # logical WLAN interface
-: ${wpa_supplicant_driver:="bsd"}          # driver backend
-: ${wpa_supplicant_conf:="/etc/wpa_supplicant.conf"}
-
-# path to the wpa_supplicant binary
-command="/usr/sbin/wpa_supplicant"
-
-# pidfile lives under /var/run/&lt;name&gt;.&lt;iface&gt;.pid
-pidfile="/var/run/${name}.${wpa_supplicant_iface}.pid"
-
-# arguments to wpa_supplicant
-command_args="-B \
-    -i ${wpa_supplicant_iface} \
-    -D ${wpa_supplicant_driver} \
-    -c ${wpa_supplicant_conf} \
-    -P ${pidfile}"
-
-# override default actions
-start_cmd="wpa_supplicant_start"
-stop_cmd="wpa_supplicant_stop"
-status_cmd="wpa_supplicant_status"
-
-#
-# start: load driver, create interface, bring it up, then start daemon
-#
-wpa_supplicant_start()
-{
-    # 1) Load the iwlwifi kernel module if not already present
-    if ! kldstat -n if_iwlwifi &gt; /dev/null 2&gt;&amp;1; then
-        kldload if_iwlwifi \
-            || err 1 "Unable to load if_iwlwifi kernel module"
-    fi
-
-    # 2) Create the wlan interface if missing
-    if ! ifconfig ${wpa_supplicant_iface} &gt; /dev/null 2&gt;&amp;1; then
-        ifconfig iwlwifi0 create wlandev iwlwifi0 \
-            || err 1 "Failed to create interface ${wpa_supplicant_iface}"
-    fi
-
-    # 3) Bring the wireless interface up
-    ifconfig ${wpa_supplicant_iface} up \
-        || err 1 "Could not bring up ${wpa_supplicant_iface}"
-
-    # 4) Launch wpa_supplicant in the background
-    ${command} ${command_args} \
-        || err 1 "wpa_supplicant failed to start"
-}
-
-#
-# status: check the pidfile to see if wpa_supplicant is running
-#
-wpa_supplicant_status()
-{
-    check_pidfile "${pidfile}" "${command}"
-}
-
-#
-# stop: terminate the daemon and clean up the pidfile
-#
-wpa_supplicant_stop()
-{
-    if [ -f "${pidfile}" ]; then
-        kill -TERM "$(cat ${pidfile})" &gt; /dev/null 2&gt;&amp;1 \
-            || err 1 "Failed to kill wpa_supplicant (PID: $(cat ${pidfile}))"
-        rm -f "${pidfile}"
-    else
-        err 1 "PID file not found, is wpa_supplicant running?"
-    fi
-}
-
-run_rc_command "$1"
-```
-
----
-
-## `/etc/rc.conf` Example
-
-Add these lines to enable and configure the service at boot:
-
-```sh
-wpa_supplicant_enable="YES"
-wpa_supplicant_iface="iwlwifi0_wlan"
-wpa_supplicant_driver="bsd"
-wpa_supplicant_conf="/etc/wpa_supplicant.conf"
-```
-
----
-
-## Troubleshooting Tips
-
-- If the interface never shows up, verify that `if_iwlwifi.ko` exists in `/boot/modules` or your compiled module directory.
-- Use `kldstat` and `kldload` manually to confirm kernel module loading.
-- Check `/var/log/messages` or run `tail -f /var/log/messages` while starting the service for driver errors.
-- To debug wpa_supplicant, add `-d` or `-dd` to `command_args` for verbose output.
-- Confirm your `/etc/wpa_supplicant.conf` has correct SSID and PSK entries, and file permissions allow only root to read it.
-
----
-
-### Next Steps
-
-You may want to:
-
-- Integrate a keep-alive monitor (e.g., a wrapper loop or cron job) that restarts the service if the link drops.
-- Explore `wpa_cli -a /path/to/script.sh` for automated reconnection on authentication failures.
-- Tune driver parameters (e.g., power saving) via `/boot/loader.conf` for performance.</code></pre>
-<p>Implementing this with minor alterations (for example <code>wlan0</code> instead of <code>wlan</code>, changing the <code>conf</code> file path and name) increased availability. While there are still random connection failures, it seems to happen less frequently. Within each 4 hour window between WiFi connection restarts, it seems like only the last hour or so is where the connection seems to time out.</p>
-<h2 id="mcetoc_1j0p1tptp239">The ChatGPT Iteration</h2>
-<p>Out of pure curiosity, I decided to see how ChatGPT, set to reason, would generate code from the same prompt.</p>
-<p>Here's the result:</p>
-<pre class="language-markdown line-numbers"><code>```sh
-#!/bin/sh
-#
-# PROVIDE: wpa_supplicant
-# REQUIRE: NETWORKING
-# BEFORE: LOGIN
-# KEYWORD: shutdown
-#
-# Ensure Intel iwlwifi device stays up and managed by wpa_supplicant
-#
-
-. /etc/rc.subr
-
-name="wpa_supplicant"
-rcvar="${name}_enable"
-
-# load user settings from /etc/rc.conf
-load_rc_config $name
-
-# default settings (override in /etc/rc.conf as needed)
-: ${wpa_supplicant_enable:="NO"}                       # enable in rc.conf
-: ${wpa_supplicant_wlandev:="iwm0"}                    # physical device
-: ${wpa_supplicant_if:="wlan0"}                        # logical interface
-: ${wpa_supplicant_conf:="/etc/wpa_supplicant.conf"}   # config file
-: ${wpa_supplicant_driver:="wpa"}                      # driver backend
-: ${wpa_supplicant_flags:=""}                          # extra options
-
-# load required kernel modules at boot (if not already loaded)
-kld_list="if_iwm.ko"   # Intel wireless driver
-kld_list+=" iwmfw.ko"  # firmware for iwlwifi devices
-
-start_cmd="${name}_start"
-stop_cmd="${name}_stop"
-
-wpa_supplicant_start() {
-    # create wlan interface if missing
-    if ! ifconfig ${wpa_supplicant_if} &gt;/dev/null 2&gt;&amp;1; then
-        ifconfig ${wpa_supplicant_if} create wlandev ${wpa_supplicant_wlandev} \
-                  wlanmode sta || return 1
-    fi
-
-    # bring up the interface
-    ifconfig ${wpa_supplicant_if} up || return 1
-
-    # launch wpa_supplicant in background
-    /usr/sbin/wpa_supplicant -B \
-        -i ${wpa_supplicant_if} \
-        -c ${wpa_supplicant_conf} \
-        -D ${wpa_supplicant_driver} \
-        -P /var/run/${name}.${wpa_supplicant_if}.pid \
-        ${wpa_supplicant_flags}
-}
-
-wpa_supplicant_stop() {
-    # terminate daemon and remove interface
-    killproc -p /var/run/${name}.${wpa_supplicant_if}.pid /usr/sbin/wpa_supplicant
-    ifconfig ${wpa_supplicant_if} destroy
-}
-
-run_rc_command "$1"
-```
-
-**How it works:**
-
-* **Module loading**
-
-  * Ensures `if_iwm.ko` and `iwmfw.ko` are loaded at boot, so the Intel wireless device is available ([Reddit][1]).
-* **Interface creation**
-
-  * Checks for `wlan0`; if missing, creates it from `iwm0` in station mode ([Sacred Heart School][2]).
-* **Bringing up interface**
-
-  * Uses `ifconfig wlan0 up` to activate the wireless interface.
-* **Starting wpa\_supplicant**
-
-  * Runs `wpa_supplicant` with `-B` (daemonize), interface, config file, driver, and PID file arguments.
-* **Stopping and cleanup**
-
-  * `killproc` stops the daemon and `ifconfig wlan0 destroy` removes the logical interface.
-
-To enable and keep running:
-
-1. Add to `/etc/rc.conf`:
-
-   ```sh
-   wpa_supplicant_enable="YES"
-   wpa_supplicant_wlandev="iwm0"
-   wpa_supplicant_if="wlan0"
-   wpa_supplicant_conf="/etc/wpa_supplicant.conf"
-   ```
-2. Ensure firmware loader settings in `/boot/loader.conf`:
-
-   ```sh
-   if_iwm_load="YES"
-   iwmfw_load="YES"
-   ```
-3. Reboot or start manually:
-
-   ```sh
-   service wpa_supplicant start
-   ```
-
-####
-
-[1]: https://www.reddit.com/r/freebsd/comments/13sa7sv/wifi_setup_help_needed/?utm_source=chatgpt.com "Wifi setup help needed! : r/freebsd"
-[2]: https://www.sacredheartsc.com/blog/freebsd-14-on-the-desktop/?utm_source=chatgpt.com "FreeBSD 14 on the Desktop"</code></pre>
-<p>Before I use DiffChecker to see specific differences, here's what I notice with my own eyes:</p>
-<ul>
-<li>ChatGPT decided to change the <code>rcvar</code> name to a generic value.</li>
-<li>ChatGPT added a config value for the actual WiFi hardware device.</li>
-<li>ChatGPT decided that it needed to ensure the Intel WiFi firmware booted.</li>
-<li>The code for <code>wpa_supplicant_start</code> and <code>wpa_supplicant_stop</code> are completely different.</li>
-<li>There's no <code>wpa_supplicant_status</code> command.</li>
-<li>Practically no comments and no logging code.</li>
-</ul>
-<p>Unfortunately, loading both iterations of the code into DiffChecker didn't work as well as I hoped. The ChatGPT script, being only 59 lines long, compared to the 94 lines of the Copilot script, kept being aligned with highly dissimilar parts of the code based on the line numbers.</p>
-<h2 id="mcetoc_1j0p1tptp23a">The Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex Iteration</h2>
-<p>Since I like to experiment with open source LLMs, I decided to try one by DavidAU, one of my preferred AI tuners. Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex is a 800MB coding model with reasoning capabilities, which is an absurdly small model by any standards.</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/43/cyber-proj-tfb22.png" alt="Qwen3-Zero-Coder-Reasoning-0.8B-Neo-Ex loaded in LM Studio." width="1920" height="1033" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb22-xs.png 384w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb22-sm.png 600w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb22-md.png 768w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb22-lg.png 1200w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb22-xl.png 1600w"></figure>
-<p>The small size had me morbidly curious as to the quality of the output, so I provided it with the same prompt as Copilot and ChatGPT. This is what it produced:</p>
-<pre class="language-markdown line-numbers"><code>&lt;think&gt;
-Okay, I need to modify the given shell script for FreeBSD to ensure that `iwwlan` (or `iwlan`) is enabled and remains functional at all times. The user provided a command that sets up the system using `/etc/rc/subr` and `network.subr`. My task is to add comments and optimize the code to ensure these steps work correctly.
-
-First, I'll start with understanding the existing script. The current setup uses `ifn`, which refers to the interface (e.g., `eth0`, `wlan0`) and sets up the command for wpa_supplicant. However, FreeBSD uses `iwwlan` instead of `/dev/net/wlan`. So I need to replace `iwwlan` with `iwwan`.
-
-Next, I'll update the `command` line to use `/dev/deviwlan` instead of `/dev/devnet`. This should correctly interface with the network driver in FreeBSD.
-
-Also, since FreeBSD uses `ifconfig` and `sysctl`, I need to ensure that these tools are installed. If they aren't present, my current approach might fail. So I'll add dependencies like `ifconfig` and `sysctl` if needed.
-
-I should also update the `rcvar` and other rc variables to ensure they're correctly set after initial configuration. Then, make sure all necessary modules and files are installed before running the script.
-
-Finally, adding comments where appropriate will help users understand each step and troubleshoot any issues. This ensures that even those unfamiliar with FreeBSD or networking configurations can understand and modify the code.
-&lt;/think&gt;
-
-Here's the revised script with added comments to ensure clarity and correctness for FreeBSD:
-
-```bash
-#!/bin/sh
-
-# PROVIDE: wpa_supplicant
-# DESC:
-#     Configure WPA/802-11 supplicant for wireless network devices
-#
-# KEYWORDS: 
-#       networking; shutdown
-#
-
-NAME="wpa_supplicant"
-DESCR="WPA/802-11 Supplicant for wireless network devices"
-
-RCVAR=wpa_supplicant_enable
-
-# Define interface to use
-ifn="2" # Replace with the correct interface (eth0, wlan0 or wwan0)
-
-# Check if the interface is active
-if [ -z "$ifn" ]; then
-    return 1
-fi
-
-# Set up required modules
-drivers="wired"
-required_modules="wlan_wep wlan_tkip wlan_ccmp"
-
-# Initialize network configuration
-run_rc_command "$1"
-
-# Ensure necessary files and dependencies are present
-ifconfig $ifn set
-sysctl --set /net/eth0/flags=0
-sysctl --set /net/eth0/devdeviwlan=0
-
-# Set up wpa_supplicant command
-command=$(wpa_supplicant_program)
-conf_file="$conf_file"
-pidfile="/var/run/$name/$ifn.pid"
-
-# Add command arguments
-command_args="-B -i -ifn -c $conf_file -D $driver -P $pidfile"
-
-# Ensure required modules are installed
-if [ "$required_modules" != "" ] &amp;&amp; [[ "$required_modules" != '' ]]
-
-# Set up the rc subroutines and network subroutines
-/etc/rc/subr
-/etc/network.subr
-```
-
-**Changes Made:**
-1. Replace `iwwlan` with `/dev/deviwlan` to interface with the network driver in FreeBSD.
-2. Use `ifconfig` instead of `sysctl` to set interfaces and devices if necessary.
-3. Add comments explaining each part of the script to assist troubleshooting.
-4. Ensure dependencies are installed before execution.
-
-**Explanation:**
-
-- `ifconfig` ensures the interface is correctly configured, which is necessary for `wpa_supplicant` to communicate with the network driver.
-- `sysctl` sets up networking parameters to ensure optimal performance and security settings.</code></pre>
-<p>Just eyeballing this code tells me this is not a substantive improvement over the original <code>wpa_supplicant</code> code, which would be disappointing if I didn't know this was a tiny model.</p>
-<p>It wouldn't be surprising to see that it's capable of putting out simple scripts, but that's something to test out later.</p>
-<h2 id="mcetoc_1j0p1tptp23b">Correcting the Configuration File Path</h2>
-<p>One thing that probably contributed to the connection issues was the non-specific nature of the configuration file path. To find the proper path, I had to use shell commands to find all files containing <code>wpa_sup</code>:</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/43/cyber-proj-tfb21.jpg" alt="Finding the iwlwifi0_wlan0 configuration file and deleting an unnecessary file." width="1964" height="1368" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb21-xs.jpg 384w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb21-sm.jpg 600w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb21-md.jpg 768w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb21-lg.jpg 1200w ,https://korgano.github.io/media/posts/43/responsive/cyber-proj-tfb21-xl.jpg 1600w"></figure>
-<p> </p>
-<h2 id="mcetoc_1j0p1tptp23c">Automation Scripts</h2>
-<p>Since I can't rule out that the big OPNSense update is going to wipe out all the changes I've made to wpa_supplicant and associated files, I decided to have a script ready to make those files as necessary.</p>
-<p>For this task, I decided to pit Copilot and ChatGPT against each other, each with the same code (the initial Copilot generation) and prompt.</p>
-<p>The prompt was as follows:</p>
-<pre class="language-markdown line-numbers"><code>Write me an automation script for FreeBSD shell that does the following:
--Generate `/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf` with the following configuration:
-```
-crtl_interface=/var/run/wpa_supplicant
-crtl_interface_group=0
-ap_scan=1
-fast_reauth=1
-network={
-ssid="Placeholder"
-scan_ssid=1
-priority=5
-key_mgmt=WPA-PSK
-psk="Placeholder"
-pairwise=CCMP TKIP
-group=CCMP TKIP
-}
-```
--Generate `/etc/rc.d/wpa_supplicant` with the following code content:
-```
-#!/bin/sh
-#
-# PROVIDE: wpa_supplicant
-# REQUIRE: DAEMON NETWORKING if_iwlwifi
-# KEYWORD: shutdown
-#
-# Add the following to /etc/rc.conf to enable this service:
-#   wpa_supplicant_enable="YES"
-#   wpa_supplicant_iface="iwlwifi0_wlan0"
-#   wpa_supplicant_driver="bsd"
-#   wpa_supplicant_conf="/etc/wpa_supplicant.conf"
-#
-
-. /etc/rc.subr          # import rc_* functions
-. /etc/network.subr     # import network helper functions
-
-name="wpa_supplicant"
-rcvar="wpa_supplicant_enable"
-
-# load overrides from rc.conf, set defaults
-load_rc_config $name
-
-: ${wpa_supplicant_enable:="YES"}           # YES to start at boot
-: ${wpa_supplicant_iface:="iwlwifi0_wlan0"} # logical WLAN interface
-: ${wpa_supplicant_driver:="bsd"}          # driver backend
-: ${wpa_supplicant_conf:="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"}
-
-# path to the wpa_supplicant binary
-command="/usr/sbin/wpa_supplicant"
-
-# pidfile lives under /var/run/&lt;name&gt;.&lt;iface&gt;.pid
-pidfile="/var/run/${name}.${wpa_supplicant_iface}.pid"
-
-# arguments to wpa_supplicant
-command_args="-B \
-    -i ${wpa_supplicant_iface} \
-    -D ${wpa_supplicant_driver} \
-    -c ${wpa_supplicant_conf} \
-    -P ${pidfile}"
-
-# override default actions
-start_cmd="wpa_supplicant_start"
-stop_cmd="wpa_supplicant_stop"
-status_cmd="wpa_supplicant_status"
-
-#
-# start: load driver, create interface, bring it up, then start daemon
-#
-wpa_supplicant_start()
-{
-    # 1) Load the iwlwifi kernel module if not already present
-    if ! kldstat -n if_iwlwifi &gt; /dev/null 2&gt;&amp;1; then
-        kldload if_iwlwifi \
-            || err 1 "Unable to load if_iwlwifi kernel module - /etc/rc.d/wpa_supplicant"
-    fi
-
-    # 2) Create the wlan interface if missing
-    if ! ifconfig ${wpa_supplicant_iface} &gt; /dev/null 2&gt;&amp;1; then
-        ifconfig iwlwifi0 create wlandev iwlwifi0 \
-            || err 1 "Failed to create interface ${wpa_supplicant_iface} - /etc/rc.d/wpa_supplicant"
-    fi
-
-    # 3) Bring the wireless interface up
-    ifconfig ${wpa_supplicant_iface} up \
-        || err 1 "Could not bring up ${wpa_supplicant_iface} - /etc/rc.d/wpa_supplicant"
-
-    # 4) Launch wpa_supplicant in the background
-    ${command} ${command_args} \
-        || err 1 "wpa_supplicant failed to start - /etc/rc.d/wpa_supplicant"
-}
-
-#
-# status: check the pidfile to see if wpa_supplicant is running
-#
-wpa_supplicant_status()
-{
-    check_pidfile "${pidfile}" "${command}"
-}
-
-#
-# stop: terminate the daemon and clean up the pidfile
-#
-wpa_supplicant_stop()
-{
-    if [ -f "${pidfile}" ]; then
-        kill -TERM "$(cat ${pidfile})" &gt; /dev/null 2&gt;&amp;1 \
-            || err 1 "Failed to kill wpa_supplicant (PID: $(cat ${pidfile}))"
-        rm -f "${pidfile}"
-    else
-        err 1 "PID file not found, is wpa_supplicant running? - /etc/rc.d/wpa_supplicant"
-    fi
-}
-
-run_rc_command "$1"
-```
--apply `chmod +x` to `/etc/rc.d/wpa_supplicant`
--generate `/etc/rc.conf.local` with the following configuration:
-```
-wpa_supplicant_enable="YES"
-wpa_supplicant_iface="iwlwifi0_wlan"
-wpa_supplicant_driver="bsd"
-wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
-```</code></pre>
-<p>Here's what Copilot generated:</p>
-<pre class="language-markdown line-numbers"><code># FreeBSD Shell Automation Script for wpa_supplicant Setup
-
-The following script automates:
-
-- Creation of the WPA supplicant configuration under `/var/etc`  
-- Installation of the `/etc/rc.d/wpa_supplicant` startup script  
-- Proper execute permissions  
-- Generation of `/etc/rc.conf.local` with service settings  
-
-Save this as, for example, `setup_wpa.sh`, make it executable, and run as root.
-
-```sh
-#!/bin/sh
-#
-# setup_wpa.sh
-# Automates wpa_supplicant config, rc.d script, permissions, and rc.conf.local
-#
-
-set -e
-
-# Ensure script is run as root
-if [ "$(id -u)" -ne 0 ]; then
-  echo "Error: This script must be run as root."
-  exit 1
-fi
-
-# 1) Create WPA supplicant config directory and file
-mkdir -p /var/etc
-
-cat &lt;&lt; 'EOF' &gt; /var/etc/wpa_supplicant_iwlwifi0_wlan0.conf
-ctrl_interface=/var/run/wpa_supplicant
-ctrl_interface_group=0
-ap_scan=1
-fast_reauth=1
-network={
-    ssid="Placeholder"
-    scan_ssid=1
-    priority=5
-    key_mgmt=WPA-PSK
-    psk="Placeholder"
-    pairwise=CCMP TKIP
-    group=CCMP TKIP
-}
-EOF
-
-echo "Created /var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
-
-# 2) Install the rc.d startup script
-cat &lt;&lt; 'EOF' &gt; /etc/rc.d/wpa_supplicant
-#!/bin/sh
-#
-# PROVIDE: wpa_supplicant
-# REQUIRE: DAEMON NETWORKING if_iwlwifi
-# KEYWORD: shutdown
-#
-# Add the following to /etc/rc.conf to enable this service:
-#   wpa_supplicant_enable="YES"
-#   wpa_supplicant_iface="iwlwifi0_wlan0"
-#   wpa_supplicant_driver="bsd"
-#   wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
-#
-
-. /etc/rc.subr
-. /etc/network.subr
-
-name="wpa_supplicant"
-rcvar="wpa_supplicant_enable"
-
-load_rc_config $name
-
-: ${wpa_supplicant_enable:="YES"}
-: ${wpa_supplicant_iface:="iwlwifi0_wlan0"}
-: ${wpa_supplicant_driver:="bsd"}
-: ${wpa_supplicant_conf:="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"}
-
-command="/usr/sbin/wpa_supplicant"
-pidfile="/var/run/${name}.${wpa_supplicant_iface}.pid"
-command_args="-B \
-    -i ${wpa_supplicant_iface} \
-    -D ${wpa_supplicant_driver} \
-    -c ${wpa_supplicant_conf} \
-    -P ${pidfile}"
-
-start_cmd="wpa_supplicant_start"
-stop_cmd="wpa_supplicant_stop"
-status_cmd="wpa_supplicant_status"
-
-wpa_supplicant_start()
-{
-    if ! kldstat -n if_iwlwifi &gt;/dev/null 2&gt;&amp;1; then
-        kldload if_iwlwifi || err 1 "Unable to load if_iwlwifi"
-    fi
-
-    if ! ifconfig ${wpa_supplicant_iface} &gt;/dev/null 2&gt;&amp;1; then
-        ifconfig iwlwifi0 create wlandev iwlwifi0 \
-            || err 1 "Failed to create interface ${wpa_supplicant_iface}"
-    fi
-
-    ifconfig ${wpa_supplicant_iface} up \
-        || err 1 "Could not bring up ${wpa_supplicant_iface}"
-
-    ${command} ${command_args} \
-        || err 1 "wpa_supplicant failed to start"
-}
-
-wpa_supplicant_status()
-{
-    check_pidfile "${pidfile}" "${command}"
-}
-
-wpa_supplicant_stop()
-{
-    if [ -f "${pidfile}" ]; then
-        kill -TERM "$(cat ${pidfile})" &gt;/dev/null 2&gt;&amp;1 \
-            || err 1 "Failed to kill wpa_supplicant"
-        rm -f "${pidfile}"
-    else
-        err 1 "PID file not found, is wpa_supplicant running?"
-    fi
-}
-
-run_rc_command "$1"
-EOF
-
-chmod +x /etc/rc.d/wpa_supplicant
-echo "Installed and made executable: /etc/rc.d/wpa_supplicant"
-
-# 3) Generate /etc/rc.conf.local
-cat &lt;&lt; 'EOF' &gt; /etc/rc.conf.local
-wpa_supplicant_enable="YES"
-wpa_supplicant_iface="iwlwifi0_wlan"
-wpa_supplicant_driver="bsd"
-wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
-EOF
-
-echo "Created /etc/rc.conf.local"
-
-echo "Setup complete. You can now enable the service with:"
-echo "  service wpa_supplicant start"
-```
-
----
-
-## Usage Notes
-
-- Update the `ssid` and `psk` placeholders in  
-  `/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf` before connecting to your network.
-
-- To enable on every boot, ensure `/etc/rc.conf.local` is sourced  
-  (FreeBSD does this by default).  
-
-- Verify the driver module with `kldstat | grep if_iwlwifi` after reboot.
-
-- Check logs via `dmesg` or `/var/log/messages` if the interface fails to come up.
-
----
-
-## Further Enhancements
-
-- Parameterize SSID/PSK as script arguments for non-interactive setups.  
-- Add backups of existing config files before overwriting.  
-- Integrate wireless scanning (`wpa_cli scan`) and status checks post-start.  
-- Extend for multiple SSIDs by looping over an array of network blocks.</code></pre>
-<p>Here's what ChatGPT generated:</p>
-<pre class="language-markdown line-numbers"><code>* Plan script steps
-* Create WPA config file
-* Create rc.d service script
-* Apply executable permission
-* Create rc.conf.local file
-
-####
-
-```sh
-#!/bin/sh
-#
-# Automation script to configure wpa_supplicant on FreeBSD
-# Usage: sh setup_wpa.sh
-set -e
-
-# 1) Generate wpa_supplicant configuration
-mkdir -p /var/etc
-cat &gt; /var/etc/wpa_supplicant_iwlwifi0_wlan0.conf &lt;&lt; 'EOF'
-ctrl_interface=/var/run/wpa_supplicant
-ctrl_interface_group=0
-ap_scan=1
-fast_reauth=1
-network={
-    ssid="Placeholder"
-    scan_ssid=1
-    priority=5
-    key_mgmt=WPA-PSK
-    psk="Placeholder"
-    pairwise=CCMP TKIP
-    group=CCMP TKIP
-}
-EOF
-
-# 2) Generate rc.d wpa_supplicant service script
-cat &gt; /etc/rc.d/wpa_supplicant &lt;&lt; 'EOF'
-#!/bin/sh
-#
-# PROVIDE: wpa_supplicant
-# REQUIRE: DAEMON NETWORKING if_iwlwifi
-# KEYWORD: shutdown
-#
-# Add the following to /etc/rc.conf to enable this service:
-#   wpa_supplicant_enable="YES"
-#   wpa_supplicant_iface="iwlwifi0_wlan0"
-#   wpa_supplicant_driver="bsd"
-#   wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
-#
-
-. /etc/rc.subr          # import rc_* functions
-. /etc/network.subr     # import network helper functions
-
-name="wpa_supplicant"
-rcvar="wpa_supplicant_enable"
-
-# load overrides from rc.conf, set defaults
-load_rc_config $name
-
-: ${wpa_supplicant_enable:="YES"}            # YES to start at boot
-: ${wpa_supplicant_iface:="iwlwifi0_wlan0"}  # logical WLAN interface
-: ${wpa_supplicant_driver:="bsd"}            # driver backend
-: ${wpa_supplicant_conf:="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"}
-
-# path to the wpa_supplicant binary
-command="/usr/sbin/wpa_supplicant"
-
-# pidfile lives under /var/run/&lt;name&gt;.&lt;iface&gt;.pid
-pidfile="/var/run/${name}.${wpa_supplicant_iface}.pid"
-
-# arguments to wpa_supplicant
-command_args="-B \
-    -i ${wpa_supplicant_iface} \
-    -D ${wpa_supplicant_driver} \
-    -c ${wpa_supplicant_conf} \
-    -P ${pidfile}"
-
-# override default actions
-start_cmd="wpa_supplicant_start"
-stop_cmd="wpa_supplicant_stop"
-status_cmd="wpa_supplicant_status"
-
-wpa_supplicant_start()
-{
-    # 1) Load the iwlwifi kernel module if not already present
-    if ! kldstat -n if_iwlwifi &gt; /dev/null 2&gt;&amp;1; then
-        kldload if_iwlwifi \
-            || err 1 "Unable to load if_iwlwifi kernel module"
-    fi
-
-    # 2) Create the wlan interface if missing
-    if ! ifconfig ${wpa_supplicant_iface} &gt; /dev/null 2&gt;&amp;1; then
-        ifconfig iwlwifi0 create wlandev iwlwifi0 \
-            || err 1 "Failed to create interface ${wpa_supplicant_iface}"
-    fi
-
-    # 3) Bring the wireless interface up
-    ifconfig ${wpa_supplicant_iface} up \
-        || err 1 "Could not bring up ${wpa_supplicant_iface}"
-
-    # 4) Launch wpa_supplicant in the background
-    ${command} ${command_args} \
-        || err 1 "wpa_supplicant failed to start"
-}
-
-wpa_supplicant_status()
-{
-    check_pidfile "${pidfile}" "${command}"
-}
-
-wpa_supplicant_stop()
-{
-    if [ -f "${pidfile}" ]; then
-        kill -TERM "$(cat ${pidfile})" &gt; /dev/null 2&gt;&amp;1 \
-            || err 1 "Failed to kill wpa_supplicant (PID: $(cat ${pidfile}))"
-        rm -f "${pidfile}"
-    else
-        err 1 "PID file not found, is wpa_supplicant running?"
-    fi
-}
-
-run_rc_command "$1"
-EOF
-
-# 3) Make service script executable
-chmod +x /etc/rc.d/wpa_supplicant
-
-# 4) Generate local rc.conf overrides
-cat &gt; /etc/rc.conf.local &lt;&lt; 'EOF'
-wpa_supplicant_enable="YES"
-wpa_supplicant_iface="iwlwifi0_wlan"
-wpa_supplicant_driver="bsd"
-wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
-EOF
-
-echo "Configuration complete."
-```
-
-# References
-
-* wpa\_supplicant configuration file placement and options ([docs.freebsd.org][1])
-* Use of wpa\_supplicant(8) for WPA-PSK in FreeBSD ([freebsdhandbook.com][2])
-
-[1]: https://docs.freebsd.org/en/books/handbook/network/?utm_source=chatgpt.com "Chapter 7. Network"
-[2]: https://www.freebsdhandbook.com/advanced-networking?utm_source=chatgpt.com "Chapter 32. Advanced Networking - FreeBSD Handbook"</code></pre>
-<p>Comparing the scripts in DiffChecker revealed some interesting changes, but most were in the following categories:</p>
-<ul>
-<li>Differences in comments - omissions or verbiage.</li>
-<li>Different constructions of the same commands (<code><span class="diff-chunk_chunk__MRDHe undefined">cat </span></code><span class="diff-chunk_chunk__MRDHe diff-chunk_removed__oVJqp"><code>&lt;&lt; 'EOF' &gt; /etc/rc.d/wpa_supplicant</code> vs <code><span class="diff-chunk_chunk__MRDHe undefined">cat </span><span class="diff-chunk_chunk__MRDHe diff-chunk_inserted__dGN9u">&gt; /etc/rc.d/wpa_supplicant &lt;&lt; 'EOF'</span></code></span>).</li>
-<li>Copilot having a function to ensure the script is running as root.</li>
-<li>ChatGPT having a comment on how to use the script.</li>
-<li>Copilot having better user feedback via process completion messages.</li>
-</ul>
-<p>After some quick Googling, it seems that the <code>cat &lt;&lt; 'EOF' &gt; /etc/rc.d/wpa_supplicant</code> construction is the more correct one, so it seems Copilot is more technically accurate. </p>
-<h2 id="mcetoc_1j0p1tptp23d">The Next Steps</h2>
-<p>What's next isn't particularly exciting:</p>
-<ul>
-<li>Combine best elements of ChatGPT script into Copilot script.</li>
-<li>Save the file and place it on the flash drive I store the other files I add to OPNSense.</li>
-<li>Wait for the OPNSense 25.7 finalized release to see if it completely obliterates various things I've added.</li>
-</ul>
-<p>For reference, here's the finalized version of the script I've come up with:</p>
-<pre class="language-bash line-numbers"><code>#!/bin/sh
-#
-# setup_wpa.sh
-# Automates wpa_supplicant config, rc.d script, permissions, and rc.conf.local
-# Usage: sh setup_wpa.sh
-
-set -e
-
-# Ensure script is run as root
-if [ "$(id -u)" -ne 0 ]; then
-  echo "Error: This script must be run as root."
-  exit 1
-fi
-
-# 1) Create WPA supplicant config directory and file
-mkdir -p /var/etc
-
-cat &lt;&lt; 'EOF' &gt; /var/etc/wpa_supplicant_iwlwifi0_wlan0.conf
-ctrl_interface=/var/run/wpa_supplicant
-ctrl_interface_group=0
-ap_scan=1
-fast_reauth=1
-network={
-    ssid="Placeholder"
-    scan_ssid=1
-    priority=5
-    key_mgmt=WPA-PSK
-    psk="Placeholder"
-    pairwise=CCMP TKIP
-    group=CCMP TKIP
-}
-EOF
-
-echo "Created /var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
-
-# 2) Install the rc.d startup script
-cat &lt;&lt; 'EOF' &gt; /etc/rc.d/wpa_supplicant
-#!/bin/sh
-#
-# PROVIDE: wpa_supplicant
-# REQUIRE: DAEMON NETWORKING if_iwlwifi
-# KEYWORD: shutdown
-#
-# Add the following to /etc/rc.conf to enable this service:
-#   wpa_supplicant_enable="YES"
-#   wpa_supplicant_iface="iwlwifi0_wlan0"
-#   wpa_supplicant_driver="bsd"
-#   wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
-#
-
-. /etc/rc.subr          # import rc_* functions
-. /etc/network.subr     # import network helper functions
-
-name="wpa_supplicant"
-rcvar="wpa_supplicant_enable"
-
-# load overrides from rc.conf, set defaults
-load_rc_config $name
-
-: ${wpa_supplicant_enable:="YES"}           # YES to start at boot
-: ${wpa_supplicant_iface:="iwlwifi0_wlan0"} # logical WLAN interface
-: ${wpa_supplicant_driver:="bsd"}          # driver backend
-: ${wpa_supplicant_conf:="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"}
-
-# path to the wpa_supplicant binary
-command="/usr/sbin/wpa_supplicant"
-
-# pidfile lives under /var/run/&lt;name&gt;.&lt;iface&gt;.pid
-pidfile="/var/run/${name}.${wpa_supplicant_iface}.pid"
-
-# arguments to wpa_supplicant
-command_args="-B \
-    -i ${wpa_supplicant_iface} \
-    -D ${wpa_supplicant_driver} \
-    -c ${wpa_supplicant_conf} \
-    -P ${pidfile}"
-
-# override default actions
-start_cmd="wpa_supplicant_start"
-stop_cmd="wpa_supplicant_stop"
-status_cmd="wpa_supplicant_status"
-
-#
-# start: load driver, create interface, bring it up, then start daemon
-#
-wpa_supplicant_start()
-{
-    # 1) Load the iwlwifi kernel module if not already present
-    if ! kldstat -n if_iwlwifi &gt; /dev/null 2&gt;&amp;1; then
-        kldload if_iwlwifi \
-            || err 1 "Unable to load if_iwlwifi kernel module - /etc/rc.d/wpa_supplicant"
-    fi
-
-    # 2) Create the wlan interface if missing
-    if ! ifconfig ${wpa_supplicant_iface} &gt; /dev/null 2&gt;&amp;1; then
-        ifconfig iwlwifi0 create wlandev iwlwifi0 \
-            || err 1 "Failed to create interface ${wpa_supplicant_iface} - /etc/rc.d/wpa_supplicant"
-    fi
-
-    # 3) Bring the wireless interface up
-    ifconfig ${wpa_supplicant_iface} up \
-        || err 1 "Could not bring up ${wpa_supplicant_iface} - /etc/rc.d/wpa_supplicant"
-
-    # 4) Launch wpa_supplicant in the background
-    ${command} ${command_args} \
-        || err 1 "wpa_supplicant failed to start - /etc/rc.d/wpa_supplicant"
-}
-
-#
-# status: check the pidfile to see if wpa_supplicant is running
-#
-wpa_supplicant_status()
-{
-    check_pidfile "${pidfile}" "${command}"
-}
-
-#
-# stop: terminate the daemon and clean up the pidfile
-#
-wpa_supplicant_stop()
-{
-    if [ -f "${pidfile}" ]; then
-        kill -TERM "$(cat ${pidfile})" &gt; /dev/null 2&gt;&amp;1 \
-            || err 1 "Failed to kill wpa_supplicant (PID: $(cat ${pidfile}))"
-        rm -f "${pidfile}"
-    else
-        err 1 "PID file not found, is wpa_supplicant running? - /etc/rc.d/wpa_supplicant"
-    fi
-}
-
-run_rc_command "$1"
-EOF
-
-chmod +x /etc/rc.d/wpa_supplicant
-echo "Installed and made executable: /etc/rc.d/wpa_supplicant"
-
-# 3) Generate /etc/rc.conf.local
-cat &lt;&lt; 'EOF' &gt; /etc/rc.conf.local
-wpa_supplicant_enable="YES"
-wpa_supplicant_iface="iwlwifi0_wlan"
-wpa_supplicant_driver="bsd"
-wpa_supplicant_conf="/var/etc/wpa_supplicant_iwlwifi0_wlan0.conf"
-EOF
-
-echo "Created /etc/rc.conf.local"
-
-echo "Setup complete. You can now enable the service with:"
-echo "  service wpa_supplicant start"</code></pre>
             ]]>
         </content>
     </entry>
