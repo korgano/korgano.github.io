@@ -896,6 +896,42 @@
 </image:image>
 </url>
 <url>
+<loc>https://korgano.github.io/quick-thoughts-truenas-rt8127-driver-install-tutorial/</loc>
+<lastmod>2026-07-31T10:56:48-04:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/55/RT8127-2.jpg</image:loc>
+<image:title><![CDATA[BZIZU RTL8127 10 Gigabit Ethernet Adapter]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/55//RT8127.jpg</image:loc>
+<image:title><![CDATA[BZIZU RTL8127 10 Gigabit Ethernet Adapter (credit BZIZU)]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/55/rtl28127-001.png</image:loc>
+<image:title><![CDATA[TrueNAS Advanced Settings Page]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/55/rtl28127-002.png</image:loc>
+<image:title><![CDATA[Click &quot;Show Text Console without Password Prompt&quot;, then save.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/55/rtl28127-003.png</image:loc>
+<image:title><![CDATA[Example Filebrowser folder showing the driver folder, build script, and final driver.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/55/rtl28127-004.png</image:loc>
+<image:title><![CDATA[r8127.ko driver file in the r8127_build/rtl8127 folder.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/55/rtl28127-005.png</image:loc>
+<image:title><![CDATA[TrueNAS Advanced Settings - Init/Shutdown Scripts location.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/55/rtl28127-006.png</image:loc>
+<image:title><![CDATA[Init/Shutdown Script Interface, with Command and Post Init values set.]]></image:title>
+</image:image>
+</url>
+<url>
 <loc>https://korgano.github.io/resume/</loc>
 <lastmod>2024-11-11T14:24:54-05:00</lastmod>
 </url>
