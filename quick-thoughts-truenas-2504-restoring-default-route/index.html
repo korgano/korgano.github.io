@@ -1,0 +1,835 @@
+<!DOCTYPE html><html lang="en-us"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Quick Thoughts: TrueNAS 25.04 Restoring Default Route - XS Tech Thoughts</title><meta name="description" content="Xavier Santana of XS Tech Thoughts provides a guide for dealing with TrueNAS &quot;No Default Interface&quot; errors where the kernel does not use configured gateway."><meta name="generator" content="Publii Open-Source CMS for Static Site"><!-- Global site tag (gtag.js) - Google Analytics --><script type="gdpr-blocker/Analytics" async src="https://www.googletagmanager.com/gtag/js?id=G-EHLH28GQMY"></script><script type="gdpr-blocker/Analytics">window.dataLayer = window.dataLayer || [];
+				  function gtag(){dataLayer.push(arguments);}
+				  gtag('js', new Date());
+				  gtag('config', 'G-EHLH28GQMY' , { 'anonymize_ip': true });
+				  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EHLH28GQMY"></script><script>window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EHLH28GQMY');</script><link rel="stylesheet" href="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-black.css"><link rel="stylesheet" href="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-inline-color.css"><link rel="canonical" href="https://korgano.github.io/quick-thoughts-truenas-2504-restoring-default-route/"><link rel="alternate" type="application/atom+xml" href="https://korgano.github.io/feed.xml" title="XS Tech Thoughts - RSS"><meta property="og:title" content="Quick Thoughts: TrueNAS 25.04 Restoring Default Route"><meta property="og:image" content="https://korgano.github.io/media/posts/56/trueNAS-server-shell.png"><meta property="og:image:width" content="1920"><meta property="og:image:height" content="913"><meta property="og:site_name" content="XS Tech Thoughts"><meta property="og:description" content="Xavier Santana of XS Tech Thoughts provides a guide for dealing with TrueNAS &quot;No Default Interface&quot; errors where the kernel does not use configured gateway."><meta property="og:url" content="https://korgano.github.io/quick-thoughts-truenas-2504-restoring-default-route/"><meta property="og:type" content="article"><link rel="preload" href="https://korgano.github.io/assets/dynamic/fonts/robotoflex/robotoflex.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="https://korgano.github.io/assets/dynamic/fonts/robotoslab/robotoslab.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="https://korgano.github.io/assets/css/style.css?v&#x3D;253922ed3c1816ffff870ea807b853dd"><script type="application/ld+json">{"@context":"http://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://korgano.github.io/quick-thoughts-truenas-2504-restoring-default-route/"},"headline":"Quick Thoughts: TrueNAS 25.04 Restoring Default Route","datePublished":"2026-08-21T10:33-04:00","dateModified":"2026-08-21T15:39-04:00","image":{"@type":"ImageObject","url":"https://korgano.github.io/media/posts/56/trueNAS-server-shell.png","height":913,"width":1920},"description":"Xavier Santana of XS Tech Thoughts provides a guide for dealing with TrueNAS \"No Default Interface\" errors where the kernel does not use configured gateway.","author":{"@type":"Person","name":"Xavier Santana","url":"https://korgano.github.io/authors/xavier-santana/"},"publisher":{"@type":"Organization","name":"Xavier Santana"}}</script><noscript><style>img[loading] {
+                    opacity: 1;
+                }</style></noscript></head><body class="post-template lines"><div class="container lines lines--right"><header class="header"><a href="https://korgano.github.io/" class="logo">XS Tech Thoughts</a><nav class="navbar js-navbar"><button class="navbar__toggle js-toggle" aria-label="Menu">Menu</button><ul class="navbar__menu"><li><a href="https://korgano.github.io/" title="Home" target="_self">Home</a></li><li><a href="https://korgano.github.io/tags/uxui-case-study/" title="UX/UI Case Studies" target="_blank">UX/UI Case Studies</a></li><li><a href="https://korgano.github.io/tags/cybersecurity-projects/" title="Cybersecurity Projects" target="_blank">Cybersecurity Projects</a></li><li><a href="https://korgano.github.io/tags/quick-thoughts/" title="Quick Thoughts" target="_self">Quick Thoughts</a></li><li><a href="https://korgano.github.io/about-me/" title="About Me" target="_blank">About Me</a></li></ul></nav></header><main class="main post"><article class="content"><header class="content__inner content__header"><h1 class="content__title">Quick Thoughts: TrueNAS 25.04 Restoring Default Route</h1><div class="content__meta"><div class="content__meta__left"><a href="https://korgano.github.io/authors/xavier-santana/" class="invert content__author" rel="author" title="Xavier Santana">Xavier Santana</a></div><div class="content__meta__right"><time datetime="2026-08-21T10:33" class="content__date">August 21, 2026</time><div class="content__updated">Updated on <time datetime="2026-08-21T10:33" class="content__date">August 21, 2026</time></div></div></div></header><figure class="content__featured-image"><div class="content__featured-image__inner is-img-loading"><img src="https://korgano.github.io/media/posts/56/trueNAS-server-shell.png" srcset="https://korgano.github.io/media/posts/56/responsive/trueNAS-server-shell-xs.png 384w, https://korgano.github.io/media/posts/56/responsive/trueNAS-server-shell-sm.png 600w, https://korgano.github.io/media/posts/56/responsive/trueNAS-server-shell-md.png 768w, https://korgano.github.io/media/posts/56/responsive/trueNAS-server-shell-lg.png 1200w, https://korgano.github.io/media/posts/56/responsive/trueNAS-server-shell-xl.png 1600w" sizes="(min-width: 37.5em) 1600px, 80vw" loading="eager" height="913" width="1920" alt="TrueNAS Community Edition webGUI shell."></div></figure><div class="content__inner"><div class="content__entry"><p>This guide provides a clear, step-by-step procedure to restore a missing default route on TrueNAS 25.04 using the native <code>midclt</code> API. You may encounter this issue when adding new interface cards to your TrueNAS server.</p><p>This issue can disable your Docker containers and ability to update the OS. Unfortunately, there's no easily accessible documentation on how to fix it, so here's a tutorial on how to do it.</p><p><strong>Prerequisites:</strong></p><ul><li>SSH, web GUI, or text console access to the TrueNAS shell.</li><li>Root or equivalent privileges.</li><li>TrueNAS 25.04 with the interface and route APIs available.</li></ul><p><strong>Important:</strong></p><ul><li>Run all commands from the TrueNAS shell.</li><li>Keep the Web UI open in another window for reference.</li><li>Do not interrupt or close the session while a transaction is pending.</li></ul><div class="post__toc"><h3>Table of Contents</h3><ul><li><a href="#mcetoc_1k0idd3rtc">High-Level Overview</a></li><li><a href="#mcetoc_1k0idd3rtd">Phase 1: Pre-Flight Diagnostics</a><ul><li><a href="#mcetoc_1k0ie6t5g66">Step 1: Check for pending changes</a></li><li><a href="#mcetoc_1k0ieiis27i">Step 2: Check if the default route would be removed</a></li></ul></li><li><a href="#mcetoc_1k0ie6t5g67">Phase 2: Confirm Current State</a><ul><li><a href="#mcetoc_1k0ie6t5g68">Step 3: Inspect configuration, interface, and routes</a></li></ul></li><li><a href="#mcetoc_1k0ie6t5g69">Phase 3: Create a Safe Interface Update</a><ul><li><a href="#mcetoc_1k0ie6t5g6a">Step 4: Get current interface configuration</a></li><li><a href="#mcetoc_1k0ieiis27j">Step 5: Apply a temporary description change</a></li></ul></li><li><a href="#mcetoc_1k0ieiis27k">Phase 4: Inject Gateway and Commit (with Rollback Protection)</a><ul><li><a href="#mcetoc_1k0ifj3la13f">Step 6: Capture the configured gateway</a></li><li><a href="#mcetoc_1k0ifj3la13g">Step 7: Save the default route into the pending transaction</a></li><li><a href="#mcetoc_1k0itc95i150">Step 8: Verify pending transaction still exists</a></li><li><a href="#mcetoc_1k0itc95i151">Step 9: Commit with rollback protection</a></li></ul></li><li><a href="#mcetoc_1k0ifj3la13h">Phase 5: Verify Route and Connectivity</a><ul><li><a href="#mcetoc_1k0ifj3la13i">Step 10: Check the default route</a></li><li><a href="#mcetoc_1k0ifj3la13j">Step 11: Confirm TrueNAS route view</a></li><li><a href="#mcetoc_1k0ifj3la13k">Step 12: Confirm runtime gateway matches configuration</a></li><li><a href="#mcetoc_1k0itc95i152">Step 13: Test external connectivity</a></li></ul></li><li><a href="#mcetoc_1k0ifj3la13l">Phase 6: Finalize and Clean Up</a><ul><li><a href="#mcetoc_1k0ifj3la13m">Step 14: Confirm the committed changes (checkin)</a></li><li><a href="#mcetoc_1k0ifj3la13n">Step 15: Restore original description (optional but recommended)</a></li></ul></li><li><a href="#mcetoc_1k0ifj3la13o">Why This Is the Strongest Repair Path</a></li><li><a href="#mcetoc_1k0ifog1013t">Recommended Immediate Command</a></li><li><a href="#mcetoc_1k0it85cf14p">Script Based Solution</a></li></ul></div><h1 id="mcetoc_1k0idd3rtc">High-Level Overview</h1><p>The issue: TrueNAS has a gateway configured, but the kernel is missing the default route, causing “Network is unreachable” errors (e.g., when contacting update.ixsystems.com).</p><p><strong>The fix: </strong>Use TrueNAS’s native interface API to:</p><ul><li>Create a small, safe interface update.</li><li>Explicitly attach the configured gateway to the pending transaction.</li><li>Commit with automatic rollback protection.</li><li>Verify and finalize.</li></ul><h1 id="mcetoc_1k0idd3rtd">Phase 1: Pre-Flight Diagnostics</h1><p>Before changing anything, confirm that TrueNAS recognizes the mismatch and that no stale transaction is blocking us.</p><h2 id="mcetoc_1k0ie6t5g66">Step 1: Check for pending changes</h2><p>Ensures no previous interface operation is stuck.</p><p><code>midclt call interface.has_pending_changes</code></p><p>Expected: <code>False</code></p><h2 id="mcetoc_1k0ieiis27i">Step 2: Check if the default route would be removed</h2><p>Uses a built-in diagnostic to see if TrueNAS detects the gateway/kernel mismatch.</p><p><code>midclt call interface.default_route_will_be_removed</code></p><ul><li>If <code>true</code>: TrueNAS recognizes the issue. Proceed with the repair.</li><li>If <code>false</code>: The middleware is not detecting the missing route via this path. Stop here and investigate further before modifying the interface.</li></ul><h1 id="mcetoc_1k0ie6t5g67">Phase 2: Confirm Current State</h1><p>Verify that the gateway is configured but missing from the kernel, and confirm the interface is up.</p><h2 id="mcetoc_1k0ie6t5g68">Step 3: Inspect configuration, interface, and routes</h2><p>Run the following block as one script. It prints key values in a readable format.</p><pre class="language-bash line-numbers"><code>echo "=== CONFIGURATION ==="
+midclt call network.configuration.config | python3 -c '
+import sys, json
+d = json.load(sys.stdin)
+print("configured gateway:", repr(d["ipv4gateway"]))
+print("runtime gateway:", repr(d["state"]["ipv4gateway"]))
+print("DNS1:", repr(d["nameserver1"]))
+'
+
+echo
+echo "=== INTERFACE ==="
+ip -4 addr show dev &lt;INTERFACE NAME&gt;
+
+echo
+echo "=== ROUTE ==="
+ip -4 route
+
+echo
+echo "=== TRUE NAS ROUTES ==="
+midclt call route.system_routes | python3 -m json.tool
+
+echo
+echo "=== PENDING CHANGES ==="
+midclt call interface.has_pending_changes</code></pre><p>You should currently see:</p><pre class="language-bash line-numbers"><code>configured gateway: '[GATEWAY]'
+runtime gateway: ''</code></pre><p>And you should <strong>not</strong> see:</p><p><code>default via [GATEWAY] dev &lt;INTERFACE NAME&gt;</code></p><h1 id="mcetoc_1k0ie6t5g69">Phase 3: Create a Safe Interface Update</h1><p>TrueNAS requires an actual interface update before <code>save_default_route</code> can attach the gateway to the pending transaction. We will change only the interface description to avoid affecting networking.</p><h2 id="mcetoc_1k0ie6t5g6a">Step 4: Get current interface configuration</h2><p>Use this to confirm current values (name, IP, MTU, description).</p><p><code>midclt call interface.query '[["name","=","enp32s0"]]' | python3 -m json.tool</code></p><p>Key values should be approximately:</p><pre class="language-bash line-numbers"><code>name = &lt;INTERFACE NAME&gt;
+ipv4_dhcp= false
+ipv6_auto= false
+aliases= &lt;SERVER IP&gt;/22
+mtu= 1500
+description = "&lt;INTERFACE NAME&gt;"</code></pre><h2 id="mcetoc_1k0ieiis27j">Step 5: Apply a temporary description change</h2><p>This creates a pending interface transaction without altering IP or routing.</p><p><code>midclt call interface.update "enp32s0" '{"description":"enp32s0-route-repair"}'</code></p><p>Verify that a pending change now exists:</p><p><code>midclt call interface.has_pending_changes</code></p><p>Expected: <code>true</code></p><p>If the existing description is already exactly <code>enp32s0-route-repair</code>, choose a different temporary value.</p><h1 id="mcetoc_1k0ieiis27k">Phase 4: Inject Gateway and Commit (with Rollback Protection)</h1><p>Now we attach the configured gateway to the pending transaction and commit it safely.</p><h2 id="mcetoc_1k0ifj3la13f">Step 6: Capture the configured gateway</h2><pre class="language-bash line-numbers"><code>GATEWAY="$(midclt call network.configuration.config | python3 -c '
+import sys, json
+print(json.load(sys.stdin)["ipv4gateway"])
+')"
+echo "GATEWAY=${GATEWAY}"</code></pre><p>Confirm it matches your expected gateway, e.g.:</p><p><code>GATEWAY=[GATEWAY]</code></p><h2 id="mcetoc_1k0ifj3la13g">Step 7: Save the default route into the pending transaction</h2><p>This is the core step: it tells TrueNAS to include the gateway when the interface changes are applied.</p><p><code>midclt call interface.save_default_route "${GATEWAY}"</code></p><h2 id="mcetoc_1k0itc95i150">Step 8: Verify pending transaction still exists</h2><p><code>midclt call interface.has_pending_changes</code></p><p>Expected: <code>true</code></p><p>At this point, the kernel route is still missing. The pending transaction now contains:</p><pre class="language-bash line-numbers"><code>database configuration
+ │
+ ▼
+interface.update
+ │
+ ▼
+PENDING interface transaction
+ │
+ ├── description change
+ │
+ └── default gateway = [GATEWAY]</code></pre><h2 id="mcetoc_1k0itc95i151">Step 9: Commit with rollback protection</h2><p>This applies the pending changes. If something goes wrong, TrueNAS will automatically roll back.</p><p><code>midclt call interface.commit '{"rollback":true,"checkin_timeout":60}'</code></p><p>Behavior:</p><ul><li>Applies the pending interface changes.</li><li>Automatically rolls back if application fails.</li><li>Waits 60 seconds for confirmation (checkin).</li></ul><h1 id="mcetoc_1k0ifj3la13h">Phase 5: Verify Route and Connectivity</h1><p>Immediately after commit, confirm the route is restored and external connectivity works.</p><h2 id="mcetoc_1k0ifj3la13i">Step 10: Check the default route</h2><p><code>ip -4 route show default</code></p><p>Desired result:</p><p><code>default via [GATEWAY] dev &lt;INTERFACE NAME&gt;</code></p><h2 id="mcetoc_1k0ifj3la13j">Step 11: Confirm TrueNAS route view</h2><p><code>midclt call route.system_routes | python3 -m json.tool</code></p><p>You should see an entry similar to:</p><pre class="language-bash line-numbers"><code>{
+"network": "0.0.0.0",
+"netmask": "0.0.0.0",
+"gateway": "[GATEWAY]",
+"interface": "&lt;INTERFACE NAME&gt;",
+"table_id": 254
+}</code></pre><h2 id="mcetoc_1k0ifj3la13k">Step 12: Confirm runtime gateway matches configuration</h2><pre class="language-bash line-numbers"><code>midclt call network.configuration.config | python3 -c 'import sys, json d = json.load(sys.stdin) print("configured gateway:", repr(d["ipv4gateway"])) print("runtime gateway:", repr(d["state"]["ipv4gateway"]))'</code></pre><p>Desired result:</p><pre class="language-bash line-numbers"><code>configured gateway: '[GATEWAY]'
+runtime gateway: '[GATEWAY]'</code></pre><p>This confirms the configuration and kernel states are now aligned.</p><h2 id="mcetoc_1k0itc95i152">Step 13: Test external connectivity</h2><p>Run these before the 60-second checkin timeout expires.</p><pre class="language-bash line-numbers"><code>ping -c 4 "${GATEWAY}"
+ping -c 4 1.1.1.1
+getent hosts update.ixsystems.com
+curl -4 -I --connect-timeout 10 https://update.ixsystems.com/</code></pre><p>If the default route is correct, the original error:</p><pre class="language-apacheconf line-numbers"><code>Cannot connect to host update.ixsystems.com:443
+[Network is unreachable]</code></pre><p>should no longer appear.</p><h1 id="mcetoc_1k0ifj3la13l">Phase 6: Finalize and Clean Up</h1><p>Once verification succeeds, confirm the changes and restore the original description.</p><h2 id="mcetoc_1k0ifj3la13m">Step 14: Confirm the committed changes (checkin)</h2><p>Only run this if the route and connectivity tests pass.</p><p><code>midclt call interface.checkin</code></p><p>Then verify no pending changes remain:</p><p><code>midclt call interface.has_pending_changes</code></p><p>Expected: <code>false</code></p><h2 id="mcetoc_1k0ifj3la13n">Step 15: Restore original description (optional but recommended)</h2><p>Perform this as a second, clean transaction.</p><pre class="language-bash line-numbers"><code>midclt call interface.update "&lt;INTERFACE NAME&gt;" '{"description":"&lt;INTERFACE NAME&gt;"}'
+midclt call interface.commit '{"rollback":true,"checkin_timeout":120}'</code></pre><p>Verify:</p><pre class="language-bash line-numbers"><code>midclt call interface.query '[["name","=","enp32s0"]]' | python3 -c 'import sys, json d = json.load(sys.stdin)[0] print("description:", d["description"]) print("aliases:", d["aliases"])'</code></pre><p>Then finalize:</p><p><code>midclt call interface.checkin</code></p><h1 id="mcetoc_1k0ifj3la13o">Why This Is the Strongest Repair Path</h1><p>This procedure:</p><ul><li>Uses only native TrueNAS APIs (no manual <code>ip route</code> hacks).</li><li>Preserves existing interface configuration.</li><li>Explicitly re-attaches the configured gateway via <code>save_default_route</code>.</li><li>Protects against lockouts with <code>rollback=true</code> and <code>checkin_timeout</code>.</li><li>Aligns with TrueNAS 25.04 behavior where the default route can be removed if the configured gateway does not match the kernel’s installed gateway.</li></ul><h1 id="mcetoc_1k0ifog1013t">Recommended Immediate Command</h1><p>Before doing anything else, run:</p><p><code>midclt call interface.default_route_will_be_removed</code></p><ul><li>If <code>true</code>: Proceed with this procedure.</li><li>If <code>false</code>: Stop before <code>interface.update</code>; the middleware is not recognizing the missing route via the expected mechanism, and further investigation is required.</li></ul><h1 id="mcetoc_1k0it85cf14p">Script Based Solution</h1><p>This isn't immediately usable unless you're able to SSH into the TrueNAS server and write the script to a drive in the server, or directly connect a USB drive and copy it onto the server.</p><pre class="language-bash line-numbers"><code>#!/usr/bin/env bash
+set -euo pipefail
+
+# ==========================
+# TrueNAS Gateway Repair Script
+# ==========================
+# Role: Expert Linux/TrueNAS Shell Script
+# Purpose: 
+#   - Compare configured vs runtime IPv4 gateway
+#   - If runtime is blank/null or mismatched, trigger a safe interface transaction
+#     to permanently sync the runtime gateway to the configured gateway.
+# Usage:
+#   1. Replace &lt;INTERFACE_NAME&gt; with your actual interface (e.g., enp32s0)
+#   2. Run as root or via sudo in the TrueNAS shell
+# ==========================
+
+INTERFACE="&lt;INTERFACE_NAME&gt;"
+TEMP_DESC="route-repair-$(date +%s)"
+ORIGINAL_DESC=""
+
+# Helper: run midclt and return JSON (suppress noisy stderr)
+midclt_json() {
+    midclt call "$@" 2&gt;/dev/null | python3 -c "
+    import sys, json
+    try:
+        print(json.dumps(json.load(sys.stdin), indent=2))
+    except:
+        print('')
+    "
+}
+
+# Helper: extract a nested field from JSON using dot notation
+get_field() {
+    local json_data="$1"
+    local field="$2"
+    echo "$json_data" | python3 -c "
+    import sys, json
+    try:
+        data = json.load(sys.stdin)
+        keys = '$field'.split('.')
+        val = data
+        for k in keys:
+            if isinstance(val, dict):
+                val = val.get(k)
+            else:
+                val = None
+                break
+        print(val if val is not None else '')
+    except:
+        print('')
+    "
+}
+
+echo "=== TrueNAS Gateway Repair Script ==="
+echo "Target Interface: $INTERFACE"
+
+# 1. Fetch network configuration
+NET_CONFIG_JSON=$(midclt_json network.configuration.config)
+CONFIGURED_GW=$(get_field "$NET_CONFIG_JSON" "ipv4gateway")
+RUNTIME_GW=$(get_field "$NET_CONFIG_JSON" "state.ipv4gateway")
+
+echo "Configured Gateway: '$CONFIGURED_GW'"
+echo "Runtime Gateway:    '$RUNTIME_GW'"
+
+# 2. Compare gateways
+if [[ -n "$CONFIGURED_GW" &amp;&amp; "$CONFIGURED_GW" == "$RUNTIME_GW" ]]; then
+    echo "Gateways match. No repair needed."
+    exit 0
+fi
+
+if [[ -z "$CONFIGURED_GW" ]]; then
+    echo "ERROR: No configured gateway found. Aborting."
+    exit 1
+fi
+
+echo "Runtime gateway is missing/blank or mismatched. Initiating repair sequence..."
+
+# 3. Diagnostic (informational)
+WILL_REMOVE=$(midclt call interface.default_route_will_be_removed 2&gt;/dev/null || echo "false")
+echo "default_route_will_be_removed: $WILL_REMOVE"
+
+# 4. Preserve current interface metadata
+IFACE_JSON=$(midclt_json interface.query "[[\"name\",\"=\",\"$INTERFACE\"]]")
+IFACE_DATA=$(echo "$IFACE_JSON" | python3 -c "
+import sys, json
+try:
+    print(json.dumps(json.load(sys.stdin)[0]))
+except:
+    print('')
+")
+
+if [[ -z "$IFACE_DATA" ]]; then
+    echo "ERROR: Could not retrieve configuration for $INTERFACE. Aborting."
+    exit 1
+fi
+
+ORIGINAL_DESC=$(get_field "$IFACE_DATA" "description")
+echo "Original Description: '$ORIGINAL_DESC'"
+
+# 5. Trigger pending changes with a harmless update
+echo "Updating interface description to create pending transaction..."
+midclt call interface.update "$INTERFACE" "{\"description\":\"$TEMP_DESC\"}"
+
+PENDING=$(midclt call interface.has_pending_changes 2&gt;/dev/null)
+if [[ "$PENDING" != "true" ]]; then
+    echo "ERROR: interface.update did not create pending changes. Aborting."
+    exit 1
+fi
+echo "Pending changes: $PENDING"
+
+# 6. Inject configured gateway into pending transaction
+echo "Saving default route to pending transaction..."
+midclt call interface.save_default_route "$CONFIGURED_GW"
+
+# 7. Commit with automatic rollback protection
+echo "Committing interface changes (rollback=true, checkin_timeout=60)..."
+midclt call interface.commit '{"rollback":true,"checkin_timeout":60}'
+
+# 8. Verify kernel route
+echo "Verifying default route..."
+sleep 2
+ROUTE_OUTPUT=$(ip -4 route show default 2&gt;/dev/null || true)
+if ! echo "$ROUTE_OUTPUT" | grep -q "via $CONFIGURED_GW dev $INTERFACE"; then
+    echo "WARNING: Default route not found immediately. Dumping system routes for inspection:"
+    midclt call route.system_routes | python3 -m json.tool
+else
+    echo "Default route confirmed: $ROUTE_OUTPUT"
+fi
+
+# 9. Confirm changes (cancel rollback)
+echo "Confirming changes (checkin)..."
+midclt call interface.checkin
+
+# 10. Restore original description (second transaction)
+echo "Restoring original description..."
+midclt call interface.update "$INTERFACE" "{\"description\":\"$ORIGINAL_DESC\"}"
+midclt call interface.commit '{"rollback":true,"checkin_timeout":60}'
+midclt call interface.checkin
+
+# 11. Final verification
+echo "=== Final Verification ==="
+FINAL_NET_JSON=$(midclt_json network.configuration.config)
+FINAL_CONFIG_GW=$(get_field "$FINAL_NET_JSON" "ipv4gateway")
+FINAL_RUNTIME_GW=$(get_field "$FINAL_NET_JSON" "state.ipv4gateway")
+
+echo "Configured Gateway: '$FINAL_CONFIG_GW'"
+echo "Runtime Gateway:    '$FINAL_RUNTIME_GW'"
+
+if [[ "$FINAL_CONFIG_GW" == "$FINAL_RUNTIME_GW" &amp;&amp; -n "$FINAL_RUNTIME_GW" ]]; then
+    echo "SUCCESS: Runtime gateway now matches configured gateway."
+    exit 0
+else
+    echo "FAILURE: Gateways still do not match. Manual intervention required."
+    exit 1
+fi</code></pre></div><footer class="content__footer"><div class="content__tag-share"><div class="content__tag"><h3 class="content__tag__title">Posted in</h3><ul class="content__tag__list"><li><a href="https://korgano.github.io/tags/pc/">PC</a></li><li><a href="https://korgano.github.io/tags/quick-thoughts/">Quick Thoughts</a></li><li><a href="https://korgano.github.io/tags/tech/">Tech</a></li></ul></div><div class="content__share"><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fkorgano.github.io%2Fquick-thoughts-truenas-2504-restoring-default-route%2F" class="js-share linkedin" aria-label="Share with LinkedIn" rel="nofollow noopener noreferrer"><svg><use xlink:href="https://korgano.github.io/assets/svg/svg-map.svg#linkedin"/></svg></a></div></div></footer></div></article><div class="content__related"><h3 class="content__related__title">Related posts</h3><div class="l-grid l-grid--2"><article class="c-card"><div class="c-card__wrapper"><figure class="c-card__image is-img-loading"><img src="https://korgano.github.io/media/posts/25/unknown_2024.10.07-16.38.png" srcset="https://korgano.github.io/media/posts/25/responsive/unknown_2024.10.07-16.38-xs.png 384w, https://korgano.github.io/media/posts/25/responsive/unknown_2024.10.07-16.38-sm.png 600w, https://korgano.github.io/media/posts/25/responsive/unknown_2024.10.07-16.38-md.png 768w, https://korgano.github.io/media/posts/25/responsive/unknown_2024.10.07-16.38-lg.png 1200w" sizes="(min-width: 37.5em) 80vw, 50vw" loading="lazy" height="1080" width="1920" alt="A successful execution of Unreal Engine 4 UCAS/UTOC packing via Tuw GUI"></figure><div class="c-card__content"><header><h2 class="c-card__title"><a href="https://korgano.github.io/quick-cyber-thoughts-tuw-gui-wrapper/" class="invert">Quick Cyber Thoughts: Tuw GUI Wrapper</a></h2></header><footer class="c-card__meta"><a href="https://korgano.github.io/tags/quick-thoughts/" class="c-card__tag">Quick Thoughts</a></footer></div></div></article><article class="c-card"><div class="c-card__wrapper"><figure class="c-card__image is-img-loading"><img src="https://korgano.github.io/media/posts/24/chatgpt-jank.png" srcset="https://korgano.github.io/media/posts/24/responsive/chatgpt-jank-xs.png 384w, https://korgano.github.io/media/posts/24/responsive/chatgpt-jank-sm.png 600w, https://korgano.github.io/media/posts/24/responsive/chatgpt-jank-md.png 768w, https://korgano.github.io/media/posts/24/responsive/chatgpt-jank-lg.png 1200w" sizes="(min-width: 37.5em) 80vw, 50vw" loading="lazy" height="952" width="1920" alt="ChatGPT web interface that cannot connect to ChatGPT/OpenAI servers."></figure><div class="c-card__content"><header><h2 class="c-card__title"><a href="https://korgano.github.io/quick-cyber-thoughts-more-reasons-for-local-ai/" class="invert">Quick Cyber Thoughts: More Reasons for Local AI</a></h2></header><footer class="c-card__meta"><a href="https://korgano.github.io/tags/quick-thoughts/" class="c-card__tag">Quick Thoughts</a></footer></div></div></article></div></div></main><footer class="footer"><div class="footer__left"><div class="footer__copy">Copyright Xavier Santana, 2023-2025. Powered by Publii.</div></div><button onclick="backToTopFunction()" id="backToTop" class="footer__bttop" aria-label="Back to top" title="Back to top"><svg><use xlink:href="https://korgano.github.io/assets/svg/svg-map.svg#toparrow"/></svg></button></footer></div><script>window.publiiThemeMenuConfig = { mobileMenuMode: 'sidebar', animationSpeed: 300, submenuWidth: 'auto', doubleClickTime: 500, mobileMenuExpandableSubmenus: true, relatedContainerForOverlayMenuSelector: '.navbar', };</script><script defer="defer" src="https://korgano.github.io/assets/js/scripts.min.js?v&#x3D;9c5ab7a87221183f149a42b3cceb7956"></script><script>function publiiDetectLoadedImages () {
+         var images = document.querySelectorAll('img[loading]:not(.is-loaded)');
+         for (var i = 0; i < images.length; i++) {
+            if (images[i].complete) {
+               images[i].classList.add('is-loaded');
+               images[i].parentNode.classList.remove('is-img-loading');
+            } else {
+               images[i].addEventListener('load', function () {
+                  this.classList.add('is-loaded');
+                  this.parentNode.classList.remove('is-img-loading');
+               }, false);
+            }
+         }
+      }
+      publiiDetectLoadedImages();</script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-line-numbers.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/clipboard.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-copy-to-clipboard.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-inline-color.min.js"></script><script defer="defer" src="https://korgano.github.io/media/plugins/syntaxHighlighter/prism-show-invisibles.min.js"></script><!-- Start main cookie container --><div class="pcb" data-behaviour="badge" data-behaviour-link="#cookie-settings" data-revision="1" data-config-ttl="90" data-debug-mode="false"><!-- Start Banner --><div role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pcb-title" aria-describedby="pcb-txt" class="pcb__banner"><div class="pcb__inner"><div id="pcb-title" role="heading" aria-level="2" class="pcb__title">This website uses cookies</div><div id="pcb-txt" class="pcb__txt">Select which cookies to opt-in to via the checkboxes below; our website uses cookies to examine site traffic and user activity while on our site, for marketing, and to provide social media functionality. <a href="https://korgano.github.io/privacy-policy/">More details...</a></div><div class="pcb__buttons"><button type="button" class="pcb__btn pcb__btn--solid pcb__btn--accept">Accept all</button></div></div></div><!-- End of Banner --><!-- Badge --> <button class="pcb__badge" aria-label="Cookie Policy" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="40" height="40" viewBox="0 0 23 23" fill="currentColor"><path d="M21.41 12.71c-.08-.01-.15 0-.22 0h-.03c-.03 0-.05 0-.08.01-.07 0-.13.01-.19.04-.52.21-1.44.19-2.02-.22-.44-.31-.65-.83-.62-1.53a.758.758 0 0 0-.27-.61.73.73 0 0 0-.65-.14c-1.98.51-3.49.23-4.26-.78-.82-1.08-.73-2.89.24-4.49.14-.23.14-.52 0-.75a.756.756 0 0 0-.67-.36c-.64.03-1.11-.1-1.31-.35-.19-.26-.13-.71-.01-1.29.04-.18.06-.38.03-.59-.05-.4-.4-.7-.81-.66C5.1 1.54 1 6.04 1 11.48 1 17.28 5.75 22 11.6 22c5.02 0 9.39-3.54 10.39-8.42.08-.4-.18-.78-.58-.87Zm-9.81 7.82c-5.03 0-9.12-4.06-9.12-9.06 0-4.34 3.05-8 7.25-8.86-.08.7.05 1.33.42 1.81.24.32.66.67 1.38.84-.76 1.86-.65 3.78.36 5.11.61.81 2.03 2 4.95 1.51.18.96.71 1.54 1.18 1.87.62.43 1.38.62 2.1.62.05 0 .09 0 .13-.01-1.23 3.64-4.7 6.18-8.64 6.18ZM13 17c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1Zm5.29-12.3a.99.99 0 0 1-.29-.71c0-.55.45-.99 1-.99a1 1 0 0 1 .71.3c.19.19.29.44.29.71 0 .55-.45.99-1 .99a1 1 0 0 1-.71-.3ZM9 13.5c0 .83-.67 1.5-1.5 1.5S6 14.33 6 13.5 6.67 12 7.5 12s1.5.67 1.5 1.5Zm3.25.81a.744.744 0 0 1-.06-1.05c.28-.32.75-.34 1.05-.06.31.28.33.75.05 1.06-.15.16-.35.25-.56.25-.18 0-.36-.06-.5-.19ZM8.68 7.26c.41.37.44 1 .07 1.41-.2.22-.47.33-.75.33a.96.96 0 0 1-.67-.26c-.41-.37-.44-1-.07-1.41.37-.42 1-.45 1.41-.08Zm11.48 1.88c.18-.19.52-.19.7 0 .05.04.09.1.11.16.03.06.04.12.04.19 0 .13-.05.26-.15.35-.09.1-.22.15-.35.15s-.26-.05-.35-.15a.355.355 0 0 1-.11-.16.433.433 0 0 1-.04-.19c0-.13.05-.26.15-.35Zm-4.93-1.86a.75.75 0 1 1 1.059-1.06.75.75 0 0 1-1.059 1.06Z"/></svg></button><!-- End of Badge --></div><!-- End of main cookie container --><script>(function(win) {
+    if (!document.querySelector('.pcb')) {
+        return;
+    }
+
+    var cbConfig = {
+        behaviour: document.querySelector('.pcb').getAttribute('data-behaviour'),
+        behaviourLink: document.querySelector('.pcb').getAttribute('data-behaviour-link'),
+        revision: document.querySelector('.pcb').getAttribute('data-revision'),
+        configTTL: parseInt(document.querySelector('.pcb').getAttribute('data-config-ttl'), 10),
+        debugMode: document.querySelector('.pcb').getAttribute('data-debug-mode') === 'true',
+        initialState: null,
+        initialLsState: null,
+        previouslyAccepted: []
+    };
+
+    var cbUI = {
+        wrapper: document.querySelector('.pcb'),
+        banner: {
+            element: null,
+            btnAccept: null,
+            btnReject: null,
+            btnConfigure: null
+        },
+        popup: {
+            element: null,
+            btnClose: null,
+            btnSave: null,
+            btnAccept: null,
+            btnReject: null,
+            checkboxes: null,
+        },
+        overlay: null,
+        badge: null,
+        blockedScripts: document.querySelectorAll('script[type^="gdpr-blocker/"]'),
+        triggerLinks: cbConfig.behaviourLink ? document.querySelectorAll('a[href*="' + cbConfig.behaviourLink + '"]') : null
+    };
+
+    function initUI () {
+        // setup banner elements
+        cbUI.banner.element = cbUI.wrapper.querySelector('.pcb__banner');
+        cbUI.banner.btnAccept = cbUI.banner.element.querySelector('.pcb__btn--accept');
+        cbUI.banner.btnReject = cbUI.banner.element.querySelector('.pcb__btn--reject');
+        cbUI.banner.btnConfigure = cbUI.banner.element.querySelector('.pcb__btn--configure');
+
+        // setup popup elements
+        if (cbUI.wrapper.querySelector('.pcb__popup')) {
+            cbUI.popup.element = cbUI.wrapper.querySelector('.pcb__popup');
+            cbUI.popup.btnClose = cbUI.wrapper.querySelector('.pcb__popup__close');
+            cbUI.popup.btnSave = cbUI.popup.element.querySelector('.pcb__btn--save');
+            cbUI.popup.btnAccept = cbUI.popup.element.querySelector('.pcb__btn--accept');
+            cbUI.popup.btnReject = cbUI.popup.element.querySelector('.pcb__btn--reject');
+            cbUI.popup.checkboxes = cbUI.popup.element.querySelector('input[type="checkbox"]');
+            // setup overlay
+            cbUI.overlay = cbUI.wrapper.querySelector('.pcb__overlay');
+        }
+
+        cbUI.badge = cbUI.wrapper.querySelector('.pcb__badge');
+
+        if (cbConfig.behaviour.indexOf('link') > -1) {
+            for (var i = 0; i < cbUI.triggerLinks.length; i++) {
+                cbUI.triggerLinks[i].addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showBannerOrPopup();
+                });
+            }
+        }
+    }
+
+    function initState () {
+        var lsKeyName = getConfigName();
+        var currentConfig = localStorage.getItem(lsKeyName);
+        var configIsFresh = checkIfConfigIsFresh();
+
+        if (!configIsFresh || currentConfig === null) {
+            if (cbConfig.debugMode) {
+                console.log('🍪 Config not found, or configuration expired');
+            }
+
+            if (window.publiiCBGCM) {
+                gtag('consent', 'default', {
+                    'ad_storage': window.publiiCBGCM.defaultState.ad_storage ? 'granted' : 'denied',
+                    'ad_personalization': window.publiiCBGCM.defaultState.ad_personalization ? 'granted' : 'denied',
+                    'ad_user_data': window.publiiCBGCM.defaultState.ad_user_data ? 'granted' : 'denied',
+                    'analytics_storage': window.publiiCBGCM.defaultState.analytics_storage ? 'granted' : 'denied',
+                    'personalization_storage': window.publiiCBGCM.defaultState.personalization_storage ? 'granted' : 'denied',
+                    'functionality_storage': window.publiiCBGCM.defaultState.functionality_storage ? 'granted' : 'denied',
+                    'security_storage': window.publiiCBGCM.defaultState.security_storage ? 'granted' : 'denied'
+                });  
+                
+                if (cbConfig.debugMode) {
+                    console.log('🍪 GCMv2 DEFAULT STATE: ' + JSON.stringify({
+                        'ad_storage': window.publiiCBGCM.defaultState.ad_storage ? 'granted' : 'denied',
+                        'ad_personalization': window.publiiCBGCM.defaultState.ad_personalization ? 'granted' : 'denied',
+                        'ad_user_data': window.publiiCBGCM.defaultState.ad_user_data ? 'granted' : 'denied',
+                        'analytics_storage': window.publiiCBGCM.defaultState.analytics_storage ? 'granted' : 'denied',
+                        'personalization_storage': window.publiiCBGCM.defaultState.personalization_storage ? 'granted' : 'denied',
+                        'functionality_storage': window.publiiCBGCM.defaultState.functionality_storage ? 'granted' : 'denied',
+                        'security_storage': window.publiiCBGCM.defaultState.security_storage ? 'granted' : 'denied'
+                    }));
+                }
+            }
+
+            showBanner();
+        } else if (typeof currentConfig === 'string') {
+            if (cbConfig.debugMode) {
+                console.log('🍪 Config founded');
+            }
+
+            cbConfig.initialLsState = currentConfig.split(',');
+
+            if (window.publiiCBGCM) {
+                gtag('consent', 'default', {
+                    'ad_storage': getDefaultConsentState(currentConfig, 'ad_storage'),
+                    'ad_personalization': getDefaultConsentState(currentConfig, 'ad_personalization'),
+                    'ad_user_data': getDefaultConsentState(currentConfig, 'ad_user_data'),
+                    'analytics_storage': getDefaultConsentState(currentConfig, 'analytics_storage'),
+                    'personalization_storage': getDefaultConsentState(currentConfig, 'personalization_storage'),
+                    'functionality_storage': getDefaultConsentState(currentConfig, 'functionality_storage'),
+                    'security_storage': getDefaultConsentState(currentConfig, 'security_storage')
+                });
+                
+                if (cbConfig.debugMode) {
+                    console.log('🍪 GCMv2 DEFAULT STATE: ' + JSON.stringify({
+                        'ad_storage': getDefaultConsentState(currentConfig, 'ad_storage'),
+                        'ad_personalization': getDefaultConsentState(currentConfig, 'ad_personalization'),
+                        'ad_user_data': getDefaultConsentState(currentConfig, 'ad_user_data'),
+                        'analytics_storage': getDefaultConsentState(currentConfig, 'analytics_storage'),
+                        'personalization_storage': getDefaultConsentState(currentConfig, 'personalization_storage'),
+                        'functionality_storage': getDefaultConsentState(currentConfig, 'functionality_storage'),
+                        'security_storage': getDefaultConsentState(currentConfig, 'security_storage')
+                    }));
+                }
+            }
+
+            showBadge();
+
+            if (cbUI.popup.element) {
+                var allowedGroups = currentConfig.split(',');
+                var checkedCheckboxes = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+
+                for (var j = 0; j < checkedCheckboxes.length; j++) {
+                    var name = checkedCheckboxes[j].getAttribute('data-group-name');
+
+                    if (name && name !== '-' && allowedGroups.indexOf(name) === -1) {
+                        checkedCheckboxes[j].checked = false;
+                    }
+                }
+
+                for (var i = 0; i < allowedGroups.length; i++) {
+                    var checkbox = cbUI.popup.element.querySelector('input[type="checkbox"][data-group-name="' + allowedGroups[i] + '"]');
+
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+
+                    allowCookieGroup(allowedGroups[i]);
+                }
+            }
+        }
+
+        setTimeout(function () {
+            cbConfig.initialState = getInitialStateOfConsents();
+        }, 0);
+    }
+
+    function checkIfConfigIsFresh () {
+        var lastConfigSave = localStorage.getItem('publii-gdpr-cookies-config-save-date');
+
+        if (lastConfigSave === null) {
+            return false;
+        }
+
+        lastConfigSave = parseInt(lastConfigSave, 10);
+
+        if (lastConfigSave === 0) {
+            return true;
+        }
+
+        if (+new Date() - lastConfigSave < cbConfig.configTTL * 24 * 60 * 60 * 1000) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function getDefaultConsentState (currentConfig, consentGroup) {
+        let configGroups = currentConfig.split(',');
+
+        for (let i = 0; i < configGroups.length; i++) {
+            let groupName = configGroups[i];
+            let group = window.publiiCBGCM.groups.find(group => group.cookieGroup === groupName);
+
+            if (group && group[consentGroup]) {
+                return 'granted';
+            }
+        }  
+        
+        if (window.publiiCBGCM.defaultState[consentGroup]) {
+            return 'granted'; 
+        }
+        
+        return 'denied';
+    }
+
+    function initBannerEvents () {
+        cbUI.banner.btnAccept.addEventListener('click', function (e) {
+            e.preventDefault();
+            acceptAllCookies('banner');
+            showBadge();
+        }, false);
+
+        if (cbUI.banner.btnReject) {
+            cbUI.banner.btnReject.addEventListener('click', function (e) {
+                e.preventDefault();
+                rejectAllCookies();
+                showBadge();
+            }, false);
+        }
+
+        if (cbUI.banner.btnConfigure) {
+            cbUI.banner.btnConfigure.addEventListener('click', function (e) {
+                e.preventDefault();
+                hideBanner();
+                showAdvancedPopup();
+                showBadge();
+            }, false);
+        }
+    }
+
+    function initPopupEvents () {
+        if (!cbUI.popup.element) {
+            return;
+        }
+
+        cbUI.overlay.addEventListener('click', function (e) {
+            hideAdvancedPopup();
+        }, false);
+
+        cbUI.popup.element.addEventListener('click', function (e) {
+            e.stopPropagation();
+        }, false);
+
+        cbUI.popup.btnAccept.addEventListener('click', function (e) {
+            e.preventDefault();
+            acceptAllCookies('popup');
+        }, false);
+
+        cbUI.popup.btnReject.addEventListener('click', function (e) {
+            e.preventDefault();
+            rejectAllCookies();
+        }, false);
+
+        cbUI.popup.btnSave.addEventListener('click', function (e) {
+            e.preventDefault();
+            saveConfiguration();
+        }, false);
+
+        cbUI.popup.btnClose.addEventListener('click', function (e) {
+            e.preventDefault();
+            hideAdvancedPopup();
+        }, false);
+    }
+
+    function initBadgeEvents () {
+        if (!cbUI.badge) {
+            return;
+        }
+
+        cbUI.badge.addEventListener('click', function (e) {
+            showBannerOrPopup();
+        }, false);
+    }
+
+    initUI();
+    initState();
+    initBannerEvents();
+    initPopupEvents();
+    initBadgeEvents();
+
+    /**
+     * API
+     */
+    function addScript (src, inline) {
+        var newScript = document.createElement('script');
+
+        if (src) {
+            newScript.setAttribute('src', src);
+        }
+
+        if (inline) {
+            newScript.text = inline;
+        }
+
+        document.body.appendChild(newScript);
+    }
+
+    function allowCookieGroup (allowedGroup) {
+        var scripts = document.querySelectorAll('script[type="gdpr-blocker/' + allowedGroup + '"]');
+        cbConfig.previouslyAccepted.push(allowedGroup);
+    
+        for (var j = 0; j < scripts.length; j++) {
+            addScript(scripts[j].src, scripts[j].text);
+        }
+
+        var groupEvent = new Event('publii-cookie-banner-unblock-' + allowedGroup);
+        document.body.dispatchEvent(groupEvent);
+        unlockEmbeds(allowedGroup);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Allowed group: ' + allowedGroup);
+        }
+
+        if (window.publiiCBGCM && (!cbConfig.initialLsState || cbConfig.initialLsState.indexOf(allowedGroup) === -1)) {
+            let consentResult = {};
+            let group = window.publiiCBGCM.groups.find(group => group.cookieGroup === allowedGroup);
+
+            if (group) {
+                let foundSomeConsents = false;
+
+                Object.keys(group).forEach(key => {
+                    if (key !== 'cookieGroup' && group[key] === true) {
+                        consentResult[key] = 'granted';
+                        foundSomeConsents = true;
+                    }
+                });
+
+                if (foundSomeConsents) {
+                    gtag('consent', 'update', consentResult);   
+
+                    if (cbConfig.debugMode) {
+                        console.log('🍪 GCMv2 UPDATE: ' + JSON.stringify(consentResult));
+                    }
+                }
+            }
+        }
+    }
+
+    function showBannerOrPopup () {
+        if (cbUI.popup.element) {
+            showAdvancedPopup();
+        } else {
+            showBanner();
+        }
+    }
+
+    function showAdvancedPopup () {
+        cbUI.popup.element.classList.add('is-visible');
+        cbUI.overlay.classList.add('is-visible');
+        cbUI.popup.element.setAttribute('aria-hidden', 'false');
+        cbUI.overlay.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideAdvancedPopup () {
+        cbUI.popup.element.classList.remove('is-visible');
+        cbUI.overlay.classList.remove('is-visible');
+        cbUI.popup.element.setAttribute('aria-hidden', 'true');
+        cbUI.overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    function showBanner () {
+        cbUI.banner.element.classList.add('is-visible');
+        cbUI.banner.element.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideBanner () {
+        cbUI.banner.element.classList.remove('is-visible');
+        cbUI.banner.element.setAttribute('aria-hidden', 'true');
+    }
+
+    function showBadge () {
+        if (!cbUI.badge) {
+            return;
+        }
+
+        cbUI.badge.classList.add('is-visible');
+        cbUI.badge.setAttribute('aria-hidden', 'false');
+    }
+
+    function getConfigName () {
+        var lsKeyName = 'publii-gdpr-allowed-cookies';
+
+        if (cbConfig.revision) {
+            lsKeyName = lsKeyName + '-v' + parseInt(cbConfig.revision, 10);
+        }
+
+        return lsKeyName;
+    }
+
+    function storeConfiguration (allowedGroups) {
+        var lsKeyName = getConfigName();
+        var dataToStore = allowedGroups.join(',');
+        localStorage.setItem(lsKeyName, dataToStore);
+
+        if (cbConfig.configTTL === 0) {
+            localStorage.setItem('publii-gdpr-cookies-config-save-date', 0);
+
+            if (cbConfig.debugMode) {
+                console.log('🍪 Store never expiring configuration');
+            }
+        } else {
+            localStorage.setItem('publii-gdpr-cookies-config-save-date', +new Date());
+        }
+    }
+
+    function getInitialStateOfConsents () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Initial state: ' + groups.join(', '));
+        }
+
+        return groups;
+    }
+
+    function getCurrentStateOfConsents () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]:checked');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 State to save: ' + groups.join(', '));
+        }
+
+        return groups;
+    }
+
+    function getAllGroups () {
+        if (!cbUI.popup.element) {
+            return [];
+        }
+
+        var checkedGroups = cbUI.popup.element.querySelectorAll('input[type="checkbox"]');
+        var groups = [];
+
+        for (var i = 0; i < checkedGroups.length; i++) {
+            var allowedGroup = checkedGroups[i].getAttribute('data-group-name');
+
+            if (allowedGroup !== '') {
+                groups.push(allowedGroup);
+            }
+        }
+
+        return groups;
+    }
+
+    function acceptAllCookies (source) {
+        var groupsToAccept = getAllGroups();
+        storeConfiguration(groupsToAccept);
+
+        for (var i = 0; i < groupsToAccept.length; i++) {
+            var group = groupsToAccept[i];
+
+            if (cbConfig.initialState.indexOf(group) > -1 || cbConfig.previouslyAccepted.indexOf(group) > -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Skip previously activated group: ' + group);
+                }
+
+                continue;
+            }
+
+            allowCookieGroup(group);
+        }
+
+        if (cbUI.popup.element) {
+            var checkboxesToCheck = cbUI.popup.element.querySelectorAll('input[type="checkbox"]');
+
+            for (var j = 0; j < checkboxesToCheck.length; j++) {
+                checkboxesToCheck[j].checked = true;
+            }
+        }
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Accept all cookies: ', groupsToAccept.join(', '));
+        }
+
+        if (source === 'popup') {
+            hideAdvancedPopup();
+        } else if (source === 'banner') {
+            hideBanner();
+        }
+    }
+
+    function rejectAllCookies () {
+        if (cbConfig.debugMode) {
+            console.log('🍪 Reject all cookies');
+        }
+
+        storeConfiguration([]);
+        setTimeout(function () {
+            window.location.reload();
+        }, 100);
+    }
+
+    function saveConfiguration () {
+        var groupsToAccept = getCurrentStateOfConsents();
+        storeConfiguration(groupsToAccept);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Save new config: ', groupsToAccept.join(', '));
+        }
+
+        if (reloadIsNeeded(groupsToAccept)) {
+            setTimeout(function () {
+                window.location.reload();
+            }, 100);
+            return;
+        }
+
+        for (var i = 0; i < groupsToAccept.length; i++) {
+            var group = groupsToAccept[i];
+
+            if (cbConfig.initialState.indexOf(group) > -1 || cbConfig.previouslyAccepted.indexOf(group) > -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Skip previously activated group: ' + group);
+                }
+
+                continue;
+            }
+
+            allowCookieGroup(group);
+        }
+
+        hideAdvancedPopup();
+    }
+
+    function reloadIsNeeded (groupsToAccept) {
+        // check if user rejected consent for initial groups
+        var initialGroups = cbConfig.initialState;
+        var previouslyAcceptedGroups = cbConfig.previouslyAccepted;
+        var groupsToCheck = initialGroups.concat(previouslyAcceptedGroups);
+
+        for (var i = 0; i < groupsToCheck.length; i++) {
+            var groupToCheck = groupsToCheck[i];
+
+            if (groupToCheck !== '' && groupsToAccept.indexOf(groupToCheck) === -1) {
+                if (cbConfig.debugMode) {
+                    console.log('🍪 Reload is needed due lack of: ', groupToCheck);
+                }
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    function unlockEmbeds (cookieGroup) {
+        var iframesToUnlock = document.querySelectorAll('.pec-wrapper[data-consent-group-id="' + cookieGroup + '"]');
+
+        for (var i = 0; i < iframesToUnlock.length; i++) {
+            var iframeWrapper = iframesToUnlock[i];
+            iframeWrapper.querySelector('.pec-overlay').classList.remove('is-active');
+            iframeWrapper.querySelector('.pec-overlay').setAttribute('aria-hidden', 'true');
+            var iframe = iframeWrapper.querySelector('iframe');
+            iframe.setAttribute('src', iframe.getAttribute('data-consent-src'));
+        }
+    }
+
+    win.publiiEmbedConsentGiven = function (cookieGroup) {
+        // it will unlock embeds
+        allowCookieGroup(cookieGroup);
+
+        var checkbox = cbUI.popup.element.querySelector('input[type="checkbox"][data-group-name="' + cookieGroup + '"]');
+
+        if (checkbox) {
+            checkbox.checked = true;
+        }
+
+        var groupsToAccept = getCurrentStateOfConsents();
+        storeConfiguration(groupsToAccept);
+
+        if (cbConfig.debugMode) {
+            console.log('🍪 Save new config: ', groupsToAccept.join(', '));
+        }
+    }
+})(window);</script></body></html>
