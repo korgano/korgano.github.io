@@ -708,6 +708,9 @@
 <loc>https://korgano.github.io/page/6/</loc>
 </url>
 <url>
+<loc>https://korgano.github.io/page/7/</loc>
+</url>
+<url>
 <loc>https://korgano.github.io/privacy-policy/</loc>
 <lastmod>2023-09-14T11:00:07-04:00</lastmod>
 </url>
@@ -937,6 +940,74 @@
 <image:image>
 <image:loc>https://korgano.github.io/media/posts/55/rtl28127-006.png</image:loc>
 <image:title><![CDATA[Init/Shutdown Script Interface, with Command and Post Init values set.]]></image:title>
+</image:image>
+</url>
+<url>
+<loc>https://korgano.github.io/quick-training-thoughts-cisco-network-academy-ccna/</loc>
+<lastmod>2026-11-11T11:32:12-05:00</lastmod>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/57/ccna-002.png</image:loc>
+<image:title><![CDATA[Cisco Network Academy Enterprise Networking, Security, and Automation Supplement page]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/57/ccna-008.png</image:loc>
+<image:title><![CDATA[Cisco Network Academy Syntax Checker interface]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/57/ccna-001.png</image:loc>
+<image:title><![CDATA[Cisco Packet Tracer Exercise to document network and fix problems.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/57/CCNA-graphic-m03-008.png</image:loc>
+<image:title><![CDATA[An example chart that could be easily copyable text.]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/57/gallery/ccna-007a-thumbnail.png</image:loc>
+<image:title><![CDATA[Course Survey Question 1]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/57/gallery/ccna-007b-thumbnail.png</image:loc>
+<image:title><![CDATA[Course Survey Question 2]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/57/gallery/ccna-007c-thumbnail.png</image:loc>
+<image:title><![CDATA[Course Survey Question 3]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/57/gallery/ccna-007d-thumbnail.png</image:loc>
+<image:title><![CDATA[Course Survey Question 4]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/57/gallery/ccna-007e-thumbnail.png</image:loc>
+<image:title><![CDATA[Course Survey Question 5]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/57/gallery/ccna-007f-thumbnail.png</image:loc>
+<image:title><![CDATA[Course Survey Question 6]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/57/gallery/ccna-007g-thumbnail.png</image:loc>
+<image:title><![CDATA[Course Survey Question 7]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/57/gallery/ccna-007h-thumbnail.png</image:loc>
+<image:title><![CDATA[Course Survey Question 8]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/57/gallery/ccna-007i-thumbnail.png</image:loc>
+<image:title><![CDATA[Course Survey Question 9]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/57/gallery/ccna-007j-thumbnail.png</image:loc>
+<image:title><![CDATA[Course Survey Question 10]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/57/ccna-005.png</image:loc>
+<image:title><![CDATA[Packet Tracer Exam feedback part 1]]></image:title>
+</image:image>
+<image:image>
+<image:loc>https://korgano.github.io/media/posts/57/ccna-006.png</image:loc>
+<image:title><![CDATA[Packet Tracer Exam feedback part 2]]></image:title>
 </image:image>
 </url>
 <url>

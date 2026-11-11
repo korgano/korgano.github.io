@@ -3,12 +3,301 @@
     <title>XS Tech Thoughts</title>
     <link href="https://korgano.github.io/feed.xml" rel="self" />
     <link href="https://korgano.github.io" />
-    <updated>2026-08-21T15:39:52-04:00</updated>
+    <updated>2026-11-11T11:32:12-05:00</updated>
     <author>
         <name>Xavier Santana</name>
     </author>
     <id>https://korgano.github.io</id>
 
+    <entry>
+        <title>Quick Training Thoughts: Cisco Network Academy (CCNA)</title>
+        <author>
+            <name>Xavier Santana</name>
+        </author>
+        <link href="https://korgano.github.io/quick-training-thoughts-cisco-network-academy-ccna/"/>
+        <id>https://korgano.github.io/quick-training-thoughts-cisco-network-academy-ccna/</id>
+        <media:content url="https://korgano.github.io/media/posts/57/ccna-002.png" medium="image" />
+            <category term="Tech"/>
+            <category term="Quick Thoughts"/>
+
+        <updated>2026-09-21T07:18:53-04:00</updated>
+            <summary type="html">
+                <![CDATA[
+                        <img src="https://korgano.github.io/media/posts/57/ccna-002.png" alt="Cisco Network Academy Enterprise Networking, Security, and Automation Supplement page" />
+                    Author's note: Originally written September 2026. Posting was delayed due to Publii posting issues. For the past 9 months, I've&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://korgano.github.io/media/posts/57/ccna-002.png" class="type:primaryImage" alt="Cisco Network Academy Enterprise Networking, Security, and Automation Supplement page" /></p>
+                <p><strong>Author's note: </strong>Originally written September 2026. Posting was delayed due to Publii posting issues.</p>
+<p>For the past 9 months, I've been grinding away at Cisco Network Academy's three part CCNA course. Why? Because I saw a graphic showing that the CCNA, plus two certificates I already had, the CompTIAA Network+ and Security+, were great qualifiers for a cybersecurity network engineer.</p>
+<p>Having finally completed that grueling marathon, I'll talk about what I liked, didn't like, and some tips for prospective students.</p>
+<div class="post__toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#mcetoc_1k31s7kph4">What I liked</a>
+<ul>
+<li><a href="#mcetoc_1k31v4lt8ct">User Driven Pacing</a></li>
+<li><a href="#mcetoc_1k31v4lt8cu">IOS Command Practice</a></li>
+<li><a href="#mcetoc_1k31v4lt8cv">Packet Tracer Exercises</a></li>
+<li><a href="#mcetoc_1k31v4lt8d0">Unlimited Retries</a></li>
+</ul>
+</li>
+<li><a href="#mcetoc_1k31v4lt8d1">What I Didn't Like</a>
+<ul>
+<li><a href="#mcetoc_1k31v4lt8d2">Academic Prose</a></li>
+<li><a href="#mcetoc_1k31v4lt8d3">Gaps in Interactivity</a></li>
+<li><a href="#mcetoc_1k31v4lt8d4">Not Being Able to Copy Text</a></li>
+<li><a href="#mcetoc_1k31v4lt8d5">Quiz/Exam Errors</a></li>
+<li><a href="#mcetoc_1k34kb1jt1ae">Packet Tracer Exam Timers</a></li>
+<li><a href="#mcetoc_1k34kb1jt1af">The Course Survey</a></li>
+</ul>
+</li>
+<li><a href="#mcetoc_1k31v4lt8d6">Tips for Prospective Students</a>
+<ul>
+<li><a href="#mcetoc_1k31v4lt8d7">Pace Yourself</a></li>
+<li><a href="#mcetoc_1k31v4lt8d8">Download the Practice Exams</a></li>
+<li><a href="#mcetoc_1k31v4lt8d9">Do the Final Twice</a></li>
+<li><a href="#mcetoc_1k31v4lt8da">Write Down the IOS Commands</a></li>
+</ul>
+</li>
+<li><a href="#mcetoc_1k34kb1jt1ag">Takeaways</a></li>
+</ul>
+</div>
+<h1 id="mcetoc_1k31s7kph4">What I liked</h1>
+<h2 id="mcetoc_1k31v4lt8ct">User Driven Pacing</h2>
+<p>One of the greatest benefits of online only/online primary education schemes is the self-paced nature. You can go as fast or slow as you want/need, instead of being held prisoner by how fast your teacher and/or fellow students can get through the material.</p>
+<p>Now, there's some tips I'll get into later about this, but overall, I'd say it's a positive.</p>
+<p>Cisco Network Academy breaks up the CCNA into three courses. I wound up completing each course in 2.5 to 3 months, with the majority of that time spending 2-3 days per week on the course material. I believe it's easily possible to beat my pace, depending on your circumstances.</p>
+<h2 id="mcetoc_1k31v4lt8cu">IOS Command Practice</h2>
+<p>Another positive is that Network Academy actually has a decent amount of interactivity. One area where that is <strong>greatly </strong>appreciated is Cisco IOS command practice.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/57/ccna-008.png" alt="Cisco Network Academy Syntax Checker interface" width="1920" height="913" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/57/responsive/ccna-008-xs.png 384w ,https://korgano.github.io/media/posts/57/responsive/ccna-008-sm.png 600w ,https://korgano.github.io/media/posts/57/responsive/ccna-008-md.png 768w ,https://korgano.github.io/media/posts/57/responsive/ccna-008-lg.png 1200w ,https://korgano.github.io/media/posts/57/responsive/ccna-008-xl.png 1600w"></figure>
+<p>Cisco IOS is a command line interface operating system for Cisco routers and switches. There are a <strong>multitude </strong>of commands you'll be exposed to throughout each course, and memorizing them definitely helps with the Packet Tracer exercises. One thing that definitely helps with memorization is using the commands, which <strong>doesn't </strong>require the full Packet Tracer experience.</p>
+<p>Syntax Checker is an interactive CLI simulator where you're given a task related to recent lessons. Each task is broken down into multiple steps that require Cisco IOS commands to execute some Cisco device configuration. Crucially, it allows you to reveal what a specific command is, or even the entire set of commands. That means you're <strong>never</strong> going to be trapped in an exercise, unable to complete it.</p>
+<p>Syntax Checker has a few drawbacks though:</p>
+<ol>
+<li>The instructions are contained within the same window as your inputs, so if you get a streak of typos, you're going to have to start scrolling.</li>
+<li>Syntax Checker will <strong>only </strong>accept complete commands and pre-approved abbreviations. Everything else counts as incorrect input.</li>
+</ol>
+<p>Item number 2 on that list is the most frustrating. The problem with CLI is that the longer and more complex your command strings are, the more probable it is that you're going to typo somewhere. Cisco IOS itself actually allows you to use abbreviated versions of the commands without an issue, but Syntax Checker <strong>doesn't</strong>.</p>
+<p>At most, Syntax Checker will allow abbreviations for interfaces. For example, instead of <code>gigabyteethernet 0/0/0</code>, you get told to use <code>g0/0/0</code>. This does save you some time and typos, but you'll probably stumble a few times on new commands.</p>
+<p>My personal recommendation is getting 3 to 5 clean passes on Syntax Checker before moving on. That should make it easier to deal with the next item on the list.</p>
+<h2 id="mcetoc_1k31v4lt8cv">Packet Tracer Exercises</h2>
+<p>Packet Tracer is a free Cisco network simulation program, with the caveat that it requires a Cisco account. Since you're already doing Network Academy, you have an account, which mitigates that headache. Packet Tracer also has a periodic account check, which handles itself automatically.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/57/ccna-001.png" alt="Cisco Packet Tracer Exercise to document network and fix problems." width="1922" height="1030" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/57/responsive/ccna-001-xs.png 384w ,https://korgano.github.io/media/posts/57/responsive/ccna-001-sm.png 600w ,https://korgano.github.io/media/posts/57/responsive/ccna-001-md.png 768w ,https://korgano.github.io/media/posts/57/responsive/ccna-001-lg.png 1200w ,https://korgano.github.io/media/posts/57/responsive/ccna-001-xl.png 1600w"></figure>
+<p>One of the best things about Cisco Network Academy is that you download all the exercises and their instructions, allowing you to keep them forever. This means you can take as much time as you want/need to go through each one, and even return to them years down the line for a refresher.</p>
+<p>(Downloading the PDF is unnecessary, because the Packet Tracer exercise has the instructions built in. <strong>Viewing </strong>the PDF, however, <strong>is </strong>necessary, as part of the Network Academy progress tracking.)</p>
+<p>The exercises also incorporate a progress checker, allowing you to spot check your own work to a degree. It won't give you exact errors, but it'll visibly show if you've gotten something correct or not.</p>
+<p>The most likely thing to trip you up on these exercises, besides forgetting/typo-ing commands, is subnetting. <strong>Many </strong>of the exercises will demand you use the network address of Y subnet of an X subnetted network, and it's <strong>really </strong><strong>easy </strong>to get tripped up here.</p>
+<p>The next most likely thing to trip you up is removing cables in physical mode without resetting the whole exercise. Cisco's Packet Tracer tutorials are pretty terrible, so it's easy to get far along without knowing how to do this. The easiest way I've found is to inspect the front/rear of the switch/router that has a cable connected, click the cable in the interface, then click the pegboard filled with cables.</p>
+<p>Thankfully, there's a lot of Packet Tracer exercise tutorial videos to help you figure out where you went wrong and learn how to do things right.</p>
+<h2 id="mcetoc_1k31v4lt8d0">Unlimited Retries</h2>
+<p>One of the most miserable elements of gaining certificates is that they require a hefty time and/or money investment, and all of that can end in failure.</p>
+<p>So it's actually a relief that Cisco Network Academy gives you unlimited tries on the online portions.</p>
+<p>This shifts the quizzes and exams from "all or nothing, failure is not an option" to a more casual "you think you're up to the challenge?" type engagement. You can bullrush right into them just to see how well you'd do or to discover what your blindspots are. You can take the time to study before each one. All strategies are valid, and you're not penalized for your choice. The only cost is time.</p>
+<p>This includes the practice exams, both the multiple choice exam and the Packet Tracer exam. (There are in fact <strong>multiple </strong>practice Packet Tracer exams, and they're almost always harder than the actual final PT exam.)</p>
+<p>So feel free to take as many shots as you want/need at a challenging quiz/exam!</p>
+<h1 id="mcetoc_1k31v4lt8d1">What I Didn't Like</h1>
+<h2 id="mcetoc_1k31v4lt8d2">Academic Prose</h2>
+<p>If you've read any textbooks, you know what I'm talking about.</p>
+<p>Academic prose is an exhausting thing to read, because it's just slightly too verbose and tends to bury the actually useful information in filler. This is <strong>especially </strong>miserable for people who take handwritten notes like me, because I have to spend time reading the text, figuring out what's actually important, looping back to make sure I don't miss something, and then proceeding.</p>
+<p>Many sections are not that bad, but all it takes is one module where it's mostly academic prose for your momentum to nose dive.</p>
+<p>Even worse, some quiz/exam answers are buried in the academic prose, making getting through the stuff more annoying.</p>
+<p><strong>November 2026 update: </strong>Continuing with more Cisco NetAcademy has convinced me that a better workflow is reading the prose, then using browser inspection or other tools to feed the text to an LLM. This can make a distilled version that's more friendly to your preferred note format.</p>
+<h2 id="mcetoc_1k31v4lt8d3">Gaps in Interactivity</h2>
+<p>No course can be 100% hands on. Everything requires <strong>some </strong>amount of theory and fact-based learning. But two of Network Academy's CCNA courses definitely feel like they can be better balanced.</p>
+<p>The first CCNA course was pretty well balanced, peppering plenty of Syntax Checker and Packet Tracer exercises throughout its length. You never got multiple back-to-back sections of nothing but academic prose, which helped maintain interest and momentum.</p>
+<p>The other two courses feel like <strong>very </strong>brief peaks of interactivity, separated by <strong>massive </strong>valleys of academic prose. This makes it hard to retain IOS skills and knowledge, at least without a practice regimen. For example, there was what felt like a month long gap between Cisco IOS exercises, and it absolutely made reengaging with IOS a miserable experience.</p>
+<p>It's especially annoying because many of the more complex Cisco IOS settings/configurations get way less exercises than the basics. The gaps IOS or even Syntax Checker exercises makes it harder to retain and build on that knowledge. While watching tutorial videos on YouTube can help, it'd be better to not have the problem in the first place.</p>
+<h2 id="mcetoc_1k31v4lt8d4">Not Being Able to Copy Text</h2>
+<p>Cisco Network Academy doesn't let you copy the text of its course material.</p>
+<p>On one hand, understandable, because they presumably spent money within the last decade to update the material.</p>
+<p>On the other hand, so much of its is fluffed up academic prose that it'd be nice to highlight that text, copy it, paste in a word processor, and rewrite it into something readable.</p>
+<p>And yes, that's basically what I do when I make my handwritten notes. But again, it's an annoying and time consuming process that sucks the momentum out of the experience. Whereas copying the text as soon as it loads, pasting it, and editing it as a I read it is a <strong>much </strong>faster process.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/57/CCNA-graphic-m03-008.png" alt="An example chart that could be easily copyable text." width="1347" height="715" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/57/responsive/CCNA-graphic-m03-008-xs.png 384w ,https://korgano.github.io/media/posts/57/responsive/CCNA-graphic-m03-008-sm.png 600w ,https://korgano.github.io/media/posts/57/responsive/CCNA-graphic-m03-008-md.png 768w ,https://korgano.github.io/media/posts/57/responsive/CCNA-graphic-m03-008-lg.png 1200w ,https://korgano.github.io/media/posts/57/responsive/CCNA-graphic-m03-008-xl.png 1600w"></figure>
+<p>Also, being able to copy the text would hopefully mean being able to copy the many text charts in the material. I wound up making almost <strong>80 </strong>screen captures of charts and infographics for the third course <strong>alone</strong>. I also can't make a digital version of my notes unless I go through a time consuming OCR process. If I'd been able to copy the notes from the site, I could've easily made myself an eBook, put on my phone and other devices, and referenced it whenever I wanted.</p>
+<h2 id="mcetoc_1k31v4lt8d5">Quiz/Exam Errors</h2>
+<p>There's nothing more annoying than taking a quiz or test, answering with what you <strong>know </strong>the text says is the right answer, and then finding out, nope, it's the wrong answer!</p>
+<p>This isn't a particularly specific criticism for Network Academy, since I've seen this in just about every online platform. That said, Network Academy, as far as I can tell, doesn't give users any real way to flag issues with the quizzes/exams.</p>
+<p>So you get to have the fun experience of everything you read saying one thing, while the quiz/exam says another!</p>
+<h2 id="mcetoc_1k34kb1jt1ae">Packet Tracer Exam Timers</h2>
+<p>The practice and final exams are timed events, each lasting 75 minutes (one hour, 15 minutes). I have no issues with timed exams.</p>
+<p>I <strong>do </strong>have a problem when the exam timer starts before you even <strong>download </strong>the Packet Tracer exam file.</p>
+<p>Here's what happens when you do one of the Packet Tracer exams (practical/final):</p>
+<ol>
+<li>You press a button to bring up the exam page.</li>
+<li>You press another button to actually download the Packet Tracer file.</li>
+<li>The Packet Tracer file downloads and opens.</li>
+</ol>
+<p>The timer starts after step <strong>1</strong>, so you lose up to a minute while steps 2 and 3 execute. You can then lose up to another minute if you have to copy and paste the network address chart and instructions into a word processor to make them readable. (Unlike other Packet Tracer files, the exams use the left third of the window for instructions/reference information.)</p>
+<p>The stress naturally increases as the time decreases, so losing time while not even being able to engage with the exam feels terrible.</p>
+<p>Now, you be going, "Losing a minute to a minute and a half at the start is not a big deal", but remember, this is stacking with however long it takes you to read the instructions, execute tasks, double check the instructions, and recover from mistakes. The ideal situation is having at least 5 minutes to do any last minute checks/fixes before submitting the result.</p>
+<p>Oddly, the Packet Tracer exams have an online connection to a server where your progress is auto-saved/submitted. So it <strong>should </strong>be possible to have the Packet Tracer program on your PC send packet to the server when the file is 90-95% loaded to trigger the timer. Then, when your system opens the Packet Tracer file, you get up to the full 75 minutes, regardless of network conditions.</p>
+<h2 id="mcetoc_1k34kb1jt1af">The Course Survey</h2>
+<p>I don't have a problem with end of course surveys. I have a problem with <strong>bad </strong>end of course surveys.</p>
+<div class="gallery-wrapper"><div class="gallery" data-is-empty="false" data-translation="Add images" data-columns="5">
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/57/gallery/ccna-007a.png" data-size="1920x913"><img loading="lazy" src="https://korgano.github.io/media/posts/57/gallery/ccna-007a-thumbnail.png" alt="Course Survey Question 1" width="768" height="365"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/57/gallery/ccna-007b.png" data-size="1920x913"><img loading="lazy" src="https://korgano.github.io/media/posts/57/gallery/ccna-007b-thumbnail.png" alt="Course Survey Question 2" width="768" height="365"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/57/gallery/ccna-007c.png" data-size="1920x913"><img loading="lazy" src="https://korgano.github.io/media/posts/57/gallery/ccna-007c-thumbnail.png" alt="Course Survey Question 3" width="768" height="365"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/57/gallery/ccna-007d.png" data-size="1920x913"><img loading="lazy" src="https://korgano.github.io/media/posts/57/gallery/ccna-007d-thumbnail.png" alt="Course Survey Question 4" width="768" height="365"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/57/gallery/ccna-007e.png" data-size="1920x913"><img loading="lazy" src="https://korgano.github.io/media/posts/57/gallery/ccna-007e-thumbnail.png" alt="Course Survey Question 5" width="768" height="365"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/57/gallery/ccna-007f.png" data-size="1920x913"><img loading="lazy" src="https://korgano.github.io/media/posts/57/gallery/ccna-007f-thumbnail.png" alt="Course Survey Question 6" width="768" height="365"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/57/gallery/ccna-007g.png" data-size="1920x913"><img loading="lazy" src="https://korgano.github.io/media/posts/57/gallery/ccna-007g-thumbnail.png" alt="Course Survey Question 7" width="768" height="365"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/57/gallery/ccna-007h.png" data-size="1920x913"><img loading="lazy" src="https://korgano.github.io/media/posts/57/gallery/ccna-007h-thumbnail.png" alt="Course Survey Question 8" width="768" height="365"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/57/gallery/ccna-007i.png" data-size="1920x913"><img loading="lazy" src="https://korgano.github.io/media/posts/57/gallery/ccna-007i-thumbnail.png" alt="Course Survey Question 9" width="768" height="365"></a></figure>
+<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/57/gallery/ccna-007j.png" data-size="1920x913"><img loading="lazy" src="https://korgano.github.io/media/posts/57/gallery/ccna-007j-thumbnail.png" alt="Course Survey Question 10" width="768" height="365"></a></figure>
+</div></div>
+<p>As you can see from my screen capture gallery, you just get 10 multiple or ranked choice questions, with no real ability to submit more detailed feedback. So Cisco has no real way to get information about what it <strong>doesn't </strong>do well, which means they don't have any chance of improving.</p>
+<p>The point of dedicated feedback like this is to provide a pipeline of clear, insightful data to the team maintaining the content. Without a single optional field for freeform text input, there's no actual way to send a direct message to that team that isn't going to have bounce around whatever Cisco's end user facing contact system is.</p>
+<h1 id="mcetoc_1k31v4lt8d6">Tips for Prospective Students</h1>
+<h2 id="mcetoc_1k31v4lt8d7">Pace Yourself</h2>
+<p>The key to a good self-learning experience is knowing how to pace yourself.</p>
+<p>For example, I probably could've gotten through the whole thing faster if I'd maintained a 4-5 day a week schedule. And in fact, when I started and when I ended the entire CCNA course process, I did do that. But I could only achieve that pace in the beginning because the first course started with a lot of material I was already familiar with from other courses. And at the end, I was already done with the reading, so I could spend time with the practice exams, rereading all my notes, and then taking the final exams on two separate days.</p>
+<p>However, by the time I completed the first section, I was already heading towards a 2 to 3 days of Network Academy per week schedule. Why? Because I was feeling burnt out. Going through the material that fast was tiring, especially when I had two more whole courses to get through.</p>
+<p>By taking few days per week to go through the material, I recharged my mental batteries on off-days by doing other things. That helped me get through the particularly boring, academic prose only days.</p>
+<p>Is that the way <strong>you </strong>should do it? Maybe, maybe not. But it's something that's good to think about before you start.</p>
+<h2 id="mcetoc_1k31v4lt8d8">Download the Practice Exams</h2>
+<p>This is the single best tip to keep you from being bored, while also requiring the least number of Packet Tracer exercises to juggle.</p>
+<p>As I pointed out earlier, the Packet Tracer practice exams for each course are almost always <strong>harder </strong>than the final exam. This is because they cover a lot of the more complicated aspects of Cisco IOS configuration that you tend to lose over during the valleys of academic prose. That makes them ideal for keeping your skills sharp.</p>
+<p>There's just one problem: you can't download them from Cisco Network Academy.</p>
+<p>Before you get your outrage pony going, you <strong>can </strong>get the Packet Tracer exercise files. You just have to look elsewhere. My personal recommendation is <a href="https://www.youtube.com/@romeroc24/videos" title="Christian Augusto Romero Goyzueta" target="_blank" rel="noopener noreferrer">this YouTube channel</a>, which does Cisco Packet Tracer exercise tutorials. The instruction PDFs and exercise files can be found in the descriptions of the relevant videos.</p>
+<p>(Note: The channel's video naming scheme isn't great, so pick the video that's most recent to when you're watching.)</p>
+<p>My recommendation is to do them at least once every two weeks during the academic prose only sections of the courses. You could even cycle between different ones each week. That way you keep in practice and give yourself something more interactive to carry you through those less engaging sections.</p>
+<h2 id="mcetoc_1k31v4lt8d9">Do the Final Twice</h2>
+<p>This isn't saying you shouldn't do your best on the first try. It's reminding you of two things:</p>
+<ol>
+<li>You've got unlimited tries.</li>
+<li>You'll have a better idea of what you're facing the second time around.</li>
+</ol>
+<p>In particular, the Packet Tracer final is going to be a <strong>lot </strong>easier if you follow these steps:</p>
+<ol>
+<li>Copy the network address chart and instructions to a word processor/text document.</li>
+<li>Complete your first try.</li>
+<li>Reorganize the instructions so things are faster/easier.</li>
+</ol>
+<p>Step 3 is, at its core, just making sure you do all the tasks on one type of machine before another. If the instructions are mostly router configuration, getting through that first will make it easier to deal with switches, and vice versa. This especially helps with Packet Tracer finals where you need to unplug and replug multiple console connections, which cut into your time as well.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/57/ccna-005.png" alt="Packet Tracer Exam feedback part 1" width="1920" height="913" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/57/responsive/ccna-005-xs.png 384w ,https://korgano.github.io/media/posts/57/responsive/ccna-005-sm.png 600w ,https://korgano.github.io/media/posts/57/responsive/ccna-005-md.png 768w ,https://korgano.github.io/media/posts/57/responsive/ccna-005-lg.png 1200w ,https://korgano.github.io/media/posts/57/responsive/ccna-005-xl.png 1600w"></figure>
+<p>Keep in mind that everything you do in the Packet Tracer exam counts for only <strong>1 </strong>point, and there's no points given for doing things in order.</p>
+<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/57/ccna-006.png" alt="Packet Tracer Exam feedback part 2" width="1920" height="913" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/57/responsive/ccna-006-xs.png 384w ,https://korgano.github.io/media/posts/57/responsive/ccna-006-sm.png 600w ,https://korgano.github.io/media/posts/57/responsive/ccna-006-md.png 768w ,https://korgano.github.io/media/posts/57/responsive/ccna-006-lg.png 1200w ,https://korgano.github.io/media/posts/57/responsive/ccna-006-xl.png 1600w"></figure>
+<p>What about troubleshooting, you say? Well, while there might be some advantage of doing things in the original order and testing as you go, you're on the clock. Being able to go faster, because you're not switching between devices as often, means that you have more time to test and troubleshoot before you submit.</p>
+<p>(It's also more realistic, but let's not get into that argument.)</p>
+<p>I managed to go from an 85% grade on my first try at the final course Packet Tracer exam to a 96%, just by reorganizing the instructions and looking up the command for a task that never got used in any other exercises. The time I saved setting up devices gave me enough time to realize that I had misread which PC to TFTP copy configuration files to, allowing me to earn 3 points I would've otherwise lost.</p>
+<h2 id="mcetoc_1k31v4lt8da">Write Down the IOS Commands</h2>
+<p>Cisco IOS is a case of two extremes. You've got commands that are easy to burn into your mind, like <code>conf t</code> or <code>switch mode access</code>, and then you've got commands where you might have problems remembering the details of, like <code>crypto key gen rsa general-keys mod 1024</code> or <code>spanning-tree portfast bpduguard</code>.</p>
+<p>How can you remember these commands better? Well, do what people have been doing for years: write down all the Cisco IOS commands in a text document on your computer, and pull it up when you need to do exercises.</p>
+<p>It's a simple, brute force solution to the memory problem. You get an extra repetition of writing out the command, plus the advantage of adding contextual notes, like what mode and when to use it. And by doing it all in one document, you can optimize the order of the commands when possible, to make remembering and executing the commands faster and easier.</p>
+<p>It is probably going to be a decently long document, but considering how often you could/should be engaging with the Packet Tracer exercises, it's well worth it. You can even take it forward with you into a network engineering job and just keep building it up.</p>
+<h1 id="mcetoc_1k34kb1jt1ag">Takeaways</h1>
+<p id="mcetoc_1k34kb1jt1ai"><strong>User-Driven Pacing</strong></p>
+<ul>
+<li>Self-paced online learning lets students move as fast or slow as needed without being limited by a teacher or class schedule.</li>
+<li>Finished each of the three CCNA courses in roughly 2.5 to 3 months, usually spending 2 to 3 days per week on the material.</li>
+<li>Faster completion is possible depending on the student’s circumstances.</li>
+</ul>
+<p><strong>IOS Command Practice</strong></p>
+<ul>
+<li>Network Academy provides interactive practice that helps students learn Cisco IOS commands without needing a full Packet Tracer environment.</li>
+<li>Syntax Checker gives step-by-step CLI configuration tasks and allows users to reveal individual commands or the full answer, so students are not permanently stuck.</li>
+<li>Drawbacks: the instructions and command input share the same window, causing extra scrolling when typos occur; Syntax Checker only accepts complete commands or pre-approved abbreviations.</li>
+<li>I recommend getting 3 to 5 clean passes on Syntax Checker before moving on.</li>
+</ul>
+<p><strong>Packet Tracer Exercises</strong></p>
+<ul>
+<li>Packet Tracer is a free Cisco network simulator that requires a Cisco account, but Network Academy students already have one.</li>
+<li>The required Cisco account check is handled automatically.</li>
+<li>Exercises and instructions can be downloaded and kept permanently, allowing repeated practice and future review.</li>
+<li>A built-in progress checker shows whether parts are correct, though it does not provide exact error details.</li>
+<li>External tutorial videos can help students identify mistakes and learn proper Packet Tracer techniques.</li>
+</ul>
+<p><strong>Unlimited Retries</strong></p>
+<ul>
+<li>Unlimited attempts on online quizzes and exams reduce the all-or-nothing pressure of certification testing.</li>
+<li>Students can rush an assessment to find weak areas or prepare thoroughly before trying; the main cost is time.</li>
+<li>This applies to both multiple-choice and Packet Tracer practice exams.</li>
+<li>There are multiple practice Packet Tracer exams, and they are usually harder than the actual final Packet Tracer exam.</li>
+</ul>
+<p><strong>Academic Prose</strong></p>
+<ul>
+<li>Much of the course text is verbose and can bury useful information in filler.</li>
+<li>This is especially frustrating for note-takers who must read, identify key points, reread to verify, write, and then move on.</li>
+<li>One weak module can kill momentum.</li>
+<li>Some quiz or exam answers are hidden in the prose, making the material more annoying to work through.</li>
+<li>Consider reading the text, then using tools to extract course text and feed it to an LLM to generate a note friendly version.</li>
+</ul>
+<p><strong>Gaps in Interactivity</strong></p>
+<ul>
+<li>No course can be entirely hands-on, but two of the three CCNA courses feel poorly balanced between theory and practice.</li>
+<li>The first course is well balanced, with frequent Syntax Checker and Packet Tracer activities.</li>
+<li>The other two courses have short interactive peaks separated by long stretches of academic prose.</li>
+<li>Long gaps between IOS exercises make it hard to retain and build on commands, especially for complex configurations.</li>
+<li>More advanced Cisco IOS settings receive fewer exercises than basic commands.</li>
+<li>YouTube tutorials can help, but better built-in practice would reduce the problem.</li>
+</ul>
+<p><strong>Not Being Able to Copy Text</strong></p>
+<ul>
+<li>The platform does not allow users to copy course text.</li>
+<li>The restriction is understandable if the material was recently updated, but it is frustrating when the text is wordy.</li>
+<li>It would be optimal to copy text into a word processor and rewrite it into clearer notes.</li>
+<li>Copying would also allow copying text-based charts and infographics; I made about 80 screenshots for the third course alone.</li>
+<li>Without copy access, creating digital notes requires time-consuming OCR or manual re-entry.</li>
+</ul>
+<p><strong>Quiz/Exam Errors</strong></p>
+<ul>
+<li>It's frustrating when a quiz or exam marks an answer wrong even though the course text says that answer is correct.</li>
+<li>I've seen this on many online platforms, but Network Academy does not provide a useful way to flag quiz or exam errors.</li>
+</ul>
+<p><strong>Packet Tracer Exam Timers</strong></p>
+<ul>
+<li>Packet Tracer practice and final exams are timed at 75 minutes.</li>
+<li>The timer starts before the student downloads and opens the Packet Tracer exam file, costing up to about one minute.</li>
+<li>An additional minute may be lost if the student copies the on-screen instructions and network address chart into a word processor to make them readable.</li>
+<li>The exam instructions occupy the left third of the Packet Tracer window, making them less convenient to read.</li>
+<li>The lost time stacks on top of reading instructions, completing tasks, double-checking work, and recovering from mistakes.</li>
+<li>Since the exam file auto-saves to a server, the timer could theoretically start when the file is mostly loaded, giving students the full 75 minutes.</li>
+</ul>
+<p><strong>The Course Survey</strong></p>
+<ul>
+<li>The end-of-course survey is poor because it only has about 10 multiple-choice or ranked-choice questions.</li>
+<li>It lacks a free-form field, preventing students from giving detailed feedback.</li>
+<li>Without free-form feedback, Cisco has little direct insight into what the course does poorly and how to improve.</li>
+</ul>
+<p><strong>Pace Yourself</strong></p>
+<ul>
+<li>Self-learning success depends on choosing a sustainable pace.</li>
+<li>I initially used a 4 to 5 days-per-week pace because the first course covered familiar material, then ended the final course with a similar pace.</li>
+<li>After the first section, I settled into 2 to 3 days per week to avoid burnout.</li>
+<li>Off-days helped recharge mental energy and made the boring, prose-heavy sections easier to endure.</li>
+<li>Students should think about their own pacing before starting, though the author’s approach may not be best for everyone.</li>
+</ul>
+<p><strong>Download the Practice Exams</strong></p>
+<ul>
+<li>Downloading and working through Packet Tracer practice exams is the best way to reduce boredom and maintain hands-on skills.</li>
+<li>It also minimizes the number of separate Packet Tracer exercises you need to juggle.</li>
+<li>Practice Packet Tracer exams are usually harder than the final exam because they cover complex IOS configuration topics that fade during long prose sections.</li>
+<li>The practice exam files are not downloadable directly from Network Academy, but they can be found elsewhere.</li>
+<li>Do a practice exam at least once every two weeks during prose-only sections, or cycle through different exams weekly.</li>
+</ul>
+<p><strong>Do the Final Twice</strong></p>
+<ul>
+<li>Students should still do their best on the first attempt, but unlimited retries and improved familiarity make a second attempt valuable.</li>
+<li>For the Packet Tracer final, copy the network address chart and instructions into a text document or word processor.</li>
+<li>Complete the first attempt, then reorganize the instructions to make the second attempt faster and easier.</li>
+<li>Key strategy: complete all tasks on one type of device before moving to another, such as finishing router work before switch work.</li>
+<li>This is especially helpful when the exam requires unplugging and replugging multiple console connections, which wastes time.</li>
+<li>Every task in the Packet Tracer exam is worth 1 point, and there is no bonus for doing tasks in the original order.</li>
+<li>Although following the original order can help with testing as you go, reducing device switching gives more time to troubleshoot before submitting.</li>
+</ul>
+<p><strong>Write Down the IOS Commands</strong></p>
+<ul>
+<li>Cisco IOS contains both simple commands that are easy to remember and complex commands that are hard to recall in full.</li>
+<li>A practical solution is to create a text document listing all Cisco IOS commands you need to learn.</li>
+<li>Writing the commands adds repetition, and adding notes about mode and usage improves recall.</li>
+<li>The same document can be carried into a network engineering job and continued to grow.</li>
+</ul>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Quick Thoughts: TrueNAS 25.04 Restoring Default Route</title>
         <author>
@@ -4605,199 +4894,6 @@ La Forge eyes her warily. He crosses to the console, punches in commands.</code>
 <li>Placing POML scripts obtained online in VS Code with POML extension mitigates the threat of manipulated prompts.</li>
 <li>Having a POML prompt embed another POML prompt inside it may not be fully functional.</li>
 </ul>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Tech Project: AI miniPC (Minisforum X1 Pro) 1.0</title>
-        <author>
-            <name>Xavier Santana</name>
-        </author>
-        <link href="https://korgano.github.io/tech-project-ai-minipc-minisforum-x1-pro-10/"/>
-        <id>https://korgano.github.io/tech-project-ai-minipc-minisforum-x1-pro-10/</id>
-        <media:content url="https://korgano.github.io/media/posts/46/minipc-001-2.png" medium="image" />
-            <category term="Tech Projects"/>
-            <category term="Tech"/>
-            <category term="PC Hardware"/>
-            <category term="PC"/>
-            <category term="AI"/>
-
-        <updated>2025-08-07T12:02:59-04:00</updated>
-            <summary type="html">
-                <![CDATA[
-                        <img src="https://korgano.github.io/media/posts/46/minipc-001-2.png" alt="Amazon product page for the MINISFORUM AI X1 Pro-370 Mini PC." />
-                    For many people, tech products are on a 3-4 year lifecycle, assuming that nothing catastrophic occurs, like the COVID and&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://korgano.github.io/media/posts/46/minipc-001-2.png" class="type:primaryImage" alt="Amazon product page for the MINISFORUM AI X1 Pro-370 Mini PC." /></p>
-                <p>For many people, tech products are on a 3-4 year lifecycle, assuming that nothing catastrophic occurs, like the COVID and cryptocurrency demand spikes.</p>
-<p>Four years ago, I got a Lenovo Legion laptop with Ryzen 7 5800H and 6600M to replace a Dell G5 AMD laptop that failed right after the one year warranty expired. The Lenovo Legion was and is still pretty capable at the lighter code compile and graphics workloads I find myself doing, but it has three major constraints:</p>
-<ul>
-<li>Limited cooling due to the laptop form factor.</li>
-<li>No real ability to do AI workloads.</li>
-<li>Limited VRAM.</li>
-</ul>
-<p>On the other hand, I have a mid-tower desktop PC containing a Ryzen 7 7800X3D and a Radeon RX 7900 XTX. This is more than capable of handling AI workloads and has plenty of cooling. There are two major constraints on this system:</p>
-<ul>
-<li>It uses a lot of energy.</li>
-<li>It's in a separate room.</li>
-</ul>
-<p>Even with a NAS to facilitate file transfers and the mindset benefits of two separate workspaces, it's <strong>massively </strong>inconvenient to have to work in two locations. The constant back and forth eats up time, especially in situations where a workload on the gaming PC takes a while. And for text based AI work, the RX 7900 XTX is <strong>massive </strong>overkill, providing fantastic performance with a 24GB VRAM buffer, but at a high power draw for a trivial task.</p>
-<p>When I heard about Strix Halo via tech news and leak channel Moore's Law is Dead, the idea of a mobile workstation with a lot of RAM was appealing. Unfortunately, the reality is that the most future-proof/high longevity configurations - the ones with the most RAM - cost $2000. And $2000 is a lot to invest in any system.</p>
-<p>So I needed to find an alternative.</p>
-<p> </p>
-<div class="post__toc">
-<h3>Table of Contents</h3>
-<ul>
-<li><a href="#mcetoc_1j22nc59ee3">The Least Worst of All Worlds</a></li>
-<li><a href="#mcetoc_1j2ff0lemv6">The Alternatives</a></li>
-<li><a href="#mcetoc_1j2ff0lemv7">Setting up the X1 Pro</a></li>
-<li><a href="#mcetoc_1j2ff0lemv8">Stress Testing the X1 Pro</a></li>
-</ul>
-</div>
-<h2 id="mcetoc_1j22nc59ee3">The Least Worst of All Worlds</h2>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/46/minipc-001.png" alt="Amazon product page for the MINISFORUM AI X1 Pro-370 Mini PC." width="1902" height="921" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/46/responsive/minipc-001-xs.png 384w ,https://korgano.github.io/media/posts/46/responsive/minipc-001-sm.png 600w ,https://korgano.github.io/media/posts/46/responsive/minipc-001-md.png 768w ,https://korgano.github.io/media/posts/46/responsive/minipc-001-lg.png 1200w ,https://korgano.github.io/media/posts/46/responsive/minipc-001-xl.png 1600w"></figure>
-<p>Let's start with what I chose and work back to the <strong>why</strong>.</p>
-<p>The <span id="productTitle" class="a-size-large product-title-word-break">MINISFORUM AI X1 Pro-370 Mini PC (hereafter the X1 Pro) is a Strix Point based miniPC. This is the second tier of AMD's AI focused APUs, which combine a powerful CPU with a GPU on the same chip. It predates the Strix Halo line by several months, so it has less impressive specifications overall.</span></p>
-<p>The feature set in the <a href="https://www.amazon.com/dp/B0F47G69MJ" title="MINISFORUM AI X1 Pro-370 Mini PC" target="_blank" rel="noopener noreferrer">product blurb</a> is as follows:</p>
-<blockquote><span class="a-list-item">【Leading AI Mini PC】MINISFORUM AI X1 Pro-370 Mini PC comes with AMD Ryzen AI 9 HX 370 processor, which uses AMD's latest generation Zen 5 architecture. It has 12 Cores and 24 Threads, the boost clock is up to 5.1GHz. The overall processor performance is up to 80 TOPS, and the NPU performance reaches up to 50 TOPS. AMD Ryzen AI enables improved productivity, advanced collaboration, and improved efficiency.</span></blockquote>
-<blockquote><span class="a-list-item">【AMD Radeon 890M Graphics】The X1 Pro Micro Computer equipped with AMD Radeon 890M Graphics which built on the new generation of RDNA 3.5 architecture AMD graphics, it brings ultra-high frame rate experiences and advanced content creation features anywhere and delivers staggering performance. It can handle all your computing and multimedia tasks efficiently.</span></blockquote>
-<blockquote><span class="a-list-item">【Support Copilot】This Mini PC supports Copilot. Copilot is an AI companion that works anywhere and intelligently adapts to your needs, helps you inspire writing inspiration and sumarize long articles, it also can helps you work prodctive, increase your creativity and stay connected to the people and things in your life.</span></blockquote>
-<blockquote><span class="a-list-item">【Dual 2.5G Lan Port and Wi-Fi 7 Support】It comes with Two 2.5G Lan Ports for wired connection and and Wi-Fi 7 / BT5.4 for wireless connection, which increased the network speed greatly and expand its functions and improved performance of computer to a large extent and allows you to use more networks such as software routers (OpenWRT / DD-WRT / Tomato etc.), firewalls, NAT, network isolation etc.</span></blockquote>
-<blockquote><span class="a-list-item">【OCulink Support】This mini pc was equipped with a OCulink port. OCuLink is a standard for externally connecting PCI Express, the speed is PCIe4.0 x4=64G. With this port, you could install external GPU with faster support speeds compared to Thunderbolt 4 and USB4. Note: *Non-hot-swappable, OCulink requires one M.2 2280 PCIe4.0 SSⅮslot*.</span></blockquote>
-<blockquote><span class="a-list-item">【Four Video Outputs】 This X1 Pro Computer is Equipped with 1x HDMI, 1x DP and 2x USB4 Outputs, you can connect 4 displays at the same time. Increase work efficiency by expanding multiple workspaces. It is used in fields that require high-performance computing and graphics processing, including digital signage and securities trading, as well as work that uses CAD, such as engineering design, scientific calculations, animation production, and post-production for movies and television. These are typically used by individual users or experts in their field.</span></blockquote>
-<blockquote><span class="a-list-item">【Expandable Storage】 This Micro Computer has pre-installed 64GB DDR5 RAM(Dual SO-DIMM Slot, up to 96GB) and 1TB M.2 2280 PCIe4.0 SSD. You could expand the SSD up to 4TB. There two more PCIe4.0 SSD slots available for expanding the storage, total up to 12TB. Without worrying about lack of capacity, you can run software smoothly, watch and storage large-scale movies, photos without any stress.</span></blockquote>
-<p> </p>
-<p>As the mid-tier option of the 3 configurations of this specific miniPC, the main weakness is the 1TB SSD. AI models are in the tens of gigabytes, and with certain AI related applications unable to store data on other drives, this means a <strong>lot </strong>of space is going to be used on the primary drive. Even worse, quality 2TB drives have not hit the $100 or less mark, so replacing the drive is not an easy task, even if you flip the original drive on the used market.</p>
-<p>However, the 64GB of RAM means that you can allocate at least 32 GB to the GPU, which <strong>will </strong>affect AI and graphics workloads. (Confusingly, Minisforum does not provide a 48GB RAM option.) This RAM is slower than LPDDR5X soldered to a Strix Halo or some competing Strix Point miniPC motherboards, but you can upgrade it for speed and/or capacity later, which is an advantage over its lifespan.</p>
-<p>It also has <strong>three </strong>NVMe SSD slots, which is good, because the Occulink connector that allows for the use of an external GPU will completely remove the bandwidth for one of the SSDs. This gives the X1 Pro an advantage against other Strix Point based miniPCs, since they tend to have only <strong>two </strong>NVMe SSD slots.</p>
-<p>Overall AI performance is hard to assess, for two main reasons:</p>
-<ol>
-<li>Neural Processing Units (NPUs) are generally not supported by AI software.</li>
-<li>Total AI performance from combining NPU + GPU is not available.</li>
-</ol>
-<p>There seems to be a chicken and the egg problem with NPUs. The hardware vendors expected the open source AI developer community to develop the software integrations for the NPUs, but that never happened. So now the vendors (AMD and Intel) are developing the software required to run AI on the NPU.</p>
-<p>Since this is the best NPU outside of Strix Halo, I plan to test NPU only and NPU + GPU performance where possible.</p>
-<p>In terms of price, <a href="https://camelcamelcamel.com/product/B0F47G69MJ" title="Camel Camel Camel price graph for X1 Pro miniPC." target="_blank" rel="noopener noreferrer">this graph</a> tells the story quite well:</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/46/minipc-002.png" alt="Camel Camel Camel price graph for the X1 Pro throughout its product life." width="1920" height="921" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/46/responsive/minipc-002-xs.png 384w ,https://korgano.github.io/media/posts/46/responsive/minipc-002-sm.png 600w ,https://korgano.github.io/media/posts/46/responsive/minipc-002-md.png 768w ,https://korgano.github.io/media/posts/46/responsive/minipc-002-lg.png 1200w ,https://korgano.github.io/media/posts/46/responsive/minipc-002-xl.png 1600w"></figure>
-<p>The device has basically ping-ponged between a few cents below $1000 and a few cents below $1250, with occasional coupons to bring it back down to $1000. (Camel Camel Camel does not seem to track coupons.) Therefore, buying it during the Florida sales tax holiday on computer hardware under $1500 made this the best price/performance option I could choose.</p>
-<h2 id="mcetoc_1j2ff0lemv6">The Alternatives</h2>
-<p>I had two main other options:</p>
-<ol>
-<li>Gut an old HP office desktop and replace the internals.</li>
-<li>Build a new small PC from scratch.</li>
-</ol>
-<div class="gallery-wrapper"><div class="gallery"  data-is-empty="false" data-translation="Add images" data-columns="2">
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/46/gallery/minipc-003.jpg" data-size="2000x567"><img loading="lazy" src="https://korgano.github.io/media/posts/46/gallery/minipc-003-thumbnail.jpg" alt="Side by side comparison of the X1 Pro and a 2013 HP office desktop." width="768" height="218"></a></figure>
-<figure class="gallery__item"><a href="https://korgano.github.io/media/posts/46/gallery/minipc-004.jpg" data-size="2000x1062"><img loading="lazy" src="https://korgano.github.io/media/posts/46/gallery/minipc-004-thumbnail.jpg" alt="Top down comparison of the X1 Pro and a 2013 HP office desktop." width="768" height="408"></a></figure>
-</div></div>
-<p>The old HP desktop was procured somewhere in the 2012-2013 time frame for use by grandmother, and came into my possession after she moved several years later. With a barely adequate for the time Intel i3 processor, the case was of an ideal size to house powerful hardware, while also serving as a mounting place for its own monitor. However, there were two main problems.</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/46/minipc-005.jpg" alt="Interior of the 2013 HP office desktop case with no hard drive." width="2000" height="1500" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/46/responsive/minipc-005-xs.jpg 384w ,https://korgano.github.io/media/posts/46/responsive/minipc-005-sm.jpg 600w ,https://korgano.github.io/media/posts/46/responsive/minipc-005-md.jpg 768w ,https://korgano.github.io/media/posts/46/responsive/minipc-005-lg.jpg 1200w ,https://korgano.github.io/media/posts/46/responsive/minipc-005-xl.jpg 1600w"></figure>
-<ol>
-<li>The case only has half-height slots for PCI-E devices.</li>
-<li>The non-standard form factor power supply.</li>
-</ol>
-<p>Despite supporting regular sized motherboards and a great deal of internal volume, the case's two flaws are killers. Half height PCI-E slots dramatically reduce the number of add-in devices you can use in you computer, <strong>especially </strong>graphics cards, which are useful for AI and other work loads.</p>
-<p>Even worse is the power supply, which uses the expensive and lower availability TFX standard. With a 180 watt power rating and a single SATA power connector, this would have to be replaced with at least a 300W power supply to accomplish anything useful.</p>
-<p>Since that would leave me with nothing but a case, I decided to look at building a new PC from scratch.</p>
-<p>Because I don't live in Miami, I don't have access to MicroCenter, a brick and mortar PC hardware store that has many great deals on a regular basis. Doing some quick research, I found that ~$300 was the minimum price I would expect for an M-ATX motherboard and CPU combination, especially if I wanted WiFi. Minisforum motherboards with integrated high-end mobile CPUs like the <a href="https://www.amazon.com/MINISFORUM-Motherboard-i9-13900HX-Barebone-PCIe5-0x16/dp/B0CTTPFZD5" title="MINISFORUM BD795m Mini PC Motherboard AMD Ryzen 9 7945HX DDR5 Barebone Gaming PC, 2X PCIe4.0 SSD,2xSATA3.0 HDD/SSD, HDMI2.1|DP1.4|, M.2 2230 Key E Slot" target="_blank" rel="noopener noreferrer">BD795m</a> or the <a href="https://www.amazon.com/MINISFORUM-Motherboard-Channel-PCIe5-0x16-Graphics/dp/B0CNPZ874Y" title="MINISFORUM BD795i SE Motherboard AMD Ryzen 9 7945HX(16C/32T) Gaming Mini PC Without RAM/SSD/OS, 2X DDR5 SODIMM Slots, 2X PCIe4.0 SSD, M.2 2230 Key E Slot, HDMI+DP+USB-C Triple Video Outputs Computer" target="_blank" rel="noopener noreferrer">BD795i SE</a> offered incredible CPU price/performance, but cost between $364 and $384, while lacking WiFi.</p>
-<p>In fact, the big problem with building a PC at the moment is that to build anything good, one needs to buy a 16GB GPU. And since that is currently highly in demand due to <strong>years </strong>of VRAM undersupply, even the cheapest models cost above $300.</p>
-<p>So the costs added up quite quickly, and since I didn't necessarily need GPU performance as much as VRAM, something that came with all the hardware and good enough graphical performance became a more appealing option.</p>
-<h2 id="mcetoc_1j2ff0lemv7">Setting up the X1 Pro</h2>
-<p>Once I received the miniPC from Amazon, I began configuring it for my uses.</p>
-<p>The first thing I did was run through the Windows 11 setup to figure out which version of the OS was installed. The store listings and reviews didn't specify which Windows 11 version Minisforum installed on the PC, which prevented me from preparing a clean, optimized version of the OS to install. Checking the About PC menu, I discovered the following:</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/46/minipc-006.jpg" alt="X1 Pro default Windows installation - Windows 11 Pro." width="2000" height="1500" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/46/responsive/minipc-006-xs.jpg 384w ,https://korgano.github.io/media/posts/46/responsive/minipc-006-sm.jpg 600w ,https://korgano.github.io/media/posts/46/responsive/minipc-006-md.jpg 768w ,https://korgano.github.io/media/posts/46/responsive/minipc-006-lg.jpg 1200w ,https://korgano.github.io/media/posts/46/responsive/minipc-006-xl.jpg 1600w"></figure>
-<p>Armed with the knowledge that I needed Windows 11 Pro, I followed this Chris Titus Tech guide to download and optimize a Windows 11 Pro ISO. I also copied my laptop's installed software using Chris Titus' WinUtil.</p>
-<p>Once I had the ISO prepared, I placed it on my Ventoy USB stick, and installed it on the X1 Pro, overwriting the existing installation. Unfortunately, there were device specific drivers that I had to obtain to reactivate the WiFi, which slowed things down.</p>
-<p>Once those were installed, I updated Windows and obtained the latest AMD graphics and chipset drivers. Following a reboot, I imported the laptop's software list, deselected a few software choices, then auto-installed everything via WinGet. After that was implementation of the recommended settings to disable telemetry and other background tasks.</p>
-<p>The process took a little over 3 hours, primarily due to the need to find an alternate, safe download source for Windows 11.</p>
-<p>In addition, I made sure to access the BIOS/UEFI and set 32GB of RAM to be dedicated GPU memory. The AMD driver software stack does allow for dynamic allocation of RAM between the CPU and GPU, but I felt it prudent to ensure that there was a 50/50 split in case of a workload that heavily utilized both components.</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/46/minipc-007.png" alt="AMD Lemonade Server install interface, including the option to download models optimized for use with NPU+GPU operations." width="499" height="388" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/46/responsive/minipc-007-xs.png 384w ,https://korgano.github.io/media/posts/46/responsive/minipc-007-sm.png 600w ,https://korgano.github.io/media/posts/46/responsive/minipc-007-md.png 768w ,https://korgano.github.io/media/posts/46/responsive/minipc-007-lg.png 1200w ,https://korgano.github.io/media/posts/46/responsive/minipc-007-xl.png 1600w"></figure>
-<p>Afterwards, I installed <a href="https://github.com/lemonade-sdk/lemonade" title="Lemonade: Local LLM Serving with GPU and NPU acceleration" target="_blank" rel="noopener noreferrer">Lemonade Server</a>, an AMD developed piece of software for hosting and running local LLMs that use the various processors on the machine. Most importantly, it can use the NPU and integrated GPU (iGPU) to run LLMs. This is a rarity in the software landscape.</p>
-<p>However, installing it was a bit of an ordeal, as the Windows installer made use of PowerShell scripts. This required reconfiguring the Windows Developer settings, something that I did not remember to do on the first attempt. Also annoying was the default setting for the target directory, which I overrode, and the target for LLMs, which I did not and had to pin to Quick Access.</p>
-<p>To serve as a Retrieval Augmented Generation system and LLM interface, I installed AnythingLLM and copied three sets of documents from my gaming rig to the new system. Since Lemonade Server uses the OpenAI API, I can easily connect the LLMs running in that program to AnythingLLM, albeit with an annoying process to change the models. (Since AnythingLLM doesn't have specific Lemonade support, going through the OpenAI API requires manually changing the model every time you load a different model.)</p>
-<p>I had to spend 10+ hours installing an Unreal Engine 5.5.4 modding Software Development Kit (SDK). This was due to two main factors:</p>
-<ol>
-<li>Epic Game Store's inability to detect/add EGS library folders and associate the files within those folders with the library on that specific machine.</li>
-<li>Installing to a SATA SSD over USB 3.0.</li>
-</ol>
-<p>Once that was complete, I was done setting up the X1 Pro for my intended uses.</p>
-<h2 id="mcetoc_1j2ff0lemv8">Stress Testing the X1 Pro</h2>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/46/minipc-008-2.png" alt="MechWarrior 5: Clans modding SDK based on Unreal Engine 5.5.4 - GPU load of 50+%." width="1920" height="1080" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/46/responsive/minipc-008-2-xs.png 384w ,https://korgano.github.io/media/posts/46/responsive/minipc-008-2-sm.png 600w ,https://korgano.github.io/media/posts/46/responsive/minipc-008-2-md.png 768w ,https://korgano.github.io/media/posts/46/responsive/minipc-008-2-lg.png 1200w ,https://korgano.github.io/media/posts/46/responsive/minipc-008-2-xl.png 1600w"></figure>
-<p>I decided to take a two pronged approach to initial stress testing of the miniPC. The first prong was to run Unreal Engine 5.5.4, in the form of the MechWarrior 5: Clans modding SDK. The software has a pretty heavy CPU and GPU load even on a desktop system, like my Ryzen 7 7800X3D + RX 7900 XTX system, so if the miniPC can run it in any capacity, that is quite impressive.</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/46/minipc-009.png" alt="MechWarrior 5: Clans modding SDK based on Unreal Engine 5.5.4 - CPU load of 25+%." width="1920" height="1080" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/46/responsive/minipc-009-xs.png 384w ,https://korgano.github.io/media/posts/46/responsive/minipc-009-sm.png 600w ,https://korgano.github.io/media/posts/46/responsive/minipc-009-md.png 768w ,https://korgano.github.io/media/posts/46/responsive/minipc-009-lg.png 1200w ,https://korgano.github.io/media/posts/46/responsive/minipc-009-xl.png 1600w"></figure>
-<p>As I discovered, the X1 Pro <strong>can </strong>run the modding SDK, but the load on the hardware is highly variable and depends on where in the process you take readings. For example, while GPU usage is consistently in the 50-60% range, CPU utilization can spike violently in the initial load process, even hitting up to 80+% at some points.</p>
-<figure class="post__image"><img loading="lazy"  src="https://korgano.github.io/media/posts/46/minipc-010.png" alt="MechWarrior 5: Clans modding SDK based on Unreal Engine 5.5.4 - CPU load of 98%." width="1920" height="1080" sizes="(min-width: 37.5em) 1600px, 80vw" srcset="https://korgano.github.io/media/posts/46/responsive/minipc-010-xs.png 384w ,https://korgano.github.io/media/posts/46/responsive/minipc-010-sm.png 600w ,https://korgano.github.io/media/posts/46/responsive/minipc-010-md.png 768w ,https://korgano.github.io/media/posts/46/responsive/minipc-010-lg.png 1200w ,https://korgano.github.io/media/posts/46/responsive/minipc-010-xl.png 1600w"></figure>
-<p>However, the most punishing workload is packaging a mod for release. In this case, I had a simple mod consisting of two fairly small image files and around two dozen files that would generate shop items. Generating the files to make the mod playable essentially maxed out the CPU. In fact, when I did the same process a second time, but included a step to push the files to Steam Workshop for hosting, the process caused the GPU driver to crash at some point after the upload completed.</p>
-<p>It's not entirely clear why the GPU driver crashed, but a bug report was submitted to AMD. It's possible that thermal throttling contributed to the problem, which may require a third party application like Universal x86 Tuning Application to address:</p>
-<figure class="post__video"><iframe loading="lazy" width="560" height="314" src="https://www.youtube-nocookie.com/embed/9nkDPKbPdGc" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></figure>
-<p>The second prong of the testing was LLM performance with a repeatable task. To do this, I intended to try NPU + GPU and GPU only performance by submitting this prompt to an LLM:</p>
-<blockquote>
-<p>revise this code for FreeBSD to ensure iwlwifi0_wlan is enabled and remains functioning at all times:</p>
-<p>``` <br>#!/bin/sh <br># <br># PROVIDE: wpa_supplicant <br># REQUIRE: NETWORKING <br># KEYWORD: shutdown</p>
-<p>./etc/rc.subr <br>./etc/network.subr</p>
-<p>name="wpa_supplicant"</p>
-<p>desc="WPA/802.11 Supplicant for wireless network devices" rcvar=wpa_supplicant_enable</p>
-<p>ifn="2" <br>if [ -z "$ifn" ]; then <br>       return 1</p>
-<p>fi</p>
-<p>if is_wired_interface $(ifn) ; then <br>       drivers="wired" <br>else <br>       drivers="bsd" <br>fi</p>
-<p>load_rc_config $name</p>
-<p>command=$(wpa_supplicant_program) <br>conf_file=$(wpa_supplicant_conf_file) <br>pidfile="/var/run/$(name)/$(ifn).pid" <br>command_args="-B -i -ifn -c $conf_file -D $driver -P $pidfile" required_files=$conf_file <br>required_modules="wlan_wep wlan_tkip wlan_ccmp"</p>
-<p>run_rc_command "$1"</p>
-<p>```</p>
-<p>Add comments as needed to explain code functionality and speed up troubleshooting.</p>
-</blockquote>
-<p>Unfortunately, version 1.8 of Lemonade Server is missing a dependency in its installer, which prevents NPU + GPU operation on Windows. Annoyingly, v1.8.2 keeps getting flagged as a trojan, despite Virus Total saying the .exe file is clean, preventing me from updating and seeing if that corrects the problem. </p>
-<p>So I was only able to conduct GPU only testing, with a tuned version of OpenAI's open source model: <a href="https://huggingface.co/DavidAU/Openai_gpt-oss-20b-CODER-NEO-CODE-DI-MATRIX-GGUF" title="DavidAU/Openai_gpt-oss-20b-CODER-NEO-CODE-DI-MATRIX-GGUF" target="_blank" rel="noopener noreferrer">Openai_gpt-oss-20b-CODER-NEO-CODE-DI-MATRIX-GGUF</a>. I used AnythingLLM for the conversation GUI and stock settings on the X1 Pro. On the 7800X3D + RX 7900 XTX system, I used LM Studios and a special creative reasoning system prompt. On both systems, Llama.cpp's Vulkan code execution was used. The results were as follows:</p>
-<table style="border-collapse: collapse; width: 100%;" border="1">
-<tbody>
-<tr>
-<td style="width: 16.4005%;">System</td>
-<td style="width: 18.1118%;">Tokens/Sec</td>
-<td style="width: 32.8009%;">Tokens</td>
-<td style="width: 32.8009%;">Time to First Token</td>
-</tr>
-<tr>
-<td style="width: 16.4005%;">X1 Pro</td>
-<td style="width: 18.1118%;">24.22</td>
-<td style="width: 32.8009%;">2767</td>
-<td style="width: 32.8009%;">0.84713</td>
-</tr>
-<tr>
-<td style="width: 16.4005%;">7800X3D + 7900 XTX</td>
-<td style="width: 18.1118%;">135.05</td>
-<td style="width: 32.8009%;">1352</td>
-<td style="width: 32.8009%;">0.30s</td>
-</tr>
-</tbody>
-</table>
-<p>The X1 Pro is clearly the slower and less capable of the two, with roughly 18% the tokens/sec of the larger, dedicated GPU, and roughly 282% longer time to first token.</p>
-<p>However, it did produce <strong>way </strong>more in depth code, at just over 2x the tokens, which I attribute to an unexpected interaction between the system prompt and the LLM in LM Studio. In terms of the experience of using the LLM, I was impressed by the speed of the LLM once began producing tokens, as well as the quality of said code.</p>
-<h2>Takeaways</h2>
-<ul>
-<li>The X1 Pro is a compromise option that is highly functional in the current constraints of the market.
-<ul>
-<li>However, I do not recommend spending more than $1000 on the 64GB RAM + 1TB SSD configuration.</li>
-</ul>
-</li>
-<li>The X1 Pro is a space efficient design with good acoustics when the fans spin up.</li>
-<li>Loading Unreal Engine 5 projects with lots of assets is doable, but will heavily load the CPU at various times, and moderately load the GPU. 
-<ul>
-<li>I have not tested in-engine gameplay testing, but I do not think it will end well.</li>
-<li>Occasional GPU driver shutdowns can occur when doing strenuous workloads.</li>
-</ul>
-</li>
-<li>Software support on Windows for the HX 370 processor's NPU is a bottleneck.</li>
-<li>Lemonade Server is an effective tool for running LLMs, despite some dependency and update issues.</li>
-<li>Using Vulkan and Llama.cpp, at least 24 tokens/second can be achieved on the GPU for LLM tasks.
-<ul>
-<li>If time to completion is not a major constraint, lower speed in exchange for more ability to run larger parameter size LLMs is a valid trade off.</li>
-</ul>
-</li>
-</ul>
-<p>Overall, at this moment, my assessment is that the X1 Pro is a good-enough jack-of-all-trades workstation that can get just about any task done, to some level of satisfaction.</p>
             ]]>
         </content>
     </entry>
